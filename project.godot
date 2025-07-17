@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="spider-jump"
+run/main_scene="uid://c6antsn5ngihu"
+config/features=PackedStringArray("4.4", "Mobile")
+config/icon="res://icon.svg"
+
+[dotnet]
+
+project/assembly_name="spider-jump"
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="ground"
+
+[rendering]
+
+renderer/rendering_method="mobile"
+2d/snap/snap_2d_transforms_to_pixel=true
