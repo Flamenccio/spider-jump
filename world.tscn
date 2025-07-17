@@ -1,6 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=11 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://ckhvctyix6juc" path="res://crawl.gd" id="2_tlwt5"]
+[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_aqk2v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
+friction = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
 texture = ExtResource("1_f3sb7")
@@ -66,9 +71,11 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 0
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_tlwt5")
 sources/0 = SubResource("TileSetAtlasSource_fj7yv")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f3sb7"]
+friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3sb7"]
 size = Vector2(6, 6)
@@ -111,5 +118,15 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 1.0
 
+[node name="Crawl" type="Node" parent="Player" node_paths=PackedStringArray("_rb")]
+script = ExtResource("2_tlwt5")
+_rb = NodePath("..")
+_crawl_speed = 15.0
+
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
+
+[node name="InputService" type="Node" parent="."]
+script = ExtResource("3_aqk2v")
+
+[connection signal="move_input_change" from="InputService" to="Player/Crawl" method="_on_move_input_change"]
