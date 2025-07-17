@@ -32,7 +32,8 @@ func _handle_joy_connection_change(device: int, connect: bool) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	_handle_move_input(event)
+	_handle_move_input()
+	_handle_pull_release(event)
 
 
 func _process(delta: float) -> void:
@@ -42,7 +43,7 @@ func _process(delta: float) -> void:
 		_handle_pull_input_kbm()
 
 
-func _handle_move_input(event: InputEvent) -> void:
+func _handle_move_input() -> void:
 
 	var temp_input := Input.get_vector('move_left', 'move_right', 'move_up', 'move_down')
 	
@@ -73,7 +74,7 @@ func _handle_pull_input_kbm() -> void:
 	magnitude = magnitude / _MAX_PULL_DISTANCE
 	
 	var final := normalized_pull * magnitude
-	print(magnitude)
+	pull_input_change.emit(final)
 
 
 # Returns a vector whose magnitude is 0.0 - 1.0
