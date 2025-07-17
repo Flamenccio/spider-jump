@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=12 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ckhvctyix6juc" path="res://crawl.gd" id="2_tlwt5"]
+[ext_resource type="Script" uid="uid://dmmbpsi8ggh0o" path="res://jump.gd" id="3_036b0"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_aqk2v"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
@@ -107,6 +108,7 @@ texture_filter = 1
 position = Vector2(0, -6)
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_f3sb7")
+lock_rotation = true
 
 [node name="Collider" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 1)
@@ -118,15 +120,21 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 1.0
 
-[node name="Crawl" type="Node" parent="Player" node_paths=PackedStringArray("_rb")]
+[node name="Crawl" type="Node" parent="Player" node_paths=PackedStringArray("_player_rb")]
 script = ExtResource("2_tlwt5")
-_rb = NodePath("..")
 _crawl_speed = 15.0
+_player_rb = NodePath("..")
+
+[node name="Jump" type="Node" parent="Player" node_paths=PackedStringArray("_player_rb")]
+script = ExtResource("3_036b0")
+_player_rb = NodePath("..")
+metadata/_custom_type_script = "uid://btqms6rhikc4v"
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 
-[node name="InputService" type="Node" parent="."]
+[node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
 script = ExtResource("3_aqk2v")
+_pull_origin = NodePath("../Player")
 
 [connection signal="move_input_change" from="InputService" to="Player/Crawl" method="_on_move_input_change"]
