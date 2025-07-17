@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=13 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://ckhvctyix6juc" path="res://crawl.gd" id="2_tlwt5"]
 [ext_resource type="Script" uid="uid://dmmbpsi8ggh0o" path="res://jump.gd" id="3_036b0"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_aqk2v"]
+[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="4_036b0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -76,19 +77,22 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_tlwt5")
 sources/0 = SubResource("TileSetAtlasSource_fj7yv")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f3sb7"]
+bounce = 1.0
+absorbent = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3sb7"]
-size = Vector2(6, 6)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_036b0"]
+radius = 3.0
+height = 6.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f3sb7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_036b0"]
 atlas = ExtResource("1_f3sb7")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 80, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f3sb7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f3sb7")
+"texture": SubResource("AtlasTexture_036b0")
 }],
 "loop": false,
 "name": &"idle",
@@ -114,7 +118,7 @@ continuous_cd = 2
 
 [node name="Collider" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_f3sb7")
+shape = SubResource("CapsuleShape2D_036b0")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_f3sb7")
@@ -135,8 +139,12 @@ _player_rb = NodePath("..")
 action_active = true
 metadata/_custom_type_script = "uid://btqms6rhikc4v"
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+script = ExtResource("4_036b0")
+_follow_target = NodePath("../Player")
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
 script = ExtResource("3_aqk2v")
