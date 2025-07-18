@@ -15,4 +15,3 @@ func _jump() -> void:
 	if not action_active:
 		return
 	_player_rb.apply_impulse(-1 * _pull * _jump_force)
-	print('jump: ', -1 * _pull * _jump_force)

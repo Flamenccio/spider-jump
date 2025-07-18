@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=47 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="2_pkg7o"]
@@ -213,12 +213,41 @@ value = false
 comparation = 0
 name = "slippery"
 
+[sub_resource type="Resource" id="Resource_gggvi"]
+script = ExtResource("10_2u3nc")
+value = false
+comparation = 0
+name = "ground"
+
 [sub_resource type="Resource" id="Resource_k83mh"]
 script = ExtResource("9_hiqwa")
 from = "SlipperyGround"
 to = "Air"
 conditions = {
+"ground": SubResource("Resource_gggvi"),
 "slippery": SubResource("Resource_o3ebs")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_w44yn"]
+script = ExtResource("10_2u3nc")
+value = false
+comparation = 0
+name = "slippery"
+
+[sub_resource type="Resource" id="Resource_6ah6f"]
+script = ExtResource("10_2u3nc")
+value = true
+comparation = 0
+name = "ground"
+
+[sub_resource type="Resource" id="Resource_g1i3r"]
+script = ExtResource("9_hiqwa")
+from = "SlipperyGround"
+to = "Ground"
+conditions = {
+"ground": SubResource("Resource_6ah6f"),
+"slippery": SubResource("Resource_w44yn")
 }
 priority = 0
 
@@ -243,7 +272,8 @@ transitions = {
 "SlipperyGround": SubResource("Resource_jjr1n")
 },
 "SlipperyGround": {
-"Air": SubResource("Resource_k83mh")
+"Air": SubResource("Resource_k83mh"),
+"Ground": SubResource("Resource_g1i3r")
 }
 }
 name = ""
@@ -263,8 +293,6 @@ mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_f3sb7")
 gravity_scale = 0.333
 lock_rotation = true
-continuous_cd = 2
-contact_monitor = true
 max_contacts_reported = 2
 script = ExtResource("2_pkg7o")
 

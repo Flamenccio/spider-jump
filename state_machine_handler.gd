@@ -41,7 +41,6 @@ func state_transition(old, new) -> void:
 
 
 func set_property(property_name: String, value: Variant) -> void:
-	print('set: ', property_name)
 	if property_name == '' or property_name == null:
 		printerr('state machine handler: invalid property name')
 		return
