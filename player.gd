@@ -13,9 +13,3 @@ func on_stick() -> void:
 
 func on_unstick() -> void:
 	gravity_scale = _gravity_scale
-
-
-func _on_wall_detector_collision_normal(normal:Vector2) -> void:
-	#var normal_angle := normal.angle() + PI / 2.0
-	#rotation = normal_angle
-	pass
