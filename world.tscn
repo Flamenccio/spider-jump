@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=43 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="2_pkg7o"]
@@ -6,7 +6,18 @@
 [ext_resource type="Script" uid="uid://dmmbpsi8ggh0o" path="res://jump.gd" id="3_036b0"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_aqk2v"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="4_036b0"]
-[ext_resource type="Script" uid="uid://c2wx4gyeih7p7" path="res://wall_detector.gd" id="4_dwbse"]
+[ext_resource type="Script" uid="uid://c5x6r3mgp6yf7" path="res://state_machine_handler.gd" id="6_2o6r5"]
+[ext_resource type="Script" uid="uid://bt2gfnnkvw2ec" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="6_k3n1d"]
+[ext_resource type="Script" uid="uid://cgcw4uj3fme3a" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="7_2o6r5"]
+[ext_resource type="Script" uid="uid://bky7ul11nw1di" path="res://addons/imjp94.yafsm/src/states/State.gd" id="8_70uel"]
+[ext_resource type="Script" uid="uid://6tfu5odia6si" path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" id="9_hiqwa"]
+[ext_resource type="Script" uid="uid://lktmiahi8nk5" path="res://addons/imjp94.yafsm/src/conditions/BooleanCondition.gd" id="10_2u3nc"]
+[ext_resource type="Script" uid="uid://c214krfrcv5go" path="res://behavior_state/player/air.gd" id="12_hiqwa"]
+[ext_resource type="Script" uid="uid://ususr26pgf2u" path="res://behavior_state/player/ground.gd" id="13_2u3nc"]
+[ext_resource type="Script" uid="uid://xwooryy4y5og" path="res://behavior_state.gd" id="14_2u3nc"]
+[ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://collision_handler.gd" id="15_ikiii"]
+[ext_resource type="Script" uid="uid://vkr7jdskxn60" path="res://behavior_state/player/slippery.gd" id="15_udxuc"]
+[ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="16_cbp6q"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -102,8 +113,140 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gbfbk"]
-radius = 3.0
+[sub_resource type="Resource" id="Resource_cbp6q"]
+script = ExtResource("8_70uel")
+name = "Air"
+metadata/graph_offset = Vector2(388, -2.5)
+
+[sub_resource type="Resource" id="Resource_udxuc"]
+script = ExtResource("8_70uel")
+name = "Entry"
+metadata/graph_offset = Vector2(168, 157.5)
+
+[sub_resource type="Resource" id="Resource_ikiii"]
+script = ExtResource("8_70uel")
+name = "Ground"
+metadata/graph_offset = Vector2(388, 237.5)
+
+[sub_resource type="Resource" id="Resource_2u3nc"]
+script = ExtResource("8_70uel")
+name = "SlipperyGround"
+metadata/graph_offset = Vector2(770.5, -2.5)
+
+[sub_resource type="Resource" id="Resource_il2jm"]
+script = ExtResource("10_2u3nc")
+value = true
+comparation = 0
+name = "ground"
+
+[sub_resource type="Resource" id="Resource_wjb0r"]
+script = ExtResource("9_hiqwa")
+from = "Air"
+to = "Ground"
+conditions = {
+"ground": SubResource("Resource_il2jm")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_bo7i5"]
+script = ExtResource("10_2u3nc")
+value = true
+comparation = 0
+name = "slippery"
+
+[sub_resource type="Resource" id="Resource_4h6ng"]
+script = ExtResource("9_hiqwa")
+from = "Air"
+to = "SlipperyGround"
+conditions = {
+"slippery": SubResource("Resource_bo7i5")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_26xuy"]
+script = ExtResource("9_hiqwa")
+from = "Entry"
+to = "Ground"
+conditions = {}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_bc84e"]
+script = ExtResource("10_2u3nc")
+value = false
+comparation = 0
+name = "ground"
+
+[sub_resource type="Resource" id="Resource_wukud"]
+script = ExtResource("9_hiqwa")
+from = "Ground"
+to = "Air"
+conditions = {
+"ground": SubResource("Resource_bc84e")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_qktwf"]
+script = ExtResource("10_2u3nc")
+value = false
+comparation = 0
+name = "ground"
+
+[sub_resource type="Resource" id="Resource_bh8nc"]
+script = ExtResource("10_2u3nc")
+value = true
+comparation = 0
+name = "slippery"
+
+[sub_resource type="Resource" id="Resource_jjr1n"]
+script = ExtResource("9_hiqwa")
+from = "Ground"
+to = "SlipperyGround"
+conditions = {
+"ground": SubResource("Resource_qktwf"),
+"slippery": SubResource("Resource_bh8nc")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_o3ebs"]
+script = ExtResource("10_2u3nc")
+value = false
+comparation = 0
+name = "slippery"
+
+[sub_resource type="Resource" id="Resource_k83mh"]
+script = ExtResource("9_hiqwa")
+from = "SlipperyGround"
+to = "Air"
+conditions = {
+"slippery": SubResource("Resource_o3ebs")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_mc2jv"]
+script = ExtResource("7_2o6r5")
+states = {
+"Air": SubResource("Resource_cbp6q"),
+"Entry": SubResource("Resource_udxuc"),
+"Ground": SubResource("Resource_ikiii"),
+"SlipperyGround": SubResource("Resource_2u3nc")
+}
+transitions = {
+"Air": {
+"Ground": SubResource("Resource_wjb0r"),
+"SlipperyGround": SubResource("Resource_4h6ng")
+},
+"Entry": {
+"Ground": SubResource("Resource_26xuy")
+},
+"Ground": {
+"Air": SubResource("Resource_wukud"),
+"SlipperyGround": SubResource("Resource_jjr1n")
+},
+"SlipperyGround": {
+"Air": SubResource("Resource_k83mh")
+}
+}
+name = ""
 
 [node name="World" type="Node2D"]
 
@@ -114,13 +257,15 @@ tile_set = SubResource("TileSet_tlwt5")
 
 [node name="Player" type="RigidBody2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -6)
+position = Vector2(0, -4)
 collision_mask = 6
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_f3sb7")
 gravity_scale = 0.333
 lock_rotation = true
 continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 2
 script = ExtResource("2_pkg7o")
 
 [node name="Collider" type="CollisionShape2D" parent="Player"]
@@ -133,30 +278,70 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 1.0
 
-[node name="Crawl" type="Node" parent="Player" node_paths=PackedStringArray("_player_rb")]
+[node name="StateMachine" type="Node" parent="Player" node_paths=PackedStringArray("_machine")]
+script = ExtResource("6_2o6r5")
+_machine = NodePath("StateMachinePlayer")
+
+[node name="StateMachinePlayer" type="Node" parent="Player/StateMachine"]
+script = ExtResource("6_k3n1d")
+state_machine = SubResource("Resource_mc2jv")
+metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
+
+[node name="Air" type="Node" parent="Player/StateMachine"]
+script = ExtResource("12_hiqwa")
+
+[node name="Ground" type="Node" parent="Player/StateMachine"]
+script = ExtResource("13_2u3nc")
+
+[node name="Entry" type="Node" parent="Player/StateMachine"]
+script = ExtResource("14_2u3nc")
+metadata/_custom_type_script = "uid://xwooryy4y5og"
+
+[node name="Exit" type="Node" parent="Player/StateMachine"]
+script = ExtResource("14_2u3nc")
+metadata/_custom_type_script = "uid://xwooryy4y5og"
+
+[node name="SlipperyGround" type="Node" parent="Player/StateMachine"]
+script = ExtResource("15_udxuc")
+metadata/_custom_type_script = "uid://xwooryy4y5og"
+
+[node name="Actions" type="Node" parent="Player"]
+
+[node name="Crawl" type="Node" parent="Player/Actions" node_paths=PackedStringArray("_player_rb")]
 script = ExtResource("2_tlwt5")
 _crawl_speed = 15.0
-_player_rb = NodePath("..")
+_player_rb = NodePath("../..")
 action_active = true
 
-[node name="Jump" type="Node" parent="Player" node_paths=PackedStringArray("_player_rb")]
+[node name="Jump" type="Node" parent="Player/Actions" node_paths=PackedStringArray("_player_rb")]
 script = ExtResource("3_036b0")
-_jump_force = 25.0
-_player_rb = NodePath("..")
+_jump_force = 20.0
+_player_rb = NodePath("../..")
 action_active = true
 metadata/_custom_type_script = "uid://btqms6rhikc4v"
 
-[node name="WallDetector" type="Area2D" parent="Player" node_paths=PackedStringArray("_player")]
+[node name="CollisionHandler" type="Node" parent="Player"]
+script = ExtResource("15_ikiii")
+
+[node name="Detectors" type="Node2D" parent="Player"]
+
+[node name="GroundDetector" type="Area2D" parent="Player/Detectors"]
+position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 2
-priority = 5
-script = ExtResource("4_dwbse")
-_player = NodePath("..")
-_raycast_layer = 2
+priority = 2
 
-[node name="Collider" type="CollisionShape2D" parent="Player/WallDetector"]
+[node name="Collider" type="CollisionShape2D" parent="Player/Detectors/GroundDetector"]
+shape = ExtResource("16_cbp6q")
+
+[node name="SlipDetector" type="Area2D" parent="Player/Detectors"]
 position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_gbfbk")
+collision_layer = 0
+collision_mask = 4
+priority = 2
+
+[node name="Collider" type="CollisionShape2D" parent="Player/Detectors/SlipDetector"]
+shape = ExtResource("16_cbp6q")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
@@ -169,11 +354,22 @@ _follow_target = NodePath("../Player")
 script = ExtResource("3_aqk2v")
 _pull_origin = NodePath("../Player")
 
-[connection signal="body_entered" from="Player/WallDetector" to="Player/WallDetector" method="_on_body_entered"]
-[connection signal="body_exited" from="Player/WallDetector" to="Player/WallDetector" method="_on_body_exited"]
-[connection signal="collision_normal" from="Player/WallDetector" to="Player" method="_on_wall_detector_collision_normal"]
-[connection signal="hit_wall" from="Player/WallDetector" to="Player" method="on_stick"]
-[connection signal="leave_wall" from="Player/WallDetector" to="Player" method="on_unstick"]
-[connection signal="move_input_change" from="InputService" to="Player/Crawl" method="_on_move_input_change"]
-[connection signal="pull_input_change" from="InputService" to="Player/Jump" method="_on_input_service_pull_input_change"]
-[connection signal="pull_release" from="InputService" to="Player/Jump" method="_on_input_service_pull_release"]
+[connection signal="entered" from="Player/StateMachine/StateMachinePlayer" to="Player/StateMachine" method="_on_state_machine_player_entered"]
+[connection signal="exited" from="Player/StateMachine/StateMachinePlayer" to="Player/StateMachine" method="_on_state_machine_player_exited"]
+[connection signal="transited" from="Player/StateMachine/StateMachinePlayer" to="Player/StateMachine" method="state_transition"]
+[connection signal="airborne" from="Player/StateMachine/Air" to="Player" method="on_unstick"]
+[connection signal="airborne" from="Player/StateMachine/Air" to="Player/Actions/Crawl" method="set_inactive"]
+[connection signal="airborne" from="Player/StateMachine/Air" to="Player/Actions/Jump" method="set_inactive"]
+[connection signal="grounded" from="Player/StateMachine/Ground" to="Player" method="on_stick"]
+[connection signal="grounded" from="Player/StateMachine/Ground" to="Player/Actions/Crawl" method="set_active"]
+[connection signal="grounded" from="Player/StateMachine/Ground" to="Player/Actions/Jump" method="set_active"]
+[connection signal="slippery_grounded" from="Player/StateMachine/SlipperyGround" to="Player" method="on_unstick"]
+[connection signal="slippery_grounded" from="Player/StateMachine/SlipperyGround" to="Player/Actions/Crawl" method="set_active"]
+[connection signal="set_state_machine_condition" from="Player/CollisionHandler" to="Player/StateMachine" method="set_property"]
+[connection signal="body_entered" from="Player/Detectors/GroundDetector" to="Player/CollisionHandler" method="_on_ground_detector_body_entered"]
+[connection signal="body_exited" from="Player/Detectors/GroundDetector" to="Player/CollisionHandler" method="_on_ground_detector_body_exited"]
+[connection signal="body_entered" from="Player/Detectors/SlipDetector" to="Player/CollisionHandler" method="_on_slip_detector_body_entered"]
+[connection signal="body_exited" from="Player/Detectors/SlipDetector" to="Player/CollisionHandler" method="_on_slip_detector_body_exited"]
+[connection signal="move_input_change" from="InputService" to="Player/Actions/Crawl" method="_on_move_input_change"]
+[connection signal="pull_input_change" from="InputService" to="Player/Actions/Jump" method="_on_input_service_pull_input_change"]
+[connection signal="pull_release" from="InputService" to="Player/Actions/Jump" method="_on_input_service_pull_release"]
