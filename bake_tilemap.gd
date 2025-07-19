@@ -77,14 +77,50 @@ func _generate_polygons(groups: Dictionary) -> void:
 ## Returns a list of vertices, travelling clockwise around
 ## the resulting polygon
 func _merge_shape(group: Array[Vector2i]) -> Array[Vector2i]:
-	var begin = _find_merge_start(group)
+	var begin = group.pick_random()
+	_merge_cell(begin, [], group)
+
 	return []
 
 
-## Returns top-left position
-func _find_merge_start(group: Array[Vector2i]) -> Vector2i:
-	var begin: Vector2i = Vector2i(99999, 99999)
-	for pos in group:
-		if pos.x < begin.x or pos.y < begin.y:
-			begin = pos
-	return begin
+# Attempts to merge `cell` to `polygon`
+func _merge_cell(cell: Vector2i, polygon: Array[Vector2i], group: Array[Vector2i]) -> void:
+
+	if not group.has(cell):
+		return
+
+	group.erase(cell)
+	var cell_data := _target_tilemap_layer.get_cell_tile_data(cell)
+	var cell_vertices := cell_data.get_collision_polygon_points(0, 0)
+
+	if polygon.size() > 0:
+
+		# Find overlapping points
+		var overlap = _get_intersection(cell_vertices, polygon)
+
+		if overlap.size() == 0:
+			printerr('bake tilemap: no overlapping points found! cannot merge')
+			return
+
+		print('bake tilemap: merged!')
+
+	else:
+		polygon = cell_vertices
+	
+	var up = cell + Vector2i.UP
+	var down = cell + Vector2i.DOWN
+	var left = cell + Vector2i.LEFT
+	var right = cell + Vector2i.RIGHT
+
+	_merge_cell(up, polygon, group)
+	_merge_cell(down, polygon, group)
+	_merge_cell(left, polygon, group)
+	_merge_cell(right, polygon, group)
+
+
+func _get_intersection(a: Array[Vector2i], b: Array[Vector2i]) -> Array[Vector2i]:
+	var intersection: Array[Vector2i] = []
+	for element in a:
+		if b.has(element):
+			intersection.append(element)
+	return intersection

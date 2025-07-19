@@ -1,0 +1,123 @@
+[gd_scene load_steps=18 format=4 uid="uid://c6antsn5ngihu"]
+
+[ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/ground.tscn" id="1_cnaw2"]
+[ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="2_cnaw2"]
+[ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="2_lf0gk"]
+[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="17_8pq1f"]
+[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="18_nxmw1"]
+[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="19_lvae5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbp6q"]
+size = Vector2(8, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26xuy"]
+size = Vector2(56, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bc84e"]
+size = Vector2(8, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wukud"]
+size = Vector2(120, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_il2jm"]
+size = Vector2(232, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wjb0r"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mc2jv"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bo7i5"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4h6ng"]
+size = Vector2(56, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3ebs"]
+size = Vector2(8, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k83mh"]
+size = Vector2(8, 96)
+
+[node name="World" type="Node2D"]
+
+[node name="Ground" parent="." instance=ExtResource("1_cnaw2")]
+tile_map_data = PackedByteArray("AAAIAPX/AAAKAAAAAAAJAPX/AAAKAAAAAAAKAPX/AAAKAAAAAAALAPX/AAAKAAAAAAAMAPX/AAAKAAAAAAANAPX/AAAKAAAAAAAOAPT/AAAJAAEAAAAOAPP/AAAJAAEAAAAOAPL/AAAJAAEAAAAOAPH/AAAJAAEAAAAOAPD/AAAJAAEAAAANAO//AAAKAAIAAAAMAO//AAAKAAIAAAALAO//AAAKAAIAAAAKAO//AAAKAAIAAAAJAO//AAAKAAIAAAAIAO//AAAKAAIAAAAHAO//AAAKAAIAAAAGAO//AAAKAAIAAAAFAO//AAAKAAIAAAAEAO//AAAKAAIAAAADAO//AAAKAAIAAAACAO//AAAKAAIAAAABAO//AAAKAAIAAAAAAO//AAAKAAIAAAD//+//AAAKAAIAAAD+/+//AAAKAAIAAAD9/+//AAAKAAIAAAD8/+//AAAKAAIAAAD7/+//AAAKAAIAAAD6/+//AAAKAAIAAAD5/+//AAAKAAIAAAD4/+//AAAKAAIAAAD3/+//AAAKAAIAAAD2/+//AAAKAAIAAAD1/+//AAAKAAIAAAD0/+//AAAKAAIAAADz/+//AAAKAAIAAADy//D/AAALAAEAAADy//H/AAALAAEAAADy//L/AAALAAEAAADy//P/AAALAAEAAADy//T/AAALAAEAAADy//X/AAALAAEAAADy//b/AAALAAEAAADy//f/AAALAAEAAADz//j/AAAKAAAAAAD0//j/AAAKAAAAAAD1//j/AAAKAAAAAAD2//j/AAAKAAAAAAD3//j/AAAKAAAAAAD4//j/AAALAAAAAAD4//n/AAALAAEAAAD4//r/AAALAAEAAAD4//v/AAALAAEAAAD4//z/AAALAAEAAAD4//3/AAALAAEAAAD4//7/AAALAAEAAAD4////AAALAAEAAADy//j/AAAKAAEAAADy/+//AAAKAAEAAAAOAO//AAAKAAEAAAAOAPX/AAAKAAEAAAAHAAAAAAAKAAEAAAD4/wAAAAAKAAEAAAD5/wAAAAAKAAAAAAD6/wAAAAAKAAAAAAD7/wAAAAAKAAAAAAD8/wAAAAAKAAAAAAD9/wAAAAAKAAAAAAD+/wAAAAAKAAAAAAD//wAAAAAKAAAAAAAAAAAAAAAKAAAAAAABAAAAAAAKAAAAAAACAAAAAAAKAAAAAAADAAAAAAAKAAAAAAAEAAAAAAAKAAAAAAAFAAAAAAAKAAAAAAAGAAAAAAAKAAAAAAACAPz/AAAGAAAAAAAEAPr/AAAGAAAAAAACAPj/AAAGAAAAAAA=")
+
+[node name="Slip" parent="." instance=ExtResource("2_cnaw2")]
+tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQAAAAHAPn/AAAJAAQAAAAHAPr/AAAJAAQAAAAHAPv/AAAJAAQAAAAHAPz/AAAJAAQAAAAHAP3/AAAJAAQAAAAHAP7/AAAJAAQAAAAHAP//AAAJAAQAAAAHAPX/AAAJAAMAAAA=")
+
+[node name="Player" parent="." instance=ExtResource("2_lf0gk")]
+position = Vector2(0, -4)
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+script = ExtResource("17_8pq1f")
+_follow_target = NodePath("../Player")
+
+[node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
+script = ExtResource("18_nxmw1")
+_pull_origin = NodePath("../Player")
+
+[node name="TestTilemapBaked" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("19_lvae5")
+tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(-108, -96)
+shape = SubResource("RectangleShape2D_cbp6q")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(-84, -60)
+shape = SubResource("RectangleShape2D_26xuy")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(-60, -28)
+shape = SubResource("RectangleShape2D_bc84e")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(-4, 4)
+shape = SubResource("RectangleShape2D_wukud")
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(4, -132)
+shape = SubResource("RectangleShape2D_il2jm")
+
+[node name="CollisionShape2D17" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(20, -60)
+shape = SubResource("RectangleShape2D_wjb0r")
+
+[node name="CollisionShape2D18" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(20, -28)
+shape = SubResource("RectangleShape2D_mc2jv")
+
+[node name="CollisionShape2D19" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(36, -44)
+shape = SubResource("RectangleShape2D_bo7i5")
+
+[node name="CollisionShape2D20" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(92, -84)
+shape = SubResource("RectangleShape2D_4h6ng")
+
+[node name="CollisionShape2D21" type="CollisionShape2D" parent="TestTilemapBaked"]
+position = Vector2(116, -108)
+shape = SubResource("RectangleShape2D_o3ebs")
+
+[node name="TestTilemapBaked2" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("19_lvae5")
+tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Slip")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestTilemapBaked2"]
+position = Vector2(60, -40)
+shape = SubResource("RectangleShape2D_k83mh")
+
+[connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
+[connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
+[connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]

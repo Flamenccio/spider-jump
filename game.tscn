@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b16g2nm6enbdm"]
+
+[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://level_spawner.gd" id="4_fc0e3"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("1_80nbo")
+
+[node name="Player" parent="." instance=ExtResource("2_e2o6t")]
+
+[node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
+script = ExtResource("3_feb5d")
+_pull_origin = NodePath("../Player")
+
+[node name="LevelSpawner" type="Node2D" parent="."]
+script = ExtResource("4_fc0e3")
+
+[connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
+[connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
+[connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]
