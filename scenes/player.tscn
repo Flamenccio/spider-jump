@@ -115,6 +115,13 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_a8ls1"]
+script = ExtResource("8_4ni07")
+from = "Entry"
+to = "Air"
+conditions = {}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_bc84e"]
 script = ExtResource("7_a38lo")
 value = false
@@ -175,13 +182,6 @@ conditions = {
 }
 priority = 0
 
-[sub_resource type="Resource" id="Resource_a8ls1"]
-script = ExtResource("8_4ni07")
-from = "Entry"
-to = "Air"
-conditions = {}
-priority = 0
-
 [sub_resource type="Resource" id="Resource_mc2jv"]
 script = ExtResource("5_60mlk")
 states = {
@@ -226,7 +226,7 @@ shape = SubResource("CircleShape2D_pkg7o")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f3sb7")
-animation = &"jump"
+animation = &"charge"
 autoplay = "idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
@@ -271,8 +271,9 @@ _player_rb = NodePath("../..")
 action_active = true
 metadata/_custom_type_script = "uid://btqms6rhikc4v"
 
-[node name="CollisionHandler" type="Node" parent="."]
+[node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast")]
 script = ExtResource("15_wqfne")
+_ground_raycast = NodePath("../Detectors/GroundRaycast")
 
 [node name="Detectors" type="Node2D" parent="."]
 
@@ -320,11 +321,11 @@ _sprite = NodePath("../Sprite")
 [connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="Actions/Crawl" method="set_active"]
 [connection signal="jump_charge" from="Actions/Jump" to="AnimationHandler" method="on_player_jump_ready"]
 [connection signal="jump_release" from="Actions/Jump" to="AnimationHandler" method="on_player_jump"]
+[connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
 [connection signal="set_state_machine_condition" from="CollisionHandler" to="StateMachine" method="set_property"]
 [connection signal="body_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_entered"]
 [connection signal="body_entered" from="Detectors/GroundDetector" to="AnimationHandler" method="on_player_land" unbinds=1]
 [connection signal="body_exited" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_exited"]
-[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="Detectors/GroundRaycast" method="_on_ground_detector_body_shape_entered"]
+[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_shape_entered"]
 [connection signal="body_entered" from="Detectors/SlipDetector" to="CollisionHandler" method="_on_slip_detector_body_entered"]
 [connection signal="body_exited" from="Detectors/SlipDetector" to="CollisionHandler" method="_on_slip_detector_body_exited"]
-[connection signal="change_player_rotation" from="Detectors/GroundRaycast" to="." method="_rotate_against_normal"]

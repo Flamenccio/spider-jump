@@ -47,5 +47,6 @@ texture = ExtResource("6_ryrav")
 
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
+[connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]
 [connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]
 [connection signal="area_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level" unbinds=1]

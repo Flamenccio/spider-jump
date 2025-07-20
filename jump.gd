@@ -11,15 +11,17 @@ func _on_input_service_pull_input_change(pull_input:Vector2) -> void:
 
 
 func _on_input_service_pull_release() -> void:
+	if not action_active:
+		return
 	_jump()
 	jump_release.emit()
 
 
 func _on_input_service_pull_press() -> void:
+	if not action_active:
+		return
 	jump_charge.emit()
 
 
 func _jump() -> void:
-	if not action_active:
-		return
 	_player_rb.apply_impulse(-1 * _pull * _jump_force)
