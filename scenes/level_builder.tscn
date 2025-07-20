@@ -68,13 +68,13 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_cbp6q")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6artv"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajkbv"]
 size = Vector2(8, 80)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_diroj"]
-size = Vector2(80, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5t8l"]
+size = Vector2(112, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkt7t"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kp3mc"]
 size = Vector2(8, 80)
 
 [node name="LevelBuilder" type="Node2D"]
@@ -84,7 +84,7 @@ _save_path = "res://levels/"
 
 [node name="Ground" type="TileMapLayer" parent="."]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAD//wAAAAAKAAAAAAAAAAAAAAAKAAAAAAD+/wAAAAAKAAAAAAABAAAAAAAKAAAAAAACAAAAAAAKAAAAAAD9/wAAAAAKAAAAAAD8/wAAAAAKAAAAAAADAAAAAAAKAAAAAAAEAAAAAAAKAAEAAAD7/wAAAAAKAAEAAAD7////AAALAAEAAAD7//7/AAALAAEAAAD7//3/AAALAAEAAAD7//z/AAALAAEAAAD7//v/AAALAAEAAAD7//r/AAALAAEAAAD7//n/AAALAAEAAAD7//j/AAALAAEAAAD7//f/AAALAAEAAAD7//b/AAALAAEAAAAEAP//AAAJAAEAAAAEAP7/AAAJAAEAAAAEAP3/AAAJAAEAAAAEAPz/AAAJAAEAAAAEAPv/AAAJAAEAAAAEAPr/AAAJAAEAAAAEAPn/AAAJAAEAAAAEAPj/AAAJAAEAAAAEAPf/AAAJAAEAAAAEAPb/AAAJAAEAAAA=")
+tile_map_data = PackedByteArray("AAD//wAAAAAKAAAAAAAAAAAAAAAKAAAAAAD+/wAAAAAKAAAAAAABAAAAAAAKAAAAAAACAAAAAAAKAAAAAAD9/wAAAAAKAAAAAAD8/wAAAAAKAAAAAAADAAAAAAAKAAAAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAD5//v/AAALAAEAAAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPb/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPj/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAPr/AAAJAAEAAAAGAPv/AAAJAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAAGAAAAAAAKAAEAAAD5/wAAAAAKAAEAAAD6/wAAAAAKAAAAAAD7/wAAAAAKAAAAAAAEAAAAAAAKAAAAAAAFAAAAAAAKAAAAAAA=")
 tile_set = SubResource("TileSet_tlwt5")
 
 [node name="Slip" type="TileMapLayer" parent="."]
@@ -97,14 +97,14 @@ collision_mask = 0
 script = ExtResource("3_6artv")
 tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-36, -40)
-shape = SubResource("RectangleShape2D_6artv")
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-52, -40)
+shape = SubResource("RectangleShape2D_ajkbv")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="GroundCollider"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="GroundCollider"]
 position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_diroj")
+shape = SubResource("RectangleShape2D_s5t8l")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(36, -40)
-shape = SubResource("RectangleShape2D_kkt7t")
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(52, -40)
+shape = SubResource("RectangleShape2D_kp3mc")

@@ -4,4 +4,4 @@ extends Camera2D
 
 func _process(delta: float) -> void:
 	if _follow_target != null:
-		global_position = _follow_target.global_position
+		global_position = Vector2(global_position.x, _follow_target.global_position.y)
