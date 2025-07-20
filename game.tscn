@@ -20,7 +20,7 @@ script = ExtResource("1_80nbo")
 _follow_target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
-position = Vector2(0, -16)
+position = Vector2(0, -5)
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
 script = ExtResource("3_feb5d")

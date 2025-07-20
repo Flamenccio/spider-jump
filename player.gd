@@ -28,3 +28,11 @@ func _on_input_service_pull_input_change(pull_input: Vector2) -> void:
 
 func _on_input_service_pull_release() -> void:
 	internal_pull_release.emit()
+
+
+func _rotate_against_normal(normal: Vector2) -> void:
+	# The player UP vector must match the given normal
+	var up_angle := rotation - PI / 2.0
+	var up_vector := Vector2.from_angle(up_angle)
+	var difference := up_vector.angle_to(normal)
+	rotation += difference
