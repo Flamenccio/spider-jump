@@ -3,6 +3,7 @@ extends Node
 signal move_input_change(move_input: Vector2)
 signal pull_input_change(pull_input: Vector2)
 signal pull_release()
+signal pull_press()
 
 @export var _pull_origin: Node2D
 var _current_move_input: Vector2 = Vector2.ZERO
@@ -33,7 +34,7 @@ func _handle_joy_connection_change(device: int, connect: bool) -> void:
 
 func _input(event: InputEvent) -> void:
 	_handle_move_input()
-	_handle_pull_release(event)
+	_handle_pull(event)
 
 
 func _process(delta: float) -> void:
@@ -57,9 +58,11 @@ func _handle_pull_input_joy() -> void:
 	pull_input_change.emit(pull)
 
 
-func _handle_pull_release(event: InputEvent) -> void:
+func _handle_pull(event: InputEvent) -> void:
 	if event.is_action_released('pull_button'):
 		pull_release.emit()
+	if event.is_action_pressed("pull_button"):
+		pull_press.emit()
 
 
 func _handle_pull_input_kbm() -> void:

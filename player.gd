@@ -3,6 +3,8 @@ extends RigidBody2D
 signal internal_move_input_change(move_input: Vector2)
 signal internal_pull_input_change(pull_input: Vector2)
 signal internal_pull_release()
+signal internal_pull_press()
+
 var _gravity_scale: float
 
 func _ready() -> void:
@@ -28,6 +30,10 @@ func _on_input_service_pull_input_change(pull_input: Vector2) -> void:
 
 func _on_input_service_pull_release() -> void:
 	internal_pull_release.emit()
+
+
+func _on_input_service_pull_press() -> void:
+	internal_pull_press.emit()
 
 
 func _rotate_against_normal(normal: Vector2) -> void:

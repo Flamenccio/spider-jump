@@ -120,4 +120,5 @@ shape = SubResource("RectangleShape2D_k83mh")
 
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
+[connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]
 [connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]

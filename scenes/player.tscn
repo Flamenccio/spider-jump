@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=43 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://collision_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://ground_raycast.gd" id="16_qfm1y"]
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="16_wnwbv"]
+[ext_resource type="Script" uid="uid://cgp4fe4l1vgna" path="res://animation_handler.gd" id="18_fulsm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f3sb7"]
 bounce = 1.0
@@ -25,18 +26,42 @@ absorbent = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_pkg7o"]
 radius = 3.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("2_qfm1y")
+region = Rect2(16, 80, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_036b0"]
 atlas = ExtResource("2_qfm1y")
 region = Rect2(0, 80, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("2_qfm1y")
+region = Rect2(0, 96, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_f3sb7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}],
+"loop": false,
+"name": &"charge",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_036b0")
 }],
 "loop": false,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}],
+"loop": false,
+"name": &"jump",
 "speed": 5.0
 }]
 
@@ -201,9 +226,8 @@ shape = SubResource("CircleShape2D_pkg7o")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f3sb7")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
-frame_progress = 1.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
 script = ExtResource("3_fulsm")
@@ -250,11 +274,6 @@ metadata/_custom_type_script = "uid://btqms6rhikc4v"
 [node name="CollisionHandler" type="Node" parent="."]
 script = ExtResource("15_wqfne")
 
-[node name="GroundRaycast" type="Node" parent="." node_paths=PackedStringArray("_raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 2
-_raycast_source = NodePath("..")
-
 [node name="Detectors" type="Node2D" parent="."]
 
 [node name="GroundDetector" type="Area2D" parent="Detectors"]
@@ -275,8 +294,18 @@ priority = 2
 [node name="Collider" type="CollisionShape2D" parent="Detectors/SlipDetector"]
 shape = ExtResource("16_wnwbv")
 
+[node name="GroundRaycast" type="Node" parent="Detectors" node_paths=PackedStringArray("_raycast_source")]
+script = ExtResource("16_qfm1y")
+_raycast_layer = 2
+_raycast_source = NodePath("../..")
+
+[node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
+script = ExtResource("18_fulsm")
+_sprite = NodePath("../Sprite")
+
 [connection signal="internal_move_input_change" from="." to="Actions/Crawl" method="_on_move_input_change"]
 [connection signal="internal_pull_input_change" from="." to="Actions/Jump" method="_on_input_service_pull_input_change"]
+[connection signal="internal_pull_press" from="." to="Actions/Jump" method="_on_input_service_pull_press"]
 [connection signal="internal_pull_release" from="." to="Actions/Jump" method="_on_input_service_pull_release"]
 [connection signal="entered" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_entered"]
 [connection signal="exited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_exited"]
@@ -289,10 +318,13 @@ shape = ExtResource("16_wnwbv")
 [connection signal="grounded" from="StateMachine/Ground" to="Actions/Jump" method="set_active"]
 [connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="." method="on_unstick"]
 [connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="Actions/Crawl" method="set_active"]
+[connection signal="jump_charge" from="Actions/Jump" to="AnimationHandler" method="on_player_jump_ready"]
+[connection signal="jump_release" from="Actions/Jump" to="AnimationHandler" method="on_player_jump"]
 [connection signal="set_state_machine_condition" from="CollisionHandler" to="StateMachine" method="set_property"]
-[connection signal="change_player_rotation" from="GroundRaycast" to="." method="_rotate_against_normal"]
 [connection signal="body_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_entered"]
+[connection signal="body_entered" from="Detectors/GroundDetector" to="AnimationHandler" method="on_player_land" unbinds=1]
 [connection signal="body_exited" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_exited"]
-[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="GroundRaycast" method="_on_ground_detector_body_shape_entered"]
+[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="Detectors/GroundRaycast" method="_on_ground_detector_body_shape_entered"]
 [connection signal="body_entered" from="Detectors/SlipDetector" to="CollisionHandler" method="_on_slip_detector_body_entered"]
 [connection signal="body_exited" from="Detectors/SlipDetector" to="CollisionHandler" method="_on_slip_detector_body_exited"]
+[connection signal="change_player_rotation" from="Detectors/GroundRaycast" to="." method="_rotate_against_normal"]
