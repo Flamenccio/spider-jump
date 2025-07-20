@@ -39,16 +39,20 @@ func save_level(level: Node2D) -> void:
 			saved_tilemap_collider.save_collider(child as StaticBody2D)
 			tilemap_colliders.append(saved_tilemap_collider)
 
+		print('level height: ', level_height)
+
 
 func _calculate_height(tilemap: TileMapLayer) -> void:
 
 	# Find highest and lowest points
-	var highest: int = 0
-	var lowest: int = 0
+	var highest: int = 9999
+	var lowest: int = -9999
 
 	for tile in tilemap.get_used_cells():
 		highest = mini(highest, tile.y)
 		lowest = maxi(lowest, tile.y)
 	
-	level_height = maxi(level_height, lowest - highest)
+	print('highest: ', highest)
+	print('lowest: ', lowest)
+	level_height = maxi(level_height, (lowest - highest) * tilemap.tile_set.tile_size.y)
 

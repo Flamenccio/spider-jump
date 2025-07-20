@@ -5,6 +5,7 @@ extends SavedNode
 @export var _colliders: Array[SavedCollisionShape]
 @export var collision_layer: int
 @export var collision_mask: int
+@export var saved_position: Vector2
 
 func instantiate() -> Node2D:
 
@@ -12,6 +13,7 @@ func instantiate() -> Node2D:
 	instance.name = saved_name
 	instance.collision_layer = collision_layer
 	instance.collision_mask = collision_mask
+	instance.position = saved_position
 
 	for collider in _colliders:
 		instance.add_child(collider.instantiate())
@@ -35,4 +37,5 @@ func save_collider(collider: StaticBody2D) -> void:
 	saved_name = collider.name
 	collision_layer = collider.collision_layer
 	collision_mask = collider.collision_mask
+	saved_position = collider.position
 

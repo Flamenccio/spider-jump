@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=8 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://level_spawner.gd" id="4_fc0e3"]
-[ext_resource type="Resource" uid="uid://dd3idgrbla5gt" path="res://levels/base.res" id="5_7jktm"]
+[ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/base.res" id="5_7jktm"]
+[ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://icon.svg" id="6_ryrav"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
+size = Vector2(160, 8)
 
 [node name="Game" type="Node2D"]
 
@@ -16,6 +20,7 @@ script = ExtResource("1_80nbo")
 _follow_target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
+position = Vector2(0, -16)
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
 script = ExtResource("3_feb5d")
@@ -26,6 +31,21 @@ script = ExtResource("4_fc0e3")
 _level_path = "res://levels/"
 _initial_level = ExtResource("5_7jktm")
 
+[node name="LevelSpawnTrigger" type="Area2D" parent="."]
+position = Vector2(0, -144)
+collision_layer = 0
+monitorable = false
+priority = 1
+
+[node name="Collider" type="CollisionShape2D" parent="LevelSpawnTrigger"]
+shape = SubResource("RectangleShape2D_7jktm")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelSpawnTrigger"]
+scale = Vector2(1.23287, 0.04)
+texture = ExtResource("6_ryrav")
+
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
 [connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]
+[connection signal="area_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level" unbinds=1]

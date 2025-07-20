@@ -17,9 +17,17 @@ func _ready() -> void:
 	if _initial_level == null:
 		print('level spawner: WARNING! initial level is null!')
 
+
+
 	_res_regex.compile('.*\\.res')
 	_loaded_levels = _load_levels(_level_path)
+
+	# Remove initial level from loaded levels
+	_loaded_levels.erase(_initial_level)
+	
+	# Spawn two levels at first
 	_spawn_level(_initial_level)
+	spawn_new_level()
 
 
 func _load_levels(path: String) -> Array[SavedLevel]:
@@ -53,7 +61,8 @@ func _spawn_level(level: SavedLevel) -> void:
 	var instance = level.instantiate()
 	add_child(instance)
 	instance.global_position = Vector2(0, _game_height)
-	_game_height += new_level_height
+	_game_height -= new_level_height
+	print('LEVEL HEIGHT: ', _game_height)
 
 
 func spawn_new_level():
