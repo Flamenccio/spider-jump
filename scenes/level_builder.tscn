@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://b48my00oe5b5y"]
+[gd_scene load_steps=11 format=4 uid="uid://b48my00oe5b5y"]
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
-[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="3_6artv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -79,23 +78,20 @@ size = Vector2(8, 80)
 
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_77rll")
-_level_name = "base"
 _save_path = "res://levels/"
+_load_level_name = "base"
+_load_path = "res://levels/"
 
 [node name="Ground" type="TileMapLayer" parent="."]
-texture_filter = 1
 tile_map_data = PackedByteArray("AAD//wAAAAAKAAAAAAAAAAAAAAAKAAAAAAD+/wAAAAAKAAAAAAABAAAAAAAKAAAAAAACAAAAAAAKAAAAAAD9/wAAAAAKAAAAAAD8/wAAAAAKAAAAAAADAAAAAAAKAAAAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAD5//v/AAALAAEAAAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPb/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPj/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAPr/AAAJAAEAAAAGAPv/AAAJAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAAGAAAAAAAKAAEAAAD5/wAAAAAKAAEAAAD6/wAAAAAKAAAAAAD7/wAAAAAKAAAAAAAEAAAAAAAKAAAAAAAFAAAAAAAKAAAAAAA=")
 tile_set = SubResource("TileSet_tlwt5")
 
 [node name="Slip" type="TileMapLayer" parent="."]
-texture_filter = 1
 tile_set = SubResource("TileSet_cbp6q")
 
 [node name="GroundCollider" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("3_6artv")
-tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="GroundCollider"]
 position = Vector2(-52, -40)
