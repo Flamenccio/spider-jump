@@ -264,16 +264,17 @@ _crawl_speed = 15.0
 _player_rb = NodePath("../..")
 action_active = true
 
-[node name="Jump" type="Node" parent="Actions" node_paths=PackedStringArray("_player_rb")]
+[node name="Jump" type="Node" parent="Actions" node_paths=PackedStringArray("_ground_raycast", "_player_rb")]
 script = ExtResource("14_dt7fs")
 _jump_force = 20.0
+_ground_raycast = NodePath("../../Raycasters/GroundRaycast")
 _player_rb = NodePath("../..")
 action_active = true
 metadata/_custom_type_script = "uid://btqms6rhikc4v"
 
 [node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast")]
 script = ExtResource("15_wqfne")
-_ground_raycast = NodePath("../Detectors/GroundRaycast")
+_ground_raycast = NodePath("../Raycasters/GroundRaycast")
 
 [node name="Detectors" type="Node2D" parent="."]
 
@@ -295,14 +296,16 @@ priority = 2
 [node name="Collider" type="CollisionShape2D" parent="Detectors/SlipDetector"]
 shape = ExtResource("16_wnwbv")
 
-[node name="GroundRaycast" type="Node" parent="Detectors" node_paths=PackedStringArray("_raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 2
-_raycast_source = NodePath("../..")
-
 [node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
 script = ExtResource("18_fulsm")
 _sprite = NodePath("../Sprite")
+
+[node name="Raycasters" type="Node" parent="."]
+
+[node name="GroundRaycast" type="Node" parent="Raycasters" node_paths=PackedStringArray("_raycast_source")]
+script = ExtResource("16_qfm1y")
+_raycast_layer = 2
+_raycast_source = NodePath("../..")
 
 [connection signal="internal_move_input_change" from="." to="Actions/Crawl" method="_on_move_input_change"]
 [connection signal="internal_pull_input_change" from="." to="Actions/Jump" method="_on_input_service_pull_input_change"]
@@ -319,8 +322,7 @@ _sprite = NodePath("../Sprite")
 [connection signal="grounded" from="StateMachine/Ground" to="Actions/Jump" method="set_active"]
 [connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="." method="on_unstick"]
 [connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="Actions/Crawl" method="set_active"]
-[connection signal="jump_charge" from="Actions/Jump" to="AnimationHandler" method="on_player_jump_ready"]
-[connection signal="jump_release" from="Actions/Jump" to="AnimationHandler" method="on_player_jump"]
+[connection signal="play_animation" from="Actions/Jump" to="Sprite" method="play" binds= [1.0, false]]
 [connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
 [connection signal="set_state_machine_condition" from="CollisionHandler" to="StateMachine" method="set_property"]
 [connection signal="body_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_entered"]
