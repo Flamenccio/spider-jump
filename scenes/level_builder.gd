@@ -21,4 +21,9 @@ func _save() -> void:
 	print('level builder: saving...')
 	var saved_level = SavedLevel.new()
 	saved_level.save_level(self as Node2D)
-	ResourceSaver.save(saved_level, _save_path + _level_name + _SAVE_EXTENSION)
+	var result = ResourceSaver.save(saved_level, _save_path + _level_name + _SAVE_EXTENSION)
+
+	if result != OK:
+		printerr('level builder: something went wrong')
+	else:
+		print('level builder: successfully saved level at "{0}"'.format({'0': _save_path + _level_name + _SAVE_EXTENSION}))
