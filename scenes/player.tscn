@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=41 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -16,8 +16,6 @@
 [ext_resource type="Script" uid="uid://dmmbpsi8ggh0o" path="res://jump.gd" id="14_dt7fs"]
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://collision_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://ground_raycast.gd" id="16_qfm1y"]
-[ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="16_wnwbv"]
-[ext_resource type="Script" uid="uid://cgp4fe4l1vgna" path="res://animation_handler.gd" id="18_fulsm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f3sb7"]
 bounce = 1.0
@@ -115,13 +113,6 @@ conditions = {
 }
 priority = 0
 
-[sub_resource type="Resource" id="Resource_a8ls1"]
-script = ExtResource("8_4ni07")
-from = "Entry"
-to = "Air"
-conditions = {}
-priority = 0
-
 [sub_resource type="Resource" id="Resource_bc84e"]
 script = ExtResource("7_a38lo")
 value = false
@@ -182,6 +173,13 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_a8ls1"]
+script = ExtResource("8_4ni07")
+from = "Entry"
+to = "Ground"
+conditions = {}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_mc2jv"]
 script = ExtResource("5_60mlk")
 states = {
@@ -196,7 +194,7 @@ transitions = {
 "SlipperyGround": SubResource("Resource_4h6ng")
 },
 "Entry": {
-"Air": SubResource("Resource_a8ls1")
+"Ground": SubResource("Resource_a8ls1")
 },
 "Ground": {
 "Air": SubResource("Resource_wukud"),
@@ -217,7 +215,8 @@ physics_material_override = SubResource("PhysicsMaterial_f3sb7")
 gravity_scale = 0.333
 lock_rotation = true
 continuous_cd = 2
-max_contacts_reported = 2
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_a8ls1")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -275,30 +274,8 @@ metadata/_custom_type_script = "uid://btqms6rhikc4v"
 [node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast")]
 script = ExtResource("15_wqfne")
 _ground_raycast = NodePath("../Raycasters/GroundRaycast")
-
-[node name="Detectors" type="Node2D" parent="."]
-
-[node name="GroundDetector" type="Area2D" parent="Detectors"]
-position = Vector2(0, 1)
-collision_layer = 0
-collision_mask = 2
-priority = 2
-
-[node name="Collider" type="CollisionShape2D" parent="Detectors/GroundDetector"]
-shape = ExtResource("16_wnwbv")
-
-[node name="SlipDetector" type="Area2D" parent="Detectors"]
-position = Vector2(0, 1)
-collision_layer = 0
-collision_mask = 4
-priority = 2
-
-[node name="Collider" type="CollisionShape2D" parent="Detectors/SlipDetector"]
-shape = ExtResource("16_wnwbv")
-
-[node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("_sprite")]
-script = ExtResource("18_fulsm")
-_sprite = NodePath("../Sprite")
+_ground_layer = 2
+_slip_layer = 4
 
 [node name="Raycasters" type="Node" parent="."]
 
@@ -307,6 +284,8 @@ script = ExtResource("16_qfm1y")
 _raycast_layer = 2
 _raycast_source = NodePath("../..")
 
+[connection signal="body_shape_entered" from="." to="CollisionHandler" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="CollisionHandler" method="_on_body_shape_exited"]
 [connection signal="internal_move_input_change" from="." to="Actions/Crawl" method="_on_move_input_change"]
 [connection signal="internal_pull_input_change" from="." to="Actions/Jump" method="_on_input_service_pull_input_change"]
 [connection signal="internal_pull_press" from="." to="Actions/Jump" method="_on_input_service_pull_press"]
@@ -323,11 +302,9 @@ _raycast_source = NodePath("../..")
 [connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="." method="on_unstick"]
 [connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="Actions/Crawl" method="set_active"]
 [connection signal="play_animation" from="Actions/Jump" to="Sprite" method="play" binds= [1.0, false]]
+[connection signal="land_on_ground" from="CollisionHandler" to="Sprite" method="play" binds= ["idle", 1.0, false]]
+[connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground", true]]
 [connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
-[connection signal="set_state_machine_condition" from="CollisionHandler" to="StateMachine" method="set_property"]
-[connection signal="body_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_entered"]
-[connection signal="body_entered" from="Detectors/GroundDetector" to="AnimationHandler" method="on_player_land" unbinds=1]
-[connection signal="body_exited" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_exited"]
-[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_ground_detector_body_shape_entered"]
-[connection signal="body_entered" from="Detectors/SlipDetector" to="CollisionHandler" method="_on_slip_detector_body_entered"]
-[connection signal="body_exited" from="Detectors/SlipDetector" to="CollisionHandler" method="_on_slip_detector_body_exited"]
+[connection signal="land_on_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["slippery", true]]
+[connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground", false]]
+[connection signal="leave_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["slippery", false]]

@@ -25,19 +25,5 @@ func _on_input_service_pull_press() -> void:
 
 func _jump() -> void:
 	var jump_direction = -1 * _pull * _jump_force
-	var raycast_result = _ground_raycast.intersect_ray(jump_direction)
-
-	"""
-	# Parse raycast result
-	if raycast_result.size() > 0 and raycast_result['collider'] is StaticBody2D:
-		var raycast_body = raycast_result['collider'] as StaticBody2D
-		var raycast_shape_owner = raycast_body.shape_owner_get_owner(raycast_result['shape'])
-
-		# Do not jump if jumping onto the ground the player
-		# is standing on
-		if raycast_shape_owner == _standing_ground:
-			return
-	"""
-
 	_player_rb.apply_impulse(jump_direction)
 	play_animation.emit('jump')
