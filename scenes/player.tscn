@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://collision_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://ground_raycast.gd" id="16_qfm1y"]
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://shape_cast_check.gd" id="17_qfm1y"]
+[ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a8ls1"]
 radius = 3.0
@@ -265,11 +266,8 @@ transitions = {
 }
 name = ""
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qfm1y"]
-radius = 2.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_4r5pv"]
-radius = 4.0
+radius = 3.5
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
@@ -325,11 +323,11 @@ _player = NodePath("../..")
 [node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast", "_player")]
 script = ExtResource("15_wqfne")
 _ground_raycast = NodePath("../Raycasters/GroundRaycast")
-_ground_shapecast = NodePath("../Raycasters/GroundShapeCast")
+_ground_shapecast = NodePath("../Raycasters/GroundShapecast")
 _player = NodePath("..")
 _ground_layer = 2
 _slip_layer = 4
-_ground_shapecast_direction = Vector2(0, 3)
+_ground_raycast_direction = Vector2(0, 5)
 
 [node name="Raycasters" type="Node" parent="."]
 
@@ -338,11 +336,11 @@ script = ExtResource("16_qfm1y")
 _raycast_layer = 6
 _raycast_source = NodePath("../..")
 
-[node name="GroundShapeCast" type="Node" parent="Raycasters" node_paths=PackedStringArray("_shape_cast_origin")]
+[node name="GroundShapecast" type="Node" parent="Raycasters" node_paths=PackedStringArray("_shape_cast_origin")]
 script = ExtResource("17_qfm1y")
-_shape = SubResource("CircleShape2D_qfm1y")
+_shape = ExtResource("18_fulsm")
 _shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 6
+_shape_cast_layers = 4
 
 [node name="GroundDetector" type="Area2D" parent="."]
 position = Vector2(0, 1)

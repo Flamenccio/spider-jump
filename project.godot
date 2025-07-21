@@ -15,13 +15,17 @@ run/main_scene="uid://c6antsn5ngihu"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DebugDraw2D="*res://addons/debugdraw2d/DebugDraw2D.gd"
+
 [dotnet]
 
 project/assembly_name="spider-jump"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/imjp94.yafsm/plugin.cfg")
+enabled=PackedStringArray("res://addons/debugdraw2d/plugin.cfg", "res://addons/imjp94.yafsm/plugin.cfg")
 
 [input]
 

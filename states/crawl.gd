@@ -21,5 +21,4 @@ func tick_state(delta: float) -> void:
 	var movement = crawl_vector * _move_speed
 	_player.velocity = movement
 	_player.move_and_slide()
-	#set_shared_variable('momentum', movement)
 

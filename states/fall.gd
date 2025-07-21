@@ -7,11 +7,9 @@ var motion: Vector2
 
 func enter_state() -> void:
 	_animator.play('fall')
-	#motion = get_shared_variable('momentum')
 
 
 func tick_state(delta: float) -> void:
-	#motion += Vector2(0.0, _gravity_acceleration)
 	_player.velocity += Vector2(0.0, _gravity_acceleration)
 	_player.move_and_slide()
 

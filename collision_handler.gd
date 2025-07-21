@@ -14,7 +14,7 @@ var _ground_contacts: Array[Node]
 
 @export_flags_2d_physics var _ground_layer: int
 @export_flags_2d_physics var _slip_layer: int
-@export var _ground_shapecast_direction: Vector2
+@export var _ground_raycast_direction: Vector2
 
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
@@ -23,24 +23,16 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int) 
 
 	# Ground
 	if _is_on_collision_layer(body, _ground_layer):
-		print('enter ground: ', shape_owner)
 		if _track_ground(shape_owner):
 			land_on_ground.emit()
 			_find_normal(body, body_shape_index)
-
-	# Look for slippery ground below; add if there is any
-	var results := _ground_raycast.intersect_ray(body.global_position)
-	if results.size() > 0:
-		var collider = results['collider']
-		if _is_on_collision_layer(collider, _slip_layer):
-			if _track_ground(collider):
-				land_on_slip.emit()
+	
+	_search_for_slip(body, body_shape_index)
 
 
 func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
 	var shape_owner = body.shape_owner_get_owner(body_shape_index)
 	if _untrack_ground(shape_owner):
-		print('exit ground: ', body)
 		if _ground_contacts.size() == 0:
 			leave_ground.emit()
 
@@ -70,3 +62,38 @@ func _untrack_ground(ground: Node) -> bool:
 		return false
 	_ground_contacts.erase(ground)
 	return true
+
+
+# Look for slippery ground below; add if there is any
+func _search_for_slip(body: Node2D, shape_index: int) -> void:
+
+	if not _is_on_collision_layer(body, _slip_layer):
+		return
+	
+	var shapecast_results := _ground_shapecast.intersect_shape(_ground_raycast_direction, 4, false)
+	
+	if shapecast_results.size() == 0:
+		return
+
+	# Search for slippery ground in results
+	for result in shapecast_results:
+		var result_collider = result['collider']
+		if _is_on_collision_layer(result_collider, _slip_layer):
+			var collision_shape = result_collider.shape_owner_get_owner(shape_index)
+			if _track_ground(collision_shape):
+				land_on_slip.emit()
+	"""
+	var below_player = _player.global_position + _ground_raycast_direction
+	var results := _ground_raycast.intersect_ray(below_player)
+	if results.size() == 0:
+		return
+
+	var raycasted_body = results['collider']
+	var collider = raycasted_body.shape_owner_get_owner(shape_index)
+
+	if not _is_on_collision_layer(raycasted_body, _slip_layer):
+		return
+
+	if _track_ground(collider):
+		land_on_slip.emit()
+	"""

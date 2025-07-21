@@ -30,7 +30,6 @@ func _jump() -> void:
 	if _jumped:
 		return
 	var _jump_vector = _pull_input * _jump_force * -1
-	#set_shared_variable('momentum', _jump_vector)
 	_player.velocity = _jump_vector
 	_jumped = true
 
