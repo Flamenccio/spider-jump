@@ -3,7 +3,7 @@ class_name RaycastCheck
 extends Node
 
 @export_flags_2d_physics var _raycast_layer: int
-@export var _raycast_source: RigidBody2D
+@export var _raycast_source: Node2D
 var _raycast_query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.new()
 
 func _ready() -> void:

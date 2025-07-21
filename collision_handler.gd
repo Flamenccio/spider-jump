@@ -17,28 +17,30 @@ var _ground_contacts: Array[Node]
 @export var _ground_shapecast_direction: Vector2
 
 
-# Used by rigidbodies
-func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
+
+	var shape_owner = body.shape_owner_get_owner(body_shape_index)
 
 	# Ground
 	if _is_on_collision_layer(body, _ground_layer):
-		if _track_ground(body):
+		print('enter ground: ', shape_owner)
+		if _track_ground(shape_owner):
 			land_on_ground.emit()
 			_find_normal(body, body_shape_index)
 
 	# Look for slippery ground below; add if there is any
-	var max_results = 1
-	var results := _ground_shapecast.intersect_shape(_ground_shapecast_direction, max_results, false)
+	var results := _ground_raycast.intersect_ray(body.global_position)
 	if results.size() > 0:
-		var collider = results[0]['collider']
-		print('result: ', collider)
+		var collider = results['collider']
 		if _is_on_collision_layer(collider, _slip_layer):
 			if _track_ground(collider):
 				land_on_slip.emit()
 
 
-func _on_body_shape_exited(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	if _untrack_ground(body):
+func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
+	var shape_owner = body.shape_owner_get_owner(body_shape_index)
+	if _untrack_ground(shape_owner):
+		print('exit ground: ', body)
 		if _ground_contacts.size() == 0:
 			leave_ground.emit()
 

@@ -13,15 +13,10 @@
 [ext_resource type="Script" uid="uid://dra5x3kg80ol8" path="res://states/fall.gd" id="11_a8ls1"]
 [ext_resource type="Script" uid="uid://dr71r23trkggu" path="res://states/crawl.gd" id="11_fulsm"]
 [ext_resource type="Script" uid="uid://bq8cyg2r3e4us" path="res://states/idle.gd" id="11_oprun"]
-[ext_resource type="Script" uid="uid://xwooryy4y5og" path="res://behavior_state.gd" id="11_ujl30"]
+[ext_resource type="Script" uid="uid://de5mlnbdg5gtl" path="res://states/entry.gd" id="12_qfm1y"]
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://collision_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://ground_raycast.gd" id="16_qfm1y"]
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://shape_cast_check.gd" id="17_qfm1y"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f3sb7"]
-rough = true
-bounce = 1.0
-absorbent = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a8ls1"]
 radius = 3.0
@@ -273,17 +268,14 @@ name = ""
 [sub_resource type="CircleShape2D" id="CircleShape2D_qfm1y"]
 radius = 2.0
 
-[node name="Player" type="RigidBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4r5pv"]
+radius = 4.0
+
+[node name="Player" type="CharacterBody2D"]
 texture_filter = 1
 collision_mask = 6
 collision_priority = 50.0
-mass = 0.1
-physics_material_override = SubResource("PhysicsMaterial_f3sb7")
-gravity_scale = 0.333
-lock_rotation = true
-continuous_cd = 2
-contact_monitor = true
-max_contacts_reported = 50
+platform_floor_layers = 0
 script = ExtResource("1_a8ls1")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -304,29 +296,31 @@ script = ExtResource("4_4r5pv")
 state_machine = SubResource("Resource_mc2jv")
 metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
 
-[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rb", "_animator")]
+[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player", "_animator")]
 script = ExtResource("10_qfm1y")
-_rb = NodePath("../..")
+_player = NodePath("../..")
 _animator = NodePath("../../Sprite")
-_jump_force = 20.0
+_jump_force = 150.0
 
-[node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rb")]
+[node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
 script = ExtResource("11_fulsm")
-_rb = NodePath("../..")
+_player = NodePath("../..")
 _move_speed = 20.0
 
 [node name="Entry" type="Node" parent="StateMachine"]
-script = ExtResource("11_ujl30")
+script = ExtResource("12_qfm1y")
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator")]
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("11_a8ls1")
 _animator = NodePath("../../Sprite")
+_player = NodePath("../..")
+_gravity_acceleration = 3.263
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_rb")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("11_oprun")
 _animator = NodePath("../../Sprite")
 _gravity_scale = 0.33
-_rb = NodePath("../..")
+_player = NodePath("../..")
 
 [node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast", "_player")]
 script = ExtResource("15_wqfne")
@@ -350,8 +344,16 @@ _shape = SubResource("CircleShape2D_qfm1y")
 _shape_cast_origin = NodePath("../..")
 _shape_cast_layers = 6
 
-[connection signal="body_shape_entered" from="." to="CollisionHandler" method="_on_body_shape_entered"]
-[connection signal="body_shape_exited" from="." to="CollisionHandler" method="_on_body_shape_exited"]
+[node name="GroundDetector" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 6
+collision_priority = 5.0
+priority = 5
+
+[node name="Shape" type="CollisionShape2D" parent="GroundDetector"]
+shape = SubResource("CircleShape2D_4r5pv")
+
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
 [connection signal="internal_pull_press" from="." to="StateMachine" method="set_property" binds= ["aim", true]]
@@ -359,6 +361,7 @@ _shape_cast_layers = 6
 [connection signal="internal_pull_release" from="." to="StateMachine" method="set_property" binds= ["aim", false]]
 [connection signal="moving" from="." to="StateMachine" method="set_property" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachine" method="set_property" binds= ["crawl", false]]
+[connection signal="ready" from="StateMachine" to="StateMachine/Entry" method="_machine_ready"]
 [connection signal="entered" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_entered"]
 [connection signal="exited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_exited"]
 [connection signal="transited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="state_transition"]
@@ -368,3 +371,5 @@ _shape_cast_layers = 6
 [connection signal="land_on_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "slip"]]
 [connection signal="leave_ground" from="CollisionHandler" to="." method="on_unstick"]
 [connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "air"]]
+[connection signal="body_shape_entered" from="GroundDetector" to="CollisionHandler" method="_on_body_shape_entered" unbinds=1]
+[connection signal="body_shape_exited" from="GroundDetector" to="CollisionHandler" method="_on_body_shape_exited" unbinds=1]
