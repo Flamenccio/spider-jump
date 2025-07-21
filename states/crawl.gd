@@ -15,10 +15,11 @@ func tick_state(delta: float) -> void:
 
 	# Only move and collide when input is given
 	if crawl_vector.length() == 0:
-		set_shared_variable('momentum', Vector2.ZERO)
+		_player.velocity = Vector2.ZERO
 		return
 
-	var movement = crawl_vector * _move_speed * delta
-	_player.move_and_collide(movement)
-	set_shared_variable('momentum', movement)
+	var movement = crawl_vector * _move_speed
+	_player.velocity = movement
+	_player.move_and_slide()
+	#set_shared_variable('momentum', movement)
 

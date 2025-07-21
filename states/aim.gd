@@ -3,7 +3,6 @@ extends BehaviorState
 @export var _player: CharacterBody2D
 @export var _animator: AnimatedSprite2D
 @export var _jump_force: float = 1.0
-var _jump_vector: Vector2
 var _pull_input: Vector2
 var _jumped: bool = false
 
@@ -28,13 +27,16 @@ func _on_pull_input_change(input: Vector2) -> void:
 
 
 func _jump() -> void:
-	_jump_vector = _pull_input * _jump_force * -1
-	set_shared_variable('momentum', _jump_vector)
+	if _jumped:
+		return
+	var _jump_vector = _pull_input * _jump_force * -1
+	#set_shared_variable('momentum', _jump_vector)
+	_player.velocity = _jump_vector
 	_jumped = true
 
 
 func tick_state(delta: float) -> void:
 	if not _jumped:
 		return
-	_player.move_and_collide(_jump_vector * delta)
+	_player.move_and_slide()
 	

@@ -13,14 +13,6 @@ func _ready() -> void:
 	pass
 
 
-func on_stick() -> void:
-	pass
-
-
-func on_unstick() -> void:
-	pass
-
-
 func _on_input_service_move_input_change(move_input: Vector2) -> void:
 	internal_move_input_change.emit(move_input)
 
