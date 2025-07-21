@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends CharacterBody2D
 
 signal internal_move_input_change(move_input: Vector2)
 signal internal_pull_input_change(pull_input: Vector2)
@@ -10,16 +10,7 @@ signal moving()
 var _gravity_scale: float
 
 func _ready() -> void:
-	_gravity_scale = gravity_scale
-
-
-func on_stick() -> void:
-	linear_velocity = Vector2.ZERO
-	gravity_scale = 0.0
-
-
-func on_unstick() -> void:
-	gravity_scale = _gravity_scale
+	pass
 
 
 func _on_input_service_move_input_change(move_input: Vector2) -> void:
