@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=19 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/ground.tscn" id="1_cnaw2"]
 [ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="2_cnaw2"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="17_8pq1f"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="18_nxmw1"]
 [ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="19_lvae5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cnaw2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbp6q"]
 size = Vector2(8, 64)
@@ -65,6 +67,7 @@ _pull_origin = NodePath("../Player")
 [node name="TestTilemapBaked" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_cnaw2")
 script = ExtResource("19_lvae5")
 tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 

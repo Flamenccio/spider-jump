@@ -4,6 +4,8 @@ signal internal_move_input_change(move_input: Vector2)
 signal internal_pull_input_change(pull_input: Vector2)
 signal internal_pull_release()
 signal internal_pull_press()
+signal stop_moving()
+signal moving()
 
 var _gravity_scale: float
 
@@ -12,8 +14,8 @@ func _ready() -> void:
 
 
 func on_stick() -> void:
-	gravity_scale = 0.0
 	linear_velocity = Vector2.ZERO
+	gravity_scale = 0.0
 
 
 func on_unstick() -> void:
@@ -22,6 +24,11 @@ func on_unstick() -> void:
 
 func _on_input_service_move_input_change(move_input: Vector2) -> void:
 	internal_move_input_change.emit(move_input)
+
+	if move_input.x == 0:
+		stop_moving.emit()
+	else:
+		moving.emit()
 
 
 func _on_input_service_pull_input_change(pull_input: Vector2) -> void:

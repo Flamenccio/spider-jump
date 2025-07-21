@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=51 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -8,33 +8,35 @@
 [ext_resource type="Script" uid="uid://bky7ul11nw1di" path="res://addons/imjp94.yafsm/src/states/State.gd" id="6_i4ail"]
 [ext_resource type="Script" uid="uid://lktmiahi8nk5" path="res://addons/imjp94.yafsm/src/conditions/BooleanCondition.gd" id="7_a38lo"]
 [ext_resource type="Script" uid="uid://6tfu5odia6si" path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" id="8_4ni07"]
-[ext_resource type="Script" uid="uid://c214krfrcv5go" path="res://behavior_state/player/air.gd" id="9_l71n6"]
-[ext_resource type="Script" uid="uid://ususr26pgf2u" path="res://behavior_state/player/ground.gd" id="10_ke2ow"]
+[ext_resource type="Script" uid="uid://bn4cwp0ij0ji7" path="res://addons/imjp94.yafsm/src/conditions/StringCondition.gd" id="9_f1ej7"]
+[ext_resource type="Script" uid="uid://bdjhjbk0dk4pt" path="res://states/aim.gd" id="10_qfm1y"]
+[ext_resource type="Script" uid="uid://dra5x3kg80ol8" path="res://states/fall.gd" id="11_a8ls1"]
+[ext_resource type="Script" uid="uid://dr71r23trkggu" path="res://states/crawl.gd" id="11_fulsm"]
+[ext_resource type="Script" uid="uid://bq8cyg2r3e4us" path="res://states/idle.gd" id="11_oprun"]
 [ext_resource type="Script" uid="uid://xwooryy4y5og" path="res://behavior_state.gd" id="11_ujl30"]
-[ext_resource type="Script" uid="uid://vkr7jdskxn60" path="res://behavior_state/player/slippery.gd" id="12_31cv2"]
-[ext_resource type="Script" uid="uid://ckhvctyix6juc" path="res://crawl.gd" id="13_pf23h"]
-[ext_resource type="Script" uid="uid://dmmbpsi8ggh0o" path="res://jump.gd" id="14_dt7fs"]
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://collision_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://ground_raycast.gd" id="16_qfm1y"]
+[ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://shape_cast_check.gd" id="17_qfm1y"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f3sb7"]
+rough = true
 bounce = 1.0
 absorbent = true
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pkg7o"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_a8ls1"]
 radius = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
 atlas = ExtResource("2_qfm1y")
 region = Rect2(16, 80, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_036b0"]
-atlas = ExtResource("2_qfm1y")
-region = Rect2(0, 80, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
 atlas = ExtResource("2_qfm1y")
 region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_036b0"]
+atlas = ExtResource("2_qfm1y")
+region = Rect2(0, 80, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f3sb7"]
 animations = [{
@@ -43,7 +45,15 @@ animations = [{
 "texture": SubResource("AtlasTexture_qfm1y")
 }],
 "loop": false,
-"name": &"charge",
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}],
+"loop": false,
+"name": &"fall",
 "speed": 5.0
 }, {
 "frames": [{
@@ -53,179 +63,236 @@ animations = [{
 "loop": false,
 "name": &"idle",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fulsm")
-}],
-"loop": false,
-"name": &"jump",
-"speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_cbp6q"]
+[sub_resource type="Resource" id="Resource_jej6c"]
 script = ExtResource("6_i4ail")
-name = "Air"
-metadata/graph_offset = Vector2(388, -2.5)
+name = "Aim"
+metadata/graph_offset = Vector2(768, 157.5)
+
+[sub_resource type="Resource" id="Resource_3v2ag"]
+script = ExtResource("6_i4ail")
+name = "Crawl"
+metadata/graph_offset = Vector2(408, 437.5)
 
 [sub_resource type="Resource" id="Resource_udxuc"]
 script = ExtResource("6_i4ail")
 name = "Entry"
-metadata/graph_offset = Vector2(168, 157.5)
+metadata/graph_offset = Vector2(208, 157.5)
 
-[sub_resource type="Resource" id="Resource_ikiii"]
+[sub_resource type="Resource" id="Resource_f1ej7"]
 script = ExtResource("6_i4ail")
-name = "Ground"
-metadata/graph_offset = Vector2(388, 377.5)
+name = "Fall"
+metadata/graph_offset = Vector2(768, 437.5)
 
-[sub_resource type="Resource" id="Resource_2u3nc"]
+[sub_resource type="Resource" id="Resource_d2wvv"]
 script = ExtResource("6_i4ail")
-name = "SlipperyGround"
-metadata/graph_offset = Vector2(770.5, -2.5)
+name = "Idle"
+metadata/graph_offset = Vector2(408, 157.5)
 
-[sub_resource type="Resource" id="Resource_il2jm"]
-script = ExtResource("7_a38lo")
-value = true
-comparation = 0
-name = "ground"
-
-[sub_resource type="Resource" id="Resource_wjb0r"]
-script = ExtResource("8_4ni07")
-from = "Air"
-to = "Ground"
-conditions = {
-"ground": SubResource("Resource_il2jm")
-}
-priority = 0
-
-[sub_resource type="Resource" id="Resource_bo7i5"]
-script = ExtResource("7_a38lo")
-value = true
-comparation = 0
-name = "slippery"
-
-[sub_resource type="Resource" id="Resource_4h6ng"]
-script = ExtResource("8_4ni07")
-from = "Air"
-to = "SlipperyGround"
-conditions = {
-"slippery": SubResource("Resource_bo7i5")
-}
-priority = 0
-
-[sub_resource type="Resource" id="Resource_bc84e"]
+[sub_resource type="Resource" id="Resource_gl8cc"]
 script = ExtResource("7_a38lo")
 value = false
 comparation = 0
-name = "ground"
+name = "aim"
 
-[sub_resource type="Resource" id="Resource_wukud"]
+[sub_resource type="Resource" id="Resource_md1ol"]
+script = ExtResource("9_f1ej7")
+value = "air"
+comparation = 0
+name = "ground_type"
+
+[sub_resource type="Resource" id="Resource_a38lo"]
 script = ExtResource("8_4ni07")
-from = "Ground"
-to = "Air"
+from = "Aim"
+to = "Fall"
 conditions = {
-"ground": SubResource("Resource_bc84e")
+"aim": SubResource("Resource_gl8cc"),
+"ground_type": SubResource("Resource_md1ol")
 }
 priority = 0
 
-[sub_resource type="Resource" id="Resource_bh8nc"]
+[sub_resource type="Resource" id="Resource_pf23h"]
 script = ExtResource("7_a38lo")
 value = true
 comparation = 0
-name = "slippery"
+name = "aim"
 
-[sub_resource type="Resource" id="Resource_jjr1n"]
+[sub_resource type="Resource" id="Resource_dt7fs"]
+script = ExtResource("9_f1ej7")
+value = "slip"
+comparation = 1
+name = "ground_type"
+
+[sub_resource type="Resource" id="Resource_4r5pv"]
 script = ExtResource("8_4ni07")
-from = "Ground"
-to = "SlipperyGround"
+from = "Crawl"
+to = "Aim"
 conditions = {
-"slippery": SubResource("Resource_bh8nc")
+"aim": SubResource("Resource_pf23h"),
+"ground_type": SubResource("Resource_dt7fs")
 }
 priority = 0
 
-[sub_resource type="Resource" id="Resource_o3ebs"]
+[sub_resource type="Resource" id="Resource_wnwbv"]
+script = ExtResource("9_f1ej7")
+value = "air"
+comparation = 0
+name = "ground_type"
+
+[sub_resource type="Resource" id="Resource_i4ail"]
+script = ExtResource("8_4ni07")
+from = "Crawl"
+to = "Fall"
+conditions = {
+"ground_type": SubResource("Resource_wnwbv")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_wqfne"]
 script = ExtResource("7_a38lo")
 value = false
 comparation = 0
-name = "slippery"
+name = "crawl"
 
-[sub_resource type="Resource" id="Resource_k83mh"]
+[sub_resource type="Resource" id="Resource_60mlk"]
 script = ExtResource("8_4ni07")
-from = "SlipperyGround"
-to = "Air"
+from = "Crawl"
+to = "Idle"
 conditions = {
-"slippery": SubResource("Resource_o3ebs")
+"crawl": SubResource("Resource_wqfne")
 }
 priority = 0
 
-[sub_resource type="Resource" id="Resource_w44yn"]
+[sub_resource type="Resource" id="Resource_oprun"]
+script = ExtResource("8_4ni07")
+from = "Entry"
+to = "Idle"
+conditions = {}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_487ah"]
+script = ExtResource("9_f1ej7")
+value = "air"
+comparation = 1
+name = "ground_type"
+
+[sub_resource type="Resource" id="Resource_4ni07"]
+script = ExtResource("8_4ni07")
+from = "Fall"
+to = "Idle"
+conditions = {
+"ground_type": SubResource("Resource_487ah")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_l71n6"]
 script = ExtResource("7_a38lo")
-value = false
+value = true
 comparation = 0
-name = "slippery"
+name = "aim"
 
-[sub_resource type="Resource" id="Resource_g1i3r"]
-script = ExtResource("8_4ni07")
-from = "SlipperyGround"
-to = "Ground"
-conditions = {
-"slippery": SubResource("Resource_w44yn")
-}
-priority = 0
+[sub_resource type="Resource" id="Resource_ke2ow"]
+script = ExtResource("9_f1ej7")
+value = "slip"
+comparation = 1
+name = "ground_type"
 
 [sub_resource type="Resource" id="Resource_a8ls1"]
 script = ExtResource("8_4ni07")
-from = "Entry"
-to = "Ground"
-conditions = {}
+from = "Idle"
+to = "Aim"
+conditions = {
+"aim": SubResource("Resource_l71n6"),
+"ground_type": SubResource("Resource_ke2ow")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_ujl30"]
+script = ExtResource("7_a38lo")
+value = true
+comparation = 0
+name = "crawl"
+
+[sub_resource type="Resource" id="Resource_qfm1y"]
+script = ExtResource("8_4ni07")
+from = "Idle"
+to = "Crawl"
+conditions = {
+"crawl": SubResource("Resource_ujl30")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_31cv2"]
+script = ExtResource("9_f1ej7")
+value = "air"
+comparation = 0
+name = "ground_type"
+
+[sub_resource type="Resource" id="Resource_fulsm"]
+script = ExtResource("8_4ni07")
+from = "Idle"
+to = "Fall"
+conditions = {
+"ground_type": SubResource("Resource_31cv2")
+}
 priority = 0
 
 [sub_resource type="Resource" id="Resource_mc2jv"]
 script = ExtResource("5_60mlk")
 states = {
-"Air": SubResource("Resource_cbp6q"),
+"Aim": SubResource("Resource_jej6c"),
+"Crawl": SubResource("Resource_3v2ag"),
 "Entry": SubResource("Resource_udxuc"),
-"Ground": SubResource("Resource_ikiii"),
-"SlipperyGround": SubResource("Resource_2u3nc")
+"Fall": SubResource("Resource_f1ej7"),
+"Idle": SubResource("Resource_d2wvv")
 }
 transitions = {
-"Air": {
-"Ground": SubResource("Resource_wjb0r"),
-"SlipperyGround": SubResource("Resource_4h6ng")
+"Aim": {
+"Fall": SubResource("Resource_a38lo")
+},
+"Crawl": {
+"Aim": SubResource("Resource_4r5pv"),
+"Fall": SubResource("Resource_i4ail"),
+"Idle": SubResource("Resource_60mlk")
 },
 "Entry": {
-"Ground": SubResource("Resource_a8ls1")
+"Idle": SubResource("Resource_oprun")
 },
-"Ground": {
-"Air": SubResource("Resource_wukud"),
-"SlipperyGround": SubResource("Resource_jjr1n")
+"Fall": {
+"Idle": SubResource("Resource_4ni07")
 },
-"SlipperyGround": {
-"Air": SubResource("Resource_k83mh"),
-"Ground": SubResource("Resource_g1i3r")
+"Idle": {
+"Aim": SubResource("Resource_a8ls1"),
+"Crawl": SubResource("Resource_qfm1y"),
+"Fall": SubResource("Resource_fulsm")
 }
 }
 name = ""
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qfm1y"]
+radius = 2.0
+
 [node name="Player" type="RigidBody2D"]
 texture_filter = 1
 collision_mask = 6
+collision_priority = 50.0
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_f3sb7")
 gravity_scale = 0.333
 lock_rotation = true
 continuous_cd = 2
 contact_monitor = true
-max_contacts_reported = 10
+max_contacts_reported = 50
 script = ExtResource("1_a8ls1")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_pkg7o")
+shape = SubResource("CircleShape2D_a8ls1")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f3sb7")
-animation = &"charge"
+animation = &"aim"
 autoplay = "idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
@@ -237,74 +304,67 @@ script = ExtResource("4_4r5pv")
 state_machine = SubResource("Resource_mc2jv")
 metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
 
-[node name="Air" type="Node" parent="StateMachine"]
-script = ExtResource("9_l71n6")
+[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rb", "_animator")]
+script = ExtResource("10_qfm1y")
+_rb = NodePath("../..")
+_animator = NodePath("../../Sprite")
+_jump_force = 20.0
 
-[node name="Ground" type="Node" parent="StateMachine"]
-script = ExtResource("10_ke2ow")
+[node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rb")]
+script = ExtResource("11_fulsm")
+_rb = NodePath("../..")
+_move_speed = 20.0
 
 [node name="Entry" type="Node" parent="StateMachine"]
 script = ExtResource("11_ujl30")
-metadata/_custom_type_script = "uid://xwooryy4y5og"
 
-[node name="Exit" type="Node" parent="StateMachine"]
-script = ExtResource("11_ujl30")
-metadata/_custom_type_script = "uid://xwooryy4y5og"
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator")]
+script = ExtResource("11_a8ls1")
+_animator = NodePath("../../Sprite")
 
-[node name="SlipperyGround" type="Node" parent="StateMachine"]
-script = ExtResource("12_31cv2")
-metadata/_custom_type_script = "uid://xwooryy4y5og"
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_rb")]
+script = ExtResource("11_oprun")
+_animator = NodePath("../../Sprite")
+_gravity_scale = 0.33
+_rb = NodePath("../..")
 
-[node name="Actions" type="Node" parent="."]
-
-[node name="Crawl" type="Node" parent="Actions" node_paths=PackedStringArray("_player_rb")]
-script = ExtResource("13_pf23h")
-_crawl_speed = 15.0
-_player_rb = NodePath("../..")
-action_active = true
-
-[node name="Jump" type="Node" parent="Actions" node_paths=PackedStringArray("_ground_raycast", "_player_rb")]
-script = ExtResource("14_dt7fs")
-_jump_force = 20.0
-_ground_raycast = NodePath("../../Raycasters/GroundRaycast")
-_player_rb = NodePath("../..")
-action_active = true
-metadata/_custom_type_script = "uid://btqms6rhikc4v"
-
-[node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast")]
+[node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast", "_player")]
 script = ExtResource("15_wqfne")
 _ground_raycast = NodePath("../Raycasters/GroundRaycast")
+_ground_shapecast = NodePath("../Raycasters/GroundShapeCast")
+_player = NodePath("..")
 _ground_layer = 2
 _slip_layer = 4
+_ground_shapecast_direction = Vector2(0, 3)
 
 [node name="Raycasters" type="Node" parent="."]
 
 [node name="GroundRaycast" type="Node" parent="Raycasters" node_paths=PackedStringArray("_raycast_source")]
 script = ExtResource("16_qfm1y")
-_raycast_layer = 2
+_raycast_layer = 6
 _raycast_source = NodePath("../..")
+
+[node name="GroundShapeCast" type="Node" parent="Raycasters" node_paths=PackedStringArray("_shape_cast_origin")]
+script = ExtResource("17_qfm1y")
+_shape = SubResource("CircleShape2D_qfm1y")
+_shape_cast_origin = NodePath("../..")
+_shape_cast_layers = 6
 
 [connection signal="body_shape_entered" from="." to="CollisionHandler" method="_on_body_shape_entered"]
 [connection signal="body_shape_exited" from="." to="CollisionHandler" method="_on_body_shape_exited"]
-[connection signal="internal_move_input_change" from="." to="Actions/Crawl" method="_on_move_input_change"]
-[connection signal="internal_pull_input_change" from="." to="Actions/Jump" method="_on_input_service_pull_input_change"]
-[connection signal="internal_pull_press" from="." to="Actions/Jump" method="_on_input_service_pull_press"]
-[connection signal="internal_pull_release" from="." to="Actions/Jump" method="_on_input_service_pull_release"]
+[connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
+[connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
+[connection signal="internal_pull_press" from="." to="StateMachine" method="set_property" binds= ["aim", true]]
+[connection signal="internal_pull_release" from="." to="StateMachine/Aim" method="_on_pull_release"]
+[connection signal="internal_pull_release" from="." to="StateMachine" method="set_property" binds= ["aim", false]]
+[connection signal="moving" from="." to="StateMachine" method="set_property" binds= ["crawl", true]]
+[connection signal="stop_moving" from="." to="StateMachine" method="set_property" binds= ["crawl", false]]
 [connection signal="entered" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_entered"]
 [connection signal="exited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_exited"]
 [connection signal="transited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="state_transition"]
-[connection signal="airborne" from="StateMachine/Air" to="." method="on_unstick"]
-[connection signal="airborne" from="StateMachine/Air" to="Actions/Crawl" method="set_inactive"]
-[connection signal="airborne" from="StateMachine/Air" to="Actions/Jump" method="set_inactive"]
-[connection signal="grounded" from="StateMachine/Ground" to="." method="on_stick"]
-[connection signal="grounded" from="StateMachine/Ground" to="Actions/Crawl" method="set_active"]
-[connection signal="grounded" from="StateMachine/Ground" to="Actions/Jump" method="set_active"]
-[connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="." method="on_unstick"]
-[connection signal="slippery_grounded" from="StateMachine/SlipperyGround" to="Actions/Crawl" method="set_active"]
-[connection signal="play_animation" from="Actions/Jump" to="Sprite" method="play" binds= [1.0, false]]
-[connection signal="land_on_ground" from="CollisionHandler" to="Sprite" method="play" binds= ["idle", 1.0, false]]
-[connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground", true]]
+[connection signal="land_on_ground" from="CollisionHandler" to="." method="on_stick"]
+[connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "ground"]]
 [connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
-[connection signal="land_on_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["slippery", true]]
-[connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground", false]]
-[connection signal="leave_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["slippery", false]]
+[connection signal="land_on_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "slip"]]
+[connection signal="leave_ground" from="CollisionHandler" to="." method="on_unstick"]
+[connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "air"]]

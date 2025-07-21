@@ -4,17 +4,22 @@ extends PlayerAction
 var _move_input: Vector2
 
 func _ready() -> void:
+	"""
 	if _player_rb == null:
 		printerr('crawl: rb is null')
 		return
+	"""
+	pass
 
 
 func _on_move_input_change(move_input: Vector2) -> void:
-	_move_input = move_input
+	#_move_input = move_input
+	pass
 
 
 func _physics_process(delta: float) -> void:
-
+	
+	"""
 	if not action_active:
 		return
 
@@ -26,3 +31,4 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_player_rb.move_and_collide(crawl_vector * _crawl_speed * delta)
+	"""
