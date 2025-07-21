@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=55 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -64,12 +64,12 @@ animations = [{
 [sub_resource type="Resource" id="Resource_jej6c"]
 script = ExtResource("6_i4ail")
 name = "Aim"
-metadata/graph_offset = Vector2(768, 157.5)
+metadata/graph_offset = Vector2(908, -2.5)
 
 [sub_resource type="Resource" id="Resource_3v2ag"]
 script = ExtResource("6_i4ail")
 name = "Crawl"
-metadata/graph_offset = Vector2(408, 437.5)
+metadata/graph_offset = Vector2(368, 457.5)
 
 [sub_resource type="Resource" id="Resource_udxuc"]
 script = ExtResource("6_i4ail")
@@ -79,12 +79,12 @@ metadata/graph_offset = Vector2(208, 157.5)
 [sub_resource type="Resource" id="Resource_f1ej7"]
 script = ExtResource("6_i4ail")
 name = "Fall"
-metadata/graph_offset = Vector2(768, 437.5)
+metadata/graph_offset = Vector2(908, 457.5)
 
 [sub_resource type="Resource" id="Resource_d2wvv"]
 script = ExtResource("6_i4ail")
 name = "Idle"
-metadata/graph_offset = Vector2(408, 157.5)
+metadata/graph_offset = Vector2(368, -2.5)
 
 [sub_resource type="Resource" id="Resource_gl8cc"]
 script = ExtResource("7_a38lo")
@@ -93,6 +93,12 @@ comparation = 0
 name = "aim"
 
 [sub_resource type="Resource" id="Resource_md1ol"]
+script = ExtResource("7_a38lo")
+value = true
+comparation = 0
+name = "jump"
+
+[sub_resource type="Resource" id="Resource_t4otl"]
 script = ExtResource("9_f1ej7")
 value = "air"
 comparation = 0
@@ -104,7 +110,30 @@ from = "Aim"
 to = "Fall"
 conditions = {
 "aim": SubResource("Resource_gl8cc"),
-"ground_type": SubResource("Resource_md1ol")
+"ground_type": SubResource("Resource_t4otl"),
+"jump": SubResource("Resource_md1ol")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_bj30b"]
+script = ExtResource("7_a38lo")
+value = false
+comparation = 0
+name = "aim"
+
+[sub_resource type="Resource" id="Resource_hax0n"]
+script = ExtResource("7_a38lo")
+value = false
+comparation = 0
+name = "jump"
+
+[sub_resource type="Resource" id="Resource_jc3p3"]
+script = ExtResource("8_4ni07")
+from = "Aim"
+to = "Idle"
+conditions = {
+"aim": SubResource("Resource_bj30b"),
+"jump": SubResource("Resource_hax0n")
 }
 priority = 0
 
@@ -245,7 +274,8 @@ states = {
 }
 transitions = {
 "Aim": {
-"Fall": SubResource("Resource_a38lo")
+"Fall": SubResource("Resource_a38lo"),
+"Idle": SubResource("Resource_jc3p3")
 },
 "Crawl": {
 "Aim": SubResource("Resource_4r5pv"),
@@ -294,11 +324,13 @@ script = ExtResource("4_4r5pv")
 state_machine = SubResource("Resource_mc2jv")
 metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
 
-[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player", "_animator")]
+[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player", "_animator", "_collision_handler", "_ground_shapecast")]
 script = ExtResource("10_qfm1y")
 _player = NodePath("../..")
 _animator = NodePath("../../Sprite")
 _jump_force = 150.0
+_collision_handler = NodePath("../../CollisionHandler")
+_ground_shapecast = NodePath("../../Casters/GroundShapecast")
 
 [node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
 script = ExtResource("11_fulsm")
@@ -322,25 +354,32 @@ _player = NodePath("../..")
 
 [node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast", "_player")]
 script = ExtResource("15_wqfne")
-_ground_raycast = NodePath("../Raycasters/GroundRaycast")
-_ground_shapecast = NodePath("../Raycasters/GroundShapecast")
+_ground_raycast = NodePath("../Casters/GroundRaycast")
+_ground_shapecast = NodePath("../Casters/SlipShapecast")
 _player = NodePath("..")
 _ground_layer = 2
 _slip_layer = 4
 _ground_raycast_direction = Vector2(0, 5)
 
-[node name="Raycasters" type="Node" parent="."]
+[node name="Casters" type="Node" parent="."]
 
-[node name="GroundRaycast" type="Node" parent="Raycasters" node_paths=PackedStringArray("_raycast_source")]
+[node name="GroundRaycast" type="Node" parent="Casters" node_paths=PackedStringArray("_raycast_source")]
 script = ExtResource("16_qfm1y")
 _raycast_layer = 6
 _raycast_source = NodePath("../..")
 
-[node name="GroundShapecast" type="Node" parent="Raycasters" node_paths=PackedStringArray("_shape_cast_origin")]
+[node name="SlipShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
 script = ExtResource("17_qfm1y")
 _shape = ExtResource("18_fulsm")
 _shape_cast_origin = NodePath("../..")
 _shape_cast_layers = 4
+
+[node name="GroundShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
+script = ExtResource("17_qfm1y")
+_shape = ExtResource("18_fulsm")
+_shape_cast_origin = NodePath("../..")
+_shape_cast_layers = 6
+metadata/_custom_type_script = "uid://bdjmy758l3rls"
 
 [node name="GroundDetector" type="Area2D" parent="."]
 position = Vector2(0, 1)

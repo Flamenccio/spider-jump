@@ -6,4 +6,5 @@ extends BehaviorState
 
 func enter_state() -> void:
 	_player.velocity = Vector2.ZERO
+	set_property('jump', false)
 	_animator.play('idle')

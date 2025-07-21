@@ -4,6 +4,10 @@ extends BehaviorState
 @export var _move_speed: float = 1.0
 var _move_input: Vector2
 
+func enter_state() -> void:
+	set_property('jump', false)
+
+
 func _on_move_input_change(input: Vector2) -> void:
 	_move_input = input
 

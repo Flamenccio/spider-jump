@@ -11,6 +11,11 @@ signal leave_ground()
 
 # Grounds the player is currently touching
 var _ground_contacts: Array[Node]
+var ground_contacts: Array[Node]:
+	get:
+		return _ground_contacts
+	set(value):
+		return
 
 @export_flags_2d_physics var _ground_layer: int
 @export_flags_2d_physics var _slip_layer: int
@@ -70,7 +75,8 @@ func _search_for_slip(body: Node2D, shape_index: int) -> void:
 	if not _is_on_collision_layer(body, _slip_layer):
 		return
 	
-	var shapecast_results := _ground_shapecast.intersect_shape(_ground_raycast_direction, 4, false)
+	var max_results = 4
+	var shapecast_results := _ground_shapecast.intersect_shape(_ground_raycast_direction, max_results, false)
 	
 	if shapecast_results.size() == 0:
 		return
@@ -82,18 +88,4 @@ func _search_for_slip(body: Node2D, shape_index: int) -> void:
 			var collision_shape = result_collider.shape_owner_get_owner(shape_index)
 			if _track_ground(collision_shape):
 				land_on_slip.emit()
-	"""
-	var below_player = _player.global_position + _ground_raycast_direction
-	var results := _ground_raycast.intersect_ray(below_player)
-	if results.size() == 0:
-		return
 
-	var raycasted_body = results['collider']
-	var collider = raycasted_body.shape_owner_get_owner(shape_index)
-
-	if not _is_on_collision_layer(raycasted_body, _slip_layer):
-		return
-
-	if _track_ground(collider):
-		land_on_slip.emit()
-	"""
