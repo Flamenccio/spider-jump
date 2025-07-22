@@ -63,7 +63,7 @@ func _load_levels(path: String) -> Array[SavedLevel]:
 func _spawn_level(level: SavedLevel) -> void:
 	var new_level_height = level.level_height
 	var instance = level.instantiate()
-	add_child(instance)
+	call_deferred('add_child', instance)
 	instance.global_position = Vector2(0, _game_height)
 	_game_height -= new_level_height
 	new_level_spawned.emit(_game_height)
