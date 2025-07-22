@@ -89,10 +89,6 @@ pull_button={
 2d_physics/layer_2="ground"
 2d_physics/layer_3="slip"
 
-[physics]
-
-common/physics_interpolation=true
-
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

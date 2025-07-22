@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=15 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://level_spawn_trigger.gd" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://icon.svg" id="6_ryrav"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="9_vef74"]
+[ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="11_iotsf"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="11_mfdv2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
@@ -71,6 +72,8 @@ texture = ExtResource("6_ryrav")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="Hud" parent="UI" instance=ExtResource("11_iotsf")]
+
 [node name="DeathScreen" parent="UI" instance=ExtResource("9_vef74")]
 
 [node name="PlayerStats" type="Node" parent="."]
@@ -89,3 +92,4 @@ script = ExtResource("11_mfdv2")
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="player_hurt" from="PlayerStats" to="Player" method="_on_player_hurt"]
+[connection signal="stamina_updated" from="PlayerStats" to="UI/Hud" method="_on_stamina_updated"]
