@@ -1,5 +1,8 @@
 extends BehaviorState
 
+## Emitted when player succesfully jumps
+signal player_jumped()
+
 @export var _player: CharacterBody2D
 @export var _animator: AnimatedSprite2D
 @export var _jump_force: float = 1.0
@@ -45,6 +48,7 @@ func _jump() -> void:
 	set_property('jump', true)
 	_player.velocity = _jump_vector
 	_jumped = true
+	player_jumped.emit()
 
 
 func tick_state(delta: float) -> void:
