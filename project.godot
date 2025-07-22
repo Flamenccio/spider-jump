@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="spider-jump"
-run/main_scene="uid://c6antsn5ngihu"
+run/main_scene="uid://c3vqs430qpt8w"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
@@ -26,6 +26,10 @@ project/assembly_name="spider-jump"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/debugdraw2d/plugin.cfg", "res://addons/imjp94.yafsm/plugin.cfg")
+
+[global_group]
+
+player="Player character"
 
 [input]
 

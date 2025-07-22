@@ -1,9 +1,13 @@
 extends Node2D
 
+signal new_level_spawned(total_height: float)
+
 @export var _level_path: String = ''
 @export var _initial_level: SavedLevel
+@export var _spawn_trigger: Node
 var _res_regex = RegEx.new()
 var _loaded_levels: Array[SavedLevel]
+
 ## How high the tower is
 var _game_height: int = 0
 
@@ -18,7 +22,6 @@ func _ready() -> void:
 		print('level spawner: WARNING! initial level is null!')
 
 
-
 	_res_regex.compile('.*\\.res')
 	_loaded_levels = _load_levels(_level_path)
 
@@ -27,6 +30,7 @@ func _ready() -> void:
 	
 	# Spawn two levels at first
 	_spawn_level(_initial_level)
+	_spawn_trigger.call('travel_to_next_elevation')
 	spawn_new_level()
 
 
@@ -62,10 +66,11 @@ func _spawn_level(level: SavedLevel) -> void:
 	add_child(instance)
 	instance.global_position = Vector2(0, _game_height)
 	_game_height -= new_level_height
-	print('LEVEL HEIGHT: ', _game_height)
+	new_level_spawned.emit(_game_height)
 
 
 func spawn_new_level():
 	var random := _loaded_levels.pick_random() as SavedLevel
+	print('random level: ', random)
 	_spawn_level(random)
 
