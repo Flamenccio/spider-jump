@@ -7,7 +7,6 @@ var _elevation_queue: Array[float]
 
 func enqueue_elevation(elevation: float) -> void:
 	_elevation_queue.push_back(elevation)
-	print('spawn trigger: elevations: ', _elevation_queue)
 
 
 func travel_to_next_elevation() -> void:
@@ -18,7 +17,6 @@ func travel_to_next_elevation() -> void:
 
 	var next = _elevation_queue.pop_front()
 	global_position = Vector2(0.0, next)
-	print('spawn trigger: elevations: ', _elevation_queue)
 
 
 ## Immediately goes to an elevation specified.

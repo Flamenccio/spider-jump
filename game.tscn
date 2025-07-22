@@ -1,17 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=13 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://death_trigger.gd" id="2_j5wjh"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://level_spawner.gd" id="4_fc0e3"]
 [ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/base.res" id="5_7jktm"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://level_spawn_trigger.gd" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://icon.svg" id="6_ryrav"]
+[ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="9_vef74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
+size = Vector2(256, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
 size = Vector2(160, 8)
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_hve3p")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
@@ -19,6 +26,19 @@ position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 script = ExtResource("1_80nbo")
 _follow_target = NodePath("../Player")
+
+[node name="DeathTrigger" type="Area2D" parent="Camera"]
+position = Vector2(0, 98)
+collision_layer = 0
+script = ExtResource("2_j5wjh")
+
+[node name="Shape" type="CollisionShape2D" parent="Camera/DeathTrigger"]
+shape = SubResource("RectangleShape2D_eow3j")
+
+[node name="Sprite" type="Sprite2D" parent="Camera/DeathTrigger"]
+visible = false
+scale = Vector2(1.97784, 0.137882)
+texture = ExtResource("6_ryrav")
 
 [node name="Player" parent="." instance=ExtResource("2_e2o6t")]
 position = Vector2(0, -4)
@@ -47,6 +67,13 @@ shape = SubResource("RectangleShape2D_7jktm")
 scale = Vector2(1.23287, 0.04)
 texture = ExtResource("6_ryrav")
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DeathScreen" parent="UI" instance=ExtResource("9_vef74")]
+
+[connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]
+[connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
+[connection signal="player_fell" from="Camera/DeathTrigger" to="." method="game_over"]
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
 [connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]

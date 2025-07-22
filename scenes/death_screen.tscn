@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm3ht1lv7fpou"]
+
+[ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://ui_controller.gd" id="1_dwo6e"]
+[ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://icon.svg" id="1_uyutr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_itto5"]
+font_size = 96
+font_color = Color(1, 0.00392157, 0.00392157, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dwo6e")
+_visible_on_ready = false
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -322.0
+offset_right = -447.0
+offset_bottom = -194.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(8.94045, 5.02163)
+texture = ExtResource("1_uyutr")
+
+[node name="YouDiedContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -22.5
+offset_right = 96.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="YouDied" type="Label" parent="YouDiedContainer"]
+layout_mode = 2
+text = "GAME OVER!"
+label_settings = SubResource("LabelSettings_itto5")
+horizontal_alignment = 1
