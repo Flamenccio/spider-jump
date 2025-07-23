@@ -42,6 +42,8 @@ func _process(delta: float) -> void:
 		_handle_pull_input_joy()
 	else:
 		_handle_pull_input_kbm()
+	# debug draw
+	#DebugDraw2D.circle(_pull_origin.global_position, _MAX_PULL_DISTANCE, 16, Color.RED, 0.5, delta)
 
 
 func _handle_move_input() -> void:
@@ -91,3 +93,5 @@ func _deadzone(raw_input: float, deadzone: float, maximum: float) -> float:
 	var raw_input_sign = sign(raw_input)
 	var processed_input = maxf(abs(raw_input), deadzone)
 	return raw_input_sign * (processed_input - deadzone) / (maximum - deadzone)
+
+

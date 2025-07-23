@@ -10,6 +10,8 @@ func _ready() -> void:
 		return
 	if _start_full:
 		set_full()
+	else:
+		set_empty()
 
 
 func set_full() -> void:
@@ -18,4 +20,3 @@ func set_full() -> void:
 
 func set_empty() -> void:
 	texture = _empty_sprite
-

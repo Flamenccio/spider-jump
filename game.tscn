@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=18 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
@@ -8,7 +8,10 @@
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://level_spawner.gd" id="4_fc0e3"]
 [ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/base.res" id="5_7jktm"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://level_spawn_trigger.gd" id="6_eow3j"]
+[ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="6_lc2xo"]
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://icon.svg" id="6_ryrav"]
+[ext_resource type="Script" uid="uid://821p0psjcurb" path="res://pull_circle.gd" id="7_215e1"]
+[ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="8_7sc4i"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="9_vef74"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="11_iotsf"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="11_mfdv2"]
@@ -43,9 +46,6 @@ visible = false
 scale = Vector2(1.97784, 0.137882)
 texture = ExtResource("6_ryrav")
 
-[node name="Player" parent="." instance=ExtResource("2_e2o6t")]
-position = Vector2(0, -4)
-
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
 script = ExtResource("3_feb5d")
 _pull_origin = NodePath("../Player")
@@ -55,6 +55,16 @@ script = ExtResource("4_fc0e3")
 _level_path = "res://levels/"
 _initial_level = ExtResource("5_7jktm")
 _spawn_trigger = NodePath("../LevelSpawnTrigger")
+
+[node name="Player" parent="." instance=ExtResource("2_e2o6t")]
+position = Vector2(0, -4)
+
+[node name="PullCircle" type="Sprite2D" parent="Player"]
+texture = ExtResource("6_lc2xo")
+script = ExtResource("7_215e1")
+_active_sprite = ExtResource("6_lc2xo")
+_inactive_sprite = ExtResource("8_7sc4i")
+_start_active = false
 
 [node name="LevelSpawnTrigger" type="Area2D" parent="."]
 position = Vector2(0, 135)
@@ -86,7 +96,9 @@ script = ExtResource("11_mfdv2")
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
 [connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]
+[connection signal="pull_press" from="InputService" to="Player/PullCircle" method="set_active"]
 [connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]
+[connection signal="pull_release" from="InputService" to="Player/PullCircle" method="set_inactive"]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
