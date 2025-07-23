@@ -8,7 +8,8 @@ var _position: Vector2
 var _rotation: float
 
 func _save_state() -> void:
-	_position = _player.global_position
+	var rounded_position = Vector2(roundf(_player.global_position.x), roundf(_player.global_position.y))
+	_position = rounded_position
 	_rotation = _player.rotation
 
 func restore_state() -> void:
