@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=19 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="9_vef74"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="11_iotsf"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="11_mfdv2"]
+[ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://pull_dragline.gd" id="16_80cx4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -89,16 +90,26 @@ texture = ExtResource("6_ryrav")
 [node name="PlayerStats" type="Node" parent="."]
 script = ExtResource("11_mfdv2")
 
+[node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
+width = 1.0
+default_color = Color(0.160708, 0.674632, 0.996078, 1)
+script = ExtResource("16_80cx4")
+_fixed_endpoint = NodePath("../Player")
+
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]
 [connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
+[connection signal="pull_input_change" from="InputService" to="PullDragline" method="pull_update"]
 [connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]
 [connection signal="pull_press" from="InputService" to="Player/PullCircle" method="set_active"]
+[connection signal="pull_press" from="InputService" to="PullDragline" method="pull_set_active" binds= [true]]
 [connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]
 [connection signal="pull_release" from="InputService" to="Player/PullCircle" method="set_inactive"]
+[connection signal="pull_release" from="InputService" to="PullDragline" method="hide"]
+[connection signal="pull_release" from="InputService" to="PullDragline" method="pull_set_active" binds= [false]]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
