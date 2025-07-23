@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=11 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://hud.gd" id="1_oo0fn"]
+[ext_resource type="Script" uid="uid://c6idgfnvj6gyg" path="res://life.gd" id="3_6fi6k"]
+[ext_resource type="Script" uid="uid://tjmj5v6lw2as" path="res://life_bar.gd" id="3_uo2fv"]
+[ext_resource type="Texture2D" uid="uid://dj6nc2r4uunkq" path="res://sprites/life.png" id="4_uo2fv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
@@ -10,6 +13,18 @@ region = Rect2(16, 72, 32, 8)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahhtf"]
 atlas = ExtResource("1_ahhtf")
 region = Rect2(16, 64, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fi6k"]
+atlas = ExtResource("4_uo2fv")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_047uy"]
+atlas = ExtResource("4_uo2fv")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pdws"]
+atlas = ExtResource("4_uo2fv")
+region = Rect2(8, 0, 8, 8)
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -42,4 +57,42 @@ value = 50.0
 texture_under = SubResource("AtlasTexture_oo0fn")
 texture_progress = SubResource("AtlasTexture_ahhtf")
 
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 56.0
+offset_bottom = 32.0
+scale = Vector2(4, 4)
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+script = ExtResource("3_uo2fv")
+
+[node name="Life" type="TextureRect" parent="MarginContainer2/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_6fi6k")
+script = ExtResource("3_6fi6k")
+_full_sprite = SubResource("AtlasTexture_047uy")
+_empty_sprite = SubResource("AtlasTexture_5pdws")
+
+[node name="Life2" type="TextureRect" parent="MarginContainer2/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_6fi6k")
+script = ExtResource("3_6fi6k")
+_full_sprite = SubResource("AtlasTexture_047uy")
+_empty_sprite = SubResource("AtlasTexture_5pdws")
+
+[node name="Life3" type="TextureRect" parent="MarginContainer2/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_6fi6k")
+script = ExtResource("3_6fi6k")
+_full_sprite = SubResource("AtlasTexture_047uy")
+_empty_sprite = SubResource("AtlasTexture_5pdws")
+
+[connection signal="internal_health_updated" from="." to="MarginContainer2/HFlowContainer" method="display_life"]
 [connection signal="internal_stamina_updated" from="." to="MarginContainer/CenterContainer/Stamina" method="set_value"]

@@ -22,6 +22,10 @@ const _MIN_STAMINA = 0.0
 func _ready() -> void:
 	lives = _MAX_LIVES
 	stamina = _MAX_STAMINA
+	
+	# Initiate
+	stamina_updated.emit(stamina)
+	health_updated.emit(lives)
 
 
 func decrease_lives(soft: bool = false) -> void:

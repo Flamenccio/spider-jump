@@ -31,7 +31,7 @@ script = ExtResource("1_80nbo")
 _follow_target = NodePath("../Player")
 
 [node name="DeathTrigger" type="Area2D" parent="Camera"]
-position = Vector2(0, 98)
+position = Vector2(0, 89)
 collision_layer = 0
 script = ExtResource("2_j5wjh")
 
@@ -90,6 +90,7 @@ script = ExtResource("11_mfdv2")
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
+[connection signal="health_updated" from="PlayerStats" to="UI/Hud" method="_on_health_updated"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="player_hurt" from="PlayerStats" to="Player" method="_on_player_hurt"]
 [connection signal="stamina_updated" from="PlayerStats" to="UI/Hud" method="_on_stamina_updated"]
