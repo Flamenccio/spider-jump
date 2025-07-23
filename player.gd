@@ -4,7 +4,7 @@ signal internal_move_input_change(move_input: Vector2)
 signal internal_pull_input_change(pull_input: Vector2)
 signal internal_pull_release()
 signal internal_pull_press()
-signal internal_player_hurt()
+signal internal_player_hurt(soft: bool)
 signal stop_moving()
 signal moving()
 
@@ -52,7 +52,7 @@ func _rotate_against_normal(normal: Vector2) -> void:
 	rotation += difference
 
 
-func _on_player_hurt() -> void:
-	internal_player_hurt.emit()
+func _on_player_hurt(soft: bool) -> void:
+	internal_player_hurt.emit(soft)
 	_invincibility_timer.start()
 

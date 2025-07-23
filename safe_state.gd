@@ -12,7 +12,10 @@ func _save_state() -> void:
 	_position = rounded_position
 	_rotation = _player.rotation
 
-func restore_state() -> void:
+func restore_state(soft: bool) -> void:
+	if soft:
+		return
+
 	_player.global_position = _position
 	_player.rotation = _rotation
 	_player.velocity = Vector2.ZERO

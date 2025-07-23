@@ -3,11 +3,10 @@ extends Node
 ## Emitted when player loses all lives
 signal player_died()
 
-# TODO: make an option where the player does not
-# return to safe spot (losing stamina mid jump)
-
-## Emitted when player loses one life
-signal player_hurt()
+## Emitted when player loses one life.
+## If `soft` is passed as `true`, does not return player to a safe
+## position.
+signal player_hurt(soft: bool)
 
 signal stamina_updated(current_stamina: float)
 signal health_updated(current_health: int)
@@ -25,10 +24,10 @@ func _ready() -> void:
 	stamina = _MAX_STAMINA
 
 
-func decrease_lives() -> void:
+func decrease_lives(soft: bool = false) -> void:
 	if lives <= _MIN_LIVES:
 		return
-	player_hurt.emit()
+	player_hurt.emit(soft)
 	lives = maxi(lives - 1, _MIN_LIVES)
 	health_updated.emit(lives)
 	if lives <= _MIN_LIVES:
@@ -40,5 +39,5 @@ func change_stamina(amount: float) -> void:
 	stamina_updated.emit(stamina)
 	if stamina <= _MIN_STAMINA:
 		stamina = _MAX_STAMINA
-		decrease_lives()
+		decrease_lives(true)
 
