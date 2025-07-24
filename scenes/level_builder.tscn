@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
-[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="3_6artv"]
+[ext_resource type="PackedScene" uid="uid://blc53rb0cjd4p" path="res://scenes/spikes.tscn" id="3_6artv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -82,9 +82,9 @@ size = Vector2(8, 312)
 
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_77rll")
-_save_level_name = "choke"
+_save_level_name = "spikey_choke"
 _save_path = "res://levels/"
-_load_level_name = "base"
+_load_level_name = "choke"
 _load_path = "res://levels/"
 
 [node name="Ground" type="TileMapLayer" parent="."]
@@ -94,11 +94,12 @@ tile_set = SubResource("TileSet_tlwt5")
 [node name="Slip" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_cbp6q")
 
+[node name="Spikes" parent="." instance=ExtResource("3_6artv")]
+tile_map_data = PackedByteArray("AAAFAPX/AAAMAAEAAAAEAPH/AAAOAAEAAAAFAO3/AAAMAAEAAAAEAOn/AAAOAAEAAAAFAOX/AAAMAAEAAAAEAOH/AAAOAAEAAAD6//X/AAAOAAEAAAD7//H/AAAMAAEAAAD6/+3/AAAOAAEAAAD7/+n/AAAMAAEAAAD6/+X/AAAOAAEAAAD7/+H/AAAMAAEAAAAAAPL/AAANAAEAAAD///L/AAANAAEAAAD///H/AAANAAEAAAD///D/AAANAAEAAAAAAPD/AAANAAEAAAAAAPH/AAANAAEAAAAAAOb/AAANAAEAAAD//+b/AAANAAEAAAD//+X/AAANAAEAAAD//+T/AAANAAEAAAAAAOT/AAANAAEAAAAAAOX/AAANAAEAAAA=")
+
 [node name="GroundCollider" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("3_6artv")
-tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
 position = Vector2(-52, -156)

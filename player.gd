@@ -9,6 +9,7 @@ signal internal_player_hurt(soft: bool)
 
 # External use
 signal external_stamina_restore(restoration: float)
+signal external_danger_entered()
 
 # Any
 signal stop_moving()
@@ -66,3 +67,6 @@ func _on_player_hurt(soft: bool) -> void:
 func _on_stamina_restore(amount: float) -> void:
 	external_stamina_restore.emit(amount)
 
+
+func _on_danger_entered() -> void:
+	external_danger_entered.emit()

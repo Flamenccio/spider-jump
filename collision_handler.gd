@@ -9,6 +9,7 @@ signal land_on_ground()
 signal land_on_slip()
 signal leave_ground()
 signal eat_fly(stamina_restore: float)
+signal danger_entered()
 
 # Grounds the player is currently touching
 var _ground_contacts: Array[Node]
@@ -97,6 +98,10 @@ func _on_item_collided(body: Node2D) -> void:
 	var item := body as Item
 	_handle_item(item)
 	body.queue_free()
+
+
+func _on_danger_entered(body: Node2D) -> void:
+	danger_entered.emit()
 
 
 func _handle_item(item: Item) -> void:
