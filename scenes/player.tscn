@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -43,6 +43,10 @@ region = Rect2(0, 96, 16, 16)
 atlas = ExtResource("2_qfm1y")
 region = Rect2(0, 80, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
+atlas = ExtResource("2_qfm1y")
+region = Rect2(16, 96, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_f3sb7"]
 animations = [{
 "frames": [{
@@ -67,6 +71,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31cv2")
+}],
+"loop": false,
+"name": &"ko",
 "speed": 5.0
 }]
 
@@ -464,7 +476,7 @@ shape = SubResource("CircleShape2D_a8ls1")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f3sb7")
-animation = &"aim"
+animation = &"ko"
 autoplay = "idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
@@ -634,6 +646,7 @@ collision_mask = 6
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="Dust" method="set_emitting" binds= [false]]
 [connection signal="climb_finished" from="StateMachine/Climb" to="CollisionHandler" method="_recalculate_normal"]
 [connection signal="climb_finished" from="StateMachine/Climb" to="StateMachine" method="set_property" binds= ["climb", false]]
+[connection signal="player_koed" from="StateMachine/KO" to="Sprite" method="play" binds= ["ko"]]
 [connection signal="player_koed" from="StateMachine/KO" to="GroundDetector" method="set_monitoring" binds= [false]]
 [connection signal="player_koed" from="StateMachine/KO" to="ItemDetector" method="set_monitoring" binds= [false]]
 [connection signal="player_koed" from="StateMachine/KO" to="DangerDetector" method="set_monitoring" binds= [false]]
