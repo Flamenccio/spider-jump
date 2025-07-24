@@ -6,6 +6,7 @@ signal internal_pull_input_change(pull_input: Vector2)
 signal internal_pull_release()
 signal internal_pull_press()
 signal internal_player_hurt(soft: bool)
+signal internal_on_player_hurt()
 
 # External use
 signal external_stamina_restore(restoration: float)
@@ -60,7 +61,9 @@ func _rotate_against_normal(normal: Vector2) -> void:
 
 
 func _on_player_hurt(soft: bool) -> void:
+	print('ouch!')
 	internal_player_hurt.emit(soft)
+	internal_on_player_hurt.emit()
 	_invincibility_timer.start()
 
 

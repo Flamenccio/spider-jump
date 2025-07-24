@@ -39,6 +39,7 @@ func decrease_lives(soft: bool = false) -> void:
 	player_hurt.emit(soft)
 	lives = maxi(lives - 1, _MIN_LIVES)
 	health_updated.emit(lives)
+	change_stamina(1.0)
 	if lives <= _MIN_LIVES:
 		player_died.emit()
 

@@ -125,7 +125,6 @@ position = Vector2(27, -140)
 [connection signal="pull_release" from="InputService" to="PullDragline" method="hide"]
 [connection signal="pull_release" from="InputService" to="PullDragline" method="pull_set_active" binds= [false]]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
-[connection signal="external_danger_entered" from="Player" to="PlayerStats" method="decrease_lives" binds= [false]]
 [connection signal="external_stamina_restore" from="Player" to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]

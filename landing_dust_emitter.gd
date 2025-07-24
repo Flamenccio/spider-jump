@@ -3,6 +3,7 @@ extends Node
 @export var _player: Node2D
 @export var dust_scene: PackedScene
 @export var jump_dust_scene: PackedScene
+@export var player_hit_scene: PackedScene
 
 var _jumped: bool = false
 
@@ -24,3 +25,7 @@ func spawn_dust(normal: Vector2) -> void:
 func spawn_jump_dust() -> void:
 	_jumped = true
 	TheGlobalSpawner.instantiate_scene(jump_dust_scene, _player.global_position, _player.rotation)
+
+
+func spawn_player_hit() -> void:
+	TheGlobalSpawner.instantiate_scene(player_hit_scene, _player.global_position, 0)
