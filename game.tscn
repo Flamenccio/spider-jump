@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=22 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="9_vef74"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="11_iotsf"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="11_mfdv2"]
+[ext_resource type="PackedScene" uid="uid://cmsarojf16j7v" path="res://player_death_lights.tscn" id="14_boyg6"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://pull_dragline.gd" id="16_80cx4"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://global_spawner.gd" id="17_e8heu"]
 [ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="18_rvswv"]
@@ -46,6 +47,7 @@ collision_layer = 0
 collision_priority = 5.0
 priority = 5
 script = ExtResource("2_j5wjh")
+vfx = ExtResource("14_boyg6")
 
 [node name="Shape" type="CollisionShape2D" parent="Camera/DeathTrigger"]
 shape = SubResource("RectangleShape2D_eow3j")
