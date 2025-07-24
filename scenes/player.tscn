@@ -342,12 +342,12 @@ metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
 script = ExtResource("10_qfm1y")
 _player = NodePath("../..")
 _animator = NodePath("../../Sprite")
-_jump_force = 150.0
+_jump_force = 160.0
 
 [node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
 script = ExtResource("11_fulsm")
 _player = NodePath("../..")
-_move_speed = 20.0
+_move_speed = 12.0
 
 [node name="Entry" type="Node" parent="StateMachine"]
 script = ExtResource("12_qfm1y")
