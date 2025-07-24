@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=20 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="11_iotsf"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="11_mfdv2"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://pull_dragline.gd" id="16_80cx4"]
+[ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://global_spawner.gd" id="17_e8heu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -28,6 +29,9 @@ script = ExtResource("1_hve3p")
 _base_stamina_drain_amount = 0.033
 _player = NodePath("Player")
 
+[node name="GlobalSpawner" type="Node2D" parent="."]
+script = ExtResource("17_e8heu")
+
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
@@ -36,7 +40,7 @@ script = ExtResource("1_80nbo")
 _follow_target = NodePath("../Player")
 
 [node name="DeathTrigger" type="Area2D" parent="Camera"]
-position = Vector2(0, 81)
+position = Vector2(0, 89)
 collision_layer = 0
 collision_priority = 5.0
 priority = 5
