@@ -36,8 +36,10 @@ script = ExtResource("1_80nbo")
 _follow_target = NodePath("../Player")
 
 [node name="DeathTrigger" type="Area2D" parent="Camera"]
-position = Vector2(0, 89)
+position = Vector2(0, 81)
 collision_layer = 0
+collision_priority = 5.0
+priority = 5
 script = ExtResource("2_j5wjh")
 
 [node name="Shape" type="CollisionShape2D" parent="Camera/DeathTrigger"]

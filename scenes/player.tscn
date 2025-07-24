@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=58 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://shape_cast_check.gd" id="17_qfm1y"]
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://safe_state.gd" id="19_4r5pv"]
+[ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a8ls1"]
 radius = 3.0
@@ -300,6 +301,12 @@ name = ""
 [sub_resource type="CircleShape2D" id="CircleShape2D_4r5pv"]
 radius = 3.5
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_60mlk"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
 collision_mask = 6
@@ -396,6 +403,18 @@ shape = SubResource("CircleShape2D_4r5pv")
 script = ExtResource("19_4r5pv")
 _player = NodePath("..")
 
+[node name="Dust" type="CPUParticles2D" parent="."]
+z_index = -1
+material = SubResource("CanvasItemMaterial_60mlk")
+emitting = false
+amount = 12
+texture = ExtResource("20_60mlk")
+lifetime = 1.3
+fixed_fps = 8
+gravity = Vector2(0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_player_hurt" from="." to="SafeState" method="restore_state"]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
@@ -409,7 +428,9 @@ _player = NodePath("..")
 [connection signal="exited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_exited"]
 [connection signal="transited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="state_transition"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="SafeState" method="_save_state"]
+[connection signal="player_jumped" from="StateMachine/Aim" to="Dust" method="set_emitting" binds= [true]]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]
+[connection signal="player_entered_idle" from="StateMachine/Idle" to="Dust" method="set_emitting" binds= [false]]
 [connection signal="land_on_ground" from="CollisionHandler" to="SafeState" method="_save_state"]
 [connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "ground"]]
 [connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
