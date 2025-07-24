@@ -88,6 +88,7 @@ script = ExtResource("6_eow3j")
 shape = SubResource("RectangleShape2D_7jktm")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelSpawnTrigger"]
+visible = false
 scale = Vector2(1.23287, 0.04)
 texture = ExtResource("6_ryrav")
 
