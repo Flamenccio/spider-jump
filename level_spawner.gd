@@ -11,6 +11,12 @@ var _loaded_levels: Array[SavedLevel]
 ## How high the tower is
 var _game_height: int = 0
 
+# Queue of active levels
+var _active_levels_queue: Array[Node]
+
+# 7th oldest level will be destroyed
+const _MAX_ACTIVE_LEVELS = 6
+
 
 func _ready() -> void:
 
@@ -20,7 +26,6 @@ func _ready() -> void:
 
 	if _initial_level == null:
 		print('level spawner: WARNING! initial level is null!')
-
 
 	_res_regex.compile('.*\\.res')
 	_loaded_levels = _load_levels(_level_path)
@@ -68,9 +73,16 @@ func _spawn_level(level: SavedLevel) -> void:
 	_game_height -= new_level_height
 	new_level_spawned.emit(_game_height)
 
+	# Track new level and destroy old one
+	_active_levels_queue.push_back(instance)
+	if _active_levels_queue.size() >= _MAX_ACTIVE_LEVELS:
+		var old = _active_levels_queue.pop_front() as Node
+		old.queue_free()
+		print('DESTROYED: ', old.get_instance_id())
+
 
 func spawn_new_level():
 	var random := _loaded_levels.pick_random() as SavedLevel
-	print('random level: ', random)
+	#print('random level: ', random)
 	_spawn_level(random)
 
