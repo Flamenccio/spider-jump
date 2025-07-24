@@ -453,7 +453,6 @@ debug_color = Color(0.7, 0.653333, 0, 0.419608)
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="Dust" method="set_emitting" binds= [false]]
 [connection signal="eat_fly" from="CollisionHandler" to="." method="_on_stamina_restore"]
-[connection signal="land_on_ground" from="CollisionHandler" to="SafeState" method="_save_state"]
 [connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "ground"]]
 [connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
 [connection signal="land_on_normal" from="CollisionHandler" to="StateMachine/Aim" method="_on_normal_land"]
