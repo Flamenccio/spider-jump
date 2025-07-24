@@ -10,6 +10,7 @@ signal player_hurt(soft: bool)
 
 signal stamina_updated(current_stamina: float)
 signal health_updated(current_health: int)
+signal score_updated(current_score: int)
 
 var lives: int
 const _MAX_LIVES = 3
@@ -18,6 +19,10 @@ const _MIN_LIVES = 0
 var stamina: float
 const _MAX_STAMINA = 1.0
 const _MIN_STAMINA = 0.0
+
+var score: int
+const _MIN_SCORE = 0
+const _MAX_SCORE = 999999
 
 func _ready() -> void:
 	lives = _MAX_LIVES
@@ -44,4 +49,11 @@ func change_stamina(amount: float) -> void:
 	if stamina <= _MIN_STAMINA:
 		stamina = _MAX_STAMINA
 		decrease_lives(true)
+
+
+func update_score(new_score: int) -> void:
+	new_score = mini(new_score, score)
+	if score != new_score:
+		score = new_score
+		score_updated.emit(abs(score))
 

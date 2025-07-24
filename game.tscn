@@ -23,9 +23,10 @@ size = Vector2(256, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
 size = Vector2(160, 8)
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_player")]
 script = ExtResource("1_hve3p")
 _base_stamina_drain_amount = 0.033
+_player = NodePath("Player")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
@@ -97,6 +98,7 @@ script = ExtResource("16_80cx4")
 _fixed_endpoint = NodePath("../Player")
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]
+[connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
 [connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
@@ -116,4 +118,5 @@ _fixed_endpoint = NodePath("../Player")
 [connection signal="health_updated" from="PlayerStats" to="UI/Hud" method="_on_health_updated"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="player_hurt" from="PlayerStats" to="Player" method="_on_player_hurt"]
+[connection signal="score_updated" from="PlayerStats" to="UI/Hud" method="_on_score_updated"]
 [connection signal="stamina_updated" from="PlayerStats" to="UI/Hud" method="_on_stamina_updated"]

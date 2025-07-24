@@ -1,0 +1,53 @@
+[gd_scene load_steps=14 format=3 uid="uid://d1mcya8jqefql"]
+
+[ext_resource type="Texture2D" uid="uid://dkkp8c752ypon" path="res://sprites/numbers.png" id="1_kf4qu"]
+[ext_resource type="Script" uid="uid://cag2xcnsp8ktm" path="res://digit_display.gd" id="2_rnpva"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd3ao"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(0, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kf4qu"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(144, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i1j5"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(0, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mphia"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(16, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m4u7"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(32, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apjy4"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(48, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n1hp"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(64, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eld54"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(80, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3swnk"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(96, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkknv"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(112, 0, 6, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxdf7"]
+atlas = ExtResource("1_kf4qu")
+region = Rect2(128, 0, 6, 7)
+
+[node name="DigitDisplay" type="TextureRect"]
+texture = SubResource("AtlasTexture_hd3ao")
+script = ExtResource("2_rnpva")
+digit_sprites = Array[Texture2D]([SubResource("AtlasTexture_kf4qu"), SubResource("AtlasTexture_0i1j5"), SubResource("AtlasTexture_mphia"), SubResource("AtlasTexture_0m4u7"), SubResource("AtlasTexture_apjy4"), SubResource("AtlasTexture_5n1hp"), SubResource("AtlasTexture_eld54"), SubResource("AtlasTexture_3swnk"), SubResource("AtlasTexture_qkknv"), SubResource("AtlasTexture_uxdf7")])

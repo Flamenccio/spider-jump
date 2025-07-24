@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=13 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://hud.gd" id="1_oo0fn"]
 [ext_resource type="Script" uid="uid://c6idgfnvj6gyg" path="res://life.gd" id="3_6fi6k"]
 [ext_resource type="Script" uid="uid://tjmj5v6lw2as" path="res://life_bar.gd" id="3_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://dj6nc2r4uunkq" path="res://sprites/life.png" id="4_uo2fv"]
+[ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://number_display.gd" id="6_5pdws"]
+[ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/digit_display.tscn" id="6_047uy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
@@ -35,7 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oo0fn")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Energy" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -47,17 +49,17 @@ grow_horizontal = 2
 scale = Vector2(4, 4)
 pivot_offset = Vector2(20, 0)
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Energy"]
 layout_mode = 2
 
-[node name="Stamina" type="TextureProgressBar" parent="MarginContainer/CenterContainer"]
+[node name="Stamina" type="TextureProgressBar" parent="Energy/CenterContainer"]
 layout_mode = 2
 step = 3.125
 value = 50.0
 texture_under = SubResource("AtlasTexture_oo0fn")
 texture_progress = SubResource("AtlasTexture_ahhtf")
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="Life" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -70,13 +72,13 @@ grow_horizontal = 2
 scale = Vector2(4, 4)
 pivot_offset = Vector2(16, 0)
 
-[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer2"]
+[node name="HFlowContainer" type="HFlowContainer" parent="Life"]
 layout_mode = 2
 size_flags_vertical = 0
 alignment = 1
 script = ExtResource("3_uo2fv")
 
-[node name="Life" type="TextureRect" parent="MarginContainer2/HFlowContainer"]
+[node name="Life" type="TextureRect" parent="Life/HFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6fi6k")
@@ -84,7 +86,7 @@ script = ExtResource("3_6fi6k")
 _full_sprite = SubResource("AtlasTexture_047uy")
 _empty_sprite = SubResource("AtlasTexture_5pdws")
 
-[node name="Life2" type="TextureRect" parent="MarginContainer2/HFlowContainer"]
+[node name="Life2" type="TextureRect" parent="Life/HFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6fi6k")
@@ -92,7 +94,7 @@ script = ExtResource("3_6fi6k")
 _full_sprite = SubResource("AtlasTexture_047uy")
 _empty_sprite = SubResource("AtlasTexture_5pdws")
 
-[node name="Life3" type="TextureRect" parent="MarginContainer2/HFlowContainer"]
+[node name="Life3" type="TextureRect" parent="Life/HFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6fi6k")
@@ -100,5 +102,37 @@ script = ExtResource("3_6fi6k")
 _full_sprite = SubResource("AtlasTexture_047uy")
 _empty_sprite = SubResource("AtlasTexture_5pdws")
 
-[connection signal="internal_health_updated" from="." to="MarginContainer2/HFlowContainer" method="display_life"]
-[connection signal="internal_stamina_updated" from="." to="MarginContainer/CenterContainer/Stamina" method="set_value"]
+[node name="Score" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 64.0
+offset_bottom = 64.0
+scale = Vector2(4, 4)
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Score"]
+layout_mode = 2
+theme_override_constants/h_separation = -1
+script = ExtResource("6_5pdws")
+
+[node name="DigitDisplay" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
+layout_mode = 2
+
+[node name="DigitDisplay2" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
+layout_mode = 2
+
+[node name="DigitDisplay3" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
+layout_mode = 2
+
+[node name="DigitDisplay4" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
+layout_mode = 2
+
+[node name="DigitDisplay5" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
+layout_mode = 2
+
+[node name="DigitDisplay6" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
+layout_mode = 2
+
+[connection signal="internal_health_updated" from="." to="Life/HFlowContainer" method="display_life"]
+[connection signal="internal_score_updated" from="." to="Score/HFlowContainer" method="display_value"]
+[connection signal="internal_stamina_updated" from="." to="Energy/CenterContainer/Stamina" method="set_value"]
