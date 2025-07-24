@@ -6,11 +6,10 @@ signal player_jumped()
 @export var _player: CharacterBody2D
 @export var _animator: AnimatedSprite2D
 @export var _jump_force: float = 1.0
-@export var _collision_handler: Node
-@export var _ground_shapecast: ShapeCastCheck
 
 var _pull_input: Vector2
 var _jumped: bool = false
+var _surface_normal: Vector2
 
 const _MAX_SHAPECAST_RESULTS = 4
 
@@ -58,18 +57,9 @@ func tick_state(delta: float) -> void:
 
 
 func _is_jump_direction_valid(direction: Vector2) -> bool:
+	var dot = floorf(direction.dot(_surface_normal))
+	return dot > 0.0
 
-	var current_ground := _collision_handler.get('ground_contacts') as Array[Node]
-	var shapecast_results := _ground_shapecast.intersect_shape(direction, _MAX_SHAPECAST_RESULTS, false)
 
-	if shapecast_results.size() == 0 or current_ground.size() == 0:
-		return true
-
-	for result in shapecast_results:
-		var shape_index = result['shape']
-		var shape_owner = result['collider'].shape_owner_get_owner(shape_index)
-		if current_ground.has(shape_owner):
-			return false
-
-	return true
-	
+func _on_normal_land(normal: Vector2) -> void:
+	_surface_normal = normal
