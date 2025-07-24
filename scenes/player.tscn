@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=61 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://landing_dust_emitter.gd" id="21_a38lo"]
 [ext_resource type="PackedScene" uid="uid://dcsy57p10wcgc" path="res://scenes/landing_dust.tscn" id="21_i4ail"]
+[ext_resource type="PackedScene" uid="uid://cgfccdd6c34ro" path="res://scenes/jumping_dust.tscn" id="23_4ni07"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a8ls1"]
 radius = 3.0
@@ -417,10 +418,11 @@ gravity = Vector2(0, 0)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
-[node name="LandingDustEmitter" type="Node" parent="." node_paths=PackedStringArray("_player")]
+[node name="ParticleEmitter" type="Node" parent="." node_paths=PackedStringArray("_player")]
 script = ExtResource("21_a38lo")
 _player = NodePath("..")
 dust_scene = ExtResource("21_i4ail")
+jump_dust_scene = ExtResource("23_4ni07")
 
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_player_hurt" from="." to="SafeState" method="restore_state"]
@@ -435,13 +437,14 @@ dust_scene = ExtResource("21_i4ail")
 [connection signal="exited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_exited"]
 [connection signal="transited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="state_transition"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="SafeState" method="_save_state"]
+[connection signal="player_jumped" from="StateMachine/Aim" to="ParticleEmitter" method="spawn_jump_dust"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="Dust" method="set_emitting" binds= [true]]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="Dust" method="set_emitting" binds= [false]]
 [connection signal="land_on_ground" from="CollisionHandler" to="SafeState" method="_save_state"]
 [connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "ground"]]
 [connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
-[connection signal="land_on_normal" from="CollisionHandler" to="LandingDustEmitter" method="spawn_dust"]
+[connection signal="land_on_normal" from="CollisionHandler" to="ParticleEmitter" method="spawn_dust"]
 [connection signal="land_on_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "slip"]]
 [connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "air"]]
 [connection signal="body_shape_entered" from="GroundDetector" to="CollisionHandler" method="_on_body_shape_entered" unbinds=1]

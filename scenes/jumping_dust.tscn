@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgfccdd6c34ro"]
+
+[ext_resource type="Texture2D" uid="uid://csb5veynfmdi8" path="res://sprites/jump_particles-Sheet.png" id="1_lxs4k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akrdu"]
+atlas = ExtResource("1_lxs4k")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdc5j"]
+atlas = ExtResource("1_lxs4k")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvev6"]
+atlas = ExtResource("1_lxs4k")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ku7nr"]
+atlas = ExtResource("1_lxs4k")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqqak"]
+atlas = ExtResource("1_lxs4k")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_60mlk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akrdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdc5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvev6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ku7nr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqqak")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="JumpingDust" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_60mlk")
+autoplay = "default"
+frame_progress = 1.0
+offset = Vector2(0, -5)
+
+[connection signal="animation_finished" from="." to="." method="queue_free"]
