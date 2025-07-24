@@ -8,6 +8,7 @@ signal land_on_normal(normal: Vector2)
 signal land_on_ground()
 signal land_on_slip()
 signal leave_ground()
+signal eat_fly(stamina_restore: float)
 
 # Grounds the player is currently touching
 var _ground_contacts: Array[Node]
@@ -88,4 +89,21 @@ func _search_for_slip(body: Node2D, shape_index: int) -> void:
 			var collision_shape = result_collider.shape_owner_get_owner(shape_index)
 			if _track_ground(collision_shape):
 				land_on_slip.emit()
+
+
+func _on_item_collided(body: Node2D) -> void:
+	if body is not Item:
+		return
+	var item := body as Item
+	_handle_item(item)
+	body.queue_free()
+
+
+func _handle_item(item: Item) -> void:
+	match item.item_id:
+		'yum_fly':
+			eat_fly.emit(0.25)
+		_:
+			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
+			print('oops!')
 

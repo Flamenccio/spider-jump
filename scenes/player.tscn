@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=62 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -301,14 +301,17 @@ transitions = {
 }
 name = ""
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4r5pv"]
-radius = 3.5
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_60mlk"]
 particles_animation = true
 particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4r5pv"]
+radius = 3.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ni07"]
+radius = 6.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
@@ -392,16 +395,6 @@ _shape_cast_origin = NodePath("../..")
 _shape_cast_layers = 6
 metadata/_custom_type_script = "uid://bdjmy758l3rls"
 
-[node name="GroundDetector" type="Area2D" parent="."]
-position = Vector2(0, 1)
-collision_layer = 0
-collision_mask = 6
-collision_priority = 5.0
-priority = 5
-
-[node name="Shape" type="CollisionShape2D" parent="GroundDetector"]
-shape = SubResource("CircleShape2D_4r5pv")
-
 [node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player")]
 script = ExtResource("19_4r5pv")
 _player = NodePath("..")
@@ -424,6 +417,26 @@ _player = NodePath("..")
 dust_scene = ExtResource("21_i4ail")
 jump_dust_scene = ExtResource("23_4ni07")
 
+[node name="GroundDetector" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 6
+collision_priority = 5.0
+priority = 5
+
+[node name="Shape" type="CollisionShape2D" parent="GroundDetector"]
+shape = SubResource("CircleShape2D_4r5pv")
+
+[node name="ItemDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="Shape" type="CollisionShape2D" parent="ItemDetector"]
+shape = SubResource("CircleShape2D_4ni07")
+debug_color = Color(0.7, 0.653333, 0, 0.419608)
+
+[node name="Detectors" type="Node" parent="."]
+
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_player_hurt" from="." to="SafeState" method="restore_state"]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
@@ -441,6 +454,7 @@ jump_dust_scene = ExtResource("23_4ni07")
 [connection signal="player_jumped" from="StateMachine/Aim" to="Dust" method="set_emitting" binds= [true]]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="Dust" method="set_emitting" binds= [false]]
+[connection signal="eat_fly" from="CollisionHandler" to="." method="_on_stamina_restore"]
 [connection signal="land_on_ground" from="CollisionHandler" to="SafeState" method="_save_state"]
 [connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "ground"]]
 [connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
@@ -449,3 +463,4 @@ jump_dust_scene = ExtResource("23_4ni07")
 [connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "air"]]
 [connection signal="body_shape_entered" from="GroundDetector" to="CollisionHandler" method="_on_body_shape_entered" unbinds=1]
 [connection signal="body_shape_exited" from="GroundDetector" to="CollisionHandler" method="_on_body_shape_exited" unbinds=1]
+[connection signal="body_entered" from="ItemDetector" to="CollisionHandler" method="_on_item_collided"]

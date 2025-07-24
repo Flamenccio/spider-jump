@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=21 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="11_mfdv2"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://pull_dragline.gd" id="16_80cx4"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://global_spawner.gd" id="17_e8heu"]
+[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="18_rvswv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -103,6 +104,9 @@ default_color = Color(0.160708, 0.674632, 0.996078, 1)
 script = ExtResource("16_80cx4")
 _fixed_endpoint = NodePath("../Player")
 
+[node name="YummyFly" parent="." instance=ExtResource("18_rvswv")]
+position = Vector2(27, -140)
+
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
 [connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
@@ -119,6 +123,7 @@ _fixed_endpoint = NodePath("../Player")
 [connection signal="pull_release" from="InputService" to="PullDragline" method="hide"]
 [connection signal="pull_release" from="InputService" to="PullDragline" method="pull_set_active" binds= [false]]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
+[connection signal="external_stamina_restore" from="Player" to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
 [connection signal="health_updated" from="PlayerStats" to="UI/Hud" method="_on_health_updated"]

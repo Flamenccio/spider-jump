@@ -1,10 +1,16 @@
 extends CharacterBody2D
 
+# Internal use only!
 signal internal_move_input_change(move_input: Vector2)
 signal internal_pull_input_change(pull_input: Vector2)
 signal internal_pull_release()
 signal internal_pull_press()
 signal internal_player_hurt(soft: bool)
+
+# External use
+signal external_stamina_restore(restoration: float)
+
+# Any
 signal stop_moving()
 signal moving()
 
@@ -55,4 +61,8 @@ func _rotate_against_normal(normal: Vector2) -> void:
 func _on_player_hurt(soft: bool) -> void:
 	internal_player_hurt.emit(soft)
 	_invincibility_timer.start()
+
+
+func _on_stamina_restore(amount: float) -> void:
+	external_stamina_restore.emit(amount)
 
