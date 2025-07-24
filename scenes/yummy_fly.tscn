@@ -27,7 +27,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jum41"]
-radius = 3.0
+radius = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4cg67"]
 atlas = ExtResource("3_vpi6r")
