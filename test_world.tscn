@@ -57,6 +57,7 @@ tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQ
 
 [node name="Player" parent="." instance=ExtResource("2_lf0gk")]
 position = Vector2(0, -4)
+slide_on_ceiling = false
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
@@ -64,6 +65,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 script = ExtResource("17_8pq1f")
 _follow_target = NodePath("../Player")
+_debug = true
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
 script = ExtResource("18_nxmw1")

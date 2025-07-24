@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=71 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dr71r23trkggu" path="res://states/crawl.gd" id="11_fulsm"]
 [ext_resource type="Script" uid="uid://bq8cyg2r3e4us" path="res://states/idle.gd" id="11_oprun"]
 [ext_resource type="Script" uid="uid://de5mlnbdg5gtl" path="res://states/entry.gd" id="12_qfm1y"]
+[ext_resource type="Script" uid="uid://br7ajpop2vms0" path="res://behavior_state/player/climb.gd" id="15_ke2ow"]
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://collision_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://ground_raycast.gd" id="16_qfm1y"]
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://shape_cast_check.gd" id="17_qfm1y"]
@@ -23,6 +24,7 @@
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://landing_dust_emitter.gd" id="21_a38lo"]
 [ext_resource type="PackedScene" uid="uid://dcsy57p10wcgc" path="res://scenes/landing_dust.tscn" id="21_i4ail"]
 [ext_resource type="PackedScene" uid="uid://cgfccdd6c34ro" path="res://scenes/jumping_dust.tscn" id="23_4ni07"]
+[ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://ledge_climb.gd" id="24_l71n6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a8ls1"]
 radius = 3.0
@@ -79,7 +81,7 @@ metadata/graph_offset = Vector2(368, 457.5)
 [sub_resource type="Resource" id="Resource_udxuc"]
 script = ExtResource("6_i4ail")
 name = "Entry"
-metadata/graph_offset = Vector2(208, 157.5)
+metadata/graph_offset = Vector2(208, -2.5)
 
 [sub_resource type="Resource" id="Resource_f1ej7"]
 script = ExtResource("6_i4ail")
@@ -90,6 +92,11 @@ metadata/graph_offset = Vector2(908, 457.5)
 script = ExtResource("6_i4ail")
 name = "Idle"
 metadata/graph_offset = Vector2(368, -2.5)
+
+[sub_resource type="Resource" id="Resource_j2b1d"]
+script = ExtResource("6_i4ail")
+name = "Climb"
+metadata/graph_offset = Vector2(188, 237.5)
 
 [sub_resource type="Resource" id="Resource_gl8cc"]
 script = ExtResource("7_a38lo")
@@ -194,6 +201,21 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_cs1tg"]
+script = ExtResource("7_a38lo")
+value = true
+comparation = 0
+name = "climb"
+
+[sub_resource type="Resource" id="Resource_2dvfe"]
+script = ExtResource("8_4ni07")
+from = "Crawl"
+to = "Climb"
+conditions = {
+"climb": SubResource("Resource_cs1tg")
+}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_oprun"]
 script = ExtResource("8_4ni07")
 from = "Entry"
@@ -268,10 +290,26 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_giy8y"]
+script = ExtResource("7_a38lo")
+value = false
+comparation = 0
+name = "climb"
+
+[sub_resource type="Resource" id="Resource_fdfoy"]
+script = ExtResource("8_4ni07")
+from = "Climb"
+to = "Fall"
+conditions = {
+"climb": SubResource("Resource_giy8y")
+}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_mc2jv"]
 script = ExtResource("5_60mlk")
 states = {
 "Aim": SubResource("Resource_jej6c"),
+"Climb": SubResource("Resource_j2b1d"),
 "Crawl": SubResource("Resource_3v2ag"),
 "Entry": SubResource("Resource_udxuc"),
 "Fall": SubResource("Resource_f1ej7"),
@@ -282,8 +320,12 @@ transitions = {
 "Fall": SubResource("Resource_a38lo"),
 "Idle": SubResource("Resource_jc3p3")
 },
+"Climb": {
+"Fall": SubResource("Resource_fdfoy")
+},
 "Crawl": {
 "Aim": SubResource("Resource_4r5pv"),
+"Climb": SubResource("Resource_2dvfe"),
 "Fall": SubResource("Resource_i4ail"),
 "Idle": SubResource("Resource_60mlk")
 },
@@ -316,6 +358,9 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_l71n6"]
 radius = 3.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ke2ow"]
+radius = 3.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
 collision_mask = 6
@@ -335,6 +380,7 @@ autoplay = "idle"
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
 script = ExtResource("3_fulsm")
 _machine = NodePath("StateMachinePlayer")
+_add_states_confirm = null
 
 [node name="StateMachinePlayer" type="Node" parent="StateMachine"]
 script = ExtResource("4_4r5pv")
@@ -366,6 +412,11 @@ script = ExtResource("11_oprun")
 _animator = NodePath("../../Sprite")
 _gravity_scale = 0.33
 _player = NodePath("../..")
+
+[node name="Climb" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
+script = ExtResource("15_ke2ow")
+_player = NodePath("../..")
+metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast", "_player")]
 script = ExtResource("15_wqfne")
@@ -444,7 +495,27 @@ collision_mask = 16
 shape = SubResource("CircleShape2D_l71n6")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
+[node name="LedgeDetectorL" type="ShapeCast2D" parent="."]
+position = Vector2(-3, 7)
+shape = SubResource("CircleShape2D_ke2ow")
+target_position = Vector2(0, 0)
+max_results = 4
+collision_mask = 6
+
+[node name="LedgeDetectorR" type="ShapeCast2D" parent="."]
+position = Vector2(3, 7)
+shape = SubResource("CircleShape2D_ke2ow")
+target_position = Vector2(0, 0)
+max_results = 4
+collision_mask = 6
+
+[node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_ground_detector_l", "_ground_detector_r")]
+script = ExtResource("24_l71n6")
+_ground_detector_l = NodePath("../LedgeDetectorL")
+_ground_detector_r = NodePath("../LedgeDetectorR")
+
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
+[connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_player_hurt" from="." to="SafeState" method="restore_state"]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
 [connection signal="internal_pull_press" from="." to="StateMachine" method="set_property" binds= ["aim", true]]
@@ -459,8 +530,12 @@ debug_color = Color(0.7, 0, 0, 0.419608)
 [connection signal="player_jumped" from="StateMachine/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="ParticleEmitter" method="spawn_jump_dust"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="Dust" method="set_emitting" binds= [true]]
+[connection signal="player_crawled" from="StateMachine/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
+[connection signal="player_stopped_crawl" from="StateMachine/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="Dust" method="set_emitting" binds= [false]]
+[connection signal="climb_finished" from="StateMachine/Climb" to="CollisionHandler" method="_recalculate_normal"]
+[connection signal="climb_finished" from="StateMachine/Climb" to="StateMachine" method="set_property" binds= ["climb", false]]
 [connection signal="danger_entered" from="CollisionHandler" to="." method="_on_danger_entered"]
 [connection signal="eat_fly" from="CollisionHandler" to="." method="_on_stamina_restore"]
 [connection signal="land_on_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "ground"]]
@@ -473,3 +548,5 @@ debug_color = Color(0.7, 0, 0, 0.419608)
 [connection signal="body_shape_exited" from="GroundDetector" to="CollisionHandler" method="_on_body_shape_exited" unbinds=1]
 [connection signal="body_entered" from="ItemDetector" to="CollisionHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="DangerDetector" to="CollisionHandler" method="_on_danger_entered"]
+[connection signal="climb_started" from="LedgeClimb" to="StateMachine" method="set_property" binds= ["climb", true]]
+[connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachine/Climb" method="set_climb_target"]

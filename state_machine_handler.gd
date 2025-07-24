@@ -7,6 +7,7 @@ var _behaviors: Array[BehaviorState]
 var _active_state: BehaviorState
 
 @export_tool_button('Add states') var _add_states_button: Callable = _add_states
+@export var _add_states_confirm: bool = false
 
 # Variables that behaviors can share with each other
 var _state_machine_variables: Dictionary
@@ -16,6 +17,10 @@ func _add_states() -> void:
 	if not Engine.is_editor_hint():
 		return
 
+	if not _add_states_confirm:
+		return
+
+	_add_states_confirm = false
 	for child in get_children():
 		if child is BehaviorState:
 			child.free()

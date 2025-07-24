@@ -23,6 +23,9 @@ var ground_contacts: Array[Node]:
 @export_flags_2d_physics var _slip_layer: int
 @export var _ground_raycast_direction: Vector2
 
+class SurfaceContacts:
+	var node: Node
+	var shape_index: int
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
 
@@ -45,12 +48,29 @@ func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int) -
 
 
 func _find_normal(body: Node, body_shape_index: int) -> void:
+	"""
 	if body is StaticBody2D:
 		var col_obj := body as StaticBody2D
 		var colliding_body := col_obj.shape_owner_get_owner(body_shape_index)
 		var raycast_results := _ground_raycast.intersect_ray(colliding_body.global_position)
 		if raycast_results.keys().has('normal'):
 			land_on_normal.emit(raycast_results['normal'])
+	"""
+	_find_normal_with_shape(body, body.shape_owner_get_owner(body_shape_index))
+
+
+func _find_normal_with_shape(body: Node, body_shape: Node) -> void:
+	var raycast_results := _ground_raycast.intersect_ray(body_shape.global_position)
+	if raycast_results.keys().has('normal'):
+		land_on_normal.emit(raycast_results['normal'])
+
+
+func _recalculate_normal() -> void:
+	if _ground_contacts.size() == 0:
+		return
+	var latest_surface = _ground_contacts[0]
+	var body = latest_surface.get_parent()
+	_find_normal_with_shape(body, latest_surface)
 
 
 func _is_on_collision_layer(node: Node, layer: int) -> bool:
@@ -59,7 +79,7 @@ func _is_on_collision_layer(node: Node, layer: int) -> bool:
 
 func _track_ground(ground: Node) -> bool:
 	if not _ground_contacts.has(ground):
-		_ground_contacts.push_back(ground)
+		_ground_contacts.push_front(ground)
 		return true
 	return false
 
@@ -111,4 +131,3 @@ func _handle_item(item: Item) -> void:
 		_:
 			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
 			print('oops!')
-

@@ -1,11 +1,19 @@
 extends BehaviorState
 
+signal player_crawled()
+signal player_stopped_crawl()
+
 @export var _player: CharacterBody2D
 @export var _move_speed: float = 1.0
 var _move_input: Vector2
 
 func enter_state() -> void:
+	player_crawled.emit()
 	set_property('jump', false)
+
+
+func exit_state() -> void:
+	player_stopped_crawl.emit()
 
 
 func _on_move_input_change(input: Vector2) -> void:
