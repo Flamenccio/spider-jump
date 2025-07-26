@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=86 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -87,6 +87,11 @@ script = ExtResource("6_i4ail")
 name = "Aim"
 metadata/graph_offset = Vector2(908, -2.5)
 
+[sub_resource type="Resource" id="Resource_j2b1d"]
+script = ExtResource("6_i4ail")
+name = "Climb"
+metadata/graph_offset = Vector2(628, 657.5)
+
 [sub_resource type="Resource" id="Resource_3v2ag"]
 script = ExtResource("6_i4ail")
 name = "Crawl"
@@ -106,11 +111,6 @@ metadata/graph_offset = Vector2(908, 457.5)
 script = ExtResource("6_i4ail")
 name = "Idle"
 metadata/graph_offset = Vector2(368, -2.5)
-
-[sub_resource type="Resource" id="Resource_j2b1d"]
-script = ExtResource("6_i4ail")
-name = "Climb"
-metadata/graph_offset = Vector2(628, 657.5)
 
 [sub_resource type="Resource" id="Resource_hhpqf"]
 script = ExtResource("6_i4ail")
@@ -183,6 +183,21 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_giy8y"]
+script = ExtResource("7_a38lo")
+value = false
+comparation = 0
+name = "climb"
+
+[sub_resource type="Resource" id="Resource_fdfoy"]
+script = ExtResource("8_4ni07")
+from = "Climb"
+to = "Fall"
+conditions = {
+"climb": SubResource("Resource_giy8y")
+}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_pf23h"]
 script = ExtResource("7_a38lo")
 value = true
@@ -202,6 +217,21 @@ to = "Aim"
 conditions = {
 "aim": SubResource("Resource_pf23h"),
 "ground_type": SubResource("Resource_dt7fs")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_cs1tg"]
+script = ExtResource("7_a38lo")
+value = true
+comparation = 0
+name = "climb"
+
+[sub_resource type="Resource" id="Resource_2dvfe"]
+script = ExtResource("8_4ni07")
+from = "Crawl"
+to = "Climb"
+conditions = {
+"climb": SubResource("Resource_cs1tg")
 }
 priority = 0
 
@@ -232,21 +262,6 @@ from = "Crawl"
 to = "Idle"
 conditions = {
 "crawl": SubResource("Resource_wqfne")
-}
-priority = 0
-
-[sub_resource type="Resource" id="Resource_cs1tg"]
-script = ExtResource("7_a38lo")
-value = true
-comparation = 0
-name = "climb"
-
-[sub_resource type="Resource" id="Resource_2dvfe"]
-script = ExtResource("8_4ni07")
-from = "Crawl"
-to = "Climb"
-conditions = {
-"climb": SubResource("Resource_cs1tg")
 }
 priority = 0
 
@@ -369,21 +384,6 @@ conditions = {
 }
 priority = 0
 
-[sub_resource type="Resource" id="Resource_giy8y"]
-script = ExtResource("7_a38lo")
-value = false
-comparation = 0
-name = "climb"
-
-[sub_resource type="Resource" id="Resource_fdfoy"]
-script = ExtResource("8_4ni07")
-from = "Climb"
-to = "Fall"
-conditions = {
-"climb": SubResource("Resource_giy8y")
-}
-priority = 0
-
 [sub_resource type="Resource" id="Resource_lxlsd"]
 script = ExtResource("7_a38lo")
 value = false
@@ -445,6 +445,9 @@ transitions = {
 }
 name = ""
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_31cv2"]
+radius = 3.0
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_60mlk"]
 particles_animation = true
 particles_anim_h_frames = 5
@@ -482,7 +485,6 @@ autoplay = "idle"
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
 script = ExtResource("3_fulsm")
 _machine = NodePath("StateMachinePlayer")
-_add_states_confirm = null
 
 [node name="StateMachinePlayer" type="Node" parent="StateMachine"]
 script = ExtResource("4_4r5pv")
@@ -555,9 +557,17 @@ _shape_cast_origin = NodePath("../..")
 _shape_cast_layers = 6
 metadata/_custom_type_script = "uid://bdjmy758l3rls"
 
-[node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player")]
+[node name="DangerShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
+script = ExtResource("17_qfm1y")
+_shape = SubResource("CircleShape2D_31cv2")
+_shape_cast_origin = NodePath("../..")
+_shape_cast_layers = 16
+metadata/_custom_type_script = "uid://bdjmy758l3rls"
+
+[node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player", "_danger_shapecast")]
 script = ExtResource("19_4r5pv")
 _player = NodePath("..")
+_danger_shapecast = NodePath("../Casters/DangerShapecast")
 
 [node name="Dust" type="CPUParticles2D" parent="."]
 z_index = -1
