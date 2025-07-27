@@ -495,7 +495,7 @@ metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
 script = ExtResource("10_qfm1y")
 _player = NodePath("../..")
 _animator = NodePath("../../Sprite")
-_jump_force = 160.0
+_jump_force = 170.0
 
 [node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
 script = ExtResource("11_fulsm")

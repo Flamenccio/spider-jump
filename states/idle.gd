@@ -4,7 +4,7 @@ extends BehaviorState
 @export var _gravity_scale: float = 1.0
 @export var _player: CharacterBody2D
 
-var _floor_suction_force: float = 50.0
+var _floor_suction_force: float = 5.0
 var _down_vector: Vector2
 signal player_entered_idle()
 
