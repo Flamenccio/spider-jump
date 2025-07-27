@@ -28,8 +28,8 @@
 [ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://ledge_climb.gd" id="24_l71n6"]
 [ext_resource type="PackedScene" uid="uid://bbyn6mfqqfcud" path="res://scenes/player_hit_vfx.tscn" id="26_31cv2"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_a8ls1"]
-radius = 3.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
+size = Vector2(6, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
 atlas = ExtResource("2_qfm1y")
@@ -454,8 +454,8 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4r5pv"]
-radius = 3.5
+[sub_resource type="CircleShape2D" id="CircleShape2D_pf23h"]
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ni07"]
 radius = 6.0
@@ -475,7 +475,7 @@ script = ExtResource("1_a8ls1")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_a8ls1")
+shape = SubResource("RectangleShape2D_31cv2")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f3sb7")
@@ -601,9 +601,10 @@ collision_priority = 5.0
 priority = 5
 
 [node name="Shape" type="CollisionShape2D" parent="GroundDetector"]
-shape = SubResource("CircleShape2D_4r5pv")
+shape = SubResource("CircleShape2D_pf23h")
 
 [node name="ItemDetector" type="Area2D" parent="."]
+position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 8
 
@@ -612,6 +613,7 @@ shape = SubResource("CircleShape2D_4ni07")
 debug_color = Color(0.7, 0.653333, 0, 0.419608)
 
 [node name="DangerDetector" type="Area2D" parent="."]
+position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 16
 

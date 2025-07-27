@@ -7,8 +7,8 @@ var _climb_target: Vector2
 var _climb_timer: Timer = Timer.new()
 var _climb_origin: Vector2
 
-const _CLIMB_VELOCITY = 10
-const _CLIMB_DURATION = 0.20
+const _CLIMB_VELOCITY = 50
+const _CLIMB_DURATION = 0.1
 
 func _ready() -> void:
 	_climb_timer.wait_time = _CLIMB_DURATION
