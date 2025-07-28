@@ -11,6 +11,7 @@ var velocity: Vector2
 var acceleration: Vector2
 
 var activation_timer: Timer = Timer.new()
+var alternate: int = 0 # Used for alternating the start frame of the particle animation
 
 const _HALF = 0.50
 const _ACTIVATION_FREQUENCY = 0.20
@@ -64,7 +65,11 @@ func _activate_next_particle() -> void:
 		print('parabola particles: ran out of particles!')
 		return
 	particle.global_position = _origin.global_position
-	particle.activate_particle()
+	particle.activate_particle(alternate)
+	if alternate == 0:
+		alternate = 1
+	else:
+		alternate = 0
 	active_particles.push_back(particle)
 
 

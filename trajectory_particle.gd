@@ -13,8 +13,9 @@ var return_to_pool: Callable
 const MAX_T: float = 1.0
 var t: float = 0.0
 
-func activate_particle() -> void:
+func activate_particle(start_frame: int = 0) -> void:
 	active = true
+	frame = start_frame
 	play(&"default")
 	show()
 
