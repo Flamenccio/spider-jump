@@ -17,7 +17,7 @@ func intersect_ray(to: Vector2) -> Dictionary:
 	_raycast_query.to = to
 
 	# Uncomment to draw debug line
-	#DebugDraw2D.line(_raycast_query.from, to, Color.RED, 0.5, 1.0)
+	DebugDraw2D.line(_raycast_query.from, to, Color.RED, 0.5, 1.0)
 
 	var space_state = _raycast_source.get_world_2d().direct_space_state
 	var results := space_state.intersect_ray(_raycast_query)

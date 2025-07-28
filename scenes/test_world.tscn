@@ -1,11 +1,11 @@
 [gd_scene load_steps=21 format=4 uid="uid://c6antsn5ngihu"]
 
-[ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/ground.tscn" id="1_cnaw2"]
-[ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="2_cnaw2"]
-[ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="2_lf0gk"]
-[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="17_8pq1f"]
-[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="18_nxmw1"]
-[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="19_lvae5"]
+[ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/ground.tscn" id="1_dvny0"]
+[ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="2_xwrkq"]
+[ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="3_nrstc"]
+[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="4_7448y"]
+[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="5_ar7ra"]
+[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="6_ixgyf"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cnaw2"]
 
@@ -49,13 +49,13 @@ size = Vector2(8, 88)
 
 [node name="World" type="Node2D"]
 
-[node name="Ground" parent="." instance=ExtResource("1_cnaw2")]
+[node name="Ground" parent="." instance=ExtResource("1_dvny0")]
 tile_map_data = PackedByteArray("AAAIAPX/AAAKAAAAAAAJAPX/AAAKAAAAAAAKAPX/AAAKAAAAAAALAPX/AAAKAAAAAAAMAPX/AAAKAAAAAAANAPX/AAAKAAAAAAAOAPT/AAAJAAEAAAAOAPP/AAAJAAEAAAAOAPL/AAAJAAEAAAAOAPH/AAAJAAEAAAAOAPD/AAAJAAEAAAANAO//AAAKAAIAAAAMAO//AAAKAAIAAAALAO//AAAKAAIAAAAKAO//AAAKAAIAAAAJAO//AAAKAAIAAAAIAO//AAAKAAIAAAAHAO//AAAKAAIAAAAGAO//AAAKAAIAAAAFAO//AAAKAAIAAAAEAO//AAAKAAIAAAADAO//AAAKAAIAAAACAO//AAAKAAIAAAABAO//AAAKAAIAAAAAAO//AAAKAAIAAAD//+//AAAKAAIAAAD+/+//AAAKAAIAAAD9/+//AAAKAAIAAAD8/+//AAAKAAIAAAD7/+//AAAKAAIAAAD6/+//AAAKAAIAAAD5/+//AAAKAAIAAAD4/+//AAAKAAIAAAD3/+//AAAKAAIAAAD2/+//AAAKAAIAAAD1/+//AAAKAAIAAAD0/+//AAAKAAIAAADz/+//AAAKAAIAAADy//D/AAALAAEAAADy//H/AAALAAEAAADy//L/AAALAAEAAADy//P/AAALAAEAAADy//T/AAALAAEAAADy//X/AAALAAEAAADy//b/AAALAAEAAADy//f/AAALAAEAAADz//j/AAAKAAAAAAD0//j/AAAKAAAAAAD1//j/AAAKAAAAAAD2//j/AAAKAAAAAAD3//j/AAAKAAAAAAD4//j/AAALAAAAAAD4//n/AAALAAEAAAD4//r/AAALAAEAAAD4//v/AAALAAEAAAD4//z/AAALAAEAAAD4//3/AAALAAEAAAD4//7/AAALAAEAAAD4////AAALAAEAAADy//j/AAAKAAEAAADy/+//AAAKAAEAAAAOAO//AAAKAAEAAAAOAPX/AAAKAAEAAAD4/wAAAAAKAAEAAAD5/wAAAAAKAAAAAAD6/wAAAAAKAAAAAAD7/wAAAAAKAAAAAAD8/wAAAAAKAAAAAAD9/wAAAAAKAAAAAAD+/wAAAAAKAAAAAAD//wAAAAAKAAAAAAAAAAAAAAAKAAAAAAABAAAAAAAKAAAAAAACAAAAAAAKAAAAAAADAAAAAAAKAAAAAAAEAAAAAAAKAAAAAAAFAAAAAAAKAAAAAAAGAAAAAAAKAAAAAAACAPz/AAAGAAAAAAAEAPr/AAAGAAAAAAACAPj/AAAGAAAAAAD6//T/AAAGAAAAAAD7//T/AAAGAAAAAAD8//T/AAAGAAAAAAD9//T/AAAGAAAAAAD+//T/AAAGAAAAAAD///T/AAAGAAAAAAAAAPT/AAAGAAAAAAABAPT/AAAGAAAAAAACAPT/AAAGAAAAAAADAPT/AAAGAAAAAAAEAPT/AAAGAAAAAAA=")
 
-[node name="Slip" parent="." instance=ExtResource("2_cnaw2")]
+[node name="Slip" parent="." instance=ExtResource("2_xwrkq")]
 tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQAAAAHAPn/AAAJAAQAAAAHAPr/AAAJAAQAAAAHAPv/AAAJAAQAAAAHAPz/AAAJAAQAAAAHAP3/AAAJAAQAAAAHAP7/AAAJAAQAAAAHAP//AAAJAAQAAAAHAPX/AAAJAAMAAAA=")
 
-[node name="Player" parent="." instance=ExtResource("2_lf0gk")]
+[node name="Player" parent="." instance=ExtResource("3_nrstc")]
 position = Vector2(0, -4)
 slide_on_ceiling = false
 
@@ -63,19 +63,19 @@ slide_on_ceiling = false
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
-script = ExtResource("17_8pq1f")
+script = ExtResource("4_7448y")
 _follow_target = NodePath("../Player")
 _debug = true
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
-script = ExtResource("18_nxmw1")
+script = ExtResource("5_ar7ra")
 _pull_origin = NodePath("../Player")
 
 [node name="GroundBaked" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_cnaw2")
-script = ExtResource("19_lvae5")
+script = ExtResource("6_ixgyf")
 tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 
 [node name="STICK_0" type="CollisionShape2D" parent="GroundBaked"]
@@ -126,7 +126,7 @@ shape = SubResource("RectangleShape2D_kfu6g")
 collision_layer = 4
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_kt6p6")
-script = ExtResource("19_lvae5")
+script = ExtResource("6_ixgyf")
 tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Slip")])
 
 [node name="SLIPPERY_0" type="CollisionShape2D" parent="SlipBaked"]

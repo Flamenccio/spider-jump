@@ -12,6 +12,8 @@ signal stamina_updated(current_stamina: float)
 signal health_updated(current_health: int)
 signal score_updated(current_score: int)
 
+@export var debug: bool = false
+
 var lives: int
 const _MAX_LIVES = 3
 const _MIN_LIVES = 0
@@ -37,7 +39,8 @@ func decrease_lives(soft: bool = false) -> void:
 	if lives <= _MIN_LIVES:
 		return
 	player_hurt.emit(soft)
-	lives = maxi(lives - 1, _MIN_LIVES)
+	if not debug:
+		lives = maxi(lives - 1, _MIN_LIVES)
 	health_updated.emit(lives)
 	change_stamina(1.0)
 	if lives <= _MIN_LIVES:

@@ -1,24 +1,24 @@
 [gd_scene load_steps=22 format=3 uid="uid://c3vqs430qpt8w"]
 
-[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_hve3p"]
-[ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="2_e2o6t"]
-[ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://death_trigger.gd" id="2_j5wjh"]
-[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="3_feb5d"]
-[ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://level_spawner.gd" id="4_fc0e3"]
-[ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/base.res" id="5_7jktm"]
-[ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://level_spawn_trigger.gd" id="6_eow3j"]
-[ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="6_lc2xo"]
-[ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://icon.svg" id="6_ryrav"]
-[ext_resource type="Script" uid="uid://821p0psjcurb" path="res://pull_circle.gd" id="7_215e1"]
-[ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="8_7sc4i"]
-[ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="9_vef74"]
-[ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="11_iotsf"]
-[ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="11_mfdv2"]
-[ext_resource type="PackedScene" uid="uid://cmsarojf16j7v" path="res://player_death_lights.tscn" id="14_boyg6"]
-[ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://pull_dragline.gd" id="16_80cx4"]
-[ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://global_spawner.gd" id="17_e8heu"]
-[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="18_rvswv"]
+[ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_264po"]
+[ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://global_spawner.gd" id="2_1kice"]
+[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://camera.gd" id="3_5newe"]
+[ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://death_trigger.gd" id="4_37s47"]
+[ext_resource type="PackedScene" uid="uid://cmsarojf16j7v" path="res://scenes/player_death_lights.tscn" id="5_bt5mj"]
+[ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="6_e1j6l"]
+[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://input_service.gd" id="7_pl11u"]
+[ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://level_spawner.gd" id="8_bhx41"]
+[ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/base.res" id="9_qnb83"]
+[ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="10_sww3w"]
+[ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="11_suyxu"]
+[ext_resource type="Script" uid="uid://821p0psjcurb" path="res://pull_circle.gd" id="12_sgl2t"]
+[ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="13_qouja"]
+[ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://level_spawn_trigger.gd" id="14_wljb1"]
+[ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="15_v2yb1"]
+[ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="16_js0lu"]
+[ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="17_gxtfn"]
+[ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://pull_dragline.gd" id="18_twgab"]
+[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="19_02fa5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -27,18 +27,19 @@ size = Vector2(256, 16)
 size = Vector2(160, 8)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_player")]
-script = ExtResource("1_hve3p")
+script = ExtResource("1_264po")
 _base_stamina_drain_amount = 0.033
+debug = true
 _player = NodePath("Player")
 
 [node name="GlobalSpawner" type="Node2D" parent="."]
-script = ExtResource("17_e8heu")
+script = ExtResource("2_1kice")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
-script = ExtResource("1_80nbo")
+script = ExtResource("3_5newe")
 _follow_target = NodePath("../Player")
 
 [node name="DeathTrigger" type="Area2D" parent="Camera"]
@@ -46,8 +47,8 @@ position = Vector2(0, 89)
 collision_layer = 0
 collision_priority = 5.0
 priority = 5
-script = ExtResource("2_j5wjh")
-vfx = ExtResource("14_boyg6")
+script = ExtResource("4_37s47")
+vfx = ExtResource("5_bt5mj")
 
 [node name="Shape" type="CollisionShape2D" parent="Camera/DeathTrigger"]
 shape = SubResource("RectangleShape2D_eow3j")
@@ -55,26 +56,26 @@ shape = SubResource("RectangleShape2D_eow3j")
 [node name="Sprite" type="Sprite2D" parent="Camera/DeathTrigger"]
 visible = false
 scale = Vector2(1.97784, 0.137882)
-texture = ExtResource("6_ryrav")
+texture = ExtResource("6_e1j6l")
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
-script = ExtResource("3_feb5d")
+script = ExtResource("7_pl11u")
 _pull_origin = NodePath("../Player")
 
 [node name="LevelSpawner" type="Node2D" parent="." node_paths=PackedStringArray("_spawn_trigger")]
-script = ExtResource("4_fc0e3")
+script = ExtResource("8_bhx41")
 _level_path = "res://levels/"
-_initial_level = ExtResource("5_7jktm")
+_initial_level = ExtResource("9_qnb83")
 _spawn_trigger = NodePath("../LevelSpawnTrigger")
 
-[node name="Player" parent="." instance=ExtResource("2_e2o6t")]
+[node name="Player" parent="." instance=ExtResource("10_sww3w")]
 position = Vector2(0, -4)
 
 [node name="PullCircle" type="Sprite2D" parent="Player"]
-texture = ExtResource("6_lc2xo")
-script = ExtResource("7_215e1")
-_active_sprite = ExtResource("6_lc2xo")
-_inactive_sprite = ExtResource("8_7sc4i")
+texture = ExtResource("11_suyxu")
+script = ExtResource("12_sgl2t")
+_active_sprite = ExtResource("11_suyxu")
+_inactive_sprite = ExtResource("13_qouja")
 _start_active = false
 
 [node name="LevelSpawnTrigger" type="Area2D" parent="."]
@@ -82,7 +83,7 @@ position = Vector2(0, 135)
 collision_layer = 0
 monitorable = false
 priority = 1
-script = ExtResource("6_eow3j")
+script = ExtResource("14_wljb1")
 
 [node name="Collider" type="CollisionShape2D" parent="LevelSpawnTrigger"]
 shape = SubResource("RectangleShape2D_7jktm")
@@ -90,24 +91,25 @@ shape = SubResource("RectangleShape2D_7jktm")
 [node name="Sprite2D" type="Sprite2D" parent="LevelSpawnTrigger"]
 visible = false
 scale = Vector2(1.23287, 0.04)
-texture = ExtResource("6_ryrav")
+texture = ExtResource("6_e1j6l")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Hud" parent="UI" instance=ExtResource("11_iotsf")]
+[node name="Hud" parent="UI" instance=ExtResource("15_v2yb1")]
 
-[node name="DeathScreen" parent="UI" instance=ExtResource("9_vef74")]
+[node name="DeathScreen" parent="UI" instance=ExtResource("16_js0lu")]
 
 [node name="PlayerStats" type="Node" parent="."]
-script = ExtResource("11_mfdv2")
+script = ExtResource("17_gxtfn")
+debug = true
 
 [node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
 width = 1.0
 default_color = Color(0.160708, 0.674632, 0.996078, 1)
-script = ExtResource("16_80cx4")
+script = ExtResource("18_twgab")
 _fixed_endpoint = NodePath("../Player")
 
-[node name="YummyFly" parent="." instance=ExtResource("18_rvswv")]
+[node name="YummyFly" parent="." instance=ExtResource("19_02fa5")]
 position = Vector2(27, -140)
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]

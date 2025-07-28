@@ -48,20 +48,14 @@ func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int) -
 
 
 func _find_normal(body: Node, body_shape_index: int) -> void:
-	"""
-	if body is StaticBody2D:
-		var col_obj := body as StaticBody2D
-		var colliding_body := col_obj.shape_owner_get_owner(body_shape_index)
-		var raycast_results := _ground_raycast.intersect_ray(colliding_body.global_position)
-		if raycast_results.keys().has('normal'):
-			land_on_normal.emit(raycast_results['normal'])
-	"""
 	_find_normal_with_shape(body, body.shape_owner_get_owner(body_shape_index))
 
 
 func _find_normal_with_shape(body: Node, body_shape: Node) -> void:
 	var raycast_results := _ground_raycast.intersect_ray(body_shape.global_position)
 	if raycast_results.keys().has('normal'):
+		var normal = raycast_results['normal'] as Vector2
+		DebugDraw2D.line(_player.global_position, _player.global_position + (normal * 30), Color.BLUE, 0.5, 1.0)
 		land_on_normal.emit(raycast_results['normal'])
 
 
