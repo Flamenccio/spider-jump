@@ -640,6 +640,7 @@ collision_mask = 6
 [node name="ParabolaParticles" parent="." node_paths=PackedStringArray("_origin") instance=ExtResource("28_pf23h")]
 z_index = -1
 _origin = NodePath("..")
+_particle_count = 6
 
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
