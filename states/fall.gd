@@ -10,7 +10,7 @@ func enter_state() -> void:
 
 
 func tick_state(delta: float) -> void:
-	_player.velocity += Vector2(0.0, _gravity_acceleration)
+	_player.velocity += Vector2(0.0, _gravity_acceleration * delta)
 	_player.move_and_slide()
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=87 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://cgfccdd6c34ro" path="res://scenes/jumping_dust.tscn" id="23_4ni07"]
 [ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://ledge_climb.gd" id="24_l71n6"]
 [ext_resource type="PackedScene" uid="uid://bbyn6mfqqfcud" path="res://scenes/player_hit_vfx.tscn" id="26_31cv2"]
+[ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/parabola_particles.tscn" id="28_pf23h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
@@ -496,6 +497,7 @@ script = ExtResource("10_qfm1y")
 _player = NodePath("../..")
 _animator = NodePath("../../Sprite")
 _jump_force = 170.0
+_expected_gravity = 225.0
 
 [node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
 script = ExtResource("11_fulsm")
@@ -509,7 +511,7 @@ script = ExtResource("12_qfm1y")
 script = ExtResource("11_a8ls1")
 _animator = NodePath("../../Sprite")
 _player = NodePath("../..")
-_gravity_acceleration = 3.263
+_gravity_acceleration = 225.0
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("11_oprun")
@@ -635,6 +637,11 @@ target_position = Vector2(0, 0)
 max_results = 4
 collision_mask = 6
 
+[node name="ParabolaParticles" parent="." node_paths=PackedStringArray("_origin") instance=ExtResource("28_pf23h")]
+z_index = -1
+_origin = NodePath("..")
+_particle_count = 6
+
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_on_player_hurt" from="." to="StateMachine" method="set_property" binds= ["ko", false]]
@@ -649,9 +656,12 @@ collision_mask = 6
 [connection signal="entered" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_entered"]
 [connection signal="exited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="_on_state_machine_player_exited"]
 [connection signal="transited" from="StateMachine/StateMachinePlayer" to="StateMachine" method="state_transition"]
+[connection signal="aim_entered" from="StateMachine/Aim" to="ParabolaParticles" method="activate_trajectory"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="ParticleEmitter" method="spawn_jump_dust"]
+[connection signal="player_jumped" from="StateMachine/Aim" to="ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="Dust" method="set_emitting" binds= [true]]
+[connection signal="trajectory_updated" from="StateMachine/Aim" to="ParabolaParticles" method="_update_trajectory"]
 [connection signal="player_crawled" from="StateMachine/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
 [connection signal="player_stopped_crawl" from="StateMachine/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]

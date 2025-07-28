@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhqw28iqlebm3"]
+
+[ext_resource type="Texture2D" uid="uid://cps4kpajq74a1" path="res://sprites/trajectory_path-Sheet.png" id="1_voxkm"]
+[ext_resource type="Script" uid="uid://bvkn06wbppjtf" path="res://trajectory_particle.gd" id="2_pfon8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfon8"]
+atlas = ExtResource("1_voxkm")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwipx"]
+atlas = ExtResource("1_voxkm")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y20c6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfon8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwipx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="TrajectoryParticle" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_y20c6")
+autoplay = "default"
+frame = 1
+frame_progress = 0.176627
+script = ExtResource("2_pfon8")

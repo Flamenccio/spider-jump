@@ -1,11 +1,14 @@
 extends BehaviorState
 
 ## Emitted when player succesfully jumps
+signal aim_entered()
 signal player_jumped()
+signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 
 @export var _player: CharacterBody2D
 @export var _animator: AnimatedSprite2D
 @export var _jump_force: float = 1.0
+@export var _expected_gravity: float = 1.0
 
 var _pull_input: Vector2
 var _jumped: bool = false
@@ -15,6 +18,7 @@ const _MAX_SHAPECAST_RESULTS = 4
 
 func enter_state() -> void:
 	set_property('jump', false)
+	aim_entered.emit()
 	_animator.play('aim')
 
 
@@ -32,6 +36,11 @@ func _on_pull_input_change(input: Vector2) -> void:
 	if not state_active:
 		return
 	_pull_input = input
+
+	# Emit predicted trajectory
+	var velocity = _pull_input * _jump_force * -1
+	var acceleration = Vector2(0, _expected_gravity)
+	trajectory_updated.emit(velocity, acceleration)
 
 
 func _jump() -> void:
