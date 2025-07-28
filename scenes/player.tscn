@@ -660,7 +660,7 @@ _origin = NodePath("..")
 [connection signal="player_jumped" from="StateMachine/Aim" to="ParticleEmitter" method="spawn_jump_dust"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_jumped" from="StateMachine/Aim" to="Dust" method="set_emitting" binds= [true]]
-[connection signal="trajectory_updated" from="StateMachine/Aim" to="ParabolaParticles" method="show_trajectory"]
+[connection signal="trajectory_updated" from="StateMachine/Aim" to="ParabolaParticles" method="_update_trajectory"]
 [connection signal="player_crawled" from="StateMachine/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
 [connection signal="player_stopped_crawl" from="StateMachine/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]

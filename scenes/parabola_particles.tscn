@@ -1,18 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://bcwgm2lsqvudp"]
 
 [ext_resource type="Script" uid="uid://bacf6a7tv4tmt" path="res://parabola_particles.gd" id="1_y20c6"]
+[ext_resource type="PackedScene" uid="uid://dhqw28iqlebm3" path="res://scenes/trajectory_particle.tscn" id="2_nf7lu"]
 
-[sub_resource type="Gradient" id="Gradient_y20c6"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[node name="ParabolaParticles" type="Node2D" node_paths=PackedStringArray("_line")]
+[node name="ParabolaParticles" type="Node2D"]
 script = ExtResource("1_y20c6")
-_line = NodePath("Line2D")
-
-[node name="Line2D" type="Line2D" parent="."]
-width = 1.0
-gradient = SubResource("Gradient_y20c6")
-texture_mode = 1
-joint_mode = 1
-begin_cap_mode = 2
-end_cap_mode = 2
+_particle_prefab = ExtResource("2_nf7lu")
