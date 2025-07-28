@@ -1,9 +1,11 @@
-[gd_scene load_steps=87 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=90 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://player.gd" id="1_a8ls1"]
+[ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://player.gdshader" id="2_dt7fs"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
 [ext_resource type="Script" uid="uid://c5x6r3mgp6yf7" path="res://state_machine_handler.gd" id="3_fulsm"]
 [ext_resource type="Script" uid="uid://bt2gfnnkvw2ec" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="4_4r5pv"]
+[ext_resource type="Script" uid="uid://62g66ib0necn" path="res://player_sprite.gd" id="4_wqfne"]
 [ext_resource type="Script" uid="uid://cgcw4uj3fme3a" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="5_60mlk"]
 [ext_resource type="Script" uid="uid://bky7ul11nw1di" path="res://addons/imjp94.yafsm/src/states/State.gd" id="6_i4ail"]
 [ext_resource type="Script" uid="uid://lktmiahi8nk5" path="res://addons/imjp94.yafsm/src/conditions/BooleanCondition.gd" id="7_a38lo"]
@@ -31,6 +33,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
+shader = ExtResource("2_dt7fs")
+shader_parameter/ghost = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
 atlas = ExtResource("2_qfm1y")
@@ -479,9 +485,11 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_31cv2")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_wqfne")
 sprite_frames = SubResource("SpriteFrames_f3sb7")
-animation = &"ko"
+animation = &"idle"
 autoplay = "idle"
+script = ExtResource("4_wqfne")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
 script = ExtResource("3_fulsm")
@@ -644,12 +652,16 @@ _particle_count = 6
 
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
+[connection signal="internal_on_player_hurt" from="." to="Sprite" method="_activate_invincibility_flashing"]
 [connection signal="internal_on_player_hurt" from="." to="StateMachine" method="set_property" binds= ["ko", false]]
+[connection signal="internal_on_player_hurt" from="." to="DangerDetector/Shape" method="set_disabled" flags=3 binds= [true]]
 [connection signal="internal_player_hurt" from="." to="SafeState" method="restore_state"]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
 [connection signal="internal_pull_press" from="." to="StateMachine" method="set_property" binds= ["aim", true]]
 [connection signal="internal_pull_release" from="." to="StateMachine/Aim" method="_on_pull_release"]
 [connection signal="internal_pull_release" from="." to="StateMachine" method="set_property" binds= ["aim", false]]
+[connection signal="invincibility_ended" from="." to="Sprite" method="_stop_invincibility_flashing"]
+[connection signal="invincibility_ended" from="." to="DangerDetector/Shape" method="set_disabled" flags=3 binds= [false]]
 [connection signal="moving" from="." to="StateMachine" method="set_property" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachine" method="set_property" binds= ["crawl", false]]
 [connection signal="ready" from="StateMachine" to="StateMachine/Entry" method="_machine_ready"]
@@ -666,6 +678,7 @@ _particle_count = 6
 [connection signal="player_stopped_crawl" from="StateMachine/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
 [connection signal="normal_recheck_requested" from="StateMachine/Idle" to="CollisionHandler" method="_recalculate_normal"]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="SafeState" method="_save_state"]
+[connection signal="player_entered_idle" from="StateMachine/Idle" to="ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="Dust" method="set_emitting" binds= [false]]
 [connection signal="climb_finished" from="StateMachine/Climb" to="CollisionHandler" method="_recalculate_normal"]
 [connection signal="climb_finished" from="StateMachine/Climb" to="StateMachine" method="set_property" binds= ["climb", false]]

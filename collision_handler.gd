@@ -55,7 +55,7 @@ func _find_normal_with_shape(body: Node, body_shape: Node) -> void:
 	var raycast_results := _ground_raycast.intersect_ray(body_shape.global_position)
 	if raycast_results.keys().has('normal'):
 		var normal = raycast_results['normal'] as Vector2
-		DebugDraw2D.line(_player.global_position, _player.global_position + (normal * 30), Color.BLUE, 0.5, 1.0)
+		#DebugDraw2D.line(_player.global_position, _player.global_position + (normal * 30), Color.BLUE, 0.5, 1.0)
 		land_on_normal.emit(raycast_results['normal'])
 
 

@@ -22,12 +22,15 @@ signal invincibility_ended
 var _invincibility_timer: Timer = Timer.new()
 
 # In seconds
-const _INVINCIBILITY_TIME = 3.0
+const _INVINCIBILITY_TIME = 6.0
 
 func _ready() -> void:
 	_invincibility_timer.wait_time = _INVINCIBILITY_TIME
 	_invincibility_timer.one_shot = true
-	_invincibility_timer.timeout.connect(func(): invincibility_ended.emit())
+	_invincibility_timer.timeout.connect(func(): 
+		invincibility_ended.emit()
+		print('no longer invincible')
+	)
 	add_child(_invincibility_timer)
 
 
@@ -61,9 +64,9 @@ func _rotate_against_normal(normal: Vector2) -> void:
 
 
 func _on_player_hurt(soft: bool) -> void:
-	print('ouch!')
 	internal_player_hurt.emit(soft)
 	internal_on_player_hurt.emit()
+	_invincibility_timer.stop()
 	_invincibility_timer.start()
 
 
