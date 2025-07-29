@@ -6,7 +6,7 @@ signal player_died()
 ## Emitted when player loses one life.
 ## If `soft` is passed as `true`, does not return player to a safe
 ## position.
-signal player_hurt(soft: bool)
+signal player_hurt()
 
 signal stamina_updated(current_stamina: float)
 signal health_updated(current_health: int)
@@ -35,10 +35,10 @@ func _ready() -> void:
 	health_updated.emit(lives)
 
 
-func decrease_lives(soft: bool = false) -> void:
+func decrease_lives() -> void:
 	if lives <= _MIN_LIVES:
 		return
-	player_hurt.emit(soft)
+	player_hurt.emit()
 	if not debug:
 		lives = maxi(lives - 1, _MIN_LIVES)
 	health_updated.emit(lives)
@@ -52,7 +52,7 @@ func change_stamina(amount: float) -> void:
 	stamina_updated.emit(stamina)
 	if stamina <= _MIN_STAMINA:
 		stamina = _MAX_STAMINA
-		decrease_lives(true)
+		decrease_lives()
 
 
 func update_score(new_score: int) -> void:

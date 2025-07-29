@@ -92,7 +92,7 @@ func _search_for_slip(body: Node2D, shape_index: int) -> void:
 		return
 	
 	var max_results = 4
-	var shapecast_results := _ground_shapecast.intersect_shape(_ground_raycast_direction, max_results, false)
+	var shapecast_results := _ground_shapecast.intersect_shape(_ground_raycast_direction, max_results)
 	
 	if shapecast_results.size() == 0:
 		return

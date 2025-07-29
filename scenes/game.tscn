@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=23 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://global_spawner.gd" id="2_1kice"]
@@ -18,13 +18,16 @@
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="16_js0lu"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://player_stats.gd" id="17_gxtfn"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://pull_dragline.gd" id="18_twgab"]
-[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="19_02fa5"]
+[ext_resource type="Script" uid="uid://bhhvu1j2kktg0" path="res://player_safe_spot.gd" id="20_1kice"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
 size = Vector2(160, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
+atlas = ExtResource("6_e1j6l")
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_player")]
 script = ExtResource("1_264po")
@@ -109,8 +112,13 @@ default_color = Color(0.160708, 0.674632, 0.996078, 1)
 script = ExtResource("18_twgab")
 _fixed_endpoint = NodePath("../Player")
 
-[node name="YummyFly" parent="." instance=ExtResource("19_02fa5")]
-position = Vector2(27, -140)
+[node name="PlayerSafeSpot" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-0.5, -0.5, 1, 1)
+script = ExtResource("20_1kice")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerSafeSpot"]
+scale = Vector2(0.0195312, 0.0195312)
+texture = SubResource("AtlasTexture_264po")
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
@@ -118,6 +126,7 @@ position = Vector2(27, -140)
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="Player/PullCircle" method="show"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
+[connection signal="player_fell_here" from="Camera/DeathTrigger" to="Player" method="_on_player_fell"]
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
 [connection signal="pull_input_change" from="InputService" to="PullDragline" method="pull_update"]
@@ -130,11 +139,15 @@ position = Vector2(27, -140)
 [connection signal="pull_release" from="InputService" to="PullDragline" method="pull_set_active" binds= [false]]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="external_danger_entered" from="Player" to="Player/PullCircle" method="hide"]
+[connection signal="external_set_safe_spot" from="Player" to="PlayerSafeSpot" method="set_global_position"]
 [connection signal="external_stamina_restore" from="Player" to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
 [connection signal="health_updated" from="PlayerStats" to="UI/Hud" method="_on_health_updated"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
-[connection signal="player_hurt" from="PlayerStats" to="Player" method="_on_player_hurt"]
 [connection signal="score_updated" from="PlayerStats" to="UI/Hud" method="_on_score_updated"]
 [connection signal="stamina_updated" from="PlayerStats" to="UI/Hud" method="_on_stamina_updated"]
+[connection signal="screen_entered" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_entered"]
+[connection signal="screen_entered" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [true]]
+[connection signal="screen_exited" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_exited"]
+[connection signal="screen_exited" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [false]]

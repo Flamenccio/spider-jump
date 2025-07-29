@@ -72,7 +72,7 @@ func state_transition(old, new) -> void:
 	_active_state = _behaviors[new_index]
 	_active_state.enter_state()
 	_active_state.state_active = true
-	print('{0} -> {1}'.format({'0': old_state, '1': _active_state}))
+	#print('{0} -> {1}'.format({'0': old_state, '1': _active_state}))
 
 
 func set_property(property_name: String, value: Variant) -> void:

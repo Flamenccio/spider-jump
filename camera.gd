@@ -26,3 +26,11 @@ func _movement() -> void:
 		var new_position = Vector2(global_position.x, new_vertical)
 		global_position = new_position
 
+
+func screen_to_world_point(screen_point: Vector2) -> Vector2:
+	return get_canvas_transform().affine_inverse() * screen_point
+
+
+func world_to_screen_point(world_point: Vector2) -> Vector2:
+	return get_canvas_transform() * world_point
+

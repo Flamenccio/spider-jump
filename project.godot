@@ -20,6 +20,12 @@ config/icon="res://sprites/icon.svg"
 DebugDraw2D="*res://addons/debugdraw2d/DebugDraw2D.gd"
 TheGlobalSpawner="*res://global_spawner.gd"
 
+[display]
+
+window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
+
 [dotnet]
 
 project/assembly_name="spider-jump"
