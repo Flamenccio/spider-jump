@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=26 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -19,6 +19,8 @@
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://scripts/player/player_stats.gd" id="17_gxtfn"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="18_twgab"]
 [ext_resource type="Script" uid="uid://bhhvu1j2kktg0" path="res://scripts/player/player_safe_spot.gd" id="20_1kice"]
+[ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
+[ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -28,6 +30,10 @@ size = Vector2(160, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
 atlas = ExtResource("6_e1j6l")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
+atlas = ExtResource("21_37s47")
+region = Rect2(3, 3, 2, 2)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_player")]
 script = ExtResource("1_264po")
@@ -119,6 +125,20 @@ visible = false
 scale = Vector2(0.0195312, 0.0195312)
 texture = SubResource("AtlasTexture_264po")
 
+[node name="HeartShatterParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+texture = SubResource("AtlasTexture_1kice")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 22.5
+gravity = Vector2(0, 245)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+script = ExtResource("21_5newe")
+
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
 [connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
@@ -142,6 +162,7 @@ texture = SubResource("AtlasTexture_264po")
 [connection signal="external_stamina_restore" from="Player" to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
+[connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
 [connection signal="health_updated" from="PlayerStats" to="UI/Hud" method="_on_health_updated"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="score_updated" from="PlayerStats" to="UI/Hud" method="_on_score_updated"]

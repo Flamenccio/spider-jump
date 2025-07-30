@@ -78,10 +78,8 @@ func _spawn_level(level: SavedLevel) -> void:
 	if _active_levels_queue.size() >= _MAX_ACTIVE_LEVELS:
 		var old = _active_levels_queue.pop_front() as Node
 		old.queue_free()
-		print('DESTROYED: ', old.get_instance_id())
 
 
 func spawn_new_level():
 	var random := _loaded_levels.pick_random() as SavedLevel
-	#print('random level: ', random)
 	_spawn_level(random)

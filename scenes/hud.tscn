@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=16 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://scripts/ui/hud.gd" id="1_oo0fn"]
 [ext_resource type="Script" uid="uid://c6idgfnvj6gyg" path="res://scripts/ui/life.gd" id="3_6fi6k"]
+[ext_resource type="Script" uid="uid://bpfag8i8be7xl" path="res://scripts/ui/stamina.gd" id="3_hd3ao"]
 [ext_resource type="Script" uid="uid://tjmj5v6lw2as" path="res://scripts/ui/life_bar.gd" id="3_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://dj6nc2r4uunkq" path="res://sprites/life.png" id="4_uo2fv"]
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="6_5pdws"]
@@ -16,9 +17,17 @@ region = Rect2(16, 72, 32, 8)
 atlas = ExtResource("1_ahhtf")
 region = Rect2(16, 64, 32, 8)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i1j5"]
+atlas = ExtResource("1_ahhtf")
+region = Rect2(48, 64, 32, 8)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_6fi6k"]
 atlas = ExtResource("4_uo2fv")
 region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd3ao"]
+atlas = ExtResource("4_uo2fv")
+region = Rect2(16, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_047uy"]
 atlas = ExtResource("4_uo2fv")
@@ -58,32 +67,37 @@ step = 3.125
 value = 50.0
 texture_under = SubResource("AtlasTexture_oo0fn")
 texture_progress = SubResource("AtlasTexture_ahhtf")
+script = ExtResource("3_hd3ao")
+_flash_sprite = SubResource("AtlasTexture_0i1j5")
+_normal_sprite = SubResource("AtlasTexture_ahhtf")
 
 [node name="Life" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -16.0
-offset_top = 26.0
-offset_right = 16.0
-offset_bottom = 34.0
+offset_left = -10.0
+offset_top = 36.0
+offset_right = 10.0
+offset_bottom = 44.0
 grow_horizontal = 2
 scale = Vector2(4, 4)
-pivot_offset = Vector2(16, 0)
+pivot_offset = Vector2(10, 0)
 
-[node name="HFlowContainer" type="HFlowContainer" parent="Life"]
+[node name="HFlowContainer" type="HFlowContainer" parent="Life" node_paths=PackedStringArray("parent")]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/h_separation = -2
 alignment = 1
 script = ExtResource("3_uo2fv")
+parent = NodePath("..")
 
 [node name="Life" type="TextureRect" parent="Life/HFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6fi6k")
 script = ExtResource("3_6fi6k")
+_flash_sprite = SubResource("AtlasTexture_hd3ao")
 _full_sprite = SubResource("AtlasTexture_047uy")
 _empty_sprite = SubResource("AtlasTexture_5pdws")
 
@@ -92,6 +106,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6fi6k")
 script = ExtResource("3_6fi6k")
+_flash_sprite = SubResource("AtlasTexture_hd3ao")
 _full_sprite = SubResource("AtlasTexture_047uy")
 _empty_sprite = SubResource("AtlasTexture_5pdws")
 
@@ -100,20 +115,30 @@ layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_6fi6k")
 script = ExtResource("3_6fi6k")
+_flash_sprite = SubResource("AtlasTexture_hd3ao")
 _full_sprite = SubResource("AtlasTexture_047uy")
 _empty_sprite = SubResource("AtlasTexture_5pdws")
 
 [node name="Score" type="MarginContainer" parent="."]
 layout_mode = 1
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 64.0
-offset_bottom = 64.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -66.0
+offset_right = 20.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
 scale = Vector2(4, 4)
+pivot_offset = Vector2(19, 0)
 
 [node name="HFlowContainer" type="HFlowContainer" parent="Score"]
 layout_mode = 2
 theme_override_constants/h_separation = -1
+alignment = 1
 script = ExtResource("6_5pdws")
 
 [node name="DigitDisplay" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
@@ -137,3 +162,5 @@ layout_mode = 2
 [connection signal="internal_health_updated" from="." to="Life/HFlowContainer" method="display_life"]
 [connection signal="internal_score_updated" from="." to="Score/HFlowContainer" method="display_value"]
 [connection signal="internal_stamina_updated" from="." to="Energy/CenterContainer/Stamina" method="set_value"]
+[connection signal="value_changed" from="Energy/CenterContainer/Stamina" to="Energy/CenterContainer/Stamina" method="_flash" unbinds=1]
+[connection signal="life_lost" from="Life/HFlowContainer" to="." method="_internal_on_life_lost"]

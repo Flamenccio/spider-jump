@@ -1,7 +1,10 @@
 extends HFlowContainer
 
+@export var parent: Control
 var items: Array[TextureRect]
 var _current_item: int = 0
+
+signal life_lost(screen_coords: Transform2D)
 
 func _ready() -> void:
 	# Get children and sort them by x-axis
@@ -29,6 +32,7 @@ func change_life(change: int) -> void:
 			# Reduce life
 			items[_current_item].call('set_empty')
 			_current_item -= 1
+			life_lost.emit(parent)
 		else:
 			# Increase life
 			_current_item += 1

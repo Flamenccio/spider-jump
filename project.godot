@@ -25,6 +25,7 @@ TheGlobalSpawner="*res://scripts/game/global_spawner.gd"
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 

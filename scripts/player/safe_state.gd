@@ -51,10 +51,6 @@ func _on_player_fell(here: Vector2) -> void:
 
 func _safe_spot_updated(in_screen: bool) -> void:
 	_safe_spot_in_screen = in_screen
-	if not _safe_spot_in_screen:
-		print('safe spot is not safe!!!!')
-	else:
-		print('never mind!!!')
 
 
 ## Called when the the player's safe spot is off screen.
