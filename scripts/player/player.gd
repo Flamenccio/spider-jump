@@ -7,7 +7,6 @@ signal internal_pull_release()
 signal internal_pull_press()
 signal internal_safe_spot_updated(in_screen: bool)
 signal internal_player_fell(here: Vector2)
-signal internal_player_hurt()
 
 # External use
 signal external_stamina_restore(restoration: float)

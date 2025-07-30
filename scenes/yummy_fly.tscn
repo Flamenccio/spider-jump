@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://xhkwm2kavftk"]
 
-[ext_resource type="Script" uid="uid://dsb66hi83np7q" path="res://item.gd" id="1_hmm55"]
+[ext_resource type="Script" uid="uid://dsb66hi83np7q" path="res://scripts/entities/item.gd" id="1_hmm55"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_jum41"]
 [ext_resource type="Texture2D" uid="uid://m3vdntvgt4cf" path="res://sprites/yum_fly_glow-Sheet.png" id="3_vpi6r"]
 

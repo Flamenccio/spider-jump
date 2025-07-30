@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
-[ext_resource type="Script" uid="uid://w11jygroadmh" path="res://hud.gd" id="1_oo0fn"]
-[ext_resource type="Script" uid="uid://c6idgfnvj6gyg" path="res://life.gd" id="3_6fi6k"]
-[ext_resource type="Script" uid="uid://tjmj5v6lw2as" path="res://life_bar.gd" id="3_uo2fv"]
+[ext_resource type="Script" uid="uid://w11jygroadmh" path="res://scripts/ui/hud.gd" id="1_oo0fn"]
+[ext_resource type="Script" uid="uid://c6idgfnvj6gyg" path="res://scripts/ui/life.gd" id="3_6fi6k"]
+[ext_resource type="Script" uid="uid://tjmj5v6lw2as" path="res://scripts/ui/life_bar.gd" id="3_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://dj6nc2r4uunkq" path="res://sprites/life.png" id="4_uo2fv"]
-[ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://number_display.gd" id="6_5pdws"]
+[ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="6_5pdws"]
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/digit_display.tscn" id="6_047uy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]

@@ -85,4 +85,3 @@ func spawn_new_level():
 	var random := _loaded_levels.pick_random() as SavedLevel
 	#print('random level: ', random)
 	_spawn_level(random)
-

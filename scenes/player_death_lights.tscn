@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cmsarojf16j7v"]
 
 [ext_resource type="Texture2D" uid="uid://csrmndrimud8b" path="res://sprites/player_death_lights-Sheet.png" id="1_okqho"]
-[ext_resource type="Script" uid="uid://qgv7nwvdtrqd" path="res://player_death_lights.gd" id="1_xsbbh"]
+[ext_resource type="Script" uid="uid://qgv7nwvdtrqd" path="res://scripts/player/player_death_lights.gd" id="1_xsbbh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xsbbh"]
 atlas = ExtResource("1_okqho")
