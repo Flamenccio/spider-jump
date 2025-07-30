@@ -8,8 +8,6 @@ signal score_updated(score: int)
 @export var _base_stamina_drain_amount: float = 0.0
 var _stamina_drain_amount: float = 0.0
 
-@export var debug: bool
-
 @export var _player: Node2D
 
 # Player must travel this much vertically to gain one point.
@@ -25,8 +23,7 @@ func game_over() -> void:
 
 
 func _process(delta: float) -> void:
-	if not debug:
-		stamina_drained.emit(_stamina_drain_amount * delta * -1)
+	stamina_drained.emit(_stamina_drain_amount * delta * -1)
 	var point = floori(_player.global_position.y / _PIXEL_PER_POINT)
 	score_updated.emit(point)
 

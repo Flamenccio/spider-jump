@@ -32,7 +32,6 @@ atlas = ExtResource("6_e1j6l")
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_player")]
 script = ExtResource("1_264po")
 _base_stamina_drain_amount = 0.033
-debug = true
 _player = NodePath("Player")
 
 [node name="GlobalSpawner" type="Node2D" parent="."]
@@ -104,7 +103,6 @@ texture = ExtResource("6_e1j6l")
 
 [node name="PlayerStats" type="Node" parent="."]
 script = ExtResource("17_gxtfn")
-debug = true
 
 [node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
 width = 1.0
@@ -117,6 +115,7 @@ rect = Rect2(-0.5, -0.5, 1, 1)
 script = ExtResource("20_1kice")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerSafeSpot"]
+visible = false
 scale = Vector2(0.0195312, 0.0195312)
 texture = SubResource("AtlasTexture_264po")
 

@@ -4,6 +4,7 @@ Saves the last place the player was standing
 """
 
 signal safe_spot_updated(pos: Vector2)
+signal player_recovered()
 
 @export var _player: CharacterBody2D
 @export var _danger_shapecast: ShapeCastCheck
@@ -45,6 +46,7 @@ func _on_player_fell(here: Vector2) -> void:
 	_player.global_position = _position
 	_player.rotation = _rotation
 	_player.velocity = Vector2.ZERO
+	player_recovered.emit()
 
 
 func _safe_spot_updated(in_screen: bool) -> void:

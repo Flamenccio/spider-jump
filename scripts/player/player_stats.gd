@@ -48,6 +48,8 @@ func decrease_lives() -> void:
 
 
 func change_stamina(amount: float) -> void:
+	if debug:
+		return
 	stamina = clampf(stamina + amount, _MIN_STAMINA, _MAX_STAMINA)
 	stamina_updated.emit(stamina)
 	if stamina <= _MIN_STAMINA:

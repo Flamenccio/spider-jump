@@ -722,6 +722,7 @@ collision_mask = 6
 [connection signal="land_on_normal" from="CollisionHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
 [connection signal="land_on_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "slip"]]
 [connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "air"]]
+[connection signal="player_recovered" from="SafeState" to="StateMachine" method="set_property" binds= ["ko", false]]
 [connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachine" method="set_property" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachine/Climb" method="set_climb_target"]
