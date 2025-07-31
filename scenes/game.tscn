@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=27 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://bhhvu1j2kktg0" path="res://scripts/player/player_safe_spot.gd" id="20_1kice"]
 [ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
+[ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -139,7 +140,13 @@ initial_velocity_min = 50.0
 initial_velocity_max = 150.0
 script = ExtResource("21_5newe")
 
-[connection signal="on_game_over" from="." to="UI/DeathScreen" method="show"]
+[node name="PlayerStatsSaver" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
+script = ExtResource("22_37s47")
+_directory = "res://hi_scores/"
+_player_stats = NodePath("../PlayerStats")
+
+[connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
+[connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
 [connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
@@ -172,3 +179,4 @@ script = ExtResource("21_5newe")
 [connection signal="screen_entered" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [true]]
 [connection signal="screen_exited" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_exited"]
 [connection signal="screen_exited" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [false]]
+[connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]

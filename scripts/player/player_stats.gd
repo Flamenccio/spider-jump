@@ -62,4 +62,3 @@ func update_score(new_score: int) -> void:
 	if score != new_score:
 		score = new_score
 		score_updated.emit(abs(score))
-

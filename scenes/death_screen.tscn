@@ -119,4 +119,66 @@ layout_mode = 2
 [node name="DigitDisplay6" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
+[node name="HighScore" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = 36.0
+offset_right = -68.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabelContainer" type="HFlowContainer" parent="HighScore"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -20.0
+offset_right = 102.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="HighScore/ScoreLabelContainer"]
+layout_mode = 2
+text = "High score"
+label_settings = SubResource("LabelSettings_dwo6e")
+
+[node name="ScoreDisplay" type="HFlowContainer" parent="HighScore"]
+layout_mode = 2
+offset_left = 95.0
+offset_top = 11.0
+offset_right = 127.0
+offset_bottom = 19.0
+scale = Vector2(4, 4)
+theme_override_constants/h_separation = -1
+script = ExtResource("3_7ns25")
+
+[node name="DigitDisplay" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay2" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay3" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay4" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay5" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay6" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[connection signal="internal_high_score_updated" from="." to="HighScore/ScoreDisplay" method="display_value"]
 [connection signal="internal_score_updated" from="." to="Score/ScoreDisplay" method="display_value"]
