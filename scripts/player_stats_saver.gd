@@ -25,13 +25,13 @@ func _on_game_end() -> void:
 
 	if files.size() == 0 or not files.has(_SCORE_FILENAME):
 		_save_new_file(score, save_directory)
-		print('a')
+		high_score_updated.emit(score)
 		return
 
 	var res = ResourceLoader.load(save_directory)
 	if res is not SavedPlayerStats:
-		print('b')
 		_save_new_file(score, save_directory)
+		high_score_updated.emit(score)
 		return
 
 	# Compare scores
@@ -40,7 +40,6 @@ func _on_game_end() -> void:
 	var abs_score = abs(score)
 
 	if abs_score > high_score:
-		print('updated high score: ', abs_score)
 		high_score_updated.emit(abs_score)
 		res.high_score = abs_score
 		ResourceSaver.save(res, save_directory)
@@ -62,3 +61,4 @@ func get_high_score() -> int:
 	if res is not SavedPlayerStats:
 		return 0
 	return (res as SavedPlayerStats).high_score
+
