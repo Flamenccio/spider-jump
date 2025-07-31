@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm3ht1lv7fpou"]
+[gd_scene load_steps=12 format=3 uid="uid://dm3ht1lv7fpou"]
 
 [ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://scripts/ui/ui_controller.gd" id="1_dwo6e"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_dwo6e"]
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="3_7ns25"]
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/digit_display.tscn" id="3_mqh5l"]
+[ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="5_gwety"]
+[ext_resource type="Script" uid="uid://doklq8uylia54" path="res://scripts/shader_manager.gd" id="6_wfw3d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mqh5l"]
 atlas = ExtResource("2_dwo6e")
@@ -16,6 +18,15 @@ outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dwo6e"]
+font_size = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wfw3d"]
+shader = ExtResource("5_gwety")
+shader_parameter/oscillate_active = false
+shader_parameter/tint = Vector4(1, 0.5, 0.5, 1)
+shader_parameter/oscillate_speed = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ns25"]
 font_size = 32
 
 [node name="DeathScreen" type="Control"]
@@ -148,9 +159,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ScoreLabel" type="Label" parent="HighScore/ScoreLabelContainer"]
+material = SubResource("ShaderMaterial_wfw3d")
 layout_mode = 2
 text = "High score"
-label_settings = SubResource("LabelSettings_dwo6e")
+label_settings = SubResource("LabelSettings_7ns25")
+script = ExtResource("6_wfw3d")
 
 [node name="ScoreDisplay" type="HFlowContainer" parent="HighScore"]
 layout_mode = 2
@@ -182,3 +195,4 @@ layout_mode = 2
 
 [connection signal="internal_high_score_updated" from="." to="HighScore/ScoreDisplay" method="display_value"]
 [connection signal="internal_score_updated" from="." to="Score/ScoreDisplay" method="display_value"]
+[connection signal="new_high_score_reached" from="." to="HighScore/ScoreLabelContainer/ScoreLabel" method="set_shader_param" binds= ["oscillate_active", true]]

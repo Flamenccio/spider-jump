@@ -180,3 +180,4 @@ _player_stats = NodePath("../PlayerStats")
 [connection signal="screen_exited" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_exited"]
 [connection signal="screen_exited" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [false]]
 [connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]
+[connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]

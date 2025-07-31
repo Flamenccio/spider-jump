@@ -2,6 +2,7 @@ extends Control
 
 signal internal_score_updated(score: int)
 signal internal_high_score_updated(score: int)
+signal new_high_score_reached()
 
 @export var _visible_on_ready: bool = true
 
@@ -19,3 +20,6 @@ func _update_score(score: int) -> void:
 func _update_high_score(score: int) -> void:
 	internal_high_score_updated.emit(score)
 
+
+func _new_high_score_reached() -> void:
+	new_high_score_reached.emit()
