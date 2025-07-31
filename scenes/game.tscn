@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=28 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
+[ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -144,6 +145,9 @@ script = ExtResource("21_5newe")
 script = ExtResource("22_37s47")
 _directory = "res://hi_scores/"
 _player_stats = NodePath("../PlayerStats")
+
+[node name="HighScoreLine" parent="." instance=ExtResource("23_bt5mj")]
+position = Vector2(0, -60)
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]

@@ -1,9 +1,8 @@
 extends Node
 
+signal spawn_particle(particle: String, position: Vector2, rotation: float)
+
 @export var _player: Node2D
-@export var dust_scene: PackedScene
-@export var jump_dust_scene: PackedScene
-@export var player_hit_scene: PackedScene
 
 var _jumped: bool = false
 
@@ -18,14 +17,17 @@ func spawn_dust(normal: Vector2) -> void:
 	if not _jumped: return
 	_jumped = false
 	var angle_rad = (Vector2.UP).angle_to(normal)
-	TheGlobalSpawner.instantiate_scene(dust_scene, _player.global_position, angle_rad)
+	spawn_particle.emit('land_dust', _player.global_position, angle_rad)
 
 
 # Called when player jumps
 func spawn_jump_dust() -> void:
 	_jumped = true
-	TheGlobalSpawner.instantiate_scene(jump_dust_scene, _player.global_position, _player.rotation)
+	#TheGlobalSpawner.instantiate_scene(jump_dust_scene, _player.global_position, _player.rotation)
+	spawn_particle.emit('jump_dust', _player.global_position, _player.rotation)
+
 
 
 func spawn_player_hit() -> void:
-	TheGlobalSpawner.instantiate_scene(player_hit_scene, _player.global_position, 0)
+	#TheGlobalSpawner.instantiate_scene(player_hit_scene, _player.global_position, 0)
+	spawn_particle.emit('player_hit', _player.global_position, 0.0)

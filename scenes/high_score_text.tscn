@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://cr6js11jir7ju"]
+
+[ext_resource type="Texture2D" uid="uid://bkeajaaaabxv6" path="res://sprites/HIGH_SCORE-Sheet.png" id="1_0rfrx"]
+[ext_resource type="Script" uid="uid://t6tqaokmdyq2" path="res://scripts/high_score_text.gd" id="1_arqfi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rfrx"]
+atlas = ExtResource("1_0rfrx")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arqfi"]
+atlas = ExtResource("1_0rfrx")
+region = Rect2(48, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4xcs"]
+atlas = ExtResource("1_0rfrx")
+region = Rect2(96, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbdv7"]
+atlas = ExtResource("1_0rfrx")
+region = Rect2(144, 0, 48, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s3a6a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rfrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arqfi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4xcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbdv7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="HighScoreText" type="Node2D"]
+script = ExtResource("1_arqfi")
+_upward_speed = 10.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_s3a6a")
+autoplay = "default"
+frame = 1
+frame_progress = 0.436582

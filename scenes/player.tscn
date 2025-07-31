@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=96 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -24,12 +24,14 @@
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
-[ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/landing_dust_emitter.gd" id="21_a38lo"]
+[ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/custom_particle_emitter.gd" id="21_a38lo"]
 [ext_resource type="PackedScene" uid="uid://dcsy57p10wcgc" path="res://scenes/landing_dust.tscn" id="21_i4ail"]
 [ext_resource type="PackedScene" uid="uid://cgfccdd6c34ro" path="res://scenes/jumping_dust.tscn" id="23_4ni07"]
 [ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://scripts/player/ledge_climb.gd" id="24_l71n6"]
 [ext_resource type="PackedScene" uid="uid://bbyn6mfqqfcud" path="res://scenes/player_hit_vfx.tscn" id="26_31cv2"]
 [ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/parabola_particles.tscn" id="28_pf23h"]
+[ext_resource type="Script" uid="uid://b4w2husdtviva" path="res://sprites/sprite_particle_emitter.gd" id="30_gl8cc"]
+[ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="31_487ah"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
@@ -464,6 +466,24 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
+[sub_resource type="Resource" id="Resource_apa73"]
+script = ExtResource("31_487ah")
+particle_name = "land_dust"
+particle_scene = ExtResource("21_i4ail")
+metadata/_custom_type_script = "uid://wmfb0j47nkka"
+
+[sub_resource type="Resource" id="Resource_74r1k"]
+script = ExtResource("31_487ah")
+particle_name = "jump_dust"
+particle_scene = ExtResource("23_4ni07")
+metadata/_custom_type_script = "uid://wmfb0j47nkka"
+
+[sub_resource type="Resource" id="Resource_8svfe"]
+script = ExtResource("31_487ah")
+particle_name = "player_hit"
+particle_scene = ExtResource("26_31cv2")
+metadata/_custom_type_script = "uid://wmfb0j47nkka"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_pf23h"]
 radius = 4.0
 
@@ -622,9 +642,10 @@ anim_speed_max = 1.0
 [node name="ParticleEmitter" type="Node" parent="Particles" node_paths=PackedStringArray("_player")]
 script = ExtResource("21_a38lo")
 _player = NodePath("../..")
-dust_scene = ExtResource("21_i4ail")
-jump_dust_scene = ExtResource("23_4ni07")
-player_hit_scene = ExtResource("26_31cv2")
+
+[node name="ParticleEmitter" type="Node" parent="Particles/ParticleEmitter"]
+script = ExtResource("30_gl8cc")
+_particles = Array[ExtResource("31_487ah")]([SubResource("Resource_apa73"), SubResource("Resource_74r1k"), SubResource("Resource_8svfe")])
 
 [node name="ParabolaParticles" parent="Particles" node_paths=PackedStringArray("_origin") instance=ExtResource("28_pf23h")]
 z_index = -1
@@ -726,6 +747,7 @@ collision_mask = 6
 [connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachine" method="set_property" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachine/Climb" method="set_climb_target"]
+[connection signal="spawn_particle" from="Particles/ParticleEmitter" to="Particles/ParticleEmitter/ParticleEmitter" method="spawn_particle"]
 [connection signal="body_shape_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_body_shape_entered" unbinds=1]
 [connection signal="body_shape_exited" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_body_shape_exited" unbinds=1]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="CollisionHandler" method="_on_item_collided"]

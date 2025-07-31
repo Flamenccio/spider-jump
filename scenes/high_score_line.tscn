@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://bbd2meqorrjoe"]
+
+[ext_resource type="Script" uid="uid://bwlut33e1ye6a" path="res://scripts/high_score_line.gd" id="1_ao4fa"]
+[ext_resource type="Texture2D" uid="uid://wovy1tqu5mb7" path="res://sprites/high_score_line.png" id="1_vj61t"]
+[ext_resource type="Texture2D" uid="uid://dk71uw1mbteqt" path="res://sprites/confetti_1-Sheet.png" id="2_op4m1"]
+[ext_resource type="Script" uid="uid://b4w2husdtviva" path="res://sprites/sprite_particle_emitter.gd" id="4_crmku"]
+[ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="5_kq7oi"]
+[ext_resource type="PackedScene" uid="uid://cr6js11jir7ju" path="res://scenes/high_score_text.tscn" id="6_scrqt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op4m1"]
+atlas = ExtResource("1_vj61t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ao4fa"]
+atlas = ExtResource("1_vj61t")
+region = Rect2(8, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj61t"]
+atlas = ExtResource("1_vj61t")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_op4m1"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj61t"]
+size = Vector2(120, 2)
+
+[sub_resource type="Resource" id="Resource_xdcts"]
+script = ExtResource("5_kq7oi")
+particle_name = "high_score"
+particle_scene = ExtResource("6_scrqt")
+metadata/_custom_type_script = "uid://wmfb0j47nkka"
+
+[node name="HighScoreLine" type="Node2D" node_paths=PackedStringArray("_particle_emitter")]
+script = ExtResource("1_ao4fa")
+_particle_emitter = NodePath("SpriteParticleEmitter")
+
+[node name="Left" type="Sprite2D" parent="."]
+position = Vector2(-56, 0)
+texture = SubResource("AtlasTexture_op4m1")
+
+[node name="Middle" type="Sprite2D" parent="."]
+scale = Vector2(6, 1)
+texture = SubResource("AtlasTexture_ao4fa")
+
+[node name="Right" type="Sprite2D" parent="."]
+position = Vector2(56, 0)
+texture = SubResource("AtlasTexture_vj61t")
+
+[node name="Confetti1R" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_op4m1")
+position = Vector2(60, -4)
+emitting = false
+amount = 50
+texture = ExtResource("2_op4m1")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 245)
+initial_velocity_min = 25.0
+initial_velocity_max = 100.0
+anim_speed_min = 10.0
+anim_speed_max = 10.0
+anim_offset_max = 1.0
+
+[node name="Confetti1L" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_op4m1")
+position = Vector2(-60, -4)
+emitting = false
+amount = 50
+texture = ExtResource("2_op4m1")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 245)
+initial_velocity_min = 25.0
+initial_velocity_max = 100.0
+anim_speed_min = 10.0
+anim_speed_max = 10.0
+anim_offset_max = 1.0
+
+[node name="PlayerSensor" type="Area2D" parent="."]
+position = Vector2(0, -4)
+collision_layer = 0
+
+[node name="Shape" type="CollisionShape2D" parent="PlayerSensor"]
+shape = SubResource("RectangleShape2D_vj61t")
+
+[node name="SpriteParticleEmitter" type="Node" parent="."]
+script = ExtResource("4_crmku")
+_particles = Array[ExtResource("5_kq7oi")]([SubResource("Resource_xdcts")])
+metadata/_custom_type_script = "uid://b4w2husdtviva"
+
+[connection signal="player_entered" from="." to="Left" method="hide" flags=3]
+[connection signal="player_entered" from="." to="Middle" method="hide" flags=3]
+[connection signal="player_entered" from="." to="Right" method="hide" flags=3]
+[connection signal="player_entered" from="." to="Confetti1L" method="set_emitting" flags=3 binds= [true]]
+[connection signal="player_entered" from="." to="Confetti1R" method="set_emitting" flags=3 binds= [true]]
+[connection signal="body_entered" from="PlayerSensor" to="." method="_on_player_entered" flags=6 unbinds=1]
