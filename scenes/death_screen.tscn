@@ -1,13 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm3ht1lv7fpou"]
+[gd_scene load_steps=8 format=3 uid="uid://dm3ht1lv7fpou"]
 
 [ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://scripts/ui/ui_controller.gd" id="1_dwo6e"]
-[ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="1_uyutr"]
+[ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_dwo6e"]
+[ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="3_7ns25"]
+[ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/digit_display.tscn" id="3_mqh5l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqh5l"]
+atlas = ExtResource("2_dwo6e")
+region = Rect2(74, 2, 20, 20)
 
 [sub_resource type="LabelSettings" id="LabelSettings_itto5"]
 font_size = 96
 font_color = Color(1, 0.00392157, 0.00392157, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dwo6e"]
+font_size = 32
 
 [node name="DeathScreen" type="Control"]
 layout_mode = 3
@@ -21,19 +30,13 @@ _visible_on_ready = false
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -575.0
-offset_top = -322.0
-offset_right = -447.0
-offset_bottom = -194.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(8.94045, 5.02163)
-texture = ExtResource("1_uyutr")
+texture = SubResource("AtlasTexture_mqh5l")
 
 [node name="YouDiedContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -42,10 +45,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -96.5
-offset_top = -22.5
-offset_right = 96.5
-offset_bottom = 22.5
+offset_left = -288.5
+offset_top = -194.0
+offset_right = 288.5
+offset_bottom = -62.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -54,3 +57,66 @@ layout_mode = 2
 text = "GAME OVER!"
 label_settings = SubResource("LabelSettings_itto5")
 horizontal_alignment = 1
+
+[node name="Score" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -20.0
+offset_right = -68.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabelContainer" type="HFlowContainer" parent="Score"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 180.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Score/ScoreLabelContainer"]
+layout_mode = 2
+text = "Score"
+label_settings = SubResource("LabelSettings_dwo6e")
+
+[node name="ScoreDisplay" type="HFlowContainer" parent="Score"]
+layout_mode = 2
+offset_left = 95.0
+offset_top = 11.0
+offset_right = 127.0
+offset_bottom = 19.0
+scale = Vector2(4, 4)
+theme_override_constants/h_separation = -1
+script = ExtResource("3_7ns25")
+
+[node name="DigitDisplay" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay2" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay3" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay4" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay5" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[node name="DigitDisplay6" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+layout_mode = 2
+
+[connection signal="internal_score_updated" from="." to="Score/ScoreDisplay" method="display_value"]

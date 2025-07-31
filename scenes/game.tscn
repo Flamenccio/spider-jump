@@ -166,6 +166,7 @@ script = ExtResource("21_5newe")
 [connection signal="health_updated" from="PlayerStats" to="UI/Hud" method="_on_health_updated"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="score_updated" from="PlayerStats" to="UI/Hud" method="_on_score_updated"]
+[connection signal="score_updated" from="PlayerStats" to="UI/DeathScreen" method="_update_score"]
 [connection signal="stamina_updated" from="PlayerStats" to="UI/Hud" method="_on_stamina_updated"]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_entered"]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [true]]
