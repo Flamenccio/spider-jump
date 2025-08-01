@@ -64,11 +64,6 @@ func _rotate_against_normal(normal: Vector2) -> void:
 	rotation += difference
 
 
-func _on_player_hurt() -> void:
-	_invincibility_timer.stop()
-	_invincibility_timer.start()
-
-
 func _on_stamina_restore(amount: float) -> void:
 	external_stamina_restore.emit(amount)
 
@@ -78,6 +73,8 @@ func _on_danger_entered() -> void:
 
 
 func _on_player_fell(here: Vector2) -> void:
+	_invincibility_timer.stop()
+	_invincibility_timer.start()
 	internal_player_fell.emit(here)
 
 

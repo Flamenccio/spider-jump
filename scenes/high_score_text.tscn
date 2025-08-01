@@ -40,6 +40,7 @@ animations = [{
 }]
 
 [node name="HighScoreText" type="Node2D"]
+z_index = 10
 script = ExtResource("1_arqfi")
 _upward_speed = 10.0
 

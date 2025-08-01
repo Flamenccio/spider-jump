@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=97 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/parabola_particles.tscn" id="28_pf23h"]
 [ext_resource type="Script" uid="uid://b4w2husdtviva" path="res://sprites/sprite_particle_emitter.gd" id="30_gl8cc"]
 [ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="31_487ah"]
+[ext_resource type="Script" uid="uid://e2r68u481i5h" path="res://scripts/player/danger_detector.gd" id="33_487ah"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
@@ -677,6 +678,7 @@ debug_color = Color(0.7, 0.653333, 0, 0.419608)
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 16
+script = ExtResource("33_487ah")
 
 [node name="Shape" type="CollisionShape2D" parent="Detectors/DangerDetector"]
 shape = SubResource("CircleShape2D_l71n6")
@@ -699,13 +701,15 @@ collision_mask = 6
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_player_fell" from="." to="SafeState" method="_on_player_fell"]
+[connection signal="internal_player_fell" from="." to="Sprite" method="_activate_invincibility_flashing" unbinds=1]
+[connection signal="internal_player_fell" from="." to="Detectors/DangerDetector" method="disable_detector" unbinds=1]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
 [connection signal="internal_pull_press" from="." to="StateMachine" method="set_property" binds= ["aim", true]]
 [connection signal="internal_pull_release" from="." to="StateMachine/Aim" method="_on_pull_release"]
 [connection signal="internal_pull_release" from="." to="StateMachine" method="set_property" binds= ["aim", false]]
 [connection signal="internal_safe_spot_updated" from="." to="SafeState" method="_safe_spot_updated"]
 [connection signal="invincibility_ended" from="." to="Sprite" method="_stop_invincibility_flashing"]
-[connection signal="invincibility_ended" from="." to="Detectors/DangerDetector/Shape" method="set_disabled" flags=3 binds= [false]]
+[connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
 [connection signal="moving" from="." to="StateMachine" method="set_property" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachine" method="set_property" binds= ["crawl", false]]
 [connection signal="ready" from="StateMachine" to="StateMachine/Entry" method="_machine_ready"]

@@ -7,7 +7,6 @@ signal player_entered()
 var _death_timer: Timer = Timer.new()
 
 const _DEATH_TIMER_DURATION = 3.0
-const _PIXEL_PER_POINT = 8
 
 func _ready() -> void:
 	_death_timer.one_shot = true
@@ -25,7 +24,7 @@ func _on_stats_saver_ready() -> void:
 		queue_free()
 		return
 
-	global_position = Vector2(0.0, -1 * high_score * _PIXEL_PER_POINT)
+	global_position = Vector2(0.0, -1 * high_score * GameConstants.PIXELS_PER_POINT)
 
 
 func _on_player_entered() -> void:
