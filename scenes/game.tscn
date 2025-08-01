@@ -177,6 +177,7 @@ _high_score_saver = NodePath("../PlayerStatsSaver")
 [connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
 [connection signal="health_updated" from="PlayerStats" to="UI/Hud" method="_on_health_updated"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
+[connection signal="score_updated" from="PlayerStats" to="." method="_on_score_updated"]
 [connection signal="score_updated" from="PlayerStats" to="UI/Hud" method="_on_score_updated"]
 [connection signal="score_updated" from="PlayerStats" to="UI/DeathScreen" method="_update_score"]
 [connection signal="stamina_updated" from="PlayerStats" to="UI/Hud" method="_on_stamina_updated"]

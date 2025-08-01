@@ -1,5 +1,6 @@
 extends Node2D
 
+signal levelled_up(new_level: int)
 signal on_game_over()
 signal stamina_drained(amount: float)
 signal score_updated(score: int)
@@ -24,3 +25,19 @@ func _process(delta: float) -> void:
 	var point = floori(_player.global_position.y / GameConstants.PIXELS_PER_POINT)
 	score_updated.emit(point)
 
+
+func _on_score_updated(score: int) -> void:
+	var next_score = get_next_level_up_score(GameConstants.difficulty)
+	if score >= next_score:
+		_level_up(GameConstants.difficulty + 1)
+
+
+func _level_up(next_level: int) -> void:
+	print('level up! new level: ', next_level)
+	GameConstants.difficulty = next_level
+	levelled_up.emit(GameConstants.difficulty)
+
+
+# TODO: adjust if needed
+func get_next_level_up_score(difficulty: int) -> int:
+	return 100 * (difficulty + 1) + 50 * difficulty
