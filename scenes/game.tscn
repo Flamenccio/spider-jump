@@ -146,8 +146,9 @@ script = ExtResource("22_37s47")
 _directory = "res://hi_scores/"
 _player_stats = NodePath("../PlayerStats")
 
-[node name="HighScoreLine" parent="." instance=ExtResource("23_bt5mj")]
+[node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
 position = Vector2(0, -60)
+_high_score_saver = NodePath("../PlayerStatsSaver")
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
@@ -185,3 +186,4 @@ position = Vector2(0, -60)
 [connection signal="screen_exited" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [false]]
 [connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]
 [connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]
+[connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]

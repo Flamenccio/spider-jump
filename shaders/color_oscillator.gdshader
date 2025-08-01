@@ -16,7 +16,7 @@ void fragment() {
 		float r = lerp(tint.r, base_color.r, t);
 		float g = lerp(tint.g, base_color.g, t);
 		float b = lerp(tint.b, base_color.b, t);
-	
+
 		vec4 color = vec4(r, g, b, base_color.a);
 		COLOR = color;
 	}

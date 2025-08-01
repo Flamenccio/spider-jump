@@ -61,9 +61,10 @@ one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 direction = Vector2(0, -1)
+spread = 180.0
 gravity = Vector2(0, 245)
-initial_velocity_min = 25.0
-initial_velocity_max = 100.0
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
 anim_speed_min = 10.0
 anim_speed_max = 10.0
 anim_offset_max = 1.0
@@ -79,9 +80,10 @@ one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 direction = Vector2(0, -1)
+spread = 180.0
 gravity = Vector2(0, 245)
-initial_velocity_min = 25.0
-initial_velocity_max = 100.0
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
 anim_speed_min = 10.0
 anim_speed_max = 10.0
 anim_offset_max = 1.0
@@ -101,6 +103,6 @@ metadata/_custom_type_script = "uid://b4w2husdtviva"
 [connection signal="player_entered" from="." to="Left" method="hide" flags=3]
 [connection signal="player_entered" from="." to="Middle" method="hide" flags=3]
 [connection signal="player_entered" from="." to="Right" method="hide" flags=3]
-[connection signal="player_entered" from="." to="Confetti1L" method="set_emitting" flags=3 binds= [true]]
 [connection signal="player_entered" from="." to="Confetti1R" method="set_emitting" flags=3 binds= [true]]
+[connection signal="player_entered" from="." to="Confetti1L" method="set_emitting" flags=3 binds= [true]]
 [connection signal="body_entered" from="PlayerSensor" to="." method="_on_player_entered" flags=6 unbinds=1]
