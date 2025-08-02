@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://dwwlnrtobyuml"]
+[gd_scene load_steps=13 format=4 uid="uid://dwwlnrtobyuml"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_btdyi"]
 [ext_resource type="Script" uid="uid://wlww281eau6a" path="res://scripts/level_up_platform.gd" id="1_byf52"]
+[ext_resource type="Script" uid="uid://b4w2husdtviva" path="res://sprites/sprite_particle_emitter.gd" id="3_n2wbt"]
+[ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="4_ei45e"]
+[ext_resource type="PackedScene" uid="uid://dkeyppodrsyaq" path="res://scenes/level_up_text.tscn" id="5_cdd2r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_byf52"]
 size = Vector2(8, 8)
@@ -27,10 +30,17 @@ sources/0 = SubResource("TileSetAtlasSource_byf52")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btdyi"]
 size = Vector2(96, 30)
 
-[node name="LevelUpPlatform" type="StaticBody2D"]
+[sub_resource type="Resource" id="Resource_e7xp6"]
+script = ExtResource("4_ei45e")
+particle_name = "level_up_text"
+particle_scene = ExtResource("5_cdd2r")
+metadata/_custom_type_script = "uid://wmfb0j47nkka"
+
+[node name="LevelUpPlatform" type="StaticBody2D" node_paths=PackedStringArray("_particle_emitter")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_byf52")
+_particle_emitter = NodePath("SpriteParticleEmitter")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(12, 1)
@@ -54,6 +64,11 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSensor"]
 position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_btdyi")
+
+[node name="SpriteParticleEmitter" type="Node" parent="."]
+script = ExtResource("3_n2wbt")
+_particles = Array[ExtResource("4_ei45e")]([SubResource("Resource_e7xp6")])
+metadata/_custom_type_script = "uid://b4w2husdtviva"
 
 [connection signal="platform_triggered" from="." to="Active" method="show"]
 [connection signal="platform_triggered" from="." to="Inactive" method="hide"]

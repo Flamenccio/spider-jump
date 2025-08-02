@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://dkeyppodrsyaq"]
+
+[ext_resource type="Texture2D" uid="uid://vx7bv425gryb" path="res://sprites/LEVEL_UP-Sheet.png" id="1_qwnfm"]
+[ext_resource type="Script" uid="uid://t6tqaokmdyq2" path="res://scripts/high_score_text.gd" id="2_8nkff"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nkff"]
+atlas = ExtResource("1_qwnfm")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d76ur"]
+atlas = ExtResource("1_qwnfm")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtt15"]
+atlas = ExtResource("1_qwnfm")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2csph"]
+atlas = ExtResource("1_qwnfm")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8jm4"]
+atlas = ExtResource("1_qwnfm")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnghi"]
+atlas = ExtResource("1_qwnfm")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwuuy"]
+atlas = ExtResource("1_qwnfm")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_idy1a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nkff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d76ur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtt15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2csph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8jm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnghi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwuuy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="LevelUpText" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_idy1a")
+autoplay = "default"
+frame = 6
+frame_progress = 0.906677
+speed_scale = 2.0
+script = ExtResource("2_8nkff")
+_upward_speed = 10.0
