@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=22 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/ground.tscn" id="1_dvny0"]
 [ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="2_xwrkq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="4_7448y"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="5_ar7ra"]
 [ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="6_ixgyf"]
+[ext_resource type="PackedScene" uid="uid://dwwlnrtobyuml" path="res://scenes/level_up_platform.tscn" id="7_xwrkq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cnaw2"]
 
@@ -132,6 +133,9 @@ tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Slip")])
 [node name="SLIPPERY_0" type="CollisionShape2D" parent="SlipBaked"]
 position = Vector2(60, -44)
 shape = SubResource("RectangleShape2D_6mf5r")
+
+[node name="LevelUpPlatform" parent="." instance=ExtResource("7_xwrkq")]
+position = Vector2(-7, -35)
 
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]

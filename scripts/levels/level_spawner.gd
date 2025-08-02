@@ -1,6 +1,7 @@
 extends Node2D
 
 signal new_level_spawned(total_height: float)
+signal new_level_body_spawned(level_body: Node2D)
 
 @export var _level_path: String = ''
 @export var _initial_level: SavedLevel
@@ -72,6 +73,7 @@ func _spawn_level(level: SavedLevel) -> void:
 	instance.global_position = Vector2(0, _game_height)
 	_game_height -= new_level_height
 	new_level_spawned.emit(_game_height)
+	new_level_body_spawned.emit(instance as Node2D)
 
 	# Track new level and destroy old one
 	_active_levels_queue.push_back(instance)

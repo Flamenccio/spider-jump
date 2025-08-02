@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=32 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -9,8 +9,11 @@
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="7_pl11u"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://scripts/levels/level_spawner.gd" id="8_bhx41"]
 [ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/base.res" id="9_qnb83"]
+[ext_resource type="Script" uid="uid://daiq6c47nx1ko" path="res://scripts/level_decorator.gd" id="10_e1j6l"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="10_sww3w"]
+[ext_resource type="Script" uid="uid://bysji3wvke32e" path="res://scripts/level_decoration.gd" id="11_bhx41"]
 [ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="11_suyxu"]
+[ext_resource type="PackedScene" uid="uid://dwwlnrtobyuml" path="res://scenes/level_up_platform.tscn" id="12_qnb83"]
 [ext_resource type="Script" uid="uid://821p0psjcurb" path="res://scripts/player/pull_circle.gd" id="12_sgl2t"]
 [ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="13_qouja"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://scripts/levels/level_spawn_trigger.gd" id="14_wljb1"]
@@ -26,6 +29,13 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
+
+[sub_resource type="Resource" id="Resource_sww3w"]
+script = ExtResource("11_bhx41")
+decoration_name = "level_up_platform"
+scene = ExtResource("12_qnb83")
+difficulty_level = 0
+metadata/_custom_type_script = "uid://bysji3wvke32e"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
 size = Vector2(160, 8)
@@ -78,8 +88,13 @@ _level_path = "res://levels/"
 _initial_level = ExtResource("9_qnb83")
 _spawn_trigger = NodePath("../LevelSpawnTrigger")
 
+[node name="LevelDecorator" type="Node" parent="LevelSpawner" node_paths=PackedStringArray("_game_manager")]
+script = ExtResource("10_e1j6l")
+_game_manager = NodePath("../..")
+_decorations = Array[ExtResource("11_bhx41")]([SubResource("Resource_sww3w")])
+
 [node name="Player" parent="." instance=ExtResource("10_sww3w")]
-position = Vector2(0, -4)
+position = Vector2(0, -12)
 
 [node name="PullCircle" type="Sprite2D" parent="Player"]
 texture = ExtResource("11_suyxu")
@@ -168,6 +183,8 @@ _high_score_saver = NodePath("../PlayerStatsSaver")
 [connection signal="pull_release" from="InputService" to="Player/PullCircle" method="set_inactive"]
 [connection signal="pull_release" from="InputService" to="PullDragline" method="hide"]
 [connection signal="pull_release" from="InputService" to="PullDragline" method="pull_set_active" binds= [false]]
+[connection signal="new_level_body_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_level_spawned"]
+[connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_game_height_updated"]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="external_danger_entered" from="Player" to="Player/PullCircle" method="hide"]
 [connection signal="external_set_safe_spot" from="Player" to="PlayerSafeSpot" method="set_global_position"]
