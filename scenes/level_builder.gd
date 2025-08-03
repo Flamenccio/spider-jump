@@ -58,8 +58,6 @@ func _load() -> void:
 	var level = loaded_scene.instantiate()
 	var editor_root = get_tree().edited_scene_root
 	for level_child in level.get_children():
-		#level.remove_child(level_child)
-		#add_child(level_child)
 		level_child.reparent(self)
 	_set_owner_recursive(editor_root, self)
 	level.queue_free()

@@ -15,6 +15,7 @@ func _on_game_height_updated(height: float) -> void:
 
 func _decorate_level(level_body: Node2D) -> void:
 	_scan_elevation(level_body)
+	_unpack_item_boxes(level_body)
 
 
 func _scan_elevation(level: Node2D) -> void:
@@ -37,3 +38,11 @@ func _get_level_decoration(decoration: String) -> LevelDecoration:
 		printerr('level_decorator: no decoration with name "{0}"'.format({'0': decoration}))
 		return null
 	return _decorations[index]
+
+
+func _unpack_item_boxes(level: Node2D) -> void:
+	var children = level.get_children(true)
+	for child in children:
+		if child is ItemBox:
+			(child as ItemBox).spawn_loot(GameConstants.difficulty)
+

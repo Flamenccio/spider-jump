@@ -4,10 +4,13 @@ extends SavedNode
 
 @export var tilemaps: Array[SavedTilemap]
 @export var tilemap_colliders: Array[SavedTilemapCollider]
+@export var level_objects: Array[SavedLevelObject]
+
 ## Height of the level, in pixels
 @export var level_height: int
 
 func instantiate() -> Node2D:
+
 	var instance = Node2D.new()
 	instance.name = saved_name
 
@@ -18,6 +21,10 @@ func instantiate() -> Node2D:
 	# Instantiate tilemap colliders
 	for collider in tilemap_colliders:
 		instance.add_child(collider.instantiate())
+
+	# Instantiate objects
+	for object in level_objects:
+		instance.add_child(object.instantiate())
 
 	return instance
 
@@ -39,7 +46,10 @@ func save_level(level: Node2D) -> void:
 			saved_tilemap_collider.save_collider(child as StaticBody2D)
 			tilemap_colliders.append(saved_tilemap_collider)
 
-		print('level height: ', level_height)
+		if child is LevelObject:
+			var saved_object = SavedLevelObject.new()
+			saved_object.save(child as LevelObject)
+			level_objects.append(saved_object)
 
 
 func _calculate_height(tilemap: TileMapLayer) -> void:
@@ -52,7 +62,5 @@ func _calculate_height(tilemap: TileMapLayer) -> void:
 		highest = mini(highest, tile.y)
 		lowest = maxi(lowest, tile.y)
 	
-	print('highest: ', highest)
-	print('lowest: ', lowest)
 	level_height = maxi(level_height, (lowest - highest) * tilemap.tile_set.tile_size.y)
 
