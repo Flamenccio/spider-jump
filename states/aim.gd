@@ -8,7 +8,6 @@ signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 @export var _player: CharacterBody2D
 @export var _animator: AnimatedSprite2D
 @export var _jump_force: float = 1.0
-@export var _expected_gravity: float = 1.0
 
 var _pull_input: Vector2
 var _jumped: bool = false
@@ -39,7 +38,7 @@ func _on_pull_input_change(input: Vector2) -> void:
 
 	# Emit predicted trajectory
 	var velocity = _pull_input * _jump_force * -1
-	var acceleration = Vector2(0, _expected_gravity)
+	var acceleration = Vector2(0, GameConstants.current_gravity)
 	trajectory_updated.emit(velocity, acceleration)
 
 
@@ -72,3 +71,4 @@ func _is_jump_direction_valid(direction: Vector2) -> bool:
 
 func _on_normal_land(normal: Vector2) -> void:
 	_surface_normal = normal
+

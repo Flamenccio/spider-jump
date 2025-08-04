@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=98 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" uid="uid://b4w2husdtviva" path="res://sprites/sprite_particle_emitter.gd" id="30_gl8cc"]
 [ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="31_487ah"]
 [ext_resource type="Script" uid="uid://e2r68u481i5h" path="res://scripts/player/danger_detector.gd" id="33_487ah"]
+[ext_resource type="Script" uid="uid://d0al3rebskcyi" path="res://scripts/powerup_handler.gd" id="34_md1ol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
@@ -529,7 +530,6 @@ script = ExtResource("10_qfm1y")
 _player = NodePath("../..")
 _animator = NodePath("../../Sprite")
 _jump_force = 170.0
-_expected_gravity = 225.0
 
 [node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
 script = ExtResource("11_fulsm")
@@ -543,7 +543,6 @@ script = ExtResource("12_qfm1y")
 script = ExtResource("11_a8ls1")
 _animator = NodePath("../../Sprite")
 _player = NodePath("../..")
-_gravity_acceleration = 225.0
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("11_oprun")
@@ -698,11 +697,12 @@ target_position = Vector2(0, 0)
 max_results = 4
 collision_mask = 6
 
+[node name="PowerupHandler" type="Node" parent="."]
+script = ExtResource("34_md1ol")
+
 [connection signal="internal_move_input_change" from="." to="StateMachine/Crawl" method="_on_move_input_change"]
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_player_fell" from="." to="SafeState" method="_on_player_fell"]
-[connection signal="internal_player_fell" from="." to="Sprite" method="_activate_invincibility_flashing" unbinds=1]
-[connection signal="internal_player_fell" from="." to="Detectors/DangerDetector" method="disable_detector" unbinds=1]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
 [connection signal="internal_pull_press" from="." to="StateMachine" method="set_property" binds= ["aim", true]]
 [connection signal="internal_pull_release" from="." to="StateMachine/Aim" method="_on_pull_release"]
@@ -710,6 +710,8 @@ collision_mask = 6
 [connection signal="internal_safe_spot_updated" from="." to="SafeState" method="_safe_spot_updated"]
 [connection signal="invincibility_ended" from="." to="Sprite" method="_stop_invincibility_flashing"]
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
+[connection signal="invincibility_started" from="." to="Sprite" method="_activate_invincibility_flashing"]
+[connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector"]
 [connection signal="moving" from="." to="StateMachine" method="set_property" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachine" method="set_property" binds= ["crawl", false]]
 [connection signal="ready" from="StateMachine" to="StateMachine/Entry" method="_machine_ready"]
@@ -736,6 +738,7 @@ collision_mask = 6
 [connection signal="player_recovered" from="StateMachine/KO" to="Detectors/GroundDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachine/KO" to="Detectors/ItemDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachine/KO" to="Detectors/DangerDetector" method="set_monitoring" binds= [true]]
+[connection signal="consumed_powerup" from="CollisionHandler" to="PowerupHandler" method="_on_powerup_consumed"]
 [connection signal="danger_entered" from="CollisionHandler" to="." method="_on_danger_entered"]
 [connection signal="danger_entered" from="CollisionHandler" to="Particles/ParticleEmitter" method="spawn_player_hit"]
 [connection signal="danger_entered" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ko", true]]
@@ -747,6 +750,7 @@ collision_mask = 6
 [connection signal="land_on_normal" from="CollisionHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
 [connection signal="land_on_slip" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "slip"]]
 [connection signal="leave_ground" from="CollisionHandler" to="StateMachine" method="set_property" binds= ["ground_type", "air"]]
+[connection signal="lose_powerup" from="CollisionHandler" to="PowerupHandler" method="_end_powerups"]
 [connection signal="player_recovered" from="SafeState" to="StateMachine" method="set_property" binds= ["ko", false]]
 [connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachine" method="set_property" binds= ["climb", true]]
@@ -756,3 +760,4 @@ collision_mask = 6
 [connection signal="body_shape_exited" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_body_shape_exited" unbinds=1]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="CollisionHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="Detectors/DangerDetector" to="CollisionHandler" method="_on_danger_entered"]
+[connection signal="powerup_ended" from="PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]

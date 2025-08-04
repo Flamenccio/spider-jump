@@ -10,6 +10,8 @@ signal land_on_slip()
 signal leave_ground()
 signal eat_fly(stamina_restore: float)
 signal danger_entered()
+signal lose_powerup()
+signal consumed_powerup(powerup: String)
 
 # Grounds the player is currently touching
 var _ground_contacts: Array[Node]
@@ -18,6 +20,8 @@ var ground_contacts: Array[Node]:
 		return _ground_contacts
 	set(value):
 		return
+
+var current_powerup: String = ''
 
 @export_flags_2d_physics var _ground_layer: int
 @export_flags_2d_physics var _slip_layer: int
@@ -115,6 +119,11 @@ func _on_item_collided(body: Node2D) -> void:
 
 
 func _on_danger_entered(body: Node2D) -> void:
+	# If the player has a powerup, lose the powerup
+	# instead of losing health
+	if current_powerup != '':
+		lose_powerup.emit()
+		return
 	danger_entered.emit()
 
 
@@ -122,6 +131,19 @@ func _handle_item(item: Item) -> void:
 	match item.item_id:
 		'yum_fly':
 			eat_fly.emit(0.25)
+		'hoverfly':
+			consumed_powerup.emit(item.item_id)
+		'antibug':
+			consumed_powerup.emit(item.item_id)
 		_:
 			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
 			print('oops!')
+
+
+func _on_powerup_started(powerup: String) -> void:
+	current_powerup = powerup
+
+
+func _on_powerup_ended() -> void:
+	current_powerup = ''
+

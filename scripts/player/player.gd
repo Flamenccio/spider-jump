@@ -17,16 +17,16 @@ signal external_set_safe_spot(here: Vector2)
 signal stop_moving()
 signal moving()
 
-signal invincibility_ended
+signal invincibility_started()
+signal invincibility_ended()
 
 # Used for invincibility after getting hurt
 var _invincibility_timer: Timer = Timer.new()
 
 # In seconds
-const _INVINCIBILITY_TIME = 6.0
+const _DEFAULT_INVINCIBILITY_TIME = 6.0
 
 func _ready() -> void:
-	_invincibility_timer.wait_time = _INVINCIBILITY_TIME
 	_invincibility_timer.one_shot = true
 	_invincibility_timer.timeout.connect(func(): 
 		invincibility_ended.emit()
@@ -73,8 +73,7 @@ func _on_danger_entered() -> void:
 
 
 func _on_player_fell(here: Vector2) -> void:
-	_invincibility_timer.stop()
-	_invincibility_timer.start()
+	_start_invincibility()
 	internal_player_fell.emit(here)
 
 
@@ -85,3 +84,9 @@ func _on_safe_spot_updated(on_screen: bool) -> void:
 func _on_safe_spot_set(pos: Vector2) -> void:
 	external_set_safe_spot.emit(pos)
 
+
+func _start_invincibility(time: float = _DEFAULT_INVINCIBILITY_TIME) -> void:
+	_invincibility_timer.stop()
+	_invincibility_timer.start(time)
+	invincibility_started.emit()
+	
