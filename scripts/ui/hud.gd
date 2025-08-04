@@ -5,6 +5,9 @@ signal external_health_lost(where: Control)
 signal internal_stamina_updated(current_stamina: float)
 signal internal_health_updated(current_health: int)
 signal internal_score_updated(current_score: int)
+signal internal_powerup_started(powerup: String)
+signal internal_powerup_ended()
+signal internal_powerup_timer_updated(powerup_time: float, powerup_max_time: float)
 
 func _ready() -> void:
 	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
@@ -18,6 +21,9 @@ func _ready() -> void:
 			_:
 				return
 	, ConnectFlags.CONNECT_DEFERRED)
+	PlayerEventBus.powerup_started.connect(func(powerup: String): internal_powerup_started.emit(powerup), ConnectFlags.CONNECT_DEFERRED)
+	PlayerEventBus.powerup_ended.connect(func(): internal_powerup_ended.emit(), ConnectFlags.CONNECT_DEFERRED)
+	PlayerEventBus.powerup_timer_updated.connect(func(time_left: float, duration: float): internal_powerup_timer_updated.emit(time_left, duration), ConnectFlags.CONNECT_DEFERRED)
 
 
 func _on_stamina_updated(current_stamina: float) -> void:

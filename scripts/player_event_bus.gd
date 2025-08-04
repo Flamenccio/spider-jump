@@ -15,3 +15,9 @@ signal player_stat_updated(stat: String, value: Variant)
 ## Called when the player touches an item.
 ## Passes `item`, a string identifier.
 signal player_consumed_item(item: String)
+
+## Called when the powerup timer ticks.
+## Passes `time_left`, the time in seconds remaining, and `duration`, 
+## the time in seconds it started with.
+signal powerup_timer_updated(time_left: float, duration: float)
+

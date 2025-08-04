@@ -566,11 +566,10 @@ _player = NodePath("../..")
 _ko_jump_force = 150.0
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
-[node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast", "_player")]
+[node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast")]
 script = ExtResource("15_wqfne")
 _ground_raycast = NodePath("../Casters/GroundRaycast")
 _ground_shapecast = NodePath("../Casters/SlipShapecast")
-_player = NodePath("..")
 _ground_layer = 2
 _slip_layer = 4
 _ground_raycast_direction = Vector2(0, 5)

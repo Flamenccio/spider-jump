@@ -57,3 +57,9 @@ func _handle_powerup(powerup: String) -> void:
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
+
+
+func _process(delta: float) -> void:
+	if current_powerup != '':
+		PlayerEventBus.powerup_timer_updated.emit(_powerup_timer.time_left, _powerup_timer.wait_time)
+

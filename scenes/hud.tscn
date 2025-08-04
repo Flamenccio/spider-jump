@@ -92,6 +92,7 @@ pivot_offset = Vector2(20, 0)
 layout_mode = 2
 
 [node name="PowerupTimer" type="TextureProgressBar" parent="PowerupTimer/CenterContainer"]
+visible = false
 layout_mode = 2
 step = 3.125
 value = 50.0
@@ -190,6 +191,9 @@ layout_mode = 2
 layout_mode = 2
 
 [connection signal="internal_health_updated" from="." to="Life/HFlowContainer" method="display_life"]
+[connection signal="internal_powerup_ended" from="." to="PowerupTimer/CenterContainer/PowerupTimer" method="hide"]
+[connection signal="internal_powerup_started" from="." to="PowerupTimer/CenterContainer/PowerupTimer" method="show" unbinds=1]
+[connection signal="internal_powerup_timer_updated" from="." to="PowerupTimer/CenterContainer/PowerupTimer" method="_change_progress"]
 [connection signal="internal_score_updated" from="." to="Score/HFlowContainer" method="display_value"]
 [connection signal="internal_stamina_updated" from="." to="Energy/CenterContainer/Stamina" method="set_value"]
 [connection signal="value_changed" from="Energy/CenterContainer/Stamina" to="Energy/CenterContainer/Stamina" method="_flash" unbinds=1]

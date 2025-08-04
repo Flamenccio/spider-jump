@@ -13,6 +13,10 @@ func _ready() -> void:
 	add_child(_flash_timer)
 
 
+func _change_progress(progress_amount: float, total_amount: float) -> void:
+	value = (progress_amount / total_amount) * 100.0
+
+
 ## Called when the stamina bar progress changes
 func _flash() -> void:
 	if _flash_timer.time_left > 0:

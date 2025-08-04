@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
-[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="27_qnb83"]
+[ext_resource type="PackedScene" uid="uid://bbjb4m6fwc2e" path="res://scenes/antibug.tscn" id="27_qnb83"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -166,8 +166,11 @@ _player_stats = NodePath("../PlayerStats")
 position = Vector2(0, -60)
 _high_score_saver = NodePath("../PlayerStatsSaver")
 
-[node name="YummyFly" parent="." instance=ExtResource("27_qnb83")]
-position = Vector2(0, -110)
+[node name="AntiBug" parent="." instance=ExtResource("27_qnb83")]
+position = Vector2(-13, -47)
+
+[node name="AntiBug2" parent="." instance=ExtResource("27_qnb83")]
+position = Vector2(22, -107)
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
