@@ -4,8 +4,6 @@ extends Node
 signal player_died()
 
 ## Emitted when player loses one life.
-## If `soft` is passed as `true`, does not return player to a safe
-## position.
 signal player_hurt()
 
 @export var debug: bool = false
@@ -25,6 +23,10 @@ const _MAX_SCORE = 999999
 func _ready() -> void:
 	lives = _MAX_LIVES
 	stamina = _MAX_STAMINA
+
+	# Connect to player stats interface
+	PlayerStatsInterface.change_stat.connect(handle_stats_change_request, ConnectFlags.CONNECT_DEFERRED)
+	PlayerStatsInterface.set_stat.connect(handle_stats_set_request, ConnectFlags.CONNECT_DEFERRED)
 	
 	# Initiate
 	PlayerEventBus.player_stat_updated.emit('stamina', stamina)
@@ -58,3 +60,43 @@ func update_score(new_score: int) -> void:
 	if score != new_score:
 		score = new_score
 		PlayerEventBus.player_stat_updated.emit('score', abs(score))
+
+
+func handle_stats_change_request(stat: String, change: Variant) -> void:
+
+	if stat == '' or stat == null:
+		push_warning('player stats: empty stat name supplied')
+		return
+
+	match stat:
+		'lives':
+			if change != 0:
+				push_warning('player stats: change value for lives stat ignored')
+			decrease_lives()
+		'stamina':
+			change_stamina(change)
+		'score':
+			var new_score = change + score
+			update_score(new_score)
+		_:
+			push_error('player stats: no such stats with id "{0}"'.format({'0': stat}))
+			return
+
+
+func handle_stats_set_request(stat: String, value: Variant) -> void:
+	if stat == '' or stat == null:
+		push_warning('player stats: empty stat name supplied')
+		return
+	match stat:
+		'lives':
+			push_warning('player stats: unable to set player lives')
+			return
+		'stamina':
+			var change = value - stamina
+			change_stamina(change)
+		'score':
+			update_score(value)
+		_:
+			push_error('player stats: no such stats with id "{0}"'.format({'0': stat}))
+			return
+

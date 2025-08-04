@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=33 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="27_qnb83"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -165,6 +166,9 @@ _player_stats = NodePath("../PlayerStats")
 position = Vector2(0, -60)
 _high_score_saver = NodePath("../PlayerStatsSaver")
 
+[node name="YummyFly" parent="." instance=ExtResource("27_qnb83")]
+position = Vector2(0, -110)
+
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
@@ -188,7 +192,6 @@ _high_score_saver = NodePath("../PlayerStatsSaver")
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="external_danger_entered" from="Player" to="Player/PullCircle" method="hide"]
 [connection signal="external_set_safe_spot" from="Player" to="PlayerSafeSpot" method="set_global_position"]
-[connection signal="external_stamina_restore" from="Player" to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
 [connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]

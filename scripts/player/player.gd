@@ -9,7 +9,6 @@ signal internal_safe_spot_updated(in_screen: bool)
 signal internal_player_fell(here: Vector2)
 
 # External use
-signal external_stamina_restore(restoration: float)
 signal external_danger_entered()
 signal external_set_safe_spot(here: Vector2)
 
@@ -62,10 +61,6 @@ func _rotate_against_normal(normal: Vector2) -> void:
 	var up_vector := Vector2.from_angle(up_angle)
 	var difference := up_vector.angle_to(normal)
 	rotation += difference
-
-
-func _on_stamina_restore(amount: float) -> void:
-	external_stamina_restore.emit(amount)
 
 
 func _on_danger_entered() -> void:

@@ -2,13 +2,11 @@ extends Node
 
 @export var _ground_raycast: RaycastCheck
 @export var _ground_shapecast: ShapeCastCheck
-@export var _player: Node2D
 
 signal land_on_normal(normal: Vector2)
 signal land_on_ground()
 signal land_on_slip()
 signal leave_ground()
-signal eat_fly(stamina_restore: float)
 signal danger_entered()
 signal lose_powerup()
 signal consumed_powerup(powerup: String)
@@ -128,15 +126,17 @@ func _on_danger_entered(body: Node2D) -> void:
 
 
 func _handle_item(item: Item) -> void:
+
 	match item.item_id:
 		'yum_fly':
-			eat_fly.emit(0.25)
+			PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, 0.25)
 		'hoverfly':
 			consumed_powerup.emit(item.item_id)
 		'antibug':
 			consumed_powerup.emit(item.item_id)
 		_:
 			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
+
 	PlayerEventBus.player_consumed_item.emit(item)
 
 

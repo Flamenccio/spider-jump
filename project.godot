@@ -21,6 +21,7 @@ DebugDraw2D="*res://addons/debugdraw2d/DebugDraw2D.gd"
 TheGlobalSpawner="*res://scripts/game/global_spawner.gd"
 GameConstants="*res://scripts/game_constants.gd"
 PlayerEventBus="*res://scripts/player_event_bus.gd"
+PlayerStatsInterface="*res://scripts/player_stats_interface.gd"
 
 [display]
 
