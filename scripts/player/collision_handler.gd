@@ -137,7 +137,7 @@ func _handle_item(item: Item) -> void:
 			consumed_powerup.emit(item.item_id)
 		_:
 			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
-			print('oops!')
+	PlayerEventBus.player_consumed_item.emit(item)
 
 
 func _on_powerup_started(powerup: String) -> void:

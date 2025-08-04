@@ -8,10 +8,6 @@ signal player_died()
 ## position.
 signal player_hurt()
 
-signal stamina_updated(current_stamina: float)
-signal health_updated(current_health: int)
-signal score_updated(current_score: int)
-
 @export var debug: bool = false
 
 var lives: int
@@ -31,8 +27,8 @@ func _ready() -> void:
 	stamina = _MAX_STAMINA
 	
 	# Initiate
-	stamina_updated.emit(stamina)
-	health_updated.emit(lives)
+	PlayerEventBus.player_stat_updated.emit('stamina', stamina)
+	PlayerEventBus.player_stat_updated.emit('lives', lives)
 
 
 func decrease_lives() -> void:
@@ -41,7 +37,7 @@ func decrease_lives() -> void:
 	player_hurt.emit()
 	if not debug:
 		lives = maxi(lives - 1, _MIN_LIVES)
-	health_updated.emit(lives)
+	PlayerEventBus.player_stat_updated.emit('lives', lives)
 	change_stamina(1.0)
 	if lives <= _MIN_LIVES:
 		player_died.emit()
@@ -51,7 +47,7 @@ func change_stamina(amount: float) -> void:
 	if debug:
 		return
 	stamina = clampf(stamina + amount, _MIN_STAMINA, _MAX_STAMINA)
-	stamina_updated.emit(stamina)
+	PlayerEventBus.player_stat_updated.emit('stamina', stamina)
 	if stamina <= _MIN_STAMINA:
 		stamina = _MAX_STAMINA
 		decrease_lives()
@@ -61,4 +57,4 @@ func update_score(new_score: int) -> void:
 	new_score = mini(new_score, score)
 	if score != new_score:
 		score = new_score
-		score_updated.emit(abs(score))
+		PlayerEventBus.player_stat_updated.emit('score', abs(score))

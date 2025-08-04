@@ -27,6 +27,7 @@ func _end_powerups() -> void:
 	_powerup_timer.stop()
 	if _powerup_end_queue.size() > 0:
 		powerup_ended.emit()
+		PlayerEventBus.powerup_ended.emit()
 	while _powerup_end_queue.size() > 0:
 		var p = _powerup_end_queue.pop_front() as Callable
 		p.call()
@@ -37,6 +38,7 @@ func _handle_powerup(powerup: String) -> void:
 	# End any existing powerup
 	_end_powerups()
 	powerup_started.emit(powerup)
+	PlayerEventBus.powerup_started.emit(powerup)
 	current_powerup = powerup
 
 	match powerup:

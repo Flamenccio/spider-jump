@@ -11,6 +11,10 @@ func _ready() -> void:
 		show()
 	else:
 		hide()
+	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
+		if stat == 'score':
+			_update_score(value as int)
+	, ConnectFlags.CONNECT_DEFERRED)
 
 
 func _update_score(score: int) -> void:

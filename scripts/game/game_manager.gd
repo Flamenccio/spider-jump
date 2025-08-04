@@ -13,6 +13,10 @@ var _stamina_drain_amount: float = 0.0
 
 func _ready() -> void:
 	_stamina_drain_amount = _base_stamina_drain_amount
+	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
+		if stat == 'score':
+			_on_score_updated(value)
+	)
 
 
 func game_over() -> void:
@@ -33,7 +37,6 @@ func _on_score_updated(score: int) -> void:
 
 
 func _level_up(next_level: int) -> void:
-	print('level up! new level: ', next_level)
 	GameConstants.difficulty = next_level
 	levelled_up.emit(GameConstants.difficulty)
 

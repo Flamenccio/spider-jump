@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=17 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://scripts/ui/hud.gd" id="1_oo0fn"]
@@ -20,6 +20,10 @@ region = Rect2(16, 64, 32, 8)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0i1j5"]
 atlas = ExtResource("1_ahhtf")
 region = Rect2(48, 64, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mphia"]
+atlas = ExtResource("1_ahhtf")
+region = Rect2(48, 72, 32, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6fi6k"]
 atlas = ExtResource("4_uo2fv")
@@ -70,6 +74,32 @@ texture_progress = SubResource("AtlasTexture_ahhtf")
 script = ExtResource("3_hd3ao")
 _flash_sprite = SubResource("AtlasTexture_0i1j5")
 _normal_sprite = SubResource("AtlasTexture_ahhtf")
+
+[node name="PowerupTimer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 34.0
+offset_right = 20.0
+offset_bottom = 74.0
+grow_horizontal = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(20, 0)
+
+[node name="CenterContainer" type="CenterContainer" parent="PowerupTimer"]
+layout_mode = 2
+
+[node name="PowerupTimer" type="TextureProgressBar" parent="PowerupTimer/CenterContainer"]
+layout_mode = 2
+step = 3.125
+value = 50.0
+texture_under = SubResource("AtlasTexture_oo0fn")
+texture_progress = SubResource("AtlasTexture_mphia")
+script = ExtResource("3_hd3ao")
+_flash_sprite = SubResource("AtlasTexture_0i1j5")
+_normal_sprite = SubResource("AtlasTexture_mphia")
 
 [node name="Life" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -163,4 +193,5 @@ layout_mode = 2
 [connection signal="internal_score_updated" from="." to="Score/HFlowContainer" method="display_value"]
 [connection signal="internal_stamina_updated" from="." to="Energy/CenterContainer/Stamina" method="set_value"]
 [connection signal="value_changed" from="Energy/CenterContainer/Stamina" to="Energy/CenterContainer/Stamina" method="_flash" unbinds=1]
+[connection signal="value_changed" from="PowerupTimer/CenterContainer/PowerupTimer" to="PowerupTimer/CenterContainer/PowerupTimer" method="_flash" unbinds=1]
 [connection signal="life_lost" from="Life/HFlowContainer" to="." method="_internal_on_life_lost"]
