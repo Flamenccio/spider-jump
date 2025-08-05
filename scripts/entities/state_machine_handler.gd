@@ -3,35 +3,15 @@ extends Node
 class_name StateMachineHandler
 
 @export var _machine: Node
-var _behaviors: Array[BehaviorState]
+var _behavior_info: Array[BehaviorStateInfo]
 var _active_state: BehaviorState
-
-@export_tool_button('Add states') var _add_states_button: Callable = _add_states
-@export var _add_states_confirm: bool = false
 
 # Variables that behaviors can share with each other
 var _state_machine_variables: Dictionary
 
-func _add_states() -> void:
-
-	if not Engine.is_editor_hint():
-		return
-
-	if not _add_states_confirm:
-		return
-
-	_add_states_confirm = false
-	for child in get_children():
-		if child is BehaviorState:
-			child.free()
-
-	var states = _machine.state_machine.states
-	var editor_root = get_tree().edited_scene_root
-	for entry in states.keys():
-		var new_state = BehaviorState.new()
-		new_state.name = entry
-		add_child(new_state)
-		new_state.owner = editor_root
+class BehaviorStateInfo:
+	var local_node_path: String = ''
+	var state: BehaviorState
 
 
 func _ready() -> void:
@@ -39,15 +19,26 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	var children = get_children()
+	var children = _get_children_recursive(self)
 	assert(children.size() > 0, 'state machine handler must have behavior states as its children')
+
+	# Parse into BehaviorStateInfo
+	var path = get_path()
 	for child in children:
 		if child is not BehaviorState:
 			continue
-		_behaviors.append(child as BehaviorState)
-	
+		var info = BehaviorStateInfo.new()
+		# Get the path from the state machine handler node
+		var child_path = child.get_path() as String
+		child_path = child_path.replace('{0}/'.format({'0': path}), '')
+		info.local_node_path = child_path
+		print('new state: ', child_path)
+		info.state = child as BehaviorState
+		_behavior_info.append(info)
+
 	# Supply callables
-	for behavior: BehaviorState in _behaviors:
+	for b: BehaviorStateInfo in _behavior_info:
+		var behavior = b.state
 		behavior.set_state_machine_property = set_property
 		behavior.set_shared_state_machine_variable = set_shared_variable
 		behavior.get_shared_state_machine_variable = get_shared_variable
@@ -55,24 +46,31 @@ func _ready() -> void:
 		behavior.get_state_machine_property = get_property
 
 
+func _get_children_recursive(parent: Node) -> Array[Node]:
+	var children = parent.get_children()
+	for child: Node in children:
+		children.append_array(_get_children_recursive(child))
+	return children
+
+
 func state_transition(old, new) -> void:
 
 	if Engine.is_editor_hint():
 		return
 
-	var old_index = _behaviors.find_custom(func(b: BehaviorState): return b.name == old)
-	var new_index = _behaviors.find_custom(func(b: BehaviorState): return b.name == new)
+	
+	var old_index = _behavior_info.find_custom(func(b: BehaviorStateInfo): return b.local_node_path == old)
+	var new_index = _behavior_info.find_custom(func(b: BehaviorStateInfo): return b.local_node_path == new)
 	assert(old_index > -1, 'state machine does not have behavior state named \'{0}\''.format({'0': old}))
 	assert(new_index > -1, 'state machine does not have behavior state named \'{0}\''.format({'0': new}))
 
-	var old_state = _behaviors[old_index]
+	var old_state = _behavior_info[old_index].state
 	old_state.exit_state()
 	old_state.state_active = false
 
-	_active_state = _behaviors[new_index]
+	_active_state = _behavior_info[new_index].state
 	_active_state.enter_state()
 	_active_state.state_active = true
-	#print('{0} -> {1}'.format({'0': old_state, '1': _active_state}))
 
 
 func set_property(property_name: String, value: Variant) -> void:
@@ -118,9 +116,3 @@ func get_shared_variable(variable_name: String) -> Variant:
 		printerr('state machine handler: no variable with name \'{0}\''.format({'0': variable_name}))
 		return null
 	return _state_machine_variables[variable_name]
-
-
-
-func _on_player_internal_pull_release(extra_arg_0:String, extra_arg_1:bool) -> void:
-	pass # Replace with function body.
-
