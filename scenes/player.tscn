@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=52 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -18,8 +18,10 @@
 [ext_resource type="Script" uid="uid://r18sun6gwb8v" path="res://behavior_state/player/antibug.gd" id="16_gl8cc"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://scripts/collision/ground_raycast.gd" id="16_qfm1y"]
 [ext_resource type="Script" uid="uid://ddi1mvcerwx2q" path="res://behavior_state/player/ko.gd" id="16_ujl30"]
+[ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="17_487ah"]
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://scripts/collision/shape_cast_check.gd" id="17_qfm1y"]
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
+[ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="18_md1ol"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/custom_particle_emitter.gd" id="21_a38lo"]
@@ -210,6 +212,29 @@ metadata/_custom_type_script = "uid://xwooryy4y5og"
 script = ExtResource("15_wnwbv")
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
+[node name="Hoverfly" type="Node" parent="StateMachine/Powerup"]
+
+[node name="Entry" type="Node" parent="StateMachine/Powerup/Hoverfly"]
+script = ExtResource("15_wnwbv")
+metadata/_custom_type_script = "uid://xwooryy4y5og"
+
+[node name="Exit" type="Node" parent="StateMachine/Powerup/Hoverfly"]
+script = ExtResource("15_wnwbv")
+metadata/_custom_type_script = "uid://xwooryy4y5og"
+
+[node name="Hover" type="Node" parent="StateMachine/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
+script = ExtResource("17_487ah")
+_player = NodePath("../../../..")
+_decceleration = 3.0
+metadata/_custom_type_script = "uid://xwooryy4y5og"
+
+[node name="Fly" type="Node" parent="StateMachine/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
+script = ExtResource("18_md1ol")
+_player = NodePath("../../../..")
+_fly_acceleration = 120.0
+_max_speed = 80.0
+metadata/_custom_type_script = "uid://xwooryy4y5og"
+
 [node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast")]
 script = ExtResource("15_wqfne")
 _ground_raycast = NodePath("../Casters/GroundRaycast")
@@ -352,8 +377,11 @@ script = ExtResource("34_md1ol")
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_player_fell" from="." to="SafeState" method="_on_player_fell"]
 [connection signal="internal_pull_input_change" from="." to="StateMachine/Aim" method="_on_pull_input_change"]
+[connection signal="internal_pull_input_change" from="." to="StateMachine/Powerup/Hoverfly/Fly" method="_on_pull_input_update"]
+[connection signal="internal_pull_press" from="." to="StateMachine/Powerup/Hoverfly/Hover" method="_on_pull_input_press"]
 [connection signal="internal_pull_press" from="." to="StateMachine" method="set_property" binds= ["aim", true]]
 [connection signal="internal_pull_release" from="." to="StateMachine/Aim" method="_on_pull_release"]
+[connection signal="internal_pull_release" from="." to="StateMachine/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
 [connection signal="internal_pull_release" from="." to="StateMachine" method="set_property" binds= ["aim", false]]
 [connection signal="internal_safe_spot_updated" from="." to="SafeState" method="_safe_spot_updated"]
 [connection signal="invincibility_ended" from="." to="Sprite" method="_stop_invincibility_flashing"]

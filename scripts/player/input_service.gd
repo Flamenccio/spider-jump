@@ -15,6 +15,10 @@ var _joypad_input: bool = false
 const _MAX_PULL_DISTANCE = 32.0
 const _MIN_PULL_DISTANCE = 8.0
 
+## When using KBM, the maximum distance from the
+## pull origin when using the hoverfly powerup.
+const _MAX_PULL_DISTANCE_HOVER = 48.0
+
 func _ready() -> void:
 
 	if _pull_origin == null:

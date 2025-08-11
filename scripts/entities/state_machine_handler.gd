@@ -58,7 +58,6 @@ func state_transition(old, new) -> void:
 	if Engine.is_editor_hint():
 		return
 
-	
 	var old_index = _behavior_info.find_custom(func(b: BehaviorStateInfo): return b.local_node_path == old)
 	var new_index = _behavior_info.find_custom(func(b: BehaviorStateInfo): return b.local_node_path == new)
 	assert(old_index > -1, 'state machine does not have behavior state named \'{0}\''.format({'0': old}))
@@ -71,6 +70,8 @@ func state_transition(old, new) -> void:
 	_active_state = _behavior_info[new_index].state
 	_active_state.enter_state()
 	_active_state.state_active = true
+
+	print('state machine: {0} -> {1}'.format({'0': old_state.name, '1': _active_state.name}))
 
 
 func set_property(property_name: String, value: Variant) -> void:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StateMachine" load_steps=84 format=3 uid="uid://do5fxx1fsv3j4"]
+[gd_resource type="Resource" script_class="StateMachine" load_steps=86 format=3 uid="uid://do5fxx1fsv3j4"]
 
 [ext_resource type="Script" uid="uid://cgcw4uj3fme3a" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="1_ridqv"]
 [ext_resource type="Script" uid="uid://bky7ul11nw1di" path="res://addons/imjp94.yafsm/src/states/State.gd" id="2_ojcqc"]
@@ -44,7 +44,7 @@ metadata/graph_offset = Vector2(1388, 197.5)
 [sub_resource type="Resource" id="Resource_10p3u"]
 script = ExtResource("2_ojcqc")
 name = "Antibug"
-metadata/graph_offset = Vector2(588, 237.5)
+metadata/graph_offset = Vector2(575, 257)
 
 [sub_resource type="Resource" id="Resource_ridqv"]
 script = ExtResource("2_ojcqc")
@@ -69,7 +69,7 @@ metadata/graph_offset = Vector2(788, 197.5)
 [sub_resource type="Resource" id="Resource_p8lay"]
 script = ExtResource("2_ojcqc")
 name = "Fly"
-metadata/graph_offset = Vector2(388, 357.5)
+metadata/graph_offset = Vector2(396, 557)
 
 [sub_resource type="Resource" id="Resource_6y1cm"]
 script = ExtResource("2_ojcqc")
@@ -98,11 +98,19 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_cu227"]
+script = ExtResource("3_10p3u")
+value = false
+comparation = 0
+name = "flying"
+
 [sub_resource type="Resource" id="Resource_okt1n"]
 script = ExtResource("5_6y1cm")
 from = "Fly"
 to = "Hover"
-conditions = {}
+conditions = {
+"flying": SubResource("Resource_cu227")
+}
 priority = 0
 
 [sub_resource type="Resource" id="Resource_acxwh"]
@@ -120,11 +128,19 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_t0krm"]
+script = ExtResource("3_10p3u")
+value = true
+comparation = 0
+name = "flying"
+
 [sub_resource type="Resource" id="Resource_or4rm"]
 script = ExtResource("5_6y1cm")
 from = "Hover"
 to = "Fly"
-conditions = {}
+conditions = {
+"flying": SubResource("Resource_t0krm")
+}
 priority = 0
 
 [sub_resource type="Resource" id="Resource_v7luo"]
@@ -216,7 +232,7 @@ transitions = {
 }
 }
 name = "Powerup"
-metadata/graph_offset = Vector2(1182.5, 597.5)
+metadata/graph_offset = Vector2(1211, 557)
 
 [sub_resource type="Resource" id="Resource_gl8cc"]
 script = ExtResource("3_10p3u")
