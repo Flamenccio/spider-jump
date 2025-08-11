@@ -2,7 +2,6 @@
 extends StateMachineHandler
 
 func _powerup_started(powerup: String) -> void:
-	print('new powerup: ', powerup)
 	set_property('powerup', powerup)
 
 

@@ -119,8 +119,9 @@ func _on_item_collided(body: Node2D) -> void:
 func _on_danger_entered(body: Node2D) -> void:
 	# If the player has a powerup, lose the powerup
 	# instead of losing health
-	if current_powerup != '':
+	if current_powerup != 'none':
 		lose_powerup.emit()
+		_on_powerup_ended()
 		return
 	danger_entered.emit()
 
@@ -145,5 +146,5 @@ func _on_powerup_started(powerup: String) -> void:
 
 
 func _on_powerup_ended() -> void:
-	current_powerup = ''
+	current_powerup = 'none'
 
