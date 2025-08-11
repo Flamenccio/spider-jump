@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=36 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -20,12 +20,14 @@
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="15_v2yb1"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="16_js0lu"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://scripts/player/player_stats.gd" id="17_gxtfn"]
+[ext_resource type="Texture2D" uid="uid://ckbmtup38vh4f" path="res://sprites/pull_circle_hoverfly-Sheet.png" id="17_sww3w"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="18_twgab"]
 [ext_resource type="Script" uid="uid://bhhvu1j2kktg0" path="res://scripts/player/player_safe_spot.gd" id="20_1kice"]
 [ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://dxpxr8minu8d4" path="res://scenes/hoverfly.tscn" id="27_qnb83"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -36,6 +38,14 @@ decoration_name = "level_up_platform"
 scene = ExtResource("12_qnb83")
 difficulty_level = 0
 metadata/_custom_type_script = "uid://bysji3wvke32e"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
+atlas = ExtResource("17_sww3w")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgl2t"]
+atlas = ExtResource("17_sww3w")
+region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
 size = Vector2(160, 8)
@@ -101,6 +111,8 @@ texture = ExtResource("11_suyxu")
 script = ExtResource("12_sgl2t")
 _active_sprite = ExtResource("11_suyxu")
 _inactive_sprite = ExtResource("13_qouja")
+_hover_active_sprite = SubResource("AtlasTexture_suyxu")
+_hover_inactive_sprite = SubResource("AtlasTexture_sgl2t")
 _start_active = false
 
 [node name="LevelSpawnTrigger" type="Area2D" parent="."]
@@ -126,12 +138,6 @@ texture = ExtResource("6_e1j6l")
 
 [node name="PlayerStats" type="Node" parent="."]
 script = ExtResource("17_gxtfn")
-
-[node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
-width = 1.0
-default_color = Color(0.160708, 0.674632, 0.996078, 1)
-script = ExtResource("18_twgab")
-_fixed_endpoint = NodePath("../Player")
 
 [node name="PlayerSafeSpot" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-0.5, -0.5, 1, 1)
@@ -164,6 +170,15 @@ _player_stats = NodePath("../PlayerStats")
 [node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
 position = Vector2(0, -60)
 _high_score_saver = NodePath("../PlayerStatsSaver")
+
+[node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
+width = 1.0
+default_color = Color(0.160708, 0.674632, 0.996078, 1)
+script = ExtResource("18_twgab")
+_fixed_endpoint = NodePath("../Player")
+
+[node name="Hoverfly" parent="." instance=ExtResource("27_qnb83")]
+position = Vector2(1, -82)
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]

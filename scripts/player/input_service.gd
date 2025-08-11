@@ -8,6 +8,7 @@ signal pull_press()
 @export var _pull_origin: Node2D
 var _current_move_input: Vector2 = Vector2.ZERO
 var _joypad_input: bool = false
+var _current_max_pull_distance: float
 
 # When using KBM pull, the maximum distance from the
 # pull origin (player) that results in the highest
@@ -26,6 +27,18 @@ func _ready() -> void:
 		return
 
 	Input.joy_connection_changed.connect(_handle_joy_connection_change)
+	PlayerEventBus.powerup_started.connect(_handle_powerup)
+	PlayerEventBus.powerup_ended.connect(_handle_powerup_end)
+	_current_max_pull_distance = _MAX_PULL_DISTANCE
+
+
+func _handle_powerup(powerup: String) -> void:
+	if powerup == 'hoverfly':
+		_current_max_pull_distance = _MAX_PULL_DISTANCE_HOVER
+
+
+func _handle_powerup_end() -> void:
+	_current_max_pull_distance = _MAX_PULL_DISTANCE
 
 
 func _handle_joy_connection_change(device: int, connect: bool) -> void:
@@ -79,8 +92,8 @@ func _handle_pull_input_kbm() -> void:
 	var global_mouse_position := _pull_origin.get_global_mouse_position()
 	var raw_pull := global_mouse_position - _pull_origin.global_position
 	var normalized_pull := raw_pull.normalized()
-	var magnitude := clampf(raw_pull.length(), 0.0, _MAX_PULL_DISTANCE)
-	magnitude = magnitude / _MAX_PULL_DISTANCE
+	var magnitude := clampf(raw_pull.length(), 0.0, _current_max_pull_distance)
+	magnitude = magnitude / _current_max_pull_distance
 	
 	var final := normalized_pull * magnitude
 	pull_input_change.emit(final)
