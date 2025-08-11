@@ -1,9 +1,10 @@
-[gd_scene load_steps=52 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=56 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
 [ext_resource type="Script" uid="uid://bt2gfnnkvw2ec" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="4_4r5pv"]
+[ext_resource type="Texture2D" uid="uid://d0eghuc70rfyi" path="res://sprites/player_hoverfly-Sheet.png" id="4_bj30b"]
 [ext_resource type="Script" uid="uid://62g66ib0necn" path="res://scripts/player/player_sprite.gd" id="4_wqfne"]
 [ext_resource type="Script" uid="uid://ciukd8uvw0shs" path="res://scripts/player_state_machine.gd" id="5_wqfne"]
 [ext_resource type="Resource" uid="uid://do5fxx1fsv3j4" path="res://state_machines/player.tres" id="7_wqfne"]
@@ -21,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="17_487ah"]
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://scripts/collision/shape_cast_check.gd" id="17_qfm1y"]
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
+[ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="18_hax0n"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="18_md1ol"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
@@ -50,6 +52,14 @@ region = Rect2(16, 80, 16, 16)
 atlas = ExtResource("2_qfm1y")
 region = Rect2(0, 96, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jc3p3"]
+atlas = ExtResource("4_bj30b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hax0n"]
+atlas = ExtResource("4_bj30b")
+region = Rect2(16, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_036b0"]
 atlas = ExtResource("2_qfm1y")
 region = Rect2(0, 80, 16, 16)
@@ -75,6 +85,17 @@ animations = [{
 "loop": false,
 "name": &"fall",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jc3p3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hax0n")
+}],
+"loop": true,
+"name": &"hoverfly",
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -149,8 +170,10 @@ shape = SubResource("RectangleShape2D_31cv2")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wqfne")
 sprite_frames = SubResource("SpriteFrames_f3sb7")
-animation = &"idle"
+animation = &"hoverfly"
 autoplay = "idle"
+frame = 1
+frame_progress = 0.674439
 script = ExtResource("4_wqfne")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
@@ -214,8 +237,9 @@ metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="Hoverfly" type="Node" parent="StateMachine/Powerup"]
 
-[node name="Entry" type="Node" parent="StateMachine/Powerup/Hoverfly"]
-script = ExtResource("15_wnwbv")
+[node name="Entry" type="Node" parent="StateMachine/Powerup/Hoverfly" node_paths=PackedStringArray("_animator")]
+script = ExtResource("18_hax0n")
+_animator = NodePath("../../../../Sprite")
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="Exit" type="Node" parent="StateMachine/Powerup/Hoverfly"]
@@ -436,5 +460,7 @@ script = ExtResource("34_md1ol")
 [connection signal="body_entered" from="Detectors/ItemDetector" to="CollisionHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="Detectors/DangerDetector" to="CollisionHandler" method="_on_danger_entered"]
 [connection signal="powerup_ended" from="PowerupHandler" to="StateMachine" method="_powerup_ended"]
+[connection signal="powerup_ended" from="PowerupHandler" to="CollisionHandler" method="_on_powerup_ended"]
 [connection signal="powerup_ended" from="PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]
 [connection signal="powerup_started" from="PowerupHandler" to="StateMachine" method="_powerup_started"]
+[connection signal="powerup_started" from="PowerupHandler" to="CollisionHandler" method="_on_powerup_started"]

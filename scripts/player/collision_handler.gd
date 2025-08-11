@@ -19,7 +19,7 @@ var ground_contacts: Array[Node]:
 	set(value):
 		return
 
-var current_powerup: String = ''
+var current_powerup: String = 'none'
 
 @export_flags_2d_physics var _ground_layer: int
 @export_flags_2d_physics var _slip_layer: int
@@ -31,13 +31,17 @@ class SurfaceContacts:
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
 
+
 	var shape_owner = body.shape_owner_get_owner(body_shape_index)
 
 	# Ground
 	if _is_on_collision_layer(body, _ground_layer):
 		if _track_ground(shape_owner):
 			land_on_ground.emit()
-			_find_normal(body, body_shape_index)
+
+			# Do not rotate towards normal when hoverfly powerup
+			if current_powerup != 'hoverfly':
+				_find_normal(body, body_shape_index)
 	
 	_search_for_slip(body, body_shape_index)
 
@@ -121,7 +125,6 @@ func _on_danger_entered(body: Node2D) -> void:
 	# instead of losing health
 	if current_powerup != 'none':
 		lose_powerup.emit()
-		_on_powerup_ended()
 		return
 	danger_entered.emit()
 
@@ -143,6 +146,8 @@ func _handle_item(item: Item) -> void:
 
 func _on_powerup_started(powerup: String) -> void:
 	current_powerup = powerup
+	if current_powerup == 'hoverfly':
+		land_on_normal.emit(Vector2.UP)
 
 
 func _on_powerup_ended() -> void:
