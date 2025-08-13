@@ -6,7 +6,7 @@ signal player_jumped()
 signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 
 @export var _player: CharacterBody2D
-@export var _animator: AnimatedSprite2D
+@export var _animator: SpriteTree
 @export var _jump_force: float = 1.0
 
 var _pull_input: Vector2
@@ -18,7 +18,8 @@ const _MAX_SHAPECAST_RESULTS = 4
 func enter_state() -> void:
 	set_property('jump', false)
 	aim_entered.emit()
-	_animator.play('aim')
+	#_animator.play('aim')
+	_animator.play_branch_animation('aim')
 
 
 func exit_state() -> void:

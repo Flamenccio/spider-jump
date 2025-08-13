@@ -1,12 +1,14 @@
-[gd_scene load_steps=56 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=67 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
+[ext_resource type="Script" uid="uid://bmon45m8a3i3m" path="res://scripts/sprite_tree.gd" id="2_hax0n"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_qfm1y"]
 [ext_resource type="Script" uid="uid://bt2gfnnkvw2ec" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="4_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://d0eghuc70rfyi" path="res://sprites/player_hoverfly-Sheet.png" id="4_bj30b"]
 [ext_resource type="Script" uid="uid://62g66ib0necn" path="res://scripts/player/player_sprite.gd" id="4_wqfne"]
 [ext_resource type="Script" uid="uid://ciukd8uvw0shs" path="res://scripts/player_state_machine.gd" id="5_wqfne"]
+[ext_resource type="Texture2D" uid="uid://b82bo14p7baur" path="res://sprites/player_anti.png" id="7_t4otl"]
 [ext_resource type="Resource" uid="uid://do5fxx1fsv3j4" path="res://state_machines/player.tres" id="7_wqfne"]
 [ext_resource type="Script" uid="uid://bdjhjbk0dk4pt" path="res://states/aim.gd" id="10_qfm1y"]
 [ext_resource type="Script" uid="uid://dra5x3kg80ol8" path="res://states/fall.gd" id="11_a8ls1"]
@@ -26,6 +28,7 @@
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="18_md1ol"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
+[ext_resource type="Script" uid="uid://dvmvkg11wuswa" path="res://behavior_state/player/exit_powerup.gd" id="20_j2b1d"]
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/custom_particle_emitter.gd" id="21_a38lo"]
 [ext_resource type="PackedScene" uid="uid://dcsy57p10wcgc" path="res://scenes/landing_dust.tscn" id="21_i4ail"]
 [ext_resource type="PackedScene" uid="uid://cgfccdd6c34ro" path="res://scenes/jumping_dust.tscn" id="23_4ni07"]
@@ -36,9 +39,6 @@
 [ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="31_487ah"]
 [ext_resource type="Script" uid="uid://e2r68u481i5h" path="res://scripts/player/danger_detector.gd" id="33_487ah"]
 [ext_resource type="Script" uid="uid://d0al3rebskcyi" path="res://scripts/powerup_handler.gd" id="34_md1ol"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
-size = Vector2(6, 6)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
 shader = ExtResource("2_dt7fs")
@@ -114,6 +114,82 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4otl"]
+atlas = ExtResource("7_t4otl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs1tg"]
+atlas = ExtResource("7_t4otl")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2b1d"]
+atlas = ExtResource("7_t4otl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
+atlas = ExtResource("2_qfm1y")
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cs1tg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4otl")
+}],
+"loop": false,
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs1tg")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2b1d")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dvfe")
+}],
+"loop": true,
+"name": &"ko",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_giy8y"]
+atlas = ExtResource("4_bj30b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdfoy"]
+atlas = ExtResource("4_bj30b")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhpqf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_giy8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdfoy")
+}],
+"loop": true,
+"name": &"hover",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
+size = Vector2(6, 6)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_31cv2"]
 radius = 3.0
 
@@ -163,18 +239,28 @@ collision_priority = 50.0
 platform_floor_layers = 0
 script = ExtResource("1_a8ls1")
 
-[node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_31cv2")
+[node name="SpriteTree" type="Node2D" parent="."]
+script = ExtResource("2_hax0n")
+_default_branch = "Normal"
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Normal" type="AnimatedSprite2D" parent="SpriteTree"]
 material = SubResource("ShaderMaterial_wqfne")
 sprite_frames = SubResource("SpriteFrames_f3sb7")
 animation = &"hoverfly"
 autoplay = "idle"
-frame = 1
-frame_progress = 0.674439
 script = ExtResource("4_wqfne")
+
+[node name="Anti" type="AnimatedSprite2D" parent="SpriteTree"]
+sprite_frames = SubResource("SpriteFrames_cs1tg")
+animation = &"idle"
+
+[node name="Hoverfly" type="AnimatedSprite2D" parent="SpriteTree"]
+sprite_frames = SubResource("SpriteFrames_hhpqf")
+animation = &"hover"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_31cv2")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_machine")]
 script = ExtResource("5_wqfne")
@@ -188,7 +274,7 @@ metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
 [node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player", "_animator")]
 script = ExtResource("10_qfm1y")
 _player = NodePath("../..")
-_animator = NodePath("../../Sprite")
+_animator = NodePath("../../SpriteTree")
 _jump_force = 170.0
 
 [node name="Crawl" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
@@ -201,12 +287,12 @@ script = ExtResource("12_qfm1y")
 
 [node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("11_a8ls1")
-_animator = NodePath("../../Sprite")
+_animator = NodePath("../../SpriteTree")
 _player = NodePath("../..")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("11_oprun")
-_animator = NodePath("../../Sprite")
+_animator = NodePath("../../SpriteTree/Normal")
 _gravity_scale = 0.33
 _player = NodePath("../..")
 
@@ -231,15 +317,16 @@ metadata/_custom_type_script = "uid://xwooryy4y5og"
 script = ExtResource("15_wnwbv")
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
-[node name="Exit" type="Node" parent="StateMachine/Powerup"]
-script = ExtResource("15_wnwbv")
+[node name="Exit" type="Node" parent="StateMachine/Powerup" node_paths=PackedStringArray("_animator")]
+script = ExtResource("20_j2b1d")
+_animator = NodePath("../../../SpriteTree")
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="Hoverfly" type="Node" parent="StateMachine/Powerup"]
 
 [node name="Entry" type="Node" parent="StateMachine/Powerup/Hoverfly" node_paths=PackedStringArray("_animator")]
 script = ExtResource("18_hax0n")
-_animator = NodePath("../../../../Sprite")
+_animator = NodePath("../../../../SpriteTree")
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="Exit" type="Node" parent="StateMachine/Powerup/Hoverfly"]
@@ -408,9 +495,9 @@ script = ExtResource("34_md1ol")
 [connection signal="internal_pull_release" from="." to="StateMachine/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
 [connection signal="internal_pull_release" from="." to="StateMachine" method="set_property" binds= ["aim", false]]
 [connection signal="internal_safe_spot_updated" from="." to="SafeState" method="_safe_spot_updated"]
-[connection signal="invincibility_ended" from="." to="Sprite" method="_stop_invincibility_flashing"]
+[connection signal="invincibility_ended" from="." to="SpriteTree/Normal" method="_stop_invincibility_flashing"]
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
-[connection signal="invincibility_started" from="." to="Sprite" method="_activate_invincibility_flashing"]
+[connection signal="invincibility_started" from="." to="SpriteTree/Normal" method="_activate_invincibility_flashing"]
 [connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector"]
 [connection signal="moving" from="." to="StateMachine" method="set_property" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachine" method="set_property" binds= ["crawl", false]]
@@ -431,10 +518,10 @@ script = ExtResource("34_md1ol")
 [connection signal="player_entered_idle" from="StateMachine/Idle" to="Particles/Dust" method="set_emitting" binds= [false]]
 [connection signal="climb_finished" from="StateMachine/Climb" to="CollisionHandler" method="_recalculate_normal"]
 [connection signal="climb_finished" from="StateMachine/Climb" to="StateMachine" method="set_property" binds= ["climb", false]]
-[connection signal="player_koed" from="StateMachine/KO" to="Sprite" method="play" binds= ["ko"]]
 [connection signal="player_koed" from="StateMachine/KO" to="Detectors/GroundDetector" method="set_monitoring" binds= [false]]
 [connection signal="player_koed" from="StateMachine/KO" to="Detectors/ItemDetector" method="set_monitoring" binds= [false]]
 [connection signal="player_koed" from="StateMachine/KO" to="Detectors/DangerDetector" method="set_monitoring" binds= [false]]
+[connection signal="player_koed" from="StateMachine/KO" to="SpriteTree" method="switch_and_play" binds= ["normal", "ko"]]
 [connection signal="player_recovered" from="StateMachine/KO" to="Detectors/GroundDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachine/KO" to="Detectors/ItemDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachine/KO" to="Detectors/DangerDetector" method="set_monitoring" binds= [true]]
