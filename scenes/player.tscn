@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=83 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="31_487ah"]
 [ext_resource type="Script" uid="uid://e2r68u481i5h" path="res://scripts/player/danger_detector.gd" id="33_487ah"]
 [ext_resource type="Script" uid="uid://d0al3rebskcyi" path="res://scripts/powerup_handler.gd" id="34_md1ol"]
+[ext_resource type="PackedScene" uid="uid://cvv41rexkyv24" path="res://scenes/hopperpop_jumping_dust.tscn" id="38_2dvfe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
 shader = ExtResource("2_dt7fs")
@@ -340,6 +341,12 @@ particle_name = "player_hit"
 particle_scene = ExtResource("26_31cv2")
 metadata/_custom_type_script = "uid://wmfb0j47nkka"
 
+[sub_resource type="Resource" id="Resource_giy8y"]
+script = ExtResource("31_487ah")
+particle_name = "hopperpop_jump_dust"
+particle_scene = ExtResource("38_2dvfe")
+metadata/_custom_type_script = "uid://wmfb0j47nkka"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_pf23h"]
 radius = 4.0
 
@@ -403,11 +410,12 @@ script = ExtResource("4_4r5pv")
 state_machine = ExtResource("7_wqfne")
 metadata/_custom_type_script = "uid://bt2gfnnkvw2ec"
 
-[node name="Aim" type="Node" parent="BehaviorStateMachine" node_paths=PackedStringArray("_player", "_animator")]
+[node name="Aim" type="Node" parent="BehaviorStateMachine" node_paths=PackedStringArray("_player", "_animator", "_particle_emitter")]
 script = ExtResource("10_qfm1y")
 _player = NodePath("../..")
 _animator = NodePath("../../SpriteTree")
 _jump_force = 170.0
+_particle_emitter = NodePath("../../Particles/ParticleEmitter")
 
 [node name="Crawl" type="Node" parent="BehaviorStateMachine" node_paths=PackedStringArray("_player")]
 script = ExtResource("11_fulsm")
@@ -556,7 +564,7 @@ _player = NodePath("../..")
 
 [node name="ParticleEmitter" type="Node" parent="Particles/ParticleEmitter"]
 script = ExtResource("30_gl8cc")
-_particles = Array[ExtResource("31_487ah")]([SubResource("Resource_apa73"), SubResource("Resource_74r1k"), SubResource("Resource_8svfe")])
+_particles = Array[ExtResource("31_487ah")]([SubResource("Resource_apa73"), SubResource("Resource_74r1k"), SubResource("Resource_8svfe"), SubResource("Resource_giy8y")])
 
 [node name="ParabolaParticles" parent="Particles" node_paths=PackedStringArray("_origin") instance=ExtResource("28_pf23h")]
 z_index = -1
@@ -635,7 +643,6 @@ _animator = NodePath("../SpriteTree")
 [connection signal="transited" from="BehaviorStateMachine/StateMachinePlayer" to="BehaviorStateMachine" method="state_transition"]
 [connection signal="aim_entered" from="BehaviorStateMachine/Aim" to="Particles/ParabolaParticles" method="activate_trajectory"]
 [connection signal="player_jumped" from="BehaviorStateMachine/Aim" to="SafeState" method="_save_state"]
-[connection signal="player_jumped" from="BehaviorStateMachine/Aim" to="Particles/ParticleEmitter" method="spawn_jump_dust"]
 [connection signal="player_jumped" from="BehaviorStateMachine/Aim" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_jumped" from="BehaviorStateMachine/Aim" to="Particles/Dust" method="set_emitting" binds= [true]]
 [connection signal="trajectory_updated" from="BehaviorStateMachine/Aim" to="Particles/ParabolaParticles" method="_update_trajectory"]

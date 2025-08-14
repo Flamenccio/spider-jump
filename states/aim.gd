@@ -8,10 +8,12 @@ signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 @export var _player: CharacterBody2D
 @export var _animator: SpriteTree
 @export var _jump_force: float = 1.0
+@export var _particle_emitter: Node
 
 var _pull_input: Vector2
 var _jumped: bool = false
 var _surface_normal: Vector2
+var _hopperpop: bool = false
 
 const _MAX_SHAPECAST_RESULTS = 4
 const _HOPPERPOP_MULTIPLIER = 1.6
@@ -22,6 +24,7 @@ func _ready() -> void:
 		match powerup:
 			'hopperpop':
 				_jump_force *= _HOPPERPOP_MULTIPLIER
+				_hopperpop = true
 			'bubblebee':
 				_jump_force /= _BUBBLEBEE_MULTIPLIER
 	)
@@ -29,6 +32,7 @@ func _ready() -> void:
 		match powerup:
 			'hopperpop':
 				_jump_force /= _HOPPERPOP_MULTIPLIER
+				_hopperpop = false
 			'bubblebee':
 				_jump_force *= _BUBBLEBEE_MULTIPLIER
 	)
@@ -69,13 +73,17 @@ func _jump() -> void:
 	var _jump_vector = _pull_input * _jump_force * -1
 
 	if not _is_jump_direction_valid(_jump_vector):
-		print('nuh uh!!!!')
 		return
 
 	set_property('jump', true)
 	_player.velocity = _jump_vector
 	_jumped = true
 	player_jumped.emit()
+
+	if _hopperpop:
+		_particle_emitter.spawn_hopperpop_jump_dust()
+	else:
+		_particle_emitter.spawn_jump_dust()
 
 
 func tick_state(delta: float) -> void:

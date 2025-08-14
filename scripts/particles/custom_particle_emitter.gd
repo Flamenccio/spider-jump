@@ -23,9 +23,12 @@ func spawn_dust(normal: Vector2) -> void:
 # Called when player jumps
 func spawn_jump_dust() -> void:
 	_jumped = true
-	#TheGlobalSpawner.instantiate_scene(jump_dust_scene, _player.global_position, _player.rotation)
 	spawn_particle.emit('jump_dust', _player.global_position, _player.rotation)
 
+
+func spawn_hopperpop_jump_dust() -> void:
+	_jumped = true
+	spawn_particle.emit('hopperpop_jump_dust', _player.global_position, _player.rotation)
 
 
 func spawn_player_hit() -> void:

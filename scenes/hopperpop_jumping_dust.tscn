@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cvv41rexkyv24"]
+
+[ext_resource type="Texture2D" uid="uid://bkpwabe5rnpgm" path="res://sprites/hopper_jump_particles-Sheet.png" id="1_7wwev"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04aj6"]
+atlas = ExtResource("1_7wwev")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j32nv"]
+atlas = ExtResource("1_7wwev")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjmul"]
+atlas = ExtResource("1_7wwev")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhnxo"]
+atlas = ExtResource("1_7wwev")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cltg8"]
+atlas = ExtResource("1_7wwev")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_60mlk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04aj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j32nv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjmul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhnxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cltg8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="JumpingDust" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_60mlk")
+autoplay = "default"
+frame_progress = 1.0
+offset = Vector2(0, -5)
+
+[connection signal="animation_finished" from="." to="." method="queue_free"]

@@ -178,7 +178,7 @@ script = ExtResource("18_twgab")
 _fixed_endpoint = NodePath("../Player")
 
 [node name="Hopperpop" parent="." instance=ExtResource("28_sww3w")]
-position = Vector2(0, -81)
+position = Vector2(0, -82)
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
