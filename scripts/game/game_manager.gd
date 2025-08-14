@@ -26,10 +26,9 @@ func _ready() -> void:
 			_:
 				return
 	)
-	PlayerEventBus.powerup_ended.connect(func():
-		if _old_stamina_drain != 0.0:
+	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+		if powerup == 'super_grub':
 			_stamina_drain_amount = _old_stamina_drain
-			_old_stamina_drain = 0.0
 	)
 
 

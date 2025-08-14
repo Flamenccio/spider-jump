@@ -20,13 +20,16 @@ func _on_powerup_consumed(powerup: String) -> void:
 
 
 func _end_powerups() -> void:
+	if current_powerup == 'none':
+		return
 	_powerup_timer.stop()
 	powerup_ended.emit()
 	_animator.switch_sprite_branch('normal')
-	PlayerEventBus.powerup_ended.emit()
+	PlayerEventBus.powerup_ended.emit(current_powerup)
 	while _powerup_end_queue.size() > 0:
 		var p = _powerup_end_queue.pop_front() as Callable
 		p.call()
+	current_powerup = 'none'
 
 
 func _handle_powerup(powerup: String) -> void:

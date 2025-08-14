@@ -37,8 +37,9 @@ func _handle_powerup(powerup: String) -> void:
 		_current_max_pull_distance = _MAX_PULL_DISTANCE_HOVER
 
 
-func _handle_powerup_end() -> void:
-	_current_max_pull_distance = _MAX_PULL_DISTANCE
+func _handle_powerup_end(powerup: String) -> void:
+	if powerup == 'hoverfly':
+		_current_max_pull_distance = _MAX_PULL_DISTANCE
 
 
 func _handle_joy_connection_change(device: int, connect: bool) -> void:

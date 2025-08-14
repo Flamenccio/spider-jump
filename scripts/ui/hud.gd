@@ -22,7 +22,7 @@ func _ready() -> void:
 				return
 	, ConnectFlags.CONNECT_DEFERRED)
 	PlayerEventBus.powerup_started.connect(func(powerup: String): internal_powerup_started.emit(powerup), ConnectFlags.CONNECT_DEFERRED)
-	PlayerEventBus.powerup_ended.connect(func(): internal_powerup_ended.emit(), ConnectFlags.CONNECT_DEFERRED)
+	PlayerEventBus.powerup_ended.connect(func(_d: String): internal_powerup_ended.emit(), ConnectFlags.CONNECT_DEFERRED)
 	PlayerEventBus.powerup_timer_updated.connect(func(time_left: float, duration: float): internal_powerup_timer_updated.emit(time_left, duration), ConnectFlags.CONNECT_DEFERRED)
 
 
