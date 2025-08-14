@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StateMachine" load_steps=86 format=3 uid="uid://do5fxx1fsv3j4"]
+[gd_resource type="Resource" script_class="StateMachine" load_steps=87 format=3 uid="uid://do5fxx1fsv3j4"]
 
 [ext_resource type="Script" uid="uid://cgcw4uj3fme3a" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="1_ridqv"]
 [ext_resource type="Script" uid="uid://bky7ul11nw1di" path="res://addons/imjp94.yafsm/src/states/State.gd" id="2_ojcqc"]
@@ -41,15 +41,10 @@ script = ExtResource("2_ojcqc")
 name = "KO"
 metadata/graph_offset = Vector2(1388, 197.5)
 
-[sub_resource type="Resource" id="Resource_10p3u"]
-script = ExtResource("2_ojcqc")
-name = "Antibug"
-metadata/graph_offset = Vector2(575, 257)
-
 [sub_resource type="Resource" id="Resource_ridqv"]
 script = ExtResource("2_ojcqc")
 name = "Entry"
-metadata/graph_offset = Vector2(188, 157.5)
+metadata/graph_offset = Vector2(373.5, 159.5)
 
 [sub_resource type="Resource" id="Resource_ojcqc"]
 script = ExtResource("2_ojcqc")
@@ -165,27 +160,20 @@ transitions = {
 }
 }
 name = "Hoverfly"
-metadata/graph_offset = Vector2(585, 157.5)
+metadata/graph_offset = Vector2(651, 79.5)
 
-[sub_resource type="Resource" id="Resource_c6blh"]
-script = ExtResource("5_6y1cm")
-from = "Antibug"
-to = "Exit"
-conditions = {}
-priority = 0
-
-[sub_resource type="Resource" id="Resource_pv58n"]
+[sub_resource type="Resource" id="Resource_10p3u"]
 script = ExtResource("4_gbx1n")
-value = "antibug"
+value = "none"
 comparation = 0
 name = "powerup"
 
-[sub_resource type="Resource" id="Resource_niqx1"]
+[sub_resource type="Resource" id="Resource_pv58n"]
 script = ExtResource("5_6y1cm")
 from = "Entry"
-to = "Antibug"
+to = "Exit"
 conditions = {
-"powerup": SubResource("Resource_pv58n")
+"powerup": SubResource("Resource_10p3u")
 }
 priority = 0
 
@@ -214,17 +202,13 @@ priority = 0
 [sub_resource type="Resource" id="Resource_dgmrv"]
 script = ExtResource("1_ridqv")
 states = {
-"Antibug": SubResource("Resource_10p3u"),
 "Entry": SubResource("Resource_ridqv"),
 "Exit": SubResource("Resource_ojcqc"),
 "Hoverfly": SubResource("Resource_v7luo")
 }
 transitions = {
-"Antibug": {
-"Exit": SubResource("Resource_c6blh")
-},
 "Entry": {
-"Antibug": SubResource("Resource_niqx1"),
+"Exit": SubResource("Resource_pv58n"),
 "Hoverfly": SubResource("Resource_jai2h")
 },
 "Hoverfly": {
@@ -449,6 +433,28 @@ to = "Idle"
 conditions = {}
 priority = 0
 
+[sub_resource type="Resource" id="Resource_c6blh"]
+script = ExtResource("3_10p3u")
+value = true
+comparation = 0
+name = "aim"
+
+[sub_resource type="Resource" id="Resource_niqx1"]
+script = ExtResource("3_10p3u")
+value = true
+comparation = 0
+name = "bubble"
+
+[sub_resource type="Resource" id="Resource_tvwt6"]
+script = ExtResource("5_6y1cm")
+from = "Fall"
+to = "Aim"
+conditions = {
+"aim": SubResource("Resource_c6blh"),
+"bubble": SubResource("Resource_niqx1")
+}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_487ah"]
 script = ExtResource("4_gbx1n")
 value = "air"
@@ -633,6 +639,7 @@ transitions = {
 "Idle": SubResource("Resource_oprun")
 },
 "Fall": {
+"Aim": SubResource("Resource_tvwt6"),
 "Idle": SubResource("Resource_4ni07"),
 "KO": SubResource("Resource_6e8lb"),
 "Powerup": SubResource("Resource_il7d8")

@@ -138,6 +138,12 @@ func _handle_item(item: Item) -> void:
 			consumed_powerup.emit(item.item_id)
 		'antibug':
 			consumed_powerup.emit(item.item_id)
+		'super_grub':
+			consumed_powerup.emit(item.item_id)
+		'bubblebee':
+			consumed_powerup.emit(item.item_id)
+		'hopperpop':
+			consumed_powerup.emit(item.item_id)
 		_:
 			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
 

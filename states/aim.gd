@@ -6,19 +6,45 @@ signal player_jumped()
 signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 
 @export var _player: CharacterBody2D
-@export var _animator: AnimatedSprite2D
+@export var _animator: SpriteTree
 @export var _jump_force: float = 1.0
+@export var _particle_emitter: Node
 
 var _pull_input: Vector2
 var _jumped: bool = false
 var _surface_normal: Vector2
+var _hopperpop: bool = false
+var _powerup: String = ''
 
 const _MAX_SHAPECAST_RESULTS = 4
+const _HOPPERPOP_MULTIPLIER = 1.6
+const _BUBBLEBEE_MULTIPLIER = 1.2
+
+func _ready() -> void:
+	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		match powerup:
+			'hopperpop':
+				_jump_force *= _HOPPERPOP_MULTIPLIER
+				_powerup = powerup
+			'bubblebee':
+				_jump_force /= _BUBBLEBEE_MULTIPLIER
+				_powerup = powerup
+	)
+	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+		match powerup:
+			'hopperpop':
+				_jump_force /= _HOPPERPOP_MULTIPLIER
+				_powerup = ''
+			'bubblebee':
+				_jump_force *= _BUBBLEBEE_MULTIPLIER
+				_powerup = ''
+	)
+
 
 func enter_state() -> void:
 	set_property('jump', false)
 	aim_entered.emit()
-	_animator.play('aim')
+	_animator.play_branch_animation('aim')
 
 
 func exit_state() -> void:
@@ -57,6 +83,15 @@ func _jump() -> void:
 	_jumped = true
 	player_jumped.emit()
 
+	# Spawn particles
+	match _powerup:
+		'hopperpop':
+			_particle_emitter.spawn_hopperpop_jump_dust()
+		'bubblebee':
+			_particle_emitter.spawn_bubblebee_jump_dust()
+		_:
+			_particle_emitter.spawn_jump_dust()
+
 
 func tick_state(delta: float) -> void:
 	if not _jumped:
@@ -66,9 +101,13 @@ func tick_state(delta: float) -> void:
 
 func _is_jump_direction_valid(direction: Vector2) -> bool:
 	var dot = floorf(direction.dot(_surface_normal))
-	return dot > 0.0
+	return dot > 0.0 or _surface_normal == Vector2.ZERO
 
 
 func _on_normal_land(normal: Vector2) -> void:
 	_surface_normal = normal
+
+
+func _on_leave_ground() -> void:
+	_surface_normal = Vector2.ZERO
 

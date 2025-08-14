@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqqc11jshtu6v"]
+
+[ext_resource type="Script" uid="uid://dsb66hi83np7q" path="res://scripts/entities/item.gd" id="1_eddk6"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="2_3x664"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqdrm"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+atlas = ExtResource("2_3x664")
+region = Rect2(8, 0, 8, 8)
+
+[node name="SuperGrub" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_eddk6")
+_item_id = "super_grub"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mqdrm")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ih772")

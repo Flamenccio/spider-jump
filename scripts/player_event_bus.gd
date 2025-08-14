@@ -5,8 +5,9 @@ extends Node
 ## Passes `powerup`, a string identifier.
 signal powerup_started(powerup: String)
 
-## Called when any powerup ends
-signal powerup_ended()
+## Called when a powerup ends.
+## Passes `powerup`, a string identifier.
+signal powerup_ended(poweurp: String)
 
 ## Called when a player stat is updated.
 ## Passes `stat`, a string identifier, and `value`, the value of the stat.

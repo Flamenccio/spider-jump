@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
-[ext_resource type="PackedScene" uid="uid://dxpxr8minu8d4" path="res://scenes/hoverfly.tscn" id="27_qnb83"]
+[ext_resource type="PackedScene" uid="uid://dxdwqtbu84o7o" path="res://scenes/bubblebee.tscn" id="28_sww3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -177,8 +177,8 @@ default_color = Color(0.160708, 0.674632, 0.996078, 1)
 script = ExtResource("18_twgab")
 _fixed_endpoint = NodePath("../Player")
 
-[node name="Hoverfly" parent="." instance=ExtResource("27_qnb83")]
-position = Vector2(1, -82)
+[node name="Bubblebee" parent="." instance=ExtResource("28_sww3w")]
+position = Vector2(1, -96)
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]

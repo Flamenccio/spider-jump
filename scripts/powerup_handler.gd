@@ -3,11 +3,7 @@ extends Node
 signal powerup_started(powerup: String)
 signal powerup_ended()
 
-signal hoverfly_started()
-signal hoverfly_ended()
-
-signal antibug_started()
-signal antibug_ended()
+@export var _animator: SpriteTree
 
 var current_powerup: String = ''
 var _powerup_end_queue: Array[Callable]
@@ -24,13 +20,16 @@ func _on_powerup_consumed(powerup: String) -> void:
 
 
 func _end_powerups() -> void:
+	if current_powerup == 'none':
+		return
 	_powerup_timer.stop()
-	if _powerup_end_queue.size() > 0:
-		powerup_ended.emit()
-		PlayerEventBus.powerup_ended.emit()
+	powerup_ended.emit()
+	_animator.switch_sprite_branch('normal')
+	PlayerEventBus.powerup_ended.emit(current_powerup)
 	while _powerup_end_queue.size() > 0:
 		var p = _powerup_end_queue.pop_front() as Callable
 		p.call()
+	current_powerup = 'none'
 
 
 func _handle_powerup(powerup: String) -> void:
@@ -43,17 +42,28 @@ func _handle_powerup(powerup: String) -> void:
 
 	match powerup:
 		'hoverfly':
-			hoverfly_started.emit()
-			_powerup_end_queue.push_back(func(): hoverfly_ended.emit())
 			_powerup_timer.start(10)
+			_animator.switch_and_play('hoverfly', 'hover')
 		'antibug':
-			antibug_started.emit()
 			_powerup_end_queue.push_back(func():
-				antibug_ended.emit()
 				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 			)
 			_powerup_timer.start(10)
 			GameConstants.current_gravity = -GameConstants.DEFAULT_GRAVITY
+			_animator.switch_sprite_branch('antibug')
+		'super_grub':
+			_powerup_timer.start(10)
+			_animator.switch_sprite_branch('supergrub')
+		'bubblebee':
+			_powerup_timer.start(10)
+			_animator.switch_sprite_branch('bubblebee')
+			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY / 2.0
+			_powerup_end_queue.push_back(func():
+				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
+			)
+		'hopperpop':
+			_powerup_timer.start(10)
+			_animator.switch_sprite_branch('hopperpop')
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
