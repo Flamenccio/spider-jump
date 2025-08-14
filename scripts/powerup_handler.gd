@@ -52,7 +52,8 @@ func _handle_powerup(powerup: String) -> void:
 			GameConstants.current_gravity = -GameConstants.DEFAULT_GRAVITY
 			_animator.switch_sprite_branch('antibug')
 		'super_grub':
-			_powerup_timer.start(10)
+			PlayerStatsInterface.change_stat.emit('stamina', 1.0)
+			_powerup_timer.start(20)
 			_animator.switch_sprite_branch('supergrub')
 		'bubblebee':
 			_powerup_timer.start(10)
