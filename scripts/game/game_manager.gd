@@ -8,6 +8,7 @@ signal score_updated(score: int)
 ## Base amount of stamina drained per second, from 0.0 - 1.0
 @export var _base_stamina_drain_amount: float = 0.0
 var _stamina_drain_amount: float = 0.0
+var _old_stamina_drain: float = 0.0
 
 @export var _player: Node2D
 
@@ -16,6 +17,19 @@ func _ready() -> void:
 	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
 		if stat == 'score':
 			_on_score_updated(value)
+	)
+	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		match powerup:
+			'super_grub':
+				_old_stamina_drain = _stamina_drain_amount
+				_stamina_drain_amount = 0.0
+			_:
+				return
+	)
+	PlayerEventBus.powerup_ended.connect(func():
+		if _old_stamina_drain != 0.0:
+			_stamina_drain_amount = _old_stamina_drain
+			_old_stamina_drain = 0.0
 	)
 
 
