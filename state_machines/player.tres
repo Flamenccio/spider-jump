@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StateMachine" load_steps=84 format=3 uid="uid://do5fxx1fsv3j4"]
+[gd_resource type="Resource" script_class="StateMachine" load_steps=87 format=3 uid="uid://do5fxx1fsv3j4"]
 
 [ext_resource type="Script" uid="uid://cgcw4uj3fme3a" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="1_ridqv"]
 [ext_resource type="Script" uid="uid://bky7ul11nw1di" path="res://addons/imjp94.yafsm/src/states/State.gd" id="2_ojcqc"]
@@ -478,6 +478,28 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_niqx1"]
+script = ExtResource("3_10p3u")
+value = true
+comparation = 0
+name = "bubble"
+
+[sub_resource type="Resource" id="Resource_c6blh"]
+script = ExtResource("3_10p3u")
+value = true
+comparation = 0
+name = "aim"
+
+[sub_resource type="Resource" id="Resource_tvwt6"]
+script = ExtResource("5_6y1cm")
+from = "Fall"
+to = "Aim"
+conditions = {
+"aim": SubResource("Resource_c6blh"),
+"bubble": SubResource("Resource_niqx1")
+}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_l71n6"]
 script = ExtResource("3_10p3u")
 value = true
@@ -617,6 +639,7 @@ transitions = {
 "Idle": SubResource("Resource_oprun")
 },
 "Fall": {
+"Aim": SubResource("Resource_tvwt6"),
 "Idle": SubResource("Resource_4ni07"),
 "KO": SubResource("Resource_6e8lb"),
 "Powerup": SubResource("Resource_il7d8")

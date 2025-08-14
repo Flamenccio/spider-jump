@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=76 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b82bo14p7baur" path="res://sprites/player_anti.png" id="7_t4otl"]
 [ext_resource type="Resource" uid="uid://do5fxx1fsv3j4" path="res://state_machines/player.tres" id="7_wqfne"]
 [ext_resource type="Texture2D" uid="uid://cs4c06dtyjy81" path="res://sprites/player_super_grub.png" id="8_t4otl"]
+[ext_resource type="Texture2D" uid="uid://i5m020oftv8j" path="res://sprites/player_bubble.png" id="9_j2b1d"]
 [ext_resource type="Script" uid="uid://bdjhjbk0dk4pt" path="res://states/aim.gd" id="10_qfm1y"]
 [ext_resource type="Script" uid="uid://dra5x3kg80ol8" path="res://states/fall.gd" id="11_a8ls1"]
 [ext_resource type="Script" uid="uid://dr71r23trkggu" path="res://states/crawl.gd" id="11_fulsm"]
@@ -227,6 +228,45 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gdjj"]
+atlas = ExtResource("9_j2b1d")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc3ue"]
+atlas = ExtResource("9_j2b1d")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e8lb"]
+atlas = ExtResource("9_j2b1d")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t4otl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gdjj")
+}],
+"loop": false,
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc3ue")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e8lb")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
 
@@ -301,6 +341,10 @@ animation = &"hover"
 [node name="SuperGrub" type="AnimatedSprite2D" parent="SpriteTree"]
 sprite_frames = SubResource("SpriteFrames_hax0n")
 animation = &"idle"
+
+[node name="Bubblebee" type="AnimatedSprite2D" parent="SpriteTree"]
+sprite_frames = SubResource("SpriteFrames_t4otl")
+animation = &"fall"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -575,6 +619,7 @@ _animator = NodePath("../SpriteTree")
 [connection signal="land_on_normal" from="CollisionHandler" to="BehaviorStateMachine/Idle" method="_normal_updated"]
 [connection signal="land_on_normal" from="CollisionHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
 [connection signal="land_on_slip" from="CollisionHandler" to="BehaviorStateMachine" method="set_property" binds= ["ground_type", "slip"]]
+[connection signal="leave_ground" from="CollisionHandler" to="BehaviorStateMachine/Aim" method="_on_leave_ground"]
 [connection signal="leave_ground" from="CollisionHandler" to="BehaviorStateMachine" method="set_property" binds= ["ground_type", "air"]]
 [connection signal="lose_powerup" from="CollisionHandler" to="PowerupHandler" method="_end_powerups"]
 [connection signal="climb_started" from="LedgeClimb" to="BehaviorStateMachine" method="set_property" binds= ["climb", true]]

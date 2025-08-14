@@ -54,6 +54,13 @@ func _handle_powerup(powerup: String) -> void:
 		'super_grub':
 			_powerup_timer.start(10)
 			_animator.switch_sprite_branch('supergrub')
+		'bubblebee':
+			_powerup_timer.start(10)
+			_animator.switch_sprite_branch('bubblebee')
+			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY / 2.0
+			_powerup_end_queue.push_back(func():
+				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
+			)
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return

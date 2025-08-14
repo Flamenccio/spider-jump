@@ -51,6 +51,7 @@ func _jump() -> void:
 	var _jump_vector = _pull_input * _jump_force * -1
 
 	if not _is_jump_direction_valid(_jump_vector):
+		print('nuh uh!!!!')
 		return
 
 	set_property('jump', true)
@@ -67,9 +68,13 @@ func tick_state(delta: float) -> void:
 
 func _is_jump_direction_valid(direction: Vector2) -> bool:
 	var dot = floorf(direction.dot(_surface_normal))
-	return dot > 0.0
+	return dot > 0.0 or _surface_normal == Vector2.ZERO
 
 
 func _on_normal_land(normal: Vector2) -> void:
 	_surface_normal = normal
+
+
+func _on_leave_ground() -> void:
+	_surface_normal = Vector2.ZERO
 
