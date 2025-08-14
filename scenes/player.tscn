@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=81 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://do5fxx1fsv3j4" path="res://state_machines/player.tres" id="7_wqfne"]
 [ext_resource type="Texture2D" uid="uid://cs4c06dtyjy81" path="res://sprites/player_super_grub.png" id="8_t4otl"]
 [ext_resource type="Texture2D" uid="uid://i5m020oftv8j" path="res://sprites/player_bubble.png" id="9_j2b1d"]
+[ext_resource type="Texture2D" uid="uid://c61jllj1lwpwe" path="res://sprites/player_hopperpop.png" id="10_cs1tg"]
 [ext_resource type="Script" uid="uid://bdjhjbk0dk4pt" path="res://states/aim.gd" id="10_qfm1y"]
 [ext_resource type="Script" uid="uid://dra5x3kg80ol8" path="res://states/fall.gd" id="11_a8ls1"]
 [ext_resource type="Script" uid="uid://dr71r23trkggu" path="res://states/crawl.gd" id="11_fulsm"]
@@ -267,6 +268,45 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha2mi"]
+atlas = ExtResource("10_cs1tg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apa73"]
+atlas = ExtResource("10_cs1tg")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxlsd"]
+atlas = ExtResource("10_cs1tg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ha2mi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha2mi")
+}],
+"loop": false,
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apa73")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxlsd")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
 
@@ -344,6 +384,10 @@ animation = &"idle"
 
 [node name="Bubblebee" type="AnimatedSprite2D" parent="SpriteTree"]
 sprite_frames = SubResource("SpriteFrames_t4otl")
+animation = &"fall"
+
+[node name="Hopperpop" type="AnimatedSprite2D" parent="SpriteTree"]
+sprite_frames = SubResource("SpriteFrames_ha2mi")
 animation = &"fall"
 
 [node name="Collider" type="CollisionShape2D" parent="."]

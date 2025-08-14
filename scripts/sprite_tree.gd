@@ -40,10 +40,14 @@ func switch_sprite_branch(to: String) -> void:
 		return
 	var old = _active_branch
 	_active_branch = _branches[index]
+	var old_animation = ''
 	if old != null:
+		old_animation = _active_branch.animation
 		old.stop()
 		old.hide()
 	_active_branch.show()
+	if _active_branch.sprite_frames.has_animation(old_animation) and old_animation != '':
+		_active_branch.play(old_animation)
 
 
 ## Plays an animation on the current branch

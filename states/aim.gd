@@ -14,11 +14,29 @@ var _jumped: bool = false
 var _surface_normal: Vector2
 
 const _MAX_SHAPECAST_RESULTS = 4
+const _HOPPERPOP_MULTIPLIER = 1.6
+const _BUBBLEBEE_MULTIPLIER = 1.2
+
+func _ready() -> void:
+	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		match powerup:
+			'hopperpop':
+				_jump_force *= _HOPPERPOP_MULTIPLIER
+			'bubblebee':
+				_jump_force /= _BUBBLEBEE_MULTIPLIER
+	)
+	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+		match powerup:
+			'hopperpop':
+				_jump_force /= _HOPPERPOP_MULTIPLIER
+			'bubblebee':
+				_jump_force *= _BUBBLEBEE_MULTIPLIER
+	)
+
 
 func enter_state() -> void:
 	set_property('jump', false)
 	aim_entered.emit()
-	#_animator.play('aim')
 	_animator.play_branch_animation('aim')
 
 

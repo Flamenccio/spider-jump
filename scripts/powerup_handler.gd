@@ -61,6 +61,9 @@ func _handle_powerup(powerup: String) -> void:
 			_powerup_end_queue.push_back(func():
 				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 			)
+		'hopperpop':
+			_powerup_timer.start(10)
+			_animator.switch_sprite_branch('hopperpop')
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
