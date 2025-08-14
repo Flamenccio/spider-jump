@@ -178,7 +178,7 @@ script = ExtResource("18_twgab")
 _fixed_endpoint = NodePath("../Player")
 
 [node name="Hoverfly" parent="." instance=ExtResource("27_qnb83")]
-position = Vector2(1, -82)
+position = Vector2(0, -77)
 
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]

@@ -9,6 +9,8 @@ signal hoverfly_ended()
 signal antibug_started()
 signal antibug_ended()
 
+@export var _animator: SpriteTree
+
 var current_powerup: String = ''
 var _powerup_end_queue: Array[Callable]
 var _powerup_timer: Timer = Timer.new()
@@ -27,6 +29,7 @@ func _end_powerups() -> void:
 	_powerup_timer.stop()
 	if _powerup_end_queue.size() > 0:
 		powerup_ended.emit()
+		_animator.switch_sprite_branch('normal')
 		PlayerEventBus.powerup_ended.emit()
 	while _powerup_end_queue.size() > 0:
 		var p = _powerup_end_queue.pop_front() as Callable
@@ -46,6 +49,7 @@ func _handle_powerup(powerup: String) -> void:
 			hoverfly_started.emit()
 			_powerup_end_queue.push_back(func(): hoverfly_ended.emit())
 			_powerup_timer.start(10)
+			_animator.switch_and_play('hoverfly', 'hover')
 		'antibug':
 			antibug_started.emit()
 			_powerup_end_queue.push_back(func():
@@ -54,6 +58,7 @@ func _handle_powerup(powerup: String) -> void:
 			)
 			_powerup_timer.start(10)
 			GameConstants.current_gravity = -GameConstants.DEFAULT_GRAVITY
+			_animator.switch_sprite_branch('antibug')
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
