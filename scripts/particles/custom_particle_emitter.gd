@@ -31,6 +31,11 @@ func spawn_hopperpop_jump_dust() -> void:
 	spawn_particle.emit('hopperpop_jump_dust', _player.global_position, _player.rotation)
 
 
+func spawn_bubblebee_jump_dust() -> void:
+	_jumped = true
+	spawn_particle.emit('bubblebee_jump_dust', _player.global_position, _player.rotation)
+
+
 func spawn_player_hit() -> void:
 	#TheGlobalSpawner.instantiate_scene(player_hit_scene, _player.global_position, 0)
 	spawn_particle.emit('player_hit', _player.global_position, 0.0)

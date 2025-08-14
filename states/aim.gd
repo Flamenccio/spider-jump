@@ -14,6 +14,7 @@ var _pull_input: Vector2
 var _jumped: bool = false
 var _surface_normal: Vector2
 var _hopperpop: bool = false
+var _powerup: String = ''
 
 const _MAX_SHAPECAST_RESULTS = 4
 const _HOPPERPOP_MULTIPLIER = 1.6
@@ -24,17 +25,19 @@ func _ready() -> void:
 		match powerup:
 			'hopperpop':
 				_jump_force *= _HOPPERPOP_MULTIPLIER
-				_hopperpop = true
+				_powerup = powerup
 			'bubblebee':
 				_jump_force /= _BUBBLEBEE_MULTIPLIER
+				_powerup = powerup
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
 		match powerup:
 			'hopperpop':
 				_jump_force /= _HOPPERPOP_MULTIPLIER
-				_hopperpop = false
+				_powerup = ''
 			'bubblebee':
 				_jump_force *= _BUBBLEBEE_MULTIPLIER
+				_powerup = ''
 	)
 
 
@@ -80,10 +83,14 @@ func _jump() -> void:
 	_jumped = true
 	player_jumped.emit()
 
-	if _hopperpop:
-		_particle_emitter.spawn_hopperpop_jump_dust()
-	else:
-		_particle_emitter.spawn_jump_dust()
+	# Spawn particles
+	match _powerup:
+		'hopperpop':
+			_particle_emitter.spawn_hopperpop_jump_dust()
+		'bubblebee':
+			_particle_emitter.spawn_bubblebee_jump_dust()
+		_:
+			_particle_emitter.spawn_jump_dust()
 
 
 func tick_state(delta: float) -> void:
