@@ -12,6 +12,8 @@ var _old_stamina_drain: float = 0.0
 
 @export var _player: Node2D
 
+const _LEVEL_UP_DRAIN_INCREASE = 0.01
+
 func _ready() -> void:
 	_stamina_drain_amount = _base_stamina_drain_amount
 	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
@@ -51,6 +53,7 @@ func _on_score_updated(score: int) -> void:
 
 func _level_up(next_level: int) -> void:
 	GameConstants.difficulty = next_level
+	_stamina_drain_amount += _LEVEL_UP_DRAIN_INCREASE
 	levelled_up.emit(GameConstants.difficulty)
 
 
