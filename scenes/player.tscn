@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=90 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c61jllj1lwpwe" path="res://sprites/player_hopperpop.png" id="10_cs1tg"]
 [ext_resource type="Script" uid="uid://bdjhjbk0dk4pt" path="res://states/aim.gd" id="10_qfm1y"]
 [ext_resource type="Script" uid="uid://dra5x3kg80ol8" path="res://states/fall.gd" id="11_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://dhrojosr38xuv" path="res://sprites/player_heavy_beetle.png" id="11_fdfoy"]
 [ext_resource type="Script" uid="uid://dr71r23trkggu" path="res://states/crawl.gd" id="11_fulsm"]
 [ext_resource type="Script" uid="uid://bq8cyg2r3e4us" path="res://states/idle.gd" id="11_oprun"]
 [ext_resource type="Script" uid="uid://de5mlnbdg5gtl" path="res://states/entry.gd" id="12_qfm1y"]
@@ -309,6 +310,45 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_74r1k"]
+atlas = ExtResource("11_fdfoy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a3c5"]
+atlas = ExtResource("11_fdfoy")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8svfe"]
+atlas = ExtResource("11_fdfoy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2a3c5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74r1k")
+}],
+"loop": false,
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2a3c5")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8svfe")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
 
@@ -402,6 +442,10 @@ animation = &"fall"
 
 [node name="Hopperpop" type="AnimatedSprite2D" parent="SpriteTree"]
 sprite_frames = SubResource("SpriteFrames_ha2mi")
+animation = &"fall"
+
+[node name="HeavyBeetle" type="AnimatedSprite2D" parent="SpriteTree"]
+sprite_frames = SubResource("SpriteFrames_2a3c5")
 animation = &"fall"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -690,7 +734,6 @@ _animator = NodePath("../SpriteTree")
 [connection signal="body_entered" from="Detectors/ItemDetector" to="CollisionHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="Detectors/DangerDetector" to="CollisionHandler" method="_on_danger_entered"]
 [connection signal="powerup_ended" from="PowerupHandler" to="BehaviorStateMachine" method="_powerup_ended"]
-[connection signal="powerup_ended" from="PowerupHandler" to="CollisionHandler" method="_on_powerup_ended"]
 [connection signal="powerup_ended" from="PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]
 [connection signal="powerup_started" from="PowerupHandler" to="BehaviorStateMachine" method="_powerup_started"]
 [connection signal="powerup_started" from="PowerupHandler" to="CollisionHandler" method="_on_powerup_started"]

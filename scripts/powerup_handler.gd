@@ -65,6 +65,9 @@ func _handle_powerup(powerup: String) -> void:
 		'hopperpop':
 			_powerup_timer.start(10)
 			_animator.switch_sprite_branch('hopperpop')
+		'heavy_beetle':
+			_powerup_timer.start(15)
+			_animator.switch_sprite_branch('heavybeetle')
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return

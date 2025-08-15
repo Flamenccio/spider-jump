@@ -29,13 +29,17 @@ class SurfaceContacts:
 	var node: Node
 	var shape_index: int
 
+func _ready() -> void:
+	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
+
+
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
 
-
 	var shape_owner = body.shape_owner_get_owner(body_shape_index)
+	var slip_ground_enabled = current_powerup == 'heavy_beetle' and _is_on_collision_layer(body, _slip_layer)
 
 	# Ground
-	if _is_on_collision_layer(body, _ground_layer):
+	if _is_on_collision_layer(body, _ground_layer) or slip_ground_enabled:
 		if _track_ground(shape_owner):
 			land_on_ground.emit()
 
@@ -43,7 +47,8 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int) 
 			if current_powerup != 'hoverfly':
 				_find_normal(body, body_shape_index)
 	
-	_search_for_slip(body, body_shape_index)
+	if current_powerup != 'heavy_beetle':
+		_search_for_slip(body, body_shape_index)
 
 
 func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
@@ -121,6 +126,10 @@ func _on_item_collided(body: Node2D) -> void:
 
 
 func _on_danger_entered(body: Node2D) -> void:
+	# Ignore if heavy beetle
+	if current_powerup == 'heavy_beetle':
+		return
+
 	# If the player has a powerup, lose the powerup
 	# instead of losing health
 	if current_powerup != 'none':
@@ -131,6 +140,7 @@ func _on_danger_entered(body: Node2D) -> void:
 
 func _handle_item(item: Item) -> void:
 
+	# TODO: Maybe refactor this
 	match item.item_id:
 		'yum_fly':
 			PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, 0.25)
@@ -144,6 +154,8 @@ func _handle_item(item: Item) -> void:
 			consumed_powerup.emit(item.item_id)
 		'hopperpop':
 			consumed_powerup.emit(item.item_id)
+		'heavy_beetle':
+			consumed_powerup.emit(item.item_id)
 		_:
 			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
 
@@ -152,10 +164,16 @@ func _handle_item(item: Item) -> void:
 
 func _on_powerup_started(powerup: String) -> void:
 	current_powerup = powerup
+
 	if current_powerup == 'hoverfly':
 		land_on_normal.emit(Vector2.UP)
+	elif current_powerup == 'heavy_beetle':
+		# Check ground for slippery
+		for ground in _ground_contacts:
+			if _is_on_collision_layer(ground, _slip_layer):
+				land_on_ground.emit()
 
 
-func _on_powerup_ended() -> void:
+func _on_powerup_ended(powerup: String) -> void:
 	current_powerup = 'none'
 

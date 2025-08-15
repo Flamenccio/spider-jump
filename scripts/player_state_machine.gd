@@ -3,6 +3,10 @@ extends StateMachineHandler
 
 func _ready() -> void:
 	super._ready()
+
+	if Engine.is_editor_hint():
+		return
+
 	# Kinda not great but works
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
 		if powerup == 'bubblebee':
