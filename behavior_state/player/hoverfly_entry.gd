@@ -1,6 +1,7 @@
 extends BehaviorState
 
-@export var _animator: SpriteTree
+@export var _player: CharacterBody2D
 
 func enter_state() -> void:
-	_animator.switch_and_play('hoverfly', 'hover')
+	# Reduce velocity on collect
+	_player.velocity /= 3.0

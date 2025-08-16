@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=93 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/custom_particle_emitter.gd" id="21_a38lo"]
 [ext_resource type="PackedScene" uid="uid://dcsy57p10wcgc" path="res://scenes/landing_dust.tscn" id="21_i4ail"]
 [ext_resource type="PackedScene" uid="uid://cgfccdd6c34ro" path="res://scenes/jumping_dust.tscn" id="23_4ni07"]
+[ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="24_g5jhy"]
 [ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://scripts/player/ledge_climb.gd" id="24_l71n6"]
 [ext_resource type="PackedScene" uid="uid://bbyn6mfqqfcud" path="res://scenes/player_hit_vfx.tscn" id="26_31cv2"]
 [ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/parabola_particles.tscn" id="28_pf23h"]
@@ -520,8 +521,9 @@ metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="Hoverfly" type="Node" parent="BehaviorStateMachine/Powerup"]
 
-[node name="Entry" type="Node" parent="BehaviorStateMachine/Powerup/Hoverfly"]
-script = ExtResource("15_wnwbv")
+[node name="Entry" type="Node" parent="BehaviorStateMachine/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
+script = ExtResource("24_g5jhy")
+_player = NodePath("../../../..")
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="Exit" type="Node" parent="BehaviorStateMachine/Powerup/Hoverfly"]
@@ -531,7 +533,7 @@ metadata/_custom_type_script = "uid://xwooryy4y5og"
 [node name="Hover" type="Node" parent="BehaviorStateMachine/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
 script = ExtResource("17_487ah")
 _player = NodePath("../../../..")
-_decceleration = 3.0
+_decceleration = 1.5
 metadata/_custom_type_script = "uid://xwooryy4y5og"
 
 [node name="Fly" type="Node" parent="BehaviorStateMachine/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
