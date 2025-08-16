@@ -13,12 +13,12 @@ signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 var _pull_input: Vector2
 var _jumped: bool = false
 var _surface_normal: Vector2
-var _hopperpop: bool = false
 var _powerup: String = ''
 
 const _MAX_SHAPECAST_RESULTS = 4
 const _HOPPERPOP_MULTIPLIER = 1.6
 const _BUBBLEBEE_MULTIPLIER = 1.2
+const _HEAVY_BEETLE_MULTIPLIER = 1.0
 
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
@@ -29,6 +29,8 @@ func _ready() -> void:
 			'bubblebee':
 				_jump_force /= _BUBBLEBEE_MULTIPLIER
 				_powerup = powerup
+			'heavy_beetle':
+				_jump_force *= _HEAVY_BEETLE_MULTIPLIER
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
 		match powerup:
@@ -38,6 +40,8 @@ func _ready() -> void:
 			'bubblebee':
 				_jump_force *= _BUBBLEBEE_MULTIPLIER
 				_powerup = ''
+			'heavy_beetle':
+				_jump_force /= _HEAVY_BEETLE_MULTIPLIER
 	)
 
 

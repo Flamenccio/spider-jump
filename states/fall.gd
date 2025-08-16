@@ -5,7 +5,6 @@ extends BehaviorState
 var motion: Vector2
 
 func enter_state() -> void:
-	#_animator.play('fall')
 	_animator.play_branch_animation('fall')
 
 

@@ -78,6 +78,10 @@ func _handle_powerup(powerup: String) -> void:
 		'heavy_beetle':
 			_defer_powerup_timer(15)
 			_animator.switch_sprite_branch('heavybeetle')
+			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY * 1.5
+			_powerup_end_queue.push_back(func():
+				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
+			)
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
