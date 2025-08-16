@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxa2mh4g28mqc"]
+
+[ext_resource type="Texture2D" uid="uid://rq3naiicifyw" path="res://sprites/powerup-flash-Sheet.png" id="1_4y14o"]
+[ext_resource type="Script" uid="uid://dhn67g4b5sedo" path="res://scripts/particles/powerup_flash.gd" id="2_bwdwi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwdwi"]
+atlas = ExtResource("1_4y14o")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ig33"]
+atlas = ExtResource("1_4y14o")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcevx"]
+atlas = ExtResource("1_4y14o")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_60mlk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwdwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ig33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcevx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="PowerupFlash" type="Node2D"]
+z_index = 4
+z_as_relative = false
+script = ExtResource("2_bwdwi")
+
+[node name="PowerupFlash2" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(100, 1)
+sprite_frames = SubResource("SpriteFrames_60mlk")
+autoplay = "default"
+frame = 1
+frame_progress = 0.63325
+
+[node name="PowerupFlash3" type="AnimatedSprite2D" parent="."]
+scale = Vector2(100, 1)
+sprite_frames = SubResource("SpriteFrames_60mlk")
+autoplay = "default"
+frame = 1
+frame_progress = 0.340283

@@ -9,6 +9,7 @@ signal score_updated(score: int)
 @export var _base_stamina_drain_amount: float = 0.0
 var _stamina_drain_amount: float = 0.0
 var _old_stamina_drain: float = 0.0
+var _pause_stamina_drain: bool = false
 
 @export var _player: Node2D
 
@@ -33,6 +34,10 @@ func _ready() -> void:
 			_stamina_drain_amount = _old_stamina_drain
 	)
 
+	# Pause drain
+	PlayerEventBus.powerup_flash_start.connect(func(): _pause_stamina_drain = true)
+	PlayerEventBus.powerup_flash_end.connect(func(): _pause_stamina_drain = false)
+
 
 func game_over() -> void:
 	get_tree().paused = true
@@ -40,6 +45,8 @@ func game_over() -> void:
 
 
 func _process(delta: float) -> void:
+	if _pause_stamina_drain:
+		return
 	stamina_drained.emit(_stamina_drain_amount * delta * -1)
 	var point = floori(_player.global_position.y / GameConstants.PIXELS_PER_POINT)
 	score_updated.emit(point)

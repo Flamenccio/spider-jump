@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=92 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -43,6 +43,7 @@
 [ext_resource type="Script" uid="uid://d0al3rebskcyi" path="res://scripts/powerup_handler.gd" id="34_md1ol"]
 [ext_resource type="PackedScene" uid="uid://cvv41rexkyv24" path="res://scenes/hopperpop_jumping_dust.tscn" id="38_2dvfe"]
 [ext_resource type="PackedScene" uid="uid://bja2h5vps3cu" path="res://scenes/bubblebee_jump_dust.tscn" id="39_giy8y"]
+[ext_resource type="PackedScene" uid="uid://bxa2mh4g28mqc" path="res://scenes/powerup_flash.tscn" id="41_hhpqf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
 shader = ExtResource("2_dt7fs")
@@ -394,6 +395,12 @@ particle_name = "bubblebee_jump_dust"
 particle_scene = ExtResource("39_giy8y")
 metadata/_custom_type_script = "uid://wmfb0j47nkka"
 
+[sub_resource type="Resource" id="Resource_g5jhy"]
+script = ExtResource("31_487ah")
+particle_name = "powerup_flash"
+particle_scene = ExtResource("41_hhpqf")
+metadata/_custom_type_script = "uid://wmfb0j47nkka"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_pf23h"]
 radius = 4.0
 
@@ -407,6 +414,8 @@ radius = 3.0
 radius = 3.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 5
+z_as_relative = false
 texture_filter = 1
 collision_mask = 6
 collision_priority = 50.0
@@ -615,7 +624,7 @@ _player = NodePath("../..")
 
 [node name="ParticleEmitter" type="Node" parent="Particles/ParticleEmitter"]
 script = ExtResource("30_gl8cc")
-_particles = Array[ExtResource("31_487ah")]([SubResource("Resource_apa73"), SubResource("Resource_74r1k"), SubResource("Resource_8svfe"), SubResource("Resource_giy8y"), SubResource("Resource_fdfoy")])
+_particles = Array[ExtResource("31_487ah")]([SubResource("Resource_apa73"), SubResource("Resource_74r1k"), SubResource("Resource_8svfe"), SubResource("Resource_giy8y"), SubResource("Resource_fdfoy"), SubResource("Resource_g5jhy")])
 
 [node name="ParabolaParticles" parent="Particles" node_paths=PackedStringArray("_origin") instance=ExtResource("28_pf23h")]
 z_index = -1
@@ -737,3 +746,4 @@ _animator = NodePath("../SpriteTree")
 [connection signal="powerup_ended" from="PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]
 [connection signal="powerup_started" from="PowerupHandler" to="BehaviorStateMachine" method="_powerup_started"]
 [connection signal="powerup_started" from="PowerupHandler" to="CollisionHandler" method="_on_powerup_started"]
+[connection signal="powerup_started" from="PowerupHandler" to="Particles/ParticleEmitter" method="spawn_powerup_flash" unbinds=1]

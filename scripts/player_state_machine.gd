@@ -1,6 +1,8 @@
 @tool
 extends StateMachineHandler
 
+var pause_tick: bool = false
+
 func _ready() -> void:
 	super._ready()
 
@@ -16,6 +18,17 @@ func _ready() -> void:
 		if powerup == 'bubblebee':
 			set_property('bubble', false)
 	)
+
+	# Pause tick state
+	PlayerEventBus.powerup_flash_start.connect(func(): pause_tick = true)
+	PlayerEventBus.powerup_flash_end.connect(func(): pause_tick = false)
+
+
+func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	if not pause_tick and _active_state != null:
+		_active_state.tick_state(delta)
 
 
 func _powerup_started(powerup: String) -> void:

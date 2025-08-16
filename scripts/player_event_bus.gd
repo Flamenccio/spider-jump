@@ -22,3 +22,9 @@ signal player_consumed_item(item: String)
 ## the time in seconds it started with.
 signal powerup_timer_updated(time_left: float, duration: float)
 
+## Called when the player starts the powerup flash animation.
+signal powerup_flash_start()
+
+# Called when the powerup flash animation ends.
+signal powerup_flash_end()
+

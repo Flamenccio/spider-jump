@@ -37,5 +37,8 @@ func spawn_bubblebee_jump_dust() -> void:
 
 
 func spawn_player_hit() -> void:
-	#TheGlobalSpawner.instantiate_scene(player_hit_scene, _player.global_position, 0)
 	spawn_particle.emit('player_hit', _player.global_position, 0.0)
+
+
+func spawn_powerup_flash() -> void:
+	spawn_particle.emit('powerup_flash', _player.global_position, 0.0)
