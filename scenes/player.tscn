@@ -364,13 +364,13 @@ region = Rect2(0, 16, 16, 16)
 atlas = ExtResource("12_holxr")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nubpm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_51ujp"]
+atlas = ExtResource("12_holxr")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tk41t"]
 atlas = ExtResource("12_holxr")
 region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ua5cf"]
-atlas = ExtResource("12_holxr")
-region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g5jhy"]
 animations = [{
@@ -400,14 +400,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nubpm")
+"texture": SubResource("AtlasTexture_51ujp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ua5cf")
+"texture": SubResource("AtlasTexture_tk41t")
 }],
-"loop": true,
+"loop": false,
 "name": &"warp",
-"speed": 20.0
+"speed": 24.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
@@ -519,8 +519,7 @@ animation = &"fall"
 
 [node name="Blinkfly" type="AnimatedSprite2D" parent="SpriteTree"]
 sprite_frames = SubResource("SpriteFrames_g5jhy")
-animation = &"warp"
-frame_progress = 0.490504
+animation = &"fall"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)

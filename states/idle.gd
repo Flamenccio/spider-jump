@@ -22,6 +22,7 @@ func _ready() -> void:
 
 
 func enter_state() -> void:
+	_player.velocity = Vector2.ZERO
 	_down_vector = Vector2.from_angle(_player.rotation - (3 * PI / 2.0))
 	set_property('jump', false)
 	_animator.play_branch_animation('idle')

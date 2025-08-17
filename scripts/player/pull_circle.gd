@@ -55,8 +55,13 @@ func set_inactive() -> void:
 func _handle_powerup(powerup: String) -> void:
 	if powerup == 'hoverfly':
 		hover_powerup = true
+	elif powerup == 'blinkfly':
+		hide()
 
 
-func _handle_powerup_end(_powerup: String) -> void:
-	hover_powerup = false
+func _handle_powerup_end(powerup: String) -> void:
+	if powerup == 'hoverfly':
+		hover_powerup = false
+	elif powerup == 'blinkfly':
+		show()
 

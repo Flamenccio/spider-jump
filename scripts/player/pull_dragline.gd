@@ -3,6 +3,7 @@ extends Line2D
 @export var _fixed_endpoint: Node2D
 var _active = false
 var _current_max_distance: float
+var _blinkfly_hide: bool = false
 
 const START = 0
 const END = 1
@@ -31,6 +32,8 @@ func pull_update(from: Vector2) -> void:
 
 
 func pull_set_active(active: bool) -> void:
+	if _blinkfly_hide:
+		return
 	if active:
 		show()
 	else:
@@ -41,8 +44,15 @@ func pull_set_active(active: bool) -> void:
 func _handle_powerup(powerup: String) -> void:
 	if powerup == 'hoverfly':
 		_current_max_distance = _MAX_HOVER_DISTANCE
+	elif powerup == 'blinkfly':
+		_blinkfly_hide = true
+		hide()
 
 
-func _handle_powerup_end(_powerup: String) -> void:
-	_current_max_distance = _MAX_DISTANCE
+func _handle_powerup_end(powerup: String) -> void:
+	if powerup == 'hoverfly':
+		_current_max_distance = _MAX_DISTANCE
+	elif powerup == 'blinkfly':
+		_blinkfly_hide = false
+		show()
 
