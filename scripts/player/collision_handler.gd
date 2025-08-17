@@ -159,6 +159,8 @@ func _handle_item(item: Item) -> void:
 			consumed_powerup.emit(item.item_id)
 		'heavy_beetle':
 			consumed_powerup.emit(item.item_id)
+		'blinkfly':
+			consumed_powerup.emit(item.item_id)
 		_:
 			printerr('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
 

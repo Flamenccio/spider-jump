@@ -82,6 +82,10 @@ func _handle_powerup(powerup: String) -> void:
 			_powerup_end_queue.push_back(func():
 				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 			)
+		'blinkfly':
+			_powerup_timer.wait_time = 8.0
+			_powerup_timer.time_left = 8.0
+			_animator.switch_sprite_branch('blinkfly')
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
@@ -102,4 +106,10 @@ func _on_item_collected(item: String) -> void:
 		if item == 'yum_fly':
 			# Add more time to the powerup timer
 			_powerup_timer.change_time_left(1.0)
+
+
+func _on_player_blinkfly_jumped() -> void:
+	_powerup_timer.change_time_left(-1.0)
+	if _powerup_timer.time_left <= 0.0:
+		_end_powerups()
 
