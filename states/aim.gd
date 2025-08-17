@@ -59,7 +59,8 @@ func _ready() -> void:
 
 func enter_state() -> void:
 	set_property('jump', false)
-	aim_entered.emit()
+	if _powerup != 'blinkfly':
+		aim_entered.emit()
 	_animator.play_branch_animation('aim')
 
 
