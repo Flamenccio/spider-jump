@@ -19,29 +19,32 @@ const _MAX_SHAPECAST_RESULTS = 4
 const _HOPPERPOP_MULTIPLIER = 1.6
 const _BUBBLEBEE_MULTIPLIER = 1.2
 const _HEAVY_BEETLE_MULTIPLIER = 1.0
+const _SUPER_GRUB_MULTIPLIER = 1.12
 
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		_powerup = powerup
 		match powerup:
 			'hopperpop':
 				_jump_force *= _HOPPERPOP_MULTIPLIER
-				_powerup = powerup
 			'bubblebee':
 				_jump_force /= _BUBBLEBEE_MULTIPLIER
-				_powerup = powerup
 			'heavy_beetle':
 				_jump_force *= _HEAVY_BEETLE_MULTIPLIER
+			'super_grub':
+				_jump_force *= _SUPER_GRUB_MULTIPLIER
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+		_powerup = ''
 		match powerup:
 			'hopperpop':
 				_jump_force /= _HOPPERPOP_MULTIPLIER
-				_powerup = ''
 			'bubblebee':
 				_jump_force *= _BUBBLEBEE_MULTIPLIER
-				_powerup = ''
 			'heavy_beetle':
 				_jump_force /= _HEAVY_BEETLE_MULTIPLIER
+			'super_grub':
+				_jump_force /= _SUPER_GRUB_MULTIPLIER
 	)
 
 

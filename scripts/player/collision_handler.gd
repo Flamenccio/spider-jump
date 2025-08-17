@@ -10,6 +10,7 @@ signal leave_ground()
 signal danger_entered()
 signal lose_powerup()
 signal consumed_powerup(powerup: String)
+signal collected_item(item: String)
 
 # Grounds the player is currently touching
 var _ground_contacts: Array[Node]
@@ -144,6 +145,8 @@ func _handle_item(item: Item) -> void:
 	match item.item_id:
 		'yum_fly':
 			PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, 0.25)
+			PlayerEventBus.item_collected.emit(item.item_id)
+			collected_item.emit(item.item_id)
 		'hoverfly':
 			consumed_powerup.emit(item.item_id)
 		'antibug':

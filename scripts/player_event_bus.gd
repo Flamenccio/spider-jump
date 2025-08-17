@@ -9,6 +9,10 @@ signal powerup_started(powerup: String)
 ## Passes `powerup`, a string identifier.
 signal powerup_ended(poweurp: String)
 
+## Called when an item is collected.
+## Passes `item`, a string identifier.
+signal item_collected(item: String)
+
 ## Called when a player stat is updated.
 ## Passes `stat`, a string identifier, and `value`, the value of the stat.
 signal player_stat_updated(stat: String, value: Variant)

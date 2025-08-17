@@ -57,6 +57,6 @@ func _handle_powerup(powerup: String) -> void:
 		hover_powerup = true
 
 
-func _handle_powerup_end() -> void:
+func _handle_powerup_end(_powerup: String) -> void:
 	hover_powerup = false
 

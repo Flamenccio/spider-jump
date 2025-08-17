@@ -722,6 +722,7 @@ _animator = NodePath("../SpriteTree")
 [connection signal="player_recovered" from="BehaviorStateMachine/KO" to="Detectors/GroundDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="BehaviorStateMachine/KO" to="Detectors/ItemDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="BehaviorStateMachine/KO" to="Detectors/DangerDetector" method="set_monitoring" binds= [true]]
+[connection signal="collected_item" from="CollisionHandler" to="PowerupHandler" method="_on_item_collected"]
 [connection signal="consumed_powerup" from="CollisionHandler" to="PowerupHandler" method="_on_powerup_consumed"]
 [connection signal="danger_entered" from="CollisionHandler" to="." method="_on_danger_entered"]
 [connection signal="danger_entered" from="CollisionHandler" to="Particles/ParticleEmitter" method="spawn_player_hit"]

@@ -7,7 +7,7 @@ signal powerup_ended()
 
 var current_powerup: String = ''
 var _powerup_end_queue: Array[Callable]
-var _powerup_timer: Timer = Timer.new()
+var _powerup_timer: ExtendableTimer = ExtendableTimer.new()
 var _powerup_flash_timer: Timer = Timer.new()
 
 const _POWERUP_FLASH_DURATION = 0.333
@@ -95,4 +95,11 @@ func _process(delta: float) -> void:
 ## Start the powerup timer after the powerup flash ends
 func _defer_powerup_timer(time: float) -> void:
 	PlayerEventBus.powerup_flash_end.connect(func(): _powerup_timer.start(time), ConnectFlags.CONNECT_ONE_SHOT)
+
+
+func _on_item_collected(item: String) -> void:
+	if current_powerup == 'super_grub':
+		if item == 'yum_fly':
+			# Add more time to the powerup timer
+			_powerup_timer.change_time_left(1.0)
 
