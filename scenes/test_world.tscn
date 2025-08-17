@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="4_7448y"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="5_ar7ra"]
 [ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="6_ixgyf"]
-[ext_resource type="PackedScene" uid="uid://dxpxr8minu8d4" path="res://scenes/hoverfly.tscn" id="7_xwrkq"]
+[ext_resource type="PackedScene" uid="uid://dxpxr8minu8d4" path="res://scenes/powerups/hoverfly.tscn" id="7_xwrkq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cnaw2"]
 

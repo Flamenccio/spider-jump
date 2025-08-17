@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
-[ext_resource type="PackedScene" uid="uid://ba8ck05ta5tce" path="res://scenes/blinkfly.tscn" id="28_sww3w"]
+[ext_resource type="PackedScene" uid="uid://ba8ck05ta5tce" path="res://scenes/powerups/blinkfly.tscn" id="28_sww3w"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
 
