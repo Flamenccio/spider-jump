@@ -1,8 +1,21 @@
-[gd_scene load_steps=13 format=4 uid="uid://b48my00oe5b5y"]
+[gd_scene load_steps=37 format=4 uid="uid://b48my00oe5b5y"]
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
-[ext_resource type="PackedScene" uid="uid://cvgknv5hx4uwm" path="res://scenes/item_box.tscn" id="4_jfcp0"]
+[ext_resource type="PackedScene" uid="uid://epbopmmrox4j" path="res://scenes/level_objects/object_switch.tscn" id="3_diroj"]
+[ext_resource type="PackedScene" uid="uid://cvgknv5hx4uwm" path="res://scenes/level_objects/item_box.tscn" id="4_jfcp0"]
+[ext_resource type="Script" uid="uid://2s3twniveswm" path="res://scripts/levels/object_switch.gd" id="4_kkt7t"]
+[ext_resource type="Script" uid="uid://kn57yj25jwiy" path="res://scripts/levels/saved_level_object.gd" id="5_1jlcl"]
+[ext_resource type="Script" uid="uid://bc3fsl7qhsokp" path="res://scripts/item_box_loot.gd" id="6_3ai4d"]
+[ext_resource type="PackedScene" uid="uid://bbjb4m6fwc2e" path="res://scenes/powerups/antibug.tscn" id="7_stfbr"]
+[ext_resource type="PackedScene" uid="uid://ba8ck05ta5tce" path="res://scenes/powerups/blinkfly.tscn" id="8_u7ovu"]
+[ext_resource type="PackedScene" uid="uid://dxpxr8minu8d4" path="res://scenes/powerups/hoverfly.tscn" id="9_huyus"]
+[ext_resource type="PackedScene" uid="uid://dxdwqtbu84o7o" path="res://scenes/powerups/bubblebee.tscn" id="10_yqphy"]
+[ext_resource type="PackedScene" uid="uid://casm12rifsitq" path="res://scenes/powerups/hopperpop.tscn" id="11_5weit"]
+[ext_resource type="PackedScene" uid="uid://dqqc11jshtu6v" path="res://scenes/powerups/super_grub.tscn" id="12_x181k"]
+[ext_resource type="PackedScene" uid="uid://dxnx7wy6ay3xj" path="res://scenes/powerups/heavy_beetle.tscn" id="13_vhjuo"]
+[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/level_objects/yummy_fly.tscn" id="14_8mahg"]
+[ext_resource type="Script" uid="uid://5p3w835j81ec" path="res://scripts/item_box.gd" id="16_3ai4d"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -80,6 +93,86 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awktc"]
 size = Vector2(8, 176)
 
+[sub_resource type="Resource" id="Resource_avuqt"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("7_stfbr")
+loot_chance = 0.0361991
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_qsv86"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("8_u7ovu")
+loot_chance = 0.0361991
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_g3cyi"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("9_huyus")
+loot_chance = 0.0361991
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_ukw6y"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("10_yqphy")
+loot_chance = 0.0361991
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_50gmt"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("11_5weit")
+loot_chance = 0.0361991
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_msj5y"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("12_x181k")
+loot_chance = 0.0361991
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_glvfe"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("13_vhjuo")
+loot_chance = 0.0361991
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_e63n5"]
+script = ExtResource("6_3ai4d")
+loot_chance = 0.411199
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_hr72n"]
+script = ExtResource("6_3ai4d")
+loot_scene = ExtResource("14_8mahg")
+loot_chance = 0.335407
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_iyht6"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-41, -131)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_awktc"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(40, -48)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_77rll")
 _save_level_name = "uneven_blocks"
@@ -114,8 +207,21 @@ shape = SubResource("RectangleShape2D_snxwi")
 position = Vector2(52, -88)
 shape = SubResource("RectangleShape2D_awktc")
 
-[node name="ItemBox" parent="." instance=ExtResource("4_jfcp0")]
-position = Vector2(-41, -130)
+[node name="ObjectSwitch" type="Node2D" parent="." instance=ExtResource("3_diroj")]
+script = ExtResource("4_kkt7t")
+min_objects = 1
+max_objects = 1
+objects = Array[ExtResource("5_1jlcl")]([SubResource("Resource_iyht6"), SubResource("Resource_awktc")])
+packed_scene_path = "res://scenes/level_objects/object_switch.tscn"
 
-[node name="ItemBox2" parent="." instance=ExtResource("4_jfcp0")]
+[node name="ItemBox" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-41, -131)
+script = ExtResource("16_3ai4d")
+loot_table = Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+packed_scene_path = "res://scenes/level_objects/item_box.tscn"
+
+[node name="@Node2D@50220" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(40, -48)
+script = ExtResource("16_3ai4d")
+loot_table = Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+packed_scene_path = "res://scenes/level_objects/item_box.tscn"

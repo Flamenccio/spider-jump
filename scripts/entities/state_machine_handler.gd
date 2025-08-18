@@ -32,7 +32,7 @@ func _ready() -> void:
 		var child_path = child.get_path() as String
 		child_path = child_path.replace('{0}/'.format({'0': path}), '')
 		info.local_node_path = child_path
-		print('new state: ', child_path)
+		#print('new state: ', child_path)
 		info.state = child as BehaviorState
 		_behavior_info.append(info)
 
@@ -71,7 +71,7 @@ func state_transition(old, new) -> void:
 	_active_state.enter_state()
 	_active_state.state_active = true
 
-	print('state machine: {0} -> {1}'.format({'0': old_state.name, '1': _active_state.name}))
+	#print('state machine: {0} -> {1}'.format({'0': old_state.name, '1': _active_state.name}))
 
 
 func set_property(property_name: String, value: Variant) -> void:

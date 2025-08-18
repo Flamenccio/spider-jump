@@ -15,6 +15,7 @@ func _on_game_height_updated(height: float) -> void:
 
 func _decorate_level(level_body: Node2D) -> void:
 	_scan_elevation(level_body)
+	_unpack_object_switch(level_body) # Must run before `_unpack_item_boxes`
 	_unpack_item_boxes(level_body)
 
 
@@ -45,4 +46,13 @@ func _unpack_item_boxes(level: Node2D) -> void:
 	for child in children:
 		if child is ItemBox:
 			(child as ItemBox).spawn_loot(GameConstants.difficulty)
+
+
+func _unpack_object_switch(level: Node2D) -> void:
+	var children = level.get_children(true)
+	for child in children:
+		if child is ObjectSwitch:
+			var objects = (child as ObjectSwitch).choose_objects()
+			for obj in objects:
+				level.add_child(obj)
 

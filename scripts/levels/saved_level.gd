@@ -70,4 +70,3 @@ func _calculate_height(tilemap: TileMapLayer) -> void:
 		lowest = maxi(lowest, tile.y)
 	
 	level_height = maxi(level_height, (lowest - highest) * tilemap.tile_set.tile_size.y)
-

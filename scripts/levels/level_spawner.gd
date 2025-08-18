@@ -36,6 +36,8 @@ func _ready() -> void:
 
 	# Remove initial level from loaded levels
 	_loaded_levels.erase(_initial_level)
+	
+	_loaded_levels = _loaded_levels.filter(func(l: SavedLevel): return l != null)
 
 	# Remove levels with a minimum difficulty below 0
 	_loaded_levels = _loaded_levels.filter(func(l: SavedLevel): return l.minimum_level >= 0)
@@ -98,4 +100,3 @@ func spawn_new_level() -> void:
 
 func _on_level_up(new_level: int) -> void:
 	_available_levels = _loaded_levels.filter(func(l: SavedLevel): return l.minimum_level <= new_level)
-

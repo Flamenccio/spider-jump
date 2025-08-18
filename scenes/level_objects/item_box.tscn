@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://casm12rifsitq" path="res://scenes/powerups/hopperpop.tscn" id="7_ka3cf"]
 [ext_resource type="PackedScene" uid="uid://dqqc11jshtu6v" path="res://scenes/powerups/super_grub.tscn" id="8_nsbki"]
 [ext_resource type="PackedScene" uid="uid://dxnx7wy6ay3xj" path="res://scenes/powerups/heavy_beetle.tscn" id="9_x2ynq"]
-[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/yummy_fly.tscn" id="10_bvvh1"]
+[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/level_objects/yummy_fly.tscn" id="10_bvvh1"]
 
 [sub_resource type="Resource" id="Resource_avuqt"]
 script = ExtResource("2_7msra")
@@ -77,7 +77,7 @@ metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 [node name="ItemBox" type="Node2D"]
 script = ExtResource("1_rp6ev")
 loot_table = Array[ExtResource("2_7msra")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
-packed_scene_path = "res://scenes/item_box.tscn"
+packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
 [node name="DebugSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.063, 0.063)

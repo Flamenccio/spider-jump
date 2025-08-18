@@ -10,5 +10,11 @@ extends Node2D
 
 ## Override this function to return properties that the level
 ## builder should know.
+## This dictionary is a `String`-`Variant` pair.
 func get_local_properties() -> Dictionary:
 	return {}
+
+
+## Called when this level object is instantiated from a `SavedLevelObject`.
+func rehydrate(instance: Node2D) -> void:
+	return
