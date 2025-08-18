@@ -5,14 +5,19 @@ extends SavedNode
 @export var tilemaps: Array[SavedTilemap]
 @export var tilemap_colliders: Array[SavedTilemapCollider]
 @export var level_objects: Array[SavedLevelObject]
-
 ## Height of the level, in pixels
 @export var level_height: int
+## Minimum difficulty level required for this level to spawn
+@export var minimum_level: int = 0
 
 func instantiate() -> Node2D:
 
 	var instance = Node2D.new()
-	instance.name = saved_name
+
+	if saved_name == '':
+		instance.name = 'Level'
+	else:
+		instance.name = saved_name
 
 	# Instantiate tilemaps
 	for tilemap in tilemaps:
@@ -29,9 +34,11 @@ func instantiate() -> Node2D:
 	return instance
 
 
-func save_level(level: Node2D) -> void:
+func save_level(level: Node2D, minimum_difficulty: int = 0, level_name: String = "Level") -> void:
 	
 	var children = level.get_children()
+	minimum_level = minimum_difficulty
+	saved_name = level_name.to_pascal_case()
 
 	for child in children:
 

@@ -11,7 +11,11 @@ func instantiate() -> Node2D:
 	var instance = TileMapLayer.new()
 	instance.tile_set = tile_set
 	instance.set_pattern(offset, pattern)
-	instance.name = saved_name
+
+	if saved_name == '':
+		instance.name = 'Tilemap'
+	else:
+		instance.name = saved_name
 
 	return instance
 

@@ -11,6 +11,9 @@ extends Node2D
 @export var _load_path: String
 @export_tool_button('Load') var _load_button: Callable = _load
 
+@export_group('Level settings')
+@export var _minimum_difficulty: int
+
 const _SAVE_EXTENSION = '.res'
 
 func _save() -> void:
@@ -25,7 +28,7 @@ func _save() -> void:
 
 	print('level builder: saving...')
 	var saved_level = SavedLevel.new()
-	saved_level.save_level(self as Node2D)
+	saved_level.save_level(self as Node2D, _minimum_difficulty, _save_level_name)
 	var result = ResourceSaver.save(saved_level, _save_path + _save_level_name + _SAVE_EXTENSION)
 
 	if result != OK:
@@ -61,6 +64,8 @@ func _load() -> void:
 		level_child.reparent(self)
 	_set_owner_recursive(editor_root, self)
 	level.queue_free()
+	_minimum_difficulty = loaded_scene.minimum_level
+	_save_level_name = _load_level_name
 	print('level builder: successfully loaded scene "{0}"'.format({'0': loaded_scene.saved_name}))
 
 

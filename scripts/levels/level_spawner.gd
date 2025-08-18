@@ -9,6 +9,9 @@ signal new_level_body_spawned(level_body: Node2D)
 var _res_regex = RegEx.new()
 var _loaded_levels: Array[SavedLevel]
 
+## Levels availble to spawn at the current difficulty level
+var _available_levels: Array[SavedLevel]
+
 ## How high the tower is
 var _game_height: int = 0
 
@@ -33,6 +36,8 @@ func _ready() -> void:
 
 	# Remove initial level from loaded levels
 	_loaded_levels.erase(_initial_level)
+
+	_on_level_up(0)
 	
 	# Spawn two levels at first
 	_spawn_level(_initial_level)
@@ -82,6 +87,12 @@ func _spawn_level(level: SavedLevel) -> void:
 		old.queue_free()
 
 
-func spawn_new_level():
-	var random := _loaded_levels.pick_random() as SavedLevel
+func spawn_new_level() -> void:
+	# Filter out levels that do not meet minimum difficulty (level) requirement
+	var random := _available_levels.pick_random() as SavedLevel
 	_spawn_level(random)
+
+
+func _on_level_up(new_level: int) -> void:
+	_available_levels = _loaded_levels.filter(func(l: SavedLevel): return l.minimum_level <= new_level)
+

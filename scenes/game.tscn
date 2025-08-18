@@ -210,6 +210,7 @@ autoplay = "default"
 frame_progress = 0.442083
 script = ExtResource("30_sgl2t")
 
+[connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
