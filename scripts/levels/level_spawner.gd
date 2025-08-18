@@ -37,6 +37,9 @@ func _ready() -> void:
 	# Remove initial level from loaded levels
 	_loaded_levels.erase(_initial_level)
 
+	# Remove levels with a minimum difficulty below 0
+	_loaded_levels = _loaded_levels.filter(func(l: SavedLevel): return l.minimum_level >= 0)
+
 	_on_level_up(0)
 	
 	# Spawn two levels at first

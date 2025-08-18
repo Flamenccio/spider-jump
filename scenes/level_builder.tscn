@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
-[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="3_6artv"]
 [ext_resource type="PackedScene" uid="uid://cvgknv5hx4uwm" path="res://scenes/item_box.tscn" id="4_jfcp0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
@@ -69,49 +68,54 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_cbp6q")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6artv"]
-size = Vector2(8, 296)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wjxh"]
+size = Vector2(8, 176)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_diroj"]
-size = Vector2(16, 232)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uabyi"]
+size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkt7t"]
-size = Vector2(8, 296)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snxwi"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_awktc"]
+size = Vector2(8, 176)
 
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_77rll")
-_save_level_name = "split"
+_save_level_name = "uneven_blocks"
 _save_path = "res://levels/"
-_load_level_name = "blank"
+_load_level_name = "uneven_blocks"
 _load_path = "res://levels/"
 
 [node name="Ground" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAD5/+X/AAALAAEAAAD5/+b/AAALAAEAAAD5/+f/AAALAAEAAAD5/+j/AAALAAEAAAAGAOj/AAAJAAEAAAAGAOf/AAAJAAEAAAAGAOb/AAAJAAEAAAAGAOX/AAAJAAEAAAAGAOn/AAAJAAEAAAAGAPv/AAAJAAEAAAD5//v/AAALAAEAAAD5/+n/AAALAAEAAAAGAPr/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAPj/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPb/AAAJAAEAAAAGAPX/AAAJAAEAAAAGAPT/AAAJAAEAAAAGAPP/AAAJAAEAAAAGAPL/AAAJAAEAAAAGAPH/AAAJAAEAAAAGAPD/AAAJAAEAAAAGAO//AAAJAAEAAAAGAO7/AAAJAAEAAAAGAO3/AAAJAAEAAAAGAOz/AAAJAAEAAAAGAOv/AAAJAAEAAAAGAOr/AAAJAAEAAAD5/+r/AAALAAEAAAD5/+v/AAALAAEAAAD5/+z/AAALAAEAAAD5/+3/AAALAAEAAAD5/+7/AAALAAEAAAD5/+//AAALAAEAAAD5//D/AAALAAEAAAD5//H/AAALAAEAAAD5//L/AAALAAEAAAD5//P/AAALAAEAAAD5//T/AAALAAEAAAD5//X/AAALAAEAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAD///v/AAAJAAIAAAAAAPv/AAALAAIAAAD//+n/AAAJAAEAAAAAAOn/AAALAAEAAAD//+r/AAAJAAEAAAD//+v/AAAJAAEAAAD//+z/AAAJAAEAAAD//+3/AAAJAAEAAAD//+7/AAAJAAEAAAD//+//AAAJAAEAAAD///D/AAAJAAEAAAD///H/AAAJAAEAAAD///L/AAAJAAEAAAD///P/AAAJAAEAAAD///T/AAAJAAEAAAD///X/AAAJAAEAAAD///b/AAAJAAEAAAD///f/AAAJAAEAAAD///j/AAAJAAEAAAD///n/AAAJAAEAAAD///r/AAAJAAEAAAAAAPr/AAALAAEAAAAAAPn/AAALAAEAAAAAAPj/AAALAAEAAAAAAPf/AAALAAEAAAAAAPb/AAALAAEAAAAAAPX/AAALAAEAAAAAAPT/AAALAAEAAAAAAPP/AAALAAEAAAAAAPL/AAALAAEAAAAAAPH/AAALAAEAAAAAAPD/AAALAAEAAAAAAO//AAALAAEAAAAAAO7/AAALAAEAAAAAAO3/AAALAAEAAAAAAOz/AAALAAEAAAAAAOv/AAALAAEAAAAAAOr/AAALAAEAAAD//+j/AAAJAAEAAAD//+f/AAAJAAEAAAD//+b/AAAJAAEAAAD//+X/AAAJAAEAAAD//+T/AAAJAAEAAAD//+P/AAAJAAEAAAD//+L/AAAJAAEAAAD//+H/AAAJAAEAAAD//+D/AAAJAAEAAAAAAOj/AAALAAEAAAAAAOf/AAALAAEAAAAAAOb/AAALAAEAAAAAAOX/AAALAAEAAAAAAOT/AAALAAEAAAAAAOP/AAALAAEAAAAAAOL/AAALAAEAAAAAAOH/AAALAAEAAAAAAOD/AAALAAEAAAD//9//AAAJAAAAAAAAAN//AAALAAAAAAD5/9//AAALAAEAAAD5/+D/AAALAAEAAAD5/+H/AAALAAEAAAD5/+L/AAALAAEAAAD5/+P/AAALAAEAAAD5/+T/AAALAAEAAAD5/97/AAALAAEAAAD5/93/AAALAAEAAAD5/9z/AAALAAEAAAD5/9v/AAALAAEAAAAGAOT/AAAJAAEAAAAGAOP/AAAJAAEAAAAGAOL/AAAJAAEAAAAGAOH/AAAJAAEAAAAGAOD/AAAJAAEAAAAGAN//AAAJAAEAAAAGAN7/AAAJAAEAAAAGAN3/AAAJAAEAAAAGANz/AAAJAAEAAAAGANv/AAAJAAEAAAA=")
+tile_map_data = PackedByteArray("AAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAAGAPv/AAAJAAEAAAD5//v/AAALAAEAAAAGAPr/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAPj/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPb/AAAJAAEAAAAGAPX/AAAJAAEAAAAGAPT/AAAJAAEAAAAGAPP/AAAJAAEAAAAGAPL/AAAJAAEAAAAGAPH/AAAJAAEAAAAGAPD/AAAJAAEAAAAGAO//AAAJAAEAAAAGAO7/AAAJAAEAAAAGAO3/AAAJAAEAAAAGAOz/AAAJAAEAAAAGAOv/AAAJAAEAAAAGAOr/AAAJAAEAAAD5/+r/AAALAAEAAAD5/+v/AAALAAEAAAD5/+z/AAALAAEAAAD5/+3/AAALAAEAAAD5/+7/AAALAAEAAAD5/+//AAALAAEAAAD5//D/AAALAAEAAAD5//H/AAALAAEAAAD5//L/AAALAAEAAAD5//P/AAALAAEAAAD5//T/AAALAAEAAAD5//X/AAALAAEAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAADAPv/AAALAAIAAAAAAPv/AAAJAAIAAAABAPv/AAAKAAIAAAACAPv/AAAKAAIAAAAAAPr/AAAJAAEAAAAAAPn/AAAJAAEAAAADAPr/AAALAAEAAAADAPn/AAALAAEAAAADAPj/AAALAAAAAAAAAPj/AAAJAAAAAAABAPj/AAAKAAAAAAACAPj/AAAKAAAAAAD///H/AAALAAIAAAD+//H/AAAKAAIAAAD9//H/AAAKAAIAAAD8//H/AAAJAAIAAAD8/+//AAAJAAEAAAD8//D/AAAJAAEAAAD8/+7/AAAJAAAAAAD9/+7/AAAKAAAAAAD+/+7/AAAKAAAAAAD//+//AAALAAEAAAD///D/AAALAAEAAAD//+7/AAALAAAAAAD+//D/AAAKAAEAAAD9//D/AAAKAAEAAAD9/+//AAAKAAEAAAD+/+//AAAKAAEAAAACAPr/AAAKAAEAAAABAPr/AAAKAAEAAAABAPn/AAAKAAEAAAACAPn/AAAKAAEAAAA=")
 tile_set = SubResource("TileSet_tlwt5")
 
 [node name="Slip" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_cbp6q")
 
-[node name="ItemBox" parent="." instance=ExtResource("4_jfcp0")]
-position = Vector2(-29, -147)
-
-[node name="ItemBox2" parent="." instance=ExtResource("4_jfcp0")]
-position = Vector2(27, -148)
-
 [node name="GroundCollider" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("3_6artv")
-tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-52, -148)
-shape = SubResource("RectangleShape2D_6artv")
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-52, -88)
+shape = SubResource("RectangleShape2D_7wjxh")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(0, -148)
-shape = SubResource("RectangleShape2D_diroj")
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-16, -128)
+shape = SubResource("RectangleShape2D_uabyi")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(52, -148)
-shape = SubResource("RectangleShape2D_kkt7t")
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(16, -48)
+shape = SubResource("RectangleShape2D_snxwi")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(52, -88)
+shape = SubResource("RectangleShape2D_awktc")
+
+[node name="ItemBox" parent="." instance=ExtResource("4_jfcp0")]
+position = Vector2(-41, -130)
+
+[node name="ItemBox2" parent="." instance=ExtResource("4_jfcp0")]
+position = Vector2(40, -48)
