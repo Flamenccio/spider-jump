@@ -28,7 +28,7 @@ func _on_powerup_consumed(powerup: String) -> void:
 
 
 func _end_powerups() -> void:
-	if current_powerup == 'none':
+	if current_powerup == ItemIds.NO_POWERUP:
 		return
 	_powerup_timer.stop()
 	powerup_ended.emit()
@@ -37,7 +37,7 @@ func _end_powerups() -> void:
 	while _powerup_end_queue.size() > 0:
 		var p = _powerup_end_queue.pop_front() as Callable
 		p.call()
-	current_powerup = 'none'
+	current_powerup = ItemIds.NO_POWERUP
 
 
 func _handle_powerup(powerup: String) -> void:
@@ -51,41 +51,41 @@ func _handle_powerup(powerup: String) -> void:
 	current_powerup = powerup
 
 	match powerup:
-		'hoverfly':
+		ItemIds.HOVERFLY_POWERUP:
 			_defer_powerup_timer(10)
-			_animator.switch_and_play('hoverfly', 'hover')
-		'antibug':
+			_animator.switch_and_play(ItemIds.HOVERFLY_POWERUP, 'hover')
+		ItemIds.ANTIBUG_POWERUP:
 			_powerup_end_queue.push_back(func():
 				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 			)
 			_defer_powerup_timer(10)
 			GameConstants.current_gravity = -GameConstants.DEFAULT_GRAVITY
-			_animator.switch_sprite_branch('antibug')
-		'super_grub':
+			_animator.switch_sprite_branch(ItemIds.ANTIBUG_POWERUP)
+		ItemIds.SUPER_GRUB_POWERUP:
 			PlayerStatsInterface.change_stat.emit('stamina', 1.0)
 			_defer_powerup_timer(20)
-			_animator.switch_sprite_branch('supergrub')
-		'bubblebee':
+			_animator.switch_sprite_branch(ItemIds.SUPER_GRUB_POWERUP)
+		ItemIds.BUBBLEBEE_POWERUP:
 			_defer_powerup_timer(10)
-			_animator.switch_sprite_branch('bubblebee')
+			_animator.switch_sprite_branch(ItemIds.BUBBLEBEE_POWERUP)
 			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY / 2.0
 			_powerup_end_queue.push_back(func():
 				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 			)
-		'hopperpop':
+		ItemIds.HOPPERPOP_POWERUP:
 			_defer_powerup_timer(10)
-			_animator.switch_sprite_branch('hopperpop')
-		'heavy_beetle':
+			_animator.switch_sprite_branch(ItemIds.HOPPERPOP_POWERUP)
+		ItemIds.HEAVY_BEETLE_POWERUP:
 			_defer_powerup_timer(15)
-			_animator.switch_sprite_branch('heavybeetle')
+			_animator.switch_sprite_branch(ItemIds.HEAVY_BEETLE_POWERUP)
 			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY * 1.5
 			_powerup_end_queue.push_back(func():
 				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 			)
-		'blinkfly':
+		ItemIds.BLINKFLY_POWERUP:
 			_powerup_timer.wait_time = 8.0
 			_powerup_timer.time_left = 8.0
-			_animator.switch_sprite_branch('blinkfly')
+			_animator.switch_sprite_branch(ItemIds.BLINKFLY_POWERUP)
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
@@ -102,8 +102,8 @@ func _defer_powerup_timer(time: float) -> void:
 
 
 func _on_item_collected(item: String) -> void:
-	if current_powerup == 'super_grub':
-		if item == 'yum_fly':
+	if current_powerup == ItemIds.SUPER_GRUB_POWERUP:
+		if item == ItemIds.YUMFLY_ITEM:
 			# Add more time to the powerup timer
 			_powerup_timer.change_time_left(1.0)
 

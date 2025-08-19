@@ -32,9 +32,10 @@ func _ready() -> void:
 		switch_sprite_branch(_default_branch)
 
 
-## Switches the current active branch to `to`. **Case insensitive**!
+## Switches the current active branch to `to`. Automatically converted to **PascalCase** to match node-naming conventions.
 func switch_sprite_branch(to: String) -> void:
-	var index = _branches.find_custom(func(a: AnimatedSprite2D): return a.name.to_lower() == to.to_lower())
+	to = to.to_pascal_case()
+	var index = _branches.find_custom(func(a: AnimatedSprite2D): return a.name == to)
 	if index < 0:
 		push_error('sprite tree: no sprite branches with name "{0}"'.format({'0': to}))
 		return
@@ -59,7 +60,7 @@ func play_branch_animation(animation: String) -> void:
 
 
 ## Switches to an sprite branch `branch` and plays animation `animation`.
-## `branch` is **case insensitive**.
+## `branch` is automatically converted to **PascalCase**.
 func switch_and_play(branch: String, animation: String) -> void:
 	switch_sprite_branch(branch)
 	play_branch_animation(animation)
