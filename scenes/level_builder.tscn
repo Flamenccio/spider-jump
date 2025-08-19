@@ -1,10 +1,10 @@
-[gd_scene load_steps=39 format=4 uid="uid://b48my00oe5b5y"]
+[gd_scene load_steps=56 format=4 uid="uid://b48my00oe5b5y"]
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
 [ext_resource type="PackedScene" uid="uid://epbopmmrox4j" path="res://scenes/level_objects/object_switch.tscn" id="3_diroj"]
+[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="3_stfbr"]
 [ext_resource type="PackedScene" uid="uid://cvgknv5hx4uwm" path="res://scenes/level_objects/item_box.tscn" id="4_jfcp0"]
-[ext_resource type="Script" uid="uid://2s3twniveswm" path="res://scripts/levels/object_switch.gd" id="4_kkt7t"]
 [ext_resource type="Script" uid="uid://kn57yj25jwiy" path="res://scripts/levels/saved_level_object.gd" id="5_1jlcl"]
 [ext_resource type="Script" uid="uid://bc3fsl7qhsokp" path="res://scripts/item_box_loot.gd" id="6_3ai4d"]
 [ext_resource type="PackedScene" uid="uid://bbjb4m6fwc2e" path="res://scenes/powerups/antibug.tscn" id="7_stfbr"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://dqqc11jshtu6v" path="res://scenes/powerups/super_grub.tscn" id="12_x181k"]
 [ext_resource type="PackedScene" uid="uid://dxnx7wy6ay3xj" path="res://scenes/powerups/heavy_beetle.tscn" id="13_vhjuo"]
 [ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/level_objects/yummy_fly.tscn" id="14_8mahg"]
-[ext_resource type="Script" uid="uid://5p3w835j81ec" path="res://scripts/item_box.gd" id="16_3ai4d"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -81,17 +80,47 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_cbp6q")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u7ovu"]
-size = Vector2(8, 176)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6artv"]
+size = Vector2(8, 240)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyus"]
-size = Vector2(32, 32)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_diroj"]
+size = Vector2(8, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqphy"]
-size = Vector2(32, 32)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkt7t"]
+size = Vector2(8, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5weit"]
-size = Vector2(8, 176)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfcp0"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpw3m"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6t8vq"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mwv5"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6oya5"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgwc4"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsgmr"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ym25h"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1f303"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jlcl"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ai4d"]
+size = Vector2(8, 240)
 
 [sub_resource type="Resource" id="Resource_avuqt"]
 script = ExtResource("6_3ai4d")
@@ -155,37 +184,109 @@ loot_chance = 0.335407
 minimum_level = 0
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
-[sub_resource type="Resource" id="Resource_v3y4e"]
+[sub_resource type="Resource" id="Resource_pgqxq"]
 script = ExtResource("5_1jlcl")
 packed_scene = ExtResource("4_jfcp0")
-local_position = Vector2(-40, -48)
+local_position = Vector2(-4, -50)
 local_rotation = 0.0
 local_properties = {
 "loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
 }
 
-[sub_resource type="Resource" id="Resource_vx8mw"]
+[sub_resource type="Resource" id="Resource_ijntf"]
 script = ExtResource("5_1jlcl")
 packed_scene = ExtResource("4_jfcp0")
-local_position = Vector2(9, -49)
+local_position = Vector2(28, -105)
 local_rotation = 0.0
 local_properties = {
 "loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
 }
 
-[sub_resource type="Resource" id="Resource_7mfe8"]
+[sub_resource type="Resource" id="Resource_v5eua"]
 script = ExtResource("5_1jlcl")
 packed_scene = ExtResource("4_jfcp0")
-local_position = Vector2(-10, -128)
+local_position = Vector2(20, -51)
 local_rotation = 0.0
 local_properties = {
 "loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
 }
 
-[sub_resource type="Resource" id="Resource_48ejl"]
+[sub_resource type="Resource" id="Resource_y8av3"]
 script = ExtResource("5_1jlcl")
 packed_scene = ExtResource("4_jfcp0")
-local_position = Vector2(40, -129)
+local_position = Vector2(-28, -49)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_gbp2d"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(4, -106)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_17tm3"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-20, -106)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_l0t61"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-28, -161)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_8qjlj"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-4, -161)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_u13xo"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(19, -162)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_q71q8"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-20, -218)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_qrble"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(4, -218)
+local_rotation = 0.0
+local_properties = {
+"loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+}
+
+[sub_resource type="Resource" id="Resource_w6gt6"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(28, -219)
 local_rotation = 0.0
 local_properties = {
 "loot_table": Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
@@ -193,13 +294,13 @@ local_properties = {
 
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_77rll")
-_save_level_name = "uneven_blocks_2"
+_save_level_name = "pachinko"
 _save_path = "res://levels/"
-_load_level_name = "uneven_blocks_2"
+_load_level_name = "blank"
 _load_path = "res://levels/"
 
 [node name="Ground" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAAGAPv/AAAJAAEAAAD5//v/AAALAAEAAAAGAPr/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAPj/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPb/AAAJAAEAAAAGAPX/AAAJAAEAAAAGAPT/AAAJAAEAAAAGAPP/AAAJAAEAAAAGAPL/AAAJAAEAAAAGAPH/AAAJAAEAAAAGAPD/AAAJAAEAAAAGAO//AAAJAAEAAAAGAO7/AAAJAAEAAAAGAO3/AAAJAAEAAAAGAOz/AAAJAAEAAAAGAOv/AAAJAAEAAAAGAOr/AAAJAAEAAAD5/+r/AAALAAEAAAD5/+v/AAALAAEAAAD5/+z/AAALAAEAAAD5/+3/AAALAAEAAAD5/+7/AAALAAEAAAD5/+//AAALAAEAAAD5//D/AAALAAEAAAD5//H/AAALAAEAAAD5//L/AAALAAEAAAD5//P/AAALAAEAAAD5//T/AAALAAEAAAD5//X/AAALAAEAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAD8//j/AAAJAAAAAAD8//n/AAAJAAEAAAD8//r/AAAJAAEAAAD8//v/AAAJAAIAAAD9//j/AAAKAAAAAAD9//n/AAAKAAEAAAD9//r/AAAKAAEAAAD9//v/AAAKAAIAAAD+//j/AAAKAAAAAAD+//n/AAAKAAEAAAD+//r/AAAKAAEAAAD+//v/AAAKAAIAAAD///j/AAALAAAAAAD///n/AAALAAEAAAD///r/AAALAAEAAAD///v/AAALAAIAAAAAAO7/AAAJAAAAAAAAAO//AAAJAAEAAAAAAPD/AAAJAAEAAAAAAPH/AAAJAAIAAAABAO7/AAAKAAAAAAABAO//AAAKAAEAAAABAPD/AAAKAAEAAAABAPH/AAAKAAIAAAACAO7/AAAKAAAAAAACAO//AAAKAAEAAAACAPD/AAAKAAEAAAACAPH/AAAKAAIAAAADAO7/AAALAAAAAAADAO//AAALAAEAAAADAPD/AAALAAEAAAADAPH/AAALAAIAAAA=")
+tile_map_data = PackedByteArray("AAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAD5/+X/AAALAAEAAAD5/+b/AAALAAEAAAD5/+f/AAALAAEAAAD5/+j/AAALAAEAAAAGAOj/AAAJAAEAAAAGAOf/AAAJAAEAAAAGAOb/AAAJAAEAAAAGAOX/AAAJAAEAAAAGAOn/AAAJAAEAAAAGAPv/AAAJAAEAAAD5//v/AAALAAEAAAD5/+n/AAALAAEAAAAGAPr/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAPj/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPb/AAAJAAEAAAAGAPX/AAAJAAEAAAAGAPT/AAAJAAEAAAAGAPP/AAAJAAEAAAAGAPL/AAAJAAEAAAAGAPH/AAAJAAEAAAAGAPD/AAAJAAEAAAAGAO//AAAJAAEAAAAGAO7/AAAJAAEAAAAGAO3/AAAJAAEAAAAGAOz/AAAJAAEAAAAGAOv/AAAJAAEAAAAGAOr/AAAJAAEAAAD5/+r/AAALAAEAAAD5/+v/AAALAAEAAAD5/+z/AAALAAEAAAD5/+3/AAALAAEAAAD5/+7/AAALAAEAAAD5/+//AAALAAEAAAD5//D/AAALAAEAAAD5//H/AAALAAEAAAD5//L/AAALAAEAAAD5//P/AAALAAEAAAD5//T/AAALAAEAAAD5//X/AAALAAEAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAD8//v/AAAGAAAAAAD///v/AAAGAAAAAAACAPv/AAAGAAAAAAD9//T/AAAGAAAAAAAAAPT/AAAGAAAAAAADAPT/AAAGAAAAAAACAO3/AAAGAAAAAAD//+3/AAAGAAAAAAD8/+3/AAAGAAAAAAD5/+T/AAALAAEAAAD5/+P/AAALAAEAAAD5/+L/AAALAAEAAAAGAOT/AAAJAAEAAAAGAOP/AAAJAAEAAAAGAOL/AAAJAAEAAAD9/+b/AAAGAAAAAAAAAOb/AAAGAAAAAAADAOb/AAAGAAAAAAA=")
 tile_set = SubResource("TileSet_tlwt5")
 
 [node name="Slip" type="TileMapLayer" parent="."]
@@ -208,47 +309,102 @@ tile_set = SubResource("TileSet_cbp6q")
 [node name="GroundCollider" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("3_stfbr")
+tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-52, -88)
-shape = SubResource("RectangleShape2D_u7ovu")
+position = Vector2(-52, -120)
+shape = SubResource("RectangleShape2D_6artv")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-16, -48)
-shape = SubResource("RectangleShape2D_huyus")
+position = Vector2(-28, -148)
+shape = SubResource("RectangleShape2D_diroj")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(16, -128)
-shape = SubResource("RectangleShape2D_yqphy")
+position = Vector2(-28, -36)
+shape = SubResource("RectangleShape2D_kkt7t")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(52, -88)
-shape = SubResource("RectangleShape2D_5weit")
+position = Vector2(-20, -204)
+shape = SubResource("RectangleShape2D_jfcp0")
 
-[node name="ObjectSwitch" type="Node2D" parent="." instance=ExtResource("3_diroj")]
-script = ExtResource("4_kkt7t")
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-20, -92)
+shape = SubResource("RectangleShape2D_gpw3m")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-4, -148)
+shape = SubResource("RectangleShape2D_6t8vq")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-4, -36)
+shape = SubResource("RectangleShape2D_3mwv5")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(4, -204)
+shape = SubResource("RectangleShape2D_6oya5")
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(4, -92)
+shape = SubResource("RectangleShape2D_kgwc4")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(20, -148)
+shape = SubResource("RectangleShape2D_wsgmr")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(20, -36)
+shape = SubResource("RectangleShape2D_ym25h")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(28, -204)
+shape = SubResource("RectangleShape2D_1f303")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(28, -92)
+shape = SubResource("RectangleShape2D_1jlcl")
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(52, -120)
+shape = SubResource("RectangleShape2D_3ai4d")
+
+[node name="ObjectSwitch" parent="." instance=ExtResource("3_diroj")]
 min_objects = 1
 max_objects = 1
-objects = Array[ExtResource("5_1jlcl")]([SubResource("Resource_v3y4e"), SubResource("Resource_vx8mw"), SubResource("Resource_7mfe8"), SubResource("Resource_48ejl")])
-packed_scene_path = "res://scenes/level_objects/object_switch.tscn"
+objects = Array[ExtResource("5_1jlcl")]([SubResource("Resource_pgqxq"), SubResource("Resource_ijntf"), SubResource("Resource_v5eua"), SubResource("Resource_y8av3"), SubResource("Resource_gbp2d"), SubResource("Resource_17tm3"), SubResource("Resource_l0t61"), SubResource("Resource_8qjlj"), SubResource("Resource_u13xo"), SubResource("Resource_q71q8"), SubResource("Resource_qrble"), SubResource("Resource_w6gt6")])
 
-[node name="ItemBox" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
-position = Vector2(-40, -48)
-script = ExtResource("16_3ai4d")
-loot_table = Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
+[node name="ItemBox" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-4, -50)
 
-[node name="@Node2D@96885" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
-position = Vector2(9, -49)
-script = ExtResource("16_3ai4d")
-loot_table = Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
+[node name="ItemBox2" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(28, -105)
 
-[node name="_Node2D_96885" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
-position = Vector2(-10, -128)
+[node name="ItemBox3" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(20, -51)
 
-[node name="@Node2D@96886" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
-position = Vector2(40, -129)
-script = ExtResource("16_3ai4d")
-loot_table = Array[ExtResource("6_3ai4d")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
+[node name="ItemBox4" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-28, -49)
+
+[node name="ItemBox5" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(4, -106)
+
+[node name="ItemBox6" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-20, -106)
+
+[node name="ItemBox7" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-28, -161)
+
+[node name="ItemBox8" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-4, -161)
+
+[node name="ItemBox9" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(19, -162)
+
+[node name="ItemBox10" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-20, -218)
+
+[node name="ItemBox11" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(4, -218)
+
+[node name="ItemBox12" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(28, -219)
