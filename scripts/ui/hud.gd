@@ -12,11 +12,11 @@ signal internal_powerup_timer_updated(powerup_time: float, powerup_max_time: flo
 func _ready() -> void:
 	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
 		match stat:
-			'lives':
+			PlayerStatsInterface.STATS_HEALTH:
 				_on_health_updated(value as int)
-			'stamina':
+			PlayerStatsInterface.STATS_STAMINA:
 				_on_stamina_updated(value as float)
-			'score':
+			PlayerStatsInterface.STATS_SCORE:
 				_on_score_updated(value as int)
 			_:
 				return

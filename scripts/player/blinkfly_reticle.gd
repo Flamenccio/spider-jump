@@ -5,11 +5,11 @@ var _active: bool = false
 func _ready() -> void:
 	deactivate_cursor()
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
-		if powerup == 'blinkfly':
+		if powerup == ItemIds.BLINKFLY_POWERUP:
 			activate_cursor()
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
-		if powerup == 'blinkfly':
+		if powerup == ItemIds.BLINKFLY_POWERUP:
 			deactivate_cursor()
 	)
 

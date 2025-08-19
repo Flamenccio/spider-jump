@@ -14,20 +14,20 @@ const _BLINKFLY_MULTILPIER = 1.6
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
 		match powerup:
-			'heavy_beetle':
+			ItemIds.HEAVY_BEETLE_POWERUP:
 				_move_speed *= _HEAVY_BEETLE_MULTIPLIER
-			'super_grub':
+			ItemIds.SUPER_GRUB_POWERUP:
 				_move_speed *= _SUPER_GRUB_MULTIPLIER
-			'blinkfly':
+			ItemIds.BLINKFLY_POWERUP:
 				_move_speed *= _BLINKFLY_MULTILPIER
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
 		match powerup:
-			'heavy_beetle':
+			ItemIds.HEAVY_BEETLE_POWERUP:
 				_move_speed /= _HEAVY_BEETLE_MULTIPLIER
-			'super_grub':
+			ItemIds.SUPER_GRUB_POWERUP:
 				_move_speed /= _SUPER_GRUB_MULTIPLIER
-			'blinkfly':
+			ItemIds.BLINKFLY_POWERUP:
 				_move_speed /= _BLINKFLY_MULTILPIER
 	)
 

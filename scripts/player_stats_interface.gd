@@ -1,6 +1,5 @@
 ## Allows scripts to request stat changes. These changes may be ignored or altered
 ## by the player stats script.
-
 extends Node
 
 const STATS_HEALTH = 'lives'

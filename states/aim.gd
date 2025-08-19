@@ -15,7 +15,7 @@ signal player_blinkfly_jumped()
 var _pull_input: Vector2
 var _jumped: bool = false
 var _surface_normal: Vector2
-var _powerup: String = ''
+var _powerup: String = 'none'
 
 const _MAX_SHAPECAST_RESULTS = 4
 const _HOPPERPOP_MULTIPLIER = 1.6
@@ -30,29 +30,29 @@ func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
 		_powerup = powerup
 		match powerup:
-			'hopperpop':
+			ItemIds.HOPPERPOP_POWERUP:
 				_jump_force *= _HOPPERPOP_MULTIPLIER
-			'bubblebee':
+			ItemIds.BUBBLEBEE_POWERUP:
 				_jump_force *= _BUBBLEBEE_MULTIPLIER
-			'heavy_beetle':
+			ItemIds.HEAVY_BEETLE_POWERUP:
 				_jump_force *= _HEAVY_BEETLE_MULTIPLIER
-			'super_grub':
+			ItemIds.SUPER_GRUB_POWERUP:
 				_jump_force *= _SUPER_GRUB_MULTIPLIER
-			'blinkfly':
+			ItemIds.BLINKFLY_POWERUP:
 				_jump_force *= _BLINKFLY_MULTIPLIER
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
-		_powerup = ''
+		_powerup = ItemIds.NO_POWERUP
 		match powerup:
-			'hopperpop':
+			ItemIds.HOPPERPOP_POWERUP:
 				_jump_force /= _HOPPERPOP_MULTIPLIER
-			'bubblebee':
+			ItemIds.BUBBLEBEE_POWERUP:
 				_jump_force /= _BUBBLEBEE_MULTIPLIER
-			'heavy_beetle':
+			ItemIds.HEAVY_BEETLE_POWERUP:
 				_jump_force /= _HEAVY_BEETLE_MULTIPLIER
-			'super_grub':
+			ItemIds.SUPER_GRUB_POWERUP:
 				_jump_force /= _SUPER_GRUB_MULTIPLIER
-			'blinkfly':
+			ItemIds.BLINKFLY_POWERUP:
 				_jump_force /= _BLINKFLY_MULTIPLIER
 	)
 
@@ -105,9 +105,9 @@ func _jump() -> void:
 
 	# Spawn particles
 	match _powerup:
-		'hopperpop':
+		ItemIds.HOPPERPOP_POWERUP:
 			_particle_emitter.spawn_hopperpop_jump_dust()
-		'bubblebee':
+		ItemIds.BUBBLEBEE_POWERUP:
 			_particle_emitter.spawn_bubblebee_jump_dust()
 		_:
 			_particle_emitter.spawn_jump_dust()
@@ -152,6 +152,6 @@ func _blinkfly_jump() -> void:
 	set_property('jump', true)
 	_player.velocity = _pull_input.normalized() *  _jump_force
 	_jumped = true
-	#player_jumped.emit()
 	player_blinkfly_jumped.emit()
 	_particle_emitter.spawn_jump_dust()
+

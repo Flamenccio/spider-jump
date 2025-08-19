@@ -18,19 +18,16 @@ const _LEVEL_UP_DRAIN_INCREASE = 0.01
 func _ready() -> void:
 	_stamina_drain_amount = _base_stamina_drain_amount
 	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
-		if stat == 'score':
+		if stat == PlayerStatsInterface.STATS_SCORE:
 			_on_score_updated(value)
 	)
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
-		match powerup:
-			'super_grub':
-				_old_stamina_drain = _stamina_drain_amount
-				_stamina_drain_amount = 0.0
-			_:
-				return
+		if powerup == ItemIds.SUPER_GRUB_POWERUP:
+			_old_stamina_drain = _stamina_drain_amount
+			_stamina_drain_amount = 0.0
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
-		if powerup == 'super_grub':
+		if powerup == ItemIds.SUPER_GRUB_POWERUP:
 			_stamina_drain_amount = _old_stamina_drain
 	)
 

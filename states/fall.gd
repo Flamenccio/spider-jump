@@ -10,12 +10,12 @@ func _ready() -> void:
 		_current_powerup = powerup
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
-		_current_powerup = 'none'
+		_current_powerup = ItemIds.NO_POWERUP
 	)
 
 
 func enter_state() -> void:
-	if _current_powerup != 'blinkfly':
+	if _current_powerup != ItemIds.BLINKFLY_POWERUP:
 		_animator.play_branch_animation('fall')
 
 

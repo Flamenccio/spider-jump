@@ -33,12 +33,12 @@ func _ready() -> void:
 
 
 func _handle_powerup(powerup: String) -> void:
-	if powerup == 'hoverfly':
+	if powerup == ItemIds.HOVERFLY_POWERUP:
 		_current_max_pull_distance = _MAX_PULL_DISTANCE_HOVER
 
 
 func _handle_powerup_end(powerup: String) -> void:
-	if powerup == 'hoverfly':
+	if powerup == ItemIds.HOVERFLY_POWERUP:
 		_current_max_pull_distance = _MAX_PULL_DISTANCE
 
 

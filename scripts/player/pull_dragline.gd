@@ -42,17 +42,17 @@ func pull_set_active(active: bool) -> void:
 
 
 func _handle_powerup(powerup: String) -> void:
-	if powerup == 'hoverfly':
+	if powerup == ItemIds.HOVERFLY_POWERUP:
 		_current_max_distance = _MAX_HOVER_DISTANCE
-	elif powerup == 'blinkfly':
+	elif powerup == ItemIds.BLINKFLY_POWERUP:
 		_blinkfly_hide = true
 		hide()
 
 
 func _handle_powerup_end(powerup: String) -> void:
-	if powerup == 'hoverfly':
+	if powerup == ItemIds.HOVERFLY_POWERUP:
 		_current_max_distance = _MAX_DISTANCE
-	elif powerup == 'blinkfly':
+	elif powerup == ItemIds.BLINKFLY_POWERUP:
 		_blinkfly_hide = false
 		show()
 
