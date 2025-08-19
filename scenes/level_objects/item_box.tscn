@@ -16,49 +16,49 @@
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("3_e63n5")
 loot_chance = 0.0361991
-minimum_level = 0
+minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_qsv86"]
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("4_bvvh1")
 loot_chance = 0.0361991
-minimum_level = 0
+minimum_level = 4
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_g3cyi"]
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("5_hr72n")
 loot_chance = 0.0361991
-minimum_level = 0
+minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_ukw6y"]
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("6_vld1c")
 loot_chance = 0.0361991
-minimum_level = 0
+minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_50gmt"]
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("7_ka3cf")
 loot_chance = 0.0361991
-minimum_level = 0
+minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_msj5y"]
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("8_nsbki")
 loot_chance = 0.0361991
-minimum_level = 0
+minimum_level = 6
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_glvfe"]
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("9_x2ynq")
 loot_chance = 0.0361991
-minimum_level = 0
+minimum_level = 4
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_e63n5"]
