@@ -171,3 +171,9 @@ func _on_powerup_started(powerup: String) -> void:
 func _on_powerup_ended(powerup: String) -> void:
 	current_powerup = ItemIds.NO_POWERUP
 
+
+func _on_player_jumped() -> void:
+	# Clear ground contacts
+	_ground_contacts.clear()
+	leave_ground.emit()
+
