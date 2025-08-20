@@ -416,8 +416,8 @@ size = Vector2(6, 6)
 [sub_resource type="CircleShape2D" id="CircleShape2D_31cv2"]
 radius = 3.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqfne"]
-size = Vector2(6, 6)
+[sub_resource type="CircleShape2D" id="CircleShape2D_holxr"]
+radius = 5.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_60mlk"]
 particles_animation = true
@@ -649,7 +649,7 @@ metadata/_custom_type_script = "uid://bdjmy758l3rls"
 
 [node name="SafeSpotCheck" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
 script = ExtResource("17_qfm1y")
-_shape = SubResource("RectangleShape2D_wqfne")
+_shape = SubResource("CircleShape2D_holxr")
 _shape_cast_origin = NodePath("../..")
 _shape_cast_layers = 22
 metadata/_custom_type_script = "uid://bdjmy758l3rls"

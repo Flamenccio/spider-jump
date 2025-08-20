@@ -32,7 +32,24 @@ func _save_state() -> void:
 	# Check area for danger (spikes)
 	var results := _danger_shapecast.intersect_shape(Vector2.ZERO, _MAX_SHAPECAST_RESULTS)
 	if results.size() > 0:
-		print('danger!!')
+		return
+
+	# Check if area is on the ground
+	var results_2 := _safe_spot_shapecast.intersect_shape(Vector2.ZERO)
+	if results_2.size() == 0:
+		return
+
+	var valid = false
+
+	for result in results_2:
+		var collider = result['collider'] as CollisionObject2D
+		if collider == null:
+			continue
+		valid = _collider_is_on_layer(collider, _climbable_layers)
+		if valid:
+			break
+
+	if not valid:
 		return
 
 	_position = rounded_position
