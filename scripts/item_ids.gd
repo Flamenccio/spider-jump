@@ -1,15 +1,15 @@
 ## Holds item and powerup ID constants
 extends Node
 
-const HOVERFLY_POWERUP = &'hoverfly'
-const HEAVY_BEETLE_POWERUP = &'heavy_beetle'
-const HOPPERPOP_POWERUP = &'hopperpop'
-const BLINKFLY_POWERUP = &'blinkfly'
-const SUPER_GRUB_POWERUP = &'super_grub'
-const BUBBLEBEE_POWERUP = &'bubblebee'
-const ANTIBUG_POWERUP = &'antibug'
-const NO_POWERUP = &'none'
-const YUMFLY_ITEM = &'yum_fly'
+const HOVERFLY_POWERUP = 'hoverfly'
+const HEAVY_BEETLE_POWERUP = 'heavy_beetle'
+const HOPPERPOP_POWERUP = 'hopperpop'
+const BLINKFLY_POWERUP = 'blinkfly'
+const SUPER_GRUB_POWERUP = 'super_grub'
+const BUBBLEBEE_POWERUP = 'bubblebee'
+const ANTIBUG_POWERUP = 'antibug'
+const NO_POWERUP = 'none'
+const YUMFLY_ITEM = 'yum_fly'
 
 const _POWERUPS: Array[StringName] = [
 	HOVERFLY_POWERUP,

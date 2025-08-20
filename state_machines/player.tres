@@ -54,7 +54,7 @@ metadata/graph_offset = Vector2(988, 157.5)
 [sub_resource type="Resource" id="Resource_gbx1n"]
 script = ExtResource("2_ojcqc")
 name = "Entry"
-metadata/graph_offset = Vector2(188, 197.5)
+metadata/graph_offset = Vector2(191.5, 201)
 
 [sub_resource type="Resource" id="Resource_wgnaa"]
 script = ExtResource("2_ojcqc")
@@ -78,21 +78,6 @@ to = "Hover"
 conditions = {}
 priority = 0
 
-[sub_resource type="Resource" id="Resource_kxcq3"]
-script = ExtResource("4_gbx1n")
-value = "none"
-comparation = 0
-name = "powerup"
-
-[sub_resource type="Resource" id="Resource_eodne"]
-script = ExtResource("5_6y1cm")
-from = "Fly"
-to = "Exit"
-conditions = {
-"powerup": SubResource("Resource_kxcq3")
-}
-priority = 1
-
 [sub_resource type="Resource" id="Resource_cu227"]
 script = ExtResource("3_10p3u")
 value = false
@@ -110,13 +95,13 @@ priority = 0
 
 [sub_resource type="Resource" id="Resource_acxwh"]
 script = ExtResource("4_gbx1n")
-value = "none"
-comparation = 0
+value = "hoverfly"
+comparation = 1
 name = "powerup"
 
 [sub_resource type="Resource" id="Resource_jo4sd"]
 script = ExtResource("5_6y1cm")
-from = "Hover"
+from = "Fly"
 to = "Exit"
 conditions = {
 "powerup": SubResource("Resource_acxwh")
@@ -138,6 +123,21 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_kxcq3"]
+script = ExtResource("4_gbx1n")
+value = "hoverfly"
+comparation = 1
+name = "powerup"
+
+[sub_resource type="Resource" id="Resource_eodne"]
+script = ExtResource("5_6y1cm")
+from = "Hover"
+to = "Exit"
+conditions = {
+"powerup": SubResource("Resource_kxcq3")
+}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_v7luo"]
 script = ExtResource("1_ridqv")
 states = {
@@ -151,16 +151,16 @@ transitions = {
 "Hover": SubResource("Resource_u4akv")
 },
 "Fly": {
-"Exit": SubResource("Resource_eodne"),
+"Exit": SubResource("Resource_jo4sd"),
 "Hover": SubResource("Resource_okt1n")
 },
 "Hover": {
-"Exit": SubResource("Resource_jo4sd"),
+"Exit": SubResource("Resource_eodne"),
 "Fly": SubResource("Resource_or4rm")
 }
 }
 name = "Hoverfly"
-metadata/graph_offset = Vector2(651, 79.5)
+metadata/graph_offset = Vector2(648.5, 81)
 
 [sub_resource type="Resource" id="Resource_10p3u"]
 script = ExtResource("4_gbx1n")
@@ -216,7 +216,7 @@ transitions = {
 }
 }
 name = "Powerup"
-metadata/graph_offset = Vector2(1211, 557)
+metadata/graph_offset = Vector2(1288, 601)
 
 [sub_resource type="Resource" id="Resource_gl8cc"]
 script = ExtResource("3_10p3u")

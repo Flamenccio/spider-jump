@@ -84,6 +84,7 @@ func _transit():
 	if not _is_param_edited and not _was_transited:
 		return
 
+
 	var from = get_current()
 	var local_params = _local_parameters.get(path_backward(from), {})
 	var next_state = state_machine.transit(get_current(), _parameters, local_params)

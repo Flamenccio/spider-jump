@@ -28,4 +28,5 @@ func tick_state(delta: float) -> void:
 func _on_pull_input_release() -> void:
 	if not state_active:
 		return
-	set_property('Powerup/Hoverfly/flying', false)
+	set_property('flying', false)
+

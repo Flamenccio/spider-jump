@@ -9,12 +9,13 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	# Kinda not great but works
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		set_property('powerup', powerup)
 		if powerup == ItemIds.BUBBLEBEE_POWERUP:
 			set_property('bubble', true)
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+		set_property('powerup', ItemIds.NO_POWERUP)
 		if powerup == ItemIds.BUBBLEBEE_POWERUP:
 			set_property('bubble', false)
 	)
@@ -29,12 +30,3 @@ func _physics_process(delta: float) -> void:
 		return
 	if not pause_tick and _active_state != null:
 		_active_state.tick_state(delta)
-
-
-func _powerup_started(powerup: String) -> void:
-	set_property('powerup', powerup)
-
-
-func _powerup_ended() -> void:
-	set_property('powerup', ItemIds.NO_POWERUP)
-

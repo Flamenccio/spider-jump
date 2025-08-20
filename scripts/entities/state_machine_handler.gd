@@ -75,7 +75,6 @@ func state_transition(old, new) -> void:
 
 
 func set_property(property_name: String, value: Variant) -> void:
-
 	if Engine.is_editor_hint():
 		return
 

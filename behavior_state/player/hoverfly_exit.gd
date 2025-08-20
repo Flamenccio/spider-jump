@@ -1,6 +1,5 @@
 extends BehaviorState
 
-@export var _animator: SpriteTree
-
 func enter_state() -> void:
-	_animator.switch_and_play('normal', 'idle')
+	#_animator.switch_and_play('normal', 'idle')
+	print('exited hoverfly')

@@ -24,4 +24,4 @@ func _on_pull_input_press() -> void:
 	if not state_active:
 		return
 
-	set_property('Powerup/Hoverfly/flying', true)
+	set_property('flying', true)

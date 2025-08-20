@@ -10,7 +10,7 @@ signal condition_removed(condition)
 @export var conditions: Dictionary:  # Conditions to transit successfuly, keyed by Condition.name
 	set = set_conditions,
 	get = get_conditions
-@export var priority: = 0 # Higher the number, higher the priority
+@export var priority: int # Higher the number, higher the priority
 
 var _conditions
 

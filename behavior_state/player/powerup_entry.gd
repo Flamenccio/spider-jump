@@ -6,4 +6,4 @@ extends BehaviorState
 func enter_state() -> void:
 	var powerup = get_property('powerup')
 	if not _behavior_powerups.has(powerup):
-		set_property('powerup', 'none')
+		set_property('powerup', ItemIds.NO_POWERUP)
