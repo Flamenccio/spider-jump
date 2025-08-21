@@ -135,4 +135,3 @@ func spawn_new_level(excluding: Array[String] = []) -> void:
 # Filter out levels that do not meet minimum difficulty (level) requirement
 func _on_level_up(new_level: int) -> void:
 	_available_levels = _loaded_levels.filter(func(l: SavedLevel): return l.minimum_level <= new_level)
-

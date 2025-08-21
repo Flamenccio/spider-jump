@@ -33,4 +33,3 @@ func save(object: LevelObject) -> void:
 	local_position = object.position
 	local_rotation = object.rotation
 	local_properties = object.get_local_properties()
-

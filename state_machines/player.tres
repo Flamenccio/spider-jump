@@ -78,21 +78,6 @@ to = "Hover"
 conditions = {}
 priority = 0
 
-[sub_resource type="Resource" id="Resource_cu227"]
-script = ExtResource("3_10p3u")
-value = false
-comparation = 0
-name = "flying"
-
-[sub_resource type="Resource" id="Resource_okt1n"]
-script = ExtResource("5_6y1cm")
-from = "Fly"
-to = "Hover"
-conditions = {
-"flying": SubResource("Resource_cu227")
-}
-priority = 0
-
 [sub_resource type="Resource" id="Resource_acxwh"]
 script = ExtResource("4_gbx1n")
 value = "hoverfly"
@@ -108,18 +93,18 @@ conditions = {
 }
 priority = 0
 
-[sub_resource type="Resource" id="Resource_t0krm"]
+[sub_resource type="Resource" id="Resource_cu227"]
 script = ExtResource("3_10p3u")
-value = true
+value = false
 comparation = 0
 name = "flying"
 
-[sub_resource type="Resource" id="Resource_or4rm"]
+[sub_resource type="Resource" id="Resource_okt1n"]
 script = ExtResource("5_6y1cm")
-from = "Hover"
-to = "Fly"
+from = "Fly"
+to = "Hover"
 conditions = {
-"flying": SubResource("Resource_t0krm")
+"flying": SubResource("Resource_cu227")
 }
 priority = 0
 
@@ -135,6 +120,21 @@ from = "Hover"
 to = "Exit"
 conditions = {
 "powerup": SubResource("Resource_kxcq3")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_t0krm"]
+script = ExtResource("3_10p3u")
+value = true
+comparation = 0
+name = "flying"
+
+[sub_resource type="Resource" id="Resource_or4rm"]
+script = ExtResource("5_6y1cm")
+from = "Hover"
+to = "Fly"
+conditions = {
+"flying": SubResource("Resource_t0krm")
 }
 priority = 0
 
