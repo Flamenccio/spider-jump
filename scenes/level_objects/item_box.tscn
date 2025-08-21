@@ -1,82 +1,26 @@
-[gd_scene load_steps=21 format=3 uid="uid://cvgknv5hx4uwm"]
+[gd_scene load_steps=7 format=3 uid="uid://cvgknv5hx4uwm"]
 
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="1_8vxx2"]
 [ext_resource type="Script" uid="uid://5p3w835j81ec" path="res://scripts/item_box.gd" id="1_rp6ev"]
 [ext_resource type="Script" uid="uid://bc3fsl7qhsokp" path="res://scripts/item_box_loot.gd" id="2_7msra"]
-[ext_resource type="PackedScene" uid="uid://bbjb4m6fwc2e" path="res://scenes/powerups/antibug.tscn" id="3_e63n5"]
-[ext_resource type="PackedScene" uid="uid://ba8ck05ta5tce" path="res://scenes/powerups/blinkfly.tscn" id="4_bvvh1"]
-[ext_resource type="PackedScene" uid="uid://dxpxr8minu8d4" path="res://scenes/powerups/hoverfly.tscn" id="5_hr72n"]
-[ext_resource type="PackedScene" uid="uid://dxdwqtbu84o7o" path="res://scenes/powerups/bubblebee.tscn" id="6_vld1c"]
-[ext_resource type="PackedScene" uid="uid://casm12rifsitq" path="res://scenes/powerups/hopperpop.tscn" id="7_ka3cf"]
-[ext_resource type="PackedScene" uid="uid://dqqc11jshtu6v" path="res://scenes/powerups/super_grub.tscn" id="8_nsbki"]
-[ext_resource type="PackedScene" uid="uid://dxnx7wy6ay3xj" path="res://scenes/powerups/heavy_beetle.tscn" id="9_x2ynq"]
 [ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/level_objects/yummy_fly.tscn" id="10_bvvh1"]
-
-[sub_resource type="Resource" id="Resource_avuqt"]
-script = ExtResource("2_7msra")
-loot_scene = ExtResource("3_e63n5")
-loot_chance = 0.0361991
-minimum_level = 2
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_qsv86"]
-script = ExtResource("2_7msra")
-loot_scene = ExtResource("4_bvvh1")
-loot_chance = 0.0361991
-minimum_level = 4
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_g3cyi"]
-script = ExtResource("2_7msra")
-loot_scene = ExtResource("5_hr72n")
-loot_chance = 0.0361991
-minimum_level = 2
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_ukw6y"]
-script = ExtResource("2_7msra")
-loot_scene = ExtResource("6_vld1c")
-loot_chance = 0.0361991
-minimum_level = 2
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_50gmt"]
-script = ExtResource("2_7msra")
-loot_scene = ExtResource("7_ka3cf")
-loot_chance = 0.0361991
-minimum_level = 2
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_msj5y"]
-script = ExtResource("2_7msra")
-loot_scene = ExtResource("8_nsbki")
-loot_chance = 0.0361991
-minimum_level = 6
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_glvfe"]
-script = ExtResource("2_7msra")
-loot_scene = ExtResource("9_x2ynq")
-loot_chance = 0.0361991
-minimum_level = 4
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_e63n5"]
 script = ExtResource("2_7msra")
-loot_chance = 0.411199
+loot_chance = 0.5
 minimum_level = 0
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_hr72n"]
 script = ExtResource("2_7msra")
 loot_scene = ExtResource("10_bvvh1")
-loot_chance = 0.335407
+loot_chance = 0.5
 minimum_level = 0
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [node name="ItemBox" type="Node2D"]
 script = ExtResource("1_rp6ev")
-loot_table = Array[ExtResource("2_7msra")]([SubResource("Resource_avuqt"), SubResource("Resource_qsv86"), SubResource("Resource_g3cyi"), SubResource("Resource_ukw6y"), SubResource("Resource_50gmt"), SubResource("Resource_msj5y"), SubResource("Resource_glvfe"), SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
+loot_table = Array[ExtResource("2_7msra")]([SubResource("Resource_e63n5"), SubResource("Resource_hr72n")])
 packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
 [node name="DebugSprite" type="Sprite2D" parent="."]
