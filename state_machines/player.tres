@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="StateMachine" load_steps=87 format=3 uid="uid://do5fxx1fsv3j4"]
 
-[ext_resource type="Script" uid="uid://cgcw4uj3fme3a" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="1_ridqv"]
-[ext_resource type="Script" uid="uid://bky7ul11nw1di" path="res://addons/imjp94.yafsm/src/states/State.gd" id="2_ojcqc"]
-[ext_resource type="Script" uid="uid://lktmiahi8nk5" path="res://addons/imjp94.yafsm/src/conditions/BooleanCondition.gd" id="3_10p3u"]
-[ext_resource type="Script" uid="uid://bn4cwp0ij0ji7" path="res://addons/imjp94.yafsm/src/conditions/StringCondition.gd" id="4_gbx1n"]
-[ext_resource type="Script" uid="uid://6tfu5odia6si" path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" id="5_6y1cm"]
+[ext_resource type="Script" uid="uid://dp62wp3cgttyx" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="1_ridqv"]
+[ext_resource type="Script" uid="uid://bsnt8wtsxcmjh" path="res://addons/imjp94.yafsm/src/states/State.gd" id="2_ojcqc"]
+[ext_resource type="Script" uid="uid://cynb8ukrmur31" path="res://addons/imjp94.yafsm/src/conditions/BooleanCondition.gd" id="3_10p3u"]
+[ext_resource type="Script" uid="uid://di2lqbejjp0iq" path="res://addons/imjp94.yafsm/src/conditions/StringCondition.gd" id="4_gbx1n"]
+[ext_resource type="Script" uid="uid://2ll85msjgxlh" path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" id="5_6y1cm"]
 
 [sub_resource type="Resource" id="Resource_jej6c"]
 script = ExtResource("2_ojcqc")

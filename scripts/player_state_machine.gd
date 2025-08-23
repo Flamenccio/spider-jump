@@ -10,14 +10,14 @@ func _ready() -> void:
 		return
 
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
-		set_property('powerup', powerup)
+		_state_machine_player.set_param('powerup', powerup)
 		if powerup == ItemIds.BUBBLEBEE_POWERUP:
-			set_property('bubble', true)
+			_state_machine_player.set_param('bubble', true)
 	)
 	PlayerEventBus.powerup_ended.connect(func(powerup: String):
-		set_property('powerup', ItemIds.NO_POWERUP)
+		_state_machine_player.set_param('powerup', ItemIds.NO_POWERUP)
 		if powerup == ItemIds.BUBBLEBEE_POWERUP:
-			set_property('bubble', false)
+			_state_machine_player.set_param('bubble', false)
 	)
 
 	# Pause tick state
@@ -25,8 +25,9 @@ func _ready() -> void:
 	PlayerEventBus.powerup_flash_end.connect(func(): pause_tick = false)
 
 
-func _physics_process(delta: float) -> void:
+func _on_state_update(_s: String, delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
-	if not pause_tick and _active_state != null:
-		_active_state.tick_state(delta)
+	if not pause_tick and active_state != null:
+		active_state.update_state(delta)
+

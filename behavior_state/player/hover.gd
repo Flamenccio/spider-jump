@@ -6,7 +6,7 @@ extends BehaviorState
 const _ZERO_VELOCITY_THRESHOLD = 0.001
 const _TARGET_VELOCITY = Vector2.ZERO
 
-func tick_state(delta: float) -> void:
+func update_state(delta: float) -> void:
 
 	var velocity = _player.velocity
 
@@ -24,4 +24,5 @@ func _on_pull_input_press() -> void:
 	if not state_active:
 		return
 
-	set_property('flying', true)
+	set_param('flying', true)
+

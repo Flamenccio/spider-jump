@@ -1,8 +1,5 @@
 @tool
 extends EditorPlugin
-const YAFSM = preload("YAFSM.gd")
-const StackPlayer = YAFSM.StackPlayer
-const StateMachinePlayer = YAFSM.StateMachinePlayer
 
 const StateMachineEditor = preload("scenes/StateMachineEditor.tscn")
 const TransitionInspector = preload("scenes/transition_editors/TransitionInspector.gd")
@@ -11,9 +8,9 @@ const StateInspector = preload("scenes/state_nodes/StateInspector.gd")
 const StackPlayerIcon = preload("assets/icons/stack_player_icon.png")
 const StateMachinePlayerIcon = preload("assets/icons/state_machine_player_icon.png")
 
-var state_machine_editor = StateMachineEditor.instantiate()
-var transition_inspector = TransitionInspector.new()
-var state_inspector = StateInspector.new()
+var state_machine_editor := StateMachineEditor.instantiate()
+var transition_inspector := TransitionInspector.new()
+var state_inspector := StateInspector.new()
 
 var focused_object:  # Can be StateMachine/StateMachinePlayer
 	set = set_focused_object
@@ -27,7 +24,10 @@ func _enter_tree():
 	var editor_base_control = get_editor_interface().get_base_control()
 	add_custom_type("StackPlayer", "Node", StackPlayer, StackPlayerIcon)
 	add_custom_type("StateMachinePlayer", "Node", StateMachinePlayer, StateMachinePlayerIcon)
+	add_custom_type("StateMachineHandler", "Node", StateMachineHandler, StateMachinePlayerIcon)
+	add_custom_type("BehaviorState", "Node", BehaviorState, StateMachinePlayerIcon)
 	
+	state_machine_editor.undo_redo = get_undo_redo()
 	state_machine_editor.selection_stylebox.bg_color = editor_base_control.get_theme_color("box_selection_fill_color", "Editor")
 	state_machine_editor.selection_stylebox.border_color = editor_base_control.get_theme_color("box_selection_stroke_color", "Editor")
 	state_machine_editor.zoom_minus.icon = editor_base_control.get_theme_icon("ZoomLess", "EditorIcons")
@@ -55,11 +55,14 @@ func _enter_tree():
 func _exit_tree():
 	remove_custom_type("StackPlayer")
 	remove_custom_type("StateMachinePlayer")
+	remove_custom_type("StateMachineHandler")
+	remove_custom_type("BehaviorState")
 
 	remove_inspector_plugin(transition_inspector)
 	remove_inspector_plugin(state_inspector)
 
 	if state_machine_editor:
+		hide_state_machine_editor()
 		state_machine_editor.queue_free()
 
 func _handles(object):
@@ -109,6 +112,8 @@ func _on_focused_object_changed(new_obj):
 		if focused_object is StateMachinePlayer:
 			if focused_object.get_class() == "EditorDebuggerRemoteObject":
 				state_machine = focused_object.get("Members/state_machine")
+				if state_machine == null:
+					state_machine = focused_object.get("Members/StateMachinePlayer.gd/state_machine")
 			else:
 				state_machine = focused_object.state_machine
 			state_machine_editor.state_machine_player = focused_object
