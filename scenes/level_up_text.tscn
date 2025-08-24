@@ -61,6 +61,8 @@ animations = [{
 }]
 
 [node name="LevelUpText" type="AnimatedSprite2D"]
+z_index = 10
+z_as_relative = false
 sprite_frames = SubResource("SpriteFrames_idy1a")
 autoplay = "default"
 frame = 6
