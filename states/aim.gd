@@ -58,7 +58,7 @@ func _ready() -> void:
 
 
 func enter_state() -> void:
-	set_property('jump', false)
+	set_param('jump', false)
 	if _powerup != ItemIds.BLINKFLY_POWERUP:
 		aim_entered.emit()
 	_animator.play_branch_animation('aim')
@@ -98,7 +98,7 @@ func _jump() -> void:
 	if not _is_jump_direction_valid(_jump_vector):
 		return
 
-	set_property('jump', true)
+	set_param('jump', true)
 	_player.velocity = _jump_vector
 	_jumped = true
 	player_jumped.emit()
@@ -113,7 +113,7 @@ func _jump() -> void:
 			_particle_emitter.spawn_jump_dust()
 
 
-func tick_state(delta: float) -> void:
+func update_state(delta: float) -> void:
 	if not _jumped:
 		return
 	_player.move_and_slide()
@@ -149,7 +149,7 @@ func _blinkfly_jump() -> void:
 		return
 
 	_animator.play_branch_animation('warp')
-	set_property('jump', true)
+	set_param('jump', true)
 	_player.velocity = _pull_input.normalized() *  _jump_force
 	_jumped = true
 	player_blinkfly_jumped.emit()

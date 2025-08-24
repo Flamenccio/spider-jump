@@ -12,7 +12,7 @@ func _on_pull_input_update(pull: Vector2) -> void:
 	_pull_input = pull
 
 
-func tick_state(delta: float) -> void:
+func update_state(delta: float) -> void:
 	var fly_acceleration_constant = _fly_acceleration * delta
 	var acceleration = Vector2(_pull_input.x * fly_acceleration_constant, _pull_input.y * fly_acceleration_constant)
 	var new_velocity = _player.velocity + acceleration
@@ -28,5 +28,5 @@ func tick_state(delta: float) -> void:
 func _on_pull_input_release() -> void:
 	if not state_active:
 		return
-	set_property('flying', false)
+	set_param('flying', false)
 

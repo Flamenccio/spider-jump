@@ -13,7 +13,10 @@ const _CLIMB_DURATION = 0.1
 func _ready() -> void:
 	_climb_timer.wait_time = _CLIMB_DURATION
 	_climb_timer.one_shot = true
-	_climb_timer.timeout.connect(func(): climb_finished.emit())
+	_climb_timer.timeout.connect(func(): 
+		climb_finished.emit()
+		set_param('climb', false)
+	)
 	add_child(_climb_timer)
 
 
@@ -30,7 +33,8 @@ func exit_state() -> void:
 	_player.velocity = Vector2.ZERO
 
 
-func tick_state(delta: float) -> void:
+func update_state(delta: float) -> void:
 	var to_target = (_climb_target - _player.global_position) * _CLIMB_VELOCITY
 	_player.velocity = to_target
 	_player.move_and_slide()
+

@@ -29,7 +29,6 @@ func _ready() -> void:
 	_invincibility_timer.one_shot = true
 	_invincibility_timer.timeout.connect(func(): 
 		invincibility_ended.emit()
-		print('no longer invincible')
 	)
 	add_child(_invincibility_timer)
 

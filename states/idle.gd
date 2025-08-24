@@ -24,7 +24,7 @@ func _ready() -> void:
 func enter_state() -> void:
 	_player.velocity = Vector2.ZERO
 	_down_vector = Vector2.from_angle(_player.rotation - (3 * PI / 2.0))
-	set_property('jump', false)
+	set_param('jump', false)
 	_animator.play_branch_animation('idle')
 	player_entered_idle.emit()
 	_recheck_normal_timer.start()
@@ -34,7 +34,7 @@ func exit_state() -> void:
 	_recheck_normal_timer.stop()
 
 
-func tick_state(delta: float) -> void:
+func update_state(delta: float) -> void:
 	_player.move_and_collide(_down_vector * _floor_suction_force)
 
 

@@ -5,4 +5,5 @@ extends BehaviorState
 func enter_state() -> void:
 	# Workaround to allow normal player control
 	_animator.switch_sprite_branch('anti')
-	set_property('powerup', 'none')
+	set_param('powerup', 'none')
+

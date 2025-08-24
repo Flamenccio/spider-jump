@@ -34,7 +34,7 @@ func _ready() -> void:
 
 func enter_state() -> void:
 	player_crawled.emit()
-	set_property('jump', false)
+	set_param('jump', false)
 
 
 func exit_state() -> void:
@@ -45,7 +45,7 @@ func _on_move_input_change(input: Vector2) -> void:
 	_move_input = input
 
 
-func tick_state(delta: float) -> void:
+func update_state(delta: float) -> void:
 
 	var horizontal = _move_input - Vector2(0, _move_input.y)
 	var crawl_vector = horizontal.rotated(_player.rotation)
