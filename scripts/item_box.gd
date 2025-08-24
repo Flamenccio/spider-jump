@@ -6,12 +6,7 @@ class_name ItemBox
 ## item will spawn in.
 extends LevelObject
 
-## Makes all loot rates the same
-@export_tool_button('Equalize loot rates') var _equalize_loot_rates: Callable = _flatten_loot_rates
-## Adjusts all loot rates so that the sum of all is 1.0
-@export_tool_button('Make up loot rates') var _make_up: Callable = _make_up_loot_rates
-
-@export var loot_table: Array[ItemBoxLoot]
+@export var loot_table: LootTable
 
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -26,48 +21,29 @@ class LootRoll:
 		return val <= max_value and val > min_value
 
 
-func _make_up_loot_rates() -> void:
-	if loot_table.size() == 0:
-		return
-	var chances := loot_table.map(func(loot: ItemBoxLoot) -> float: return loot.loot_chance)
-	var accum_chances = chances.reduce(func(accum: float, sum: float) -> float: return accum + sum)
-	if accum_chances == 1.0:
-		return
-	var difference = 1.0 - accum_chances
-	var distributed_difference = difference / loot_table.size()
-	for loot in loot_table:
-		loot.loot_chance += distributed_difference
-
-
-func _flatten_loot_rates() -> void:
-	var equal = 1.0 / loot_table.size()
-	for loot in loot_table:
-		loot.loot_chance = equal
-
-
-## Spawn one of the items in `loot_table`, replacing this node.
+## Spawn one of the items in `loot_table_override`, replacing this node.
 func spawn_loot(current_level: int) -> void:
 
 	if Engine.is_editor_hint():
 		return
 
 	# Filter items too high level
-	loot_table = loot_table.filter(func(i: ItemBoxLoot): return i.minimum_level <= current_level)
+	var available_loot = loot_table.loot.filter(func(i: ItemBoxLoot): return i.minimum_level <= current_level)
 
 	# Redistribute chances, if necessary
 	var total_chance = 0.0
-	total_chance = loot_table.reduce(func(accum: float, current: ItemBoxLoot): return accum + current.loot_chance, total_chance)
+	total_chance = available_loot.reduce(func(accum: float, current: ItemBoxLoot): return accum + current.loot_chance, total_chance)
 	var missing = 1.0 - total_chance
 	
 	if missing > 0.0:
-		var split = missing / loot_table.size()
-		for loot in loot_table:
+		var split = missing / available_loot.size()
+		for loot in available_loot:
 			loot.loot_chance += split
 
 	# Find random loot with percent chance
 	var roll_table: Array[LootRoll]
 	var last_value: float = 0
-	for loot in loot_table:
+	for loot in available_loot:
 		var roll = LootRoll.new()
 		roll.min_value = last_value
 		roll.max_value = last_value + loot.loot_chance
@@ -98,3 +74,4 @@ func get_local_properties() -> Dictionary:
 	return {
 		'loot_table': loot_table,
 	}
+

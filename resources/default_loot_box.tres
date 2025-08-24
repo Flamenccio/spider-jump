@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=19 format=3 uid="uid://c0p0fb7uoe6l8"]
+
+[ext_resource type="Script" uid="uid://bc3fsl7qhsokp" path="res://scripts/item_box_loot.gd" id="1_uehea"]
+[ext_resource type="PackedScene" uid="uid://bbjb4m6fwc2e" path="res://scenes/powerups/antibug.tscn" id="2_8v8gp"]
+[ext_resource type="Script" uid="uid://c2igfpmml5pq7" path="res://scripts/loot_table.gd" id="2_ldm30"]
+[ext_resource type="PackedScene" uid="uid://ba8ck05ta5tce" path="res://scenes/powerups/blinkfly.tscn" id="3_w54ef"]
+[ext_resource type="PackedScene" uid="uid://dxpxr8minu8d4" path="res://scenes/powerups/hoverfly.tscn" id="4_ik14u"]
+[ext_resource type="PackedScene" uid="uid://dxdwqtbu84o7o" path="res://scenes/powerups/bubblebee.tscn" id="5_507uc"]
+[ext_resource type="PackedScene" uid="uid://casm12rifsitq" path="res://scenes/powerups/hopperpop.tscn" id="6_0b71e"]
+[ext_resource type="PackedScene" uid="uid://dqqc11jshtu6v" path="res://scenes/powerups/super_grub.tscn" id="7_bov1d"]
+[ext_resource type="PackedScene" uid="uid://dxnx7wy6ay3xj" path="res://scenes/powerups/heavy_beetle.tscn" id="8_408oo"]
+[ext_resource type="PackedScene" uid="uid://xhkwm2kavftk" path="res://scenes/level_objects/yummy_fly.tscn" id="9_w54ef"]
+
+[sub_resource type="Resource" id="Resource_icw0f"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("2_8v8gp")
+loot_chance = 0.0703655
+minimum_level = 4
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_rpce5"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("3_w54ef")
+loot_chance = 0.0703655
+minimum_level = 4
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_kw6b7"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("4_ik14u")
+loot_chance = 0.0703655
+minimum_level = 4
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_w4i5s"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("5_507uc")
+loot_chance = 0.0703655
+minimum_level = 2
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_eyitt"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("6_0b71e")
+loot_chance = 0.0703655
+minimum_level = 2
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_ok0vv"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("7_bov1d")
+loot_chance = 0.0703655
+minimum_level = 6
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_fk5i5"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("8_408oo")
+loot_chance = 0.0703655
+minimum_level = 2
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_ik14u"]
+script = ExtResource("1_uehea")
+loot_scene = ExtResource("9_w54ef")
+loot_chance = 0.507442
+minimum_level = 0
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[resource]
+script = ExtResource("2_ldm30")
+loot = Array[ExtResource("1_uehea")]([SubResource("Resource_icw0f"), SubResource("Resource_rpce5"), SubResource("Resource_kw6b7"), SubResource("Resource_w4i5s"), SubResource("Resource_eyitt"), SubResource("Resource_ok0vv"), SubResource("Resource_fk5i5"), SubResource("Resource_ik14u")])
+metadata/_custom_type_script = "uid://c2igfpmml5pq7"
