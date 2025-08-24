@@ -1,7 +1,12 @@
-[gd_scene load_steps=18 format=4 uid="uid://b48my00oe5b5y"]
+[gd_scene load_steps=26 format=4 uid="uid://b48my00oe5b5y"]
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
+[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="3_stfbr"]
+[ext_resource type="PackedScene" uid="uid://cvgknv5hx4uwm" path="res://scenes/level_objects/item_box.tscn" id="4_jfcp0"]
+[ext_resource type="PackedScene" uid="uid://epbopmmrox4j" path="res://scenes/level_objects/object_switch.tscn" id="4_kkt7t"]
+[ext_resource type="Script" uid="uid://kn57yj25jwiy" path="res://scripts/levels/saved_level_object.gd" id="5_1jlcl"]
+[ext_resource type="Resource" uid="uid://c0p0fb7uoe6l8" path="res://resources/default_loot_box.tres" id="5_jfcp0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -67,90 +72,136 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_cbp6q")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpw3m"]
+size = Vector2(8, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6t8vq"]
+size = Vector2(8, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mwv5"]
+size = Vector2(48, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6oya5"]
+size = Vector2(24, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgwc4"]
+size = Vector2(8, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsgmr"]
+size = Vector2(8, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ym25h"]
+size = Vector2(8, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1f303"]
+size = Vector2(24, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jlcl"]
+size = Vector2(48, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ai4d"]
+size = Vector2(8, 48)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stfbr"]
-size = Vector2(8, 32)
+size = Vector2(8, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u7ovu"]
-size = Vector2(8, 144)
+[sub_resource type="Resource" id="Resource_epssy"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(19.379, 20.0133)
+local_rotation = 0.0
+local_properties = {
+"loot_table": ExtResource("5_jfcp0")
+}
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyus"]
-size = Vector2(24, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqphy"]
-size = Vector2(8, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5weit"]
-size = Vector2(16, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x181k"]
-size = Vector2(64, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhjuo"]
-size = Vector2(8, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mahg"]
-size = Vector2(24, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ch5ch"]
-size = Vector2(8, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n85vl"]
-size = Vector2(8, 144)
+[sub_resource type="Resource" id="Resource_t1212"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-17.621, -4.98668)
+local_rotation = 0.0
+local_properties = {
+"loot_table": ExtResource("5_jfcp0")
+}
 
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_77rll")
-_save_level_name = "reverse_filter"
+_save_level_name = "three_block_2"
 _save_path = "res://levels/"
-_load_level_name = "reverse_filter"
+_load_level_name = "blank"
 _load_path = "res://levels/"
+_minimum_difficulty = 2
 
 [node name="Ground" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAD5/+f/AAALAAEAAAD5/+j/AAALAAEAAAAGAOj/AAAJAAEAAAAGAOf/AAAJAAEAAAAGAOn/AAAJAAEAAAD5/+n/AAALAAEAAAAGAPj/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPb/AAAJAAEAAAAGAPX/AAAJAAEAAAAGAPT/AAAJAAEAAAAGAPP/AAAJAAEAAAAGAPL/AAAJAAEAAAAGAPH/AAAJAAEAAAAGAPD/AAAJAAEAAAAGAO//AAAJAAEAAAAGAO7/AAAJAAEAAAAGAOr/AAAJAAEAAAD5/+r/AAALAAEAAAD5/+7/AAALAAEAAAD5/+//AAALAAEAAAD5//D/AAALAAEAAAD5//H/AAALAAEAAAD5//L/AAALAAEAAAD5//P/AAALAAEAAAD5//T/AAALAAEAAAD5//X/AAALAAEAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAACAPT/AAAGAAAAAAD9//T/AAAGAAAAAAD9//P/AAAGAAAAAAD9//L/AAAGAAAAAAACAPP/AAAGAAAAAAACAPL/AAAGAAAAAAD5/+v/AAAKAAEAAAD5/+z/AAAKAAEAAAD5/+3/AAAKAAEAAAD6/+v/AAAKAAAAAAD6/+z/AAAKAAEAAAD6/+3/AAAKAAIAAAD7/+v/AAALAAAAAAD7/+z/AAALAAEAAAD7/+3/AAALAAIAAAAEAOv/AAAJAAAAAAAEAOz/AAAJAAEAAAAEAO3/AAAJAAIAAAAFAOv/AAAKAAAAAAAFAOz/AAAKAAEAAAAFAO3/AAAKAAIAAAAGAOv/AAAKAAEAAAAGAOz/AAAKAAEAAAAGAO3/AAAKAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAD5//v/AAALAAEAAAD8//n/AAAJAAAAAAD8//r/AAAJAAEAAAD8//v/AAAJAAIAAAD9//n/AAAKAAAAAAD9//r/AAAKAAEAAAD9//v/AAAKAAIAAAD+//n/AAAKAAAAAAD+//r/AAAKAAEAAAD+//v/AAAKAAIAAAD///n/AAAKAAAAAAD///r/AAAKAAEAAAD///v/AAAKAAIAAAAAAPn/AAAKAAAAAAAAAPr/AAAKAAEAAAAAAPv/AAAKAAIAAAABAPn/AAAKAAAAAAABAPr/AAAKAAEAAAABAPv/AAAKAAIAAAACAPn/AAAKAAAAAAACAPr/AAAKAAEAAAACAPv/AAAKAAIAAAADAPn/AAALAAAAAAADAPr/AAALAAEAAAADAPv/AAALAAIAAAAGAPn/AAAJAAEAAAAGAPr/AAAJAAEAAAAGAPv/AAAJAAEAAAD//+3/AAAJAAAAAAAAAO3/AAALAAAAAAD//+7/AAAJAAEAAAD//+//AAAJAAIAAAAAAO7/AAALAAEAAAAAAO//AAALAAIAAAA=")
+tile_map_data = PackedByteArray("AAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAAGAPH/AAAJAAEAAAAGAPD/AAAJAAEAAAD5//D/AAALAAEAAAD5//H/AAALAAEAAAD9//v/AAAJAAIAAAD9//r/AAAJAAAAAAD+//r/AAAKAAAAAAD///r/AAAKAAAAAAAAAPr/AAAKAAAAAAABAPr/AAAKAAAAAAACAPr/AAALAAAAAAACAPv/AAALAAIAAAABAPv/AAAKAAIAAAAAAPv/AAAKAAIAAAD///v/AAAKAAIAAAD+//v/AAAKAAIAAAAGAPX/AAAJAAEAAAAGAPT/AAAJAAEAAAD5//X/AAALAAEAAAD5//T/AAALAAEAAAAGAPP/AAAJAAEAAAAGAPL/AAAJAAEAAAD5//P/AAALAAEAAAD5//L/AAALAAEAAAAAAO7/AAAKAAAAAAABAO7/AAAKAAAAAAAAAO//AAAKAAIAAAABAO//AAAKAAIAAAACAO7/AAALAAAAAAACAO//AAALAAIAAAD5/+//AAALAAEAAAD5/+7/AAALAAEAAAD5/+3/AAALAAEAAAD5/+z/AAALAAEAAAD5/+v/AAALAAEAAAD5/+r/AAALAAEAAAA=")
 tile_set = SubResource("TileSet_tlwt5")
 
 [node name="Slip" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAPX/AAAKAAUAAAD///X/AAAKAAUAAAABAPX/AAAKAAUAAAD+//X/AAAKAAUAAAD9//X/AAAJAAUAAAD9//T/AAAJAAMAAAACAPX/AAALAAUAAAACAPT/AAALAAMAAAAGAPf/AAAJAAQAAAAGAPb/AAAJAAQAAAD5//f/AAALAAQAAAD5//b/AAALAAQAAAD5//n/AAALAAQAAAD5//j/AAALAAQAAAAGAPn/AAAJAAQAAAAGAPj/AAAJAAQAAAD+//T/AAAKAAMAAAD///T/AAAKAAMAAAAAAPT/AAAKAAMAAAABAPT/AAAKAAMAAAD5//v/AAALAAQAAAD5//r/AAALAAQAAAAGAPv/AAAJAAQAAAAGAPr/AAAJAAQAAAD//+7/AAAKAAMAAAD+/+7/AAAKAAMAAAD//+//AAAKAAUAAAD+/+//AAAKAAUAAAD9/+7/AAAJAAMAAAD9/+//AAAJAAUAAAAGAO//AAAJAAQAAAAGAO7/AAAJAAQAAAAGAO3/AAAJAAQAAAAGAOz/AAAJAAQAAAAGAOv/AAAJAAQAAAAGAOr/AAAJAAQAAAA=")
 tile_set = SubResource("TileSet_cbp6q")
 
 [node name="GroundCollider" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("3_stfbr")
+tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-52, -184)
-shape = SubResource("RectangleShape2D_stfbr")
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-52, -128)
+shape = SubResource("RectangleShape2D_gpw3m")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-52, -72)
-shape = SubResource("RectangleShape2D_u7ovu")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-44, -156)
-shape = SubResource("RectangleShape2D_huyus")
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(-20, -100)
-shape = SubResource("RectangleShape2D_yqphy")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(0, -140)
-shape = SubResource("RectangleShape2D_5weit")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(0, -44)
-shape = SubResource("RectangleShape2D_x181k")
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(-52, -16)
+shape = SubResource("RectangleShape2D_6t8vq")
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(20, -100)
-shape = SubResource("RectangleShape2D_vhjuo")
+position = Vector2(0, -40)
+shape = SubResource("RectangleShape2D_3mwv5")
 
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(44, -156)
-shape = SubResource("RectangleShape2D_8mahg")
+position = Vector2(12, -136)
+shape = SubResource("RectangleShape2D_6oya5")
 
 [node name="CollisionShape2D11" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(52, -184)
-shape = SubResource("RectangleShape2D_ch5ch")
+position = Vector2(52, -104)
+shape = SubResource("RectangleShape2D_kgwc4")
 
 [node name="CollisionShape2D12" type="CollisionShape2D" parent="GroundCollider"]
-position = Vector2(52, -72)
-shape = SubResource("RectangleShape2D_n85vl")
+position = Vector2(52, -16)
+shape = SubResource("RectangleShape2D_wsgmr")
+
+[node name="GroundCollider2" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_stfbr")
+tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Slip")])
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="GroundCollider2"]
+position = Vector2(-52, -56)
+shape = SubResource("RectangleShape2D_ym25h")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="GroundCollider2"]
+position = Vector2(-12, -136)
+shape = SubResource("RectangleShape2D_1f303")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="GroundCollider2"]
+position = Vector2(0, -88)
+shape = SubResource("RectangleShape2D_1jlcl")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="GroundCollider2"]
+position = Vector2(52, -152)
+shape = SubResource("RectangleShape2D_3ai4d")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="GroundCollider2"]
+position = Vector2(52, -56)
+shape = SubResource("RectangleShape2D_stfbr")
+
+[node name="ObjectSwitch" parent="." instance=ExtResource("4_kkt7t")]
+position = Vector2(-19.379, -132.013)
+max_objects = 1
+objects = Array[ExtResource("5_1jlcl")]([SubResource("Resource_epssy"), SubResource("Resource_t1212")])
+
+[node name="ItemBox" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(19.379, 20.0133)
+
+[node name="ItemBox2" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-17.621, -4.98668)
