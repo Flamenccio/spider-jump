@@ -535,7 +535,7 @@ to = "Crawl"
 conditions = {
 "crawl": SubResource("Resource_ujl30")
 }
-priority = 0
+priority = 2
 
 [sub_resource type="Resource" id="Resource_31cv2"]
 script = ExtResource("4_gbx1n")

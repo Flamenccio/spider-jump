@@ -679,6 +679,7 @@ script = ExtResource("35_jc3p3")
 _ground_check = NodePath("../../Casters/GroundRaycast")
 _player = NodePath("../..")
 _animator = NodePath("../../SpriteTree")
+_jump_force = 170.0
 _particle_emitter = NodePath("../../Particles/ParticleEmitter")
 
 [node name="Climb" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player")]
@@ -688,6 +689,7 @@ _player = NodePath("../..")
 [node name="Crawl" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player")]
 script = ExtResource("37_g5jhy")
 _player = NodePath("../..")
+_move_speed = 10.0
 
 [node name="Entry" type="Node" parent="StateMachineHandler"]
 script = ExtResource("38_holxr")
@@ -700,11 +702,13 @@ _player = NodePath("../..")
 [node name="Idle" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("40_4gjji")
 _animator = NodePath("../../SpriteTree")
+_gravity_scale = 0.33
 _player = NodePath("../..")
 
 [node name="KO" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player")]
 script = ExtResource("41_u2ulf")
 _player = NodePath("../..")
+_ko_jump_force = 150.0
 
 [node name="Powerup" type="Node" parent="StateMachineHandler"]
 metadata/super_state = true
@@ -729,10 +733,13 @@ script = ExtResource("45_4gjji")
 [node name="Fly" type="Node" parent="StateMachineHandler/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
 script = ExtResource("46_u2ulf")
 _player = NodePath("../../../..")
+_fly_acceleration = 120.0
+_max_speed = 80.0
 
 [node name="Hover" type="Node" parent="StateMachineHandler/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
 script = ExtResource("47_6e8lb")
 _player = NodePath("../../../..")
+_decceleration = 1.5
 
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]
@@ -749,8 +756,8 @@ _player = NodePath("../../../..")
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
 [connection signal="invincibility_started" from="." to="SpriteTree/Normal" method="_activate_invincibility_flashing"]
 [connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector"]
-[connection signal="moving" from="." to="StateMachineHandler" method="set_param" binds= ["crawl", "true"]]
-[connection signal="stop_moving" from="." to="StateMachineHandler" method="set_param" binds= ["crawl", false]]
+[connection signal="moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", true]]
+[connection signal="stop_moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", false]]
 [connection signal="collected_item" from="CollisionHandler" to="PowerupHandler" method="_on_item_collected"]
 [connection signal="consumed_powerup" from="CollisionHandler" to="PowerupHandler" method="_on_powerup_consumed"]
 [connection signal="danger_entered" from="CollisionHandler" to="." method="_on_danger_entered"]
@@ -765,6 +772,8 @@ _player = NodePath("../../../..")
 [connection signal="leave_ground" from="CollisionHandler" to="StateMachineHandler/Aim" method="_on_leave_ground"]
 [connection signal="leave_ground" from="CollisionHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "air"]]
 [connection signal="lose_powerup" from="CollisionHandler" to="PowerupHandler" method="_end_powerups"]
+[connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]
+[connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]
 [connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
 [connection signal="spawn_particle" from="Particles/ParticleEmitter" to="Particles/ParticleEmitter/ParticleEmitter" method="spawn_particle"]
