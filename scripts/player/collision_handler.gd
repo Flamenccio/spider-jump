@@ -176,4 +176,3 @@ func _on_player_jumped() -> void:
 	# Clear ground contacts
 	_ground_contacts.clear()
 	leave_ground.emit()
-
