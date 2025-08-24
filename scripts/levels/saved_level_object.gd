@@ -13,6 +13,8 @@ func instantiate() -> Node2D:
 	for key in local_properties.keys():
 		var value = local_properties[key]
 		if typeof(local_properties[key]) == TYPE_ARRAY:
+			print('this ({0}) is an array!'.format({'0': key}))
+			print(local_properties[key])
 			var array_ref = instance.get(key) as Array
 			array_ref.clear()
 			array_ref.append_array(value)
