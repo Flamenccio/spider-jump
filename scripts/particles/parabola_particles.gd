@@ -47,7 +47,8 @@ func path(t: float) -> Vector2:
 
 
 func activate_trajectory() -> void:
-	_activate_next_particle()
+	for i in range(_particle_count - 1):
+		_activate_next_particle(i * 1.0 / (_particle_count - 1))
 	activation_timer.start()
 
 
@@ -59,13 +60,13 @@ func deactivate_trajectory() -> void:
 		inactive_particles.push_back(particle)
 
 
-func _activate_next_particle() -> void:
+func _activate_next_particle(start: float = 0.0) -> void:
 	var particle = inactive_particles.pop_front() as TrajectoryParticle
 	if particle == null:
 		print('parabola particles: ran out of particles!')
 		return
 	particle.global_position = _origin.global_position
-	particle.activate_particle(alternate)
+	particle.activate_particle(alternate, start)
 	if alternate == 0:
 		alternate = 1
 	else:
