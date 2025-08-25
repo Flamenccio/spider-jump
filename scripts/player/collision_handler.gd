@@ -163,9 +163,12 @@ func _on_powerup_started(powerup: String) -> void:
 		land_on_normal.emit(Vector2.UP)
 	elif current_powerup == ItemIds.HEAVY_BEETLE_POWERUP:
 		# Check ground for slippery
+		"""
 		for ground in _ground_contacts:
 			if _is_on_collision_layer(ground, _slip_layer):
 				land_on_ground.emit()
+		"""
+		pass
 
 
 func _on_powerup_ended(powerup: String) -> void:
