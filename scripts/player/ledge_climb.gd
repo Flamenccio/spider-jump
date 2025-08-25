@@ -5,8 +5,10 @@ signal climb_started()
 
 @export var _ground_detector_l: ShapeCast2D
 @export var _ground_detector_r: ShapeCast2D
+@export var _ground_raycast: RaycastCheck
 var _active_shapecast: ShapeCast2D
 var active: bool = false
+var _player_normal: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	_ground_detector_l.enabled = false
@@ -23,17 +25,14 @@ func _on_player_move_change(move_input: Vector2) -> void:
 		_ground_detector_l.enabled = false
 		_ground_detector_r.enabled = false
 		_active_shapecast = null
-		#active = false
 	elif x > 0:
 		_ground_detector_l.enabled = false
 		_ground_detector_r.enabled = true
 		_active_shapecast = _ground_detector_r
-		#active = true
 	elif x < 0:
 		_ground_detector_l.enabled = true
 		_ground_detector_r.enabled = false
 		_active_shapecast = _ground_detector_l
-		#active = true
 
 
 func _physics_process(delta: float) -> void:

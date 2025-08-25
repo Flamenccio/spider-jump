@@ -13,7 +13,7 @@ var _pause_stamina_drain: bool = false
 
 @export var _player: Node2D
 
-const _LEVEL_UP_DRAIN_INCREASE = 0.01
+const _LEVEL_UP_DRAIN_INCREASE = 0.005
 
 func _ready() -> void:
 	_stamina_drain_amount = _base_stamina_drain_amount

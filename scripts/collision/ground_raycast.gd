@@ -22,3 +22,12 @@ func intersect_ray(to: Vector2) -> Dictionary:
 	var space_state = raycast_source.get_world_2d().direct_space_state
 	var results := space_state.intersect_ray(_raycast_query)
 	return results
+
+
+func intersect_ray_from(from: Vector2, to: Vector2) -> Dictionary:
+	_raycast_query.from = from
+	_raycast_query.to = to
+
+	var space_state = raycast_source.get_world_2d().direct_space_state
+	var results := space_state.intersect_ray(_raycast_query)
+	return results
