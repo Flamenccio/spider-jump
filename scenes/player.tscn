@@ -465,8 +465,8 @@ particle_name = "powerup_flash"
 particle_scene = ExtResource("41_hhpqf")
 metadata/_custom_type_script = "uid://wmfb0j47nkka"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e8lb"]
-size = Vector2(7.5, 7.5)
+[sub_resource type="CircleShape2D" id="CircleShape2D_6e8lb"]
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ni07"]
 radius = 6.0
@@ -634,7 +634,7 @@ collision_priority = 5.0
 priority = 5
 
 [node name="Shape" type="CollisionShape2D" parent="Detectors/GroundDetector"]
-shape = SubResource("RectangleShape2D_6e8lb")
+shape = SubResource("CircleShape2D_6e8lb")
 
 [node name="ItemDetector" type="Area2D" parent="Detectors"]
 position = Vector2(0, 1)
