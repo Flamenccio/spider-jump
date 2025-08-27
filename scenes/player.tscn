@@ -529,10 +529,12 @@ animation = &"fall"
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_31cv2")
 
-[node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_ground_detector_l", "_ground_detector_r")]
+[node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_player", "_ground_detector_l", "_ground_detector_r", "_raycaster")]
 script = ExtResource("24_l71n6")
+_player = NodePath("..")
 _ground_detector_l = NodePath("../Detectors/LedgeDetectorL")
 _ground_detector_r = NodePath("../Detectors/LedgeDetectorR")
+_raycaster = NodePath("../Casters/Raycaster")
 
 [node name="Casters" type="Node" parent="."]
 
