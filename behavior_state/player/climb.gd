@@ -8,7 +8,7 @@ var _climb_timer: Timer = Timer.new()
 var _climb_origin: Vector2
 
 const _CLIMB_VELOCITY = 50
-const _CLIMB_DURATION = 0.15
+const _CLIMB_DURATION = 0.20
 
 func _ready() -> void:
 	_climb_timer.wait_time = _CLIMB_DURATION
@@ -28,6 +28,7 @@ func enter_state() -> void:
 
 func set_climb_target(to: Vector2) -> void:
 	_climb_target = to
+	DebugDraw2D.circle_filled(to, 2.0, 16, Color.RED, 1.0)
 
 
 func exit_state() -> void:

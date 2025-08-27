@@ -20,7 +20,9 @@ func set_active(a: bool) -> void:
 
 
 func _on_player_move_change(move_input: Vector2) -> void:
+
 	var x = move_input.x
+
 	if x == 0:
 		_ground_detector_l.enabled = false
 		_ground_detector_r.enabled = false
@@ -33,6 +35,9 @@ func _on_player_move_change(move_input: Vector2) -> void:
 		_ground_detector_l.enabled = true
 		_ground_detector_r.enabled = false
 		_active_shapecast = _ground_detector_l
+
+	if _active_shapecast:
+		_active_shapecast.force_shapecast_update()
 
 
 func _physics_process(delta: float) -> void:
