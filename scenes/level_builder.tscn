@@ -1,13 +1,11 @@
-[gd_scene load_steps=45 format=4 uid="uid://b48my00oe5b5y"]
+[gd_scene load_steps=43 format=4 uid="uid://b48my00oe5b5y"]
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
-[ext_resource type="Script" uid="uid://2s3twniveswm" path="res://scripts/levels/object_switch.gd" id="4_1jlcl"]
 [ext_resource type="PackedScene" uid="uid://cvgknv5hx4uwm" path="res://scenes/level_objects/item_box.tscn" id="4_jfcp0"]
 [ext_resource type="PackedScene" uid="uid://epbopmmrox4j" path="res://scenes/level_objects/object_switch.tscn" id="4_kkt7t"]
 [ext_resource type="Script" uid="uid://kn57yj25jwiy" path="res://scripts/levels/saved_level_object.gd" id="5_1jlcl"]
 [ext_resource type="Resource" uid="uid://c0p0fb7uoe6l8" path="res://resources/default_loot_box.tres" id="5_jfcp0"]
-[ext_resource type="Script" uid="uid://5p3w835j81ec" path="res://scripts/item_box.gd" id="8_6t8vq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -322,51 +320,28 @@ shape = SubResource("RectangleShape2D_0anoc")
 position = Vector2(52, -20)
 shape = SubResource("RectangleShape2D_yvlkh")
 
-[node name="ObjectSwitch" type="Node2D" parent="." instance=ExtResource("4_kkt7t")]
-script = ExtResource("4_1jlcl")
+[node name="ObjectSwitch" parent="." instance=ExtResource("4_kkt7t")]
 min_objects = 1
 max_objects = 3
 objects = Array[ExtResource("5_1jlcl")]([SubResource("Resource_7qo2i"), SubResource("Resource_i5emi"), SubResource("Resource_s1f35"), SubResource("Resource_g4wom"), SubResource("Resource_8av1l"), SubResource("Resource_mrsll"), SubResource("Resource_ptyvr")])
-packed_scene_path = "res://scenes/level_objects/object_switch.tscn"
 
-[node name="ItemBox" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+[node name="ItemBox" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(0, -90)
-script = ExtResource("8_6t8vq")
-loot_table = ExtResource("5_jfcp0")
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
-[node name="@Node2D@40362" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+[node name="@Node2D@40362" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(44, -57)
-script = ExtResource("8_6t8vq")
-loot_table = ExtResource("5_jfcp0")
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
-[node name="@Node2D@40363" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+[node name="@Node2D@40363" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(-44, -122)
-script = ExtResource("8_6t8vq")
-loot_table = ExtResource("5_jfcp0")
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
-[node name="@Node2D@40364" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+[node name="@Node2D@40364" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(44, -186)
-script = ExtResource("8_6t8vq")
-loot_table = ExtResource("5_jfcp0")
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
-[node name="@Node2D@40365" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+[node name="@Node2D@40365" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(-44, -249)
-script = ExtResource("8_6t8vq")
-loot_table = ExtResource("5_jfcp0")
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
-[node name="@Node2D@40366" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+[node name="@Node2D@40366" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(0, -152)
-script = ExtResource("8_6t8vq")
-loot_table = ExtResource("5_jfcp0")
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"
 
-[node name="@Node2D@40367" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+[node name="@Node2D@40367" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
 position = Vector2(0, -216)
-script = ExtResource("8_6t8vq")
-loot_table = ExtResource("5_jfcp0")
-packed_scene_path = "res://scenes/level_objects/item_box.tscn"

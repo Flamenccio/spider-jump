@@ -22,9 +22,7 @@ func _ready() -> void:
 	_powerup_flash_timer.wait_time = _POWERUP_FLASH_DURATION
 	add_child(_powerup_flash_timer)
 
-
-func _on_powerup_consumed(powerup: String) -> void:
-	_handle_powerup(powerup)
+	PlayerEventBus.item_collected.connect(_on_item_collected)
 
 
 func _end_powerups() -> void:

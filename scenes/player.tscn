@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=104 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -12,8 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://c61jllj1lwpwe" path="res://sprites/player_hopperpop.png" id="10_cs1tg"]
 [ext_resource type="Texture2D" uid="uid://dhrojosr38xuv" path="res://sprites/player_heavy_beetle.png" id="11_fdfoy"]
 [ext_resource type="Texture2D" uid="uid://dbbm203x14qqx" path="res://sprites/player_blinkfly.png" id="12_holxr"]
-[ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://scripts/player/collision_handler.gd" id="15_wqfne"]
+[ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://scripts/player/ground_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://scripts/collision/ground_raycast.gd" id="16_qfm1y"]
+[ext_resource type="Script" uid="uid://c0ons1lxb731t" path="res://scripts/raycaster.gd" id="17_6e8lb"]
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://scripts/collision/shape_cast_check.gd" id="17_qfm1y"]
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
@@ -47,6 +48,8 @@
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="46_u2ulf"]
 [ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="47_6e8lb"]
+[ext_resource type="Script" uid="uid://brlb4pd1xs1t" path="res://scripts/item_handler.gd" id="48_4gjji"]
+[ext_resource type="Script" uid="uid://dxnvroxa5x5nj" path="res://scripts/danger_handler.gd" id="49_u2ulf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
 shader = ExtResource("2_dt7fs")
@@ -526,14 +529,6 @@ animation = &"fall"
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_31cv2")
 
-[node name="CollisionHandler" type="Node" parent="." node_paths=PackedStringArray("_ground_raycast", "_ground_shapecast")]
-script = ExtResource("15_wqfne")
-_ground_raycast = NodePath("../Casters/GroundRaycast")
-_ground_shapecast = NodePath("../Casters/SlipShapecast")
-_ground_layer = 2
-_slip_layer = 4
-_ground_raycast_direction = Vector2(0, 5)
-
 [node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_ground_detector_l", "_ground_detector_r")]
 script = ExtResource("24_l71n6")
 _ground_detector_l = NodePath("../Detectors/LedgeDetectorL")
@@ -578,6 +573,16 @@ script = ExtResource("16_qfm1y")
 _raycast_layer = 6
 raycast_source = NodePath("../..")
 metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
+
+[node name="SlipRaycast" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
+script = ExtResource("16_qfm1y")
+_raycast_layer = 4
+raycast_source = NodePath("../..")
+metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
+
+[node name="Raycaster" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
+script = ExtResource("17_6e8lb")
+raycast_source = NodePath("../..")
 
 [node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player", "_danger_shapecast", "_safe_spot_shapecast", "_safe_spot_distance_raycast")]
 script = ExtResource("19_4r5pv")
@@ -661,10 +666,6 @@ target_position = Vector2(0, 0)
 max_results = 4
 collision_mask = 6
 
-[node name="PowerupHandler" type="Node" parent="." node_paths=PackedStringArray("_animator")]
-script = ExtResource("34_md1ol")
-_animator = NodePath("../SpriteTree")
-
 [node name="StateMachineHandler" type="Node" parent="." node_paths=PackedStringArray("_state_machine_player")]
 script = ExtResource("32_mx1m4")
 _state_machine_player = NodePath("StateMachinePlayer")
@@ -741,6 +742,24 @@ script = ExtResource("47_6e8lb")
 _player = NodePath("../../../..")
 _decceleration = 1.5
 
+[node name="Handlers" type="Node" parent="."]
+
+[node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_raycaster")]
+script = ExtResource("15_wqfne")
+_raycaster = NodePath("../../Casters/Raycaster")
+_ground_layer = 2
+_slip_layer = 4
+
+[node name="PowerupHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_animator")]
+script = ExtResource("34_md1ol")
+_animator = NodePath("../../SpriteTree")
+
+[node name="ItemHandler" type="Node" parent="Handlers"]
+script = ExtResource("48_4gjji")
+
+[node name="DangerHandler" type="Node" parent="Handlers"]
+script = ExtResource("49_u2ulf")
+
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]
 [connection signal="internal_player_fell" from="." to="SafeState" method="_on_player_fell"]
@@ -758,46 +777,29 @@ _decceleration = 1.5
 [connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector"]
 [connection signal="moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", false]]
-[connection signal="collected_item" from="CollisionHandler" to="PowerupHandler" method="_on_item_collected"]
-[connection signal="consumed_powerup" from="CollisionHandler" to="PowerupHandler" method="_on_powerup_consumed"]
-[connection signal="danger_entered" from="CollisionHandler" to="." method="_on_danger_entered"]
-[connection signal="danger_entered" from="CollisionHandler" to="Particles/ParticleEmitter" method="spawn_player_hit"]
-[connection signal="danger_entered" from="CollisionHandler" to="StateMachineHandler" method="set_param" binds= ["ko", true]]
-[connection signal="land_on_ground" from="CollisionHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "ground"]]
-[connection signal="land_on_normal" from="CollisionHandler" to="." method="_rotate_against_normal"]
-[connection signal="land_on_normal" from="CollisionHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
-[connection signal="land_on_normal" from="CollisionHandler" to="StateMachineHandler/Aim" method="_on_normal_land"]
-[connection signal="land_on_normal" from="CollisionHandler" to="StateMachineHandler/Idle" method="_normal_updated"]
-[connection signal="land_on_slip" from="CollisionHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "slip"]]
-[connection signal="leave_ground" from="CollisionHandler" to="StateMachineHandler/Aim" method="_on_leave_ground"]
-[connection signal="leave_ground" from="CollisionHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "air"]]
-[connection signal="lose_powerup" from="CollisionHandler" to="PowerupHandler" method="_end_powerups"]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]
 [connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
 [connection signal="spawn_particle" from="Particles/ParticleEmitter" to="Particles/ParticleEmitter/ParticleEmitter" method="spawn_particle"]
-[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_body_shape_entered" unbinds=1]
-[connection signal="body_shape_exited" from="Detectors/GroundDetector" to="CollisionHandler" method="_on_body_shape_exited" unbinds=1]
-[connection signal="body_entered" from="Detectors/ItemDetector" to="CollisionHandler" method="_on_item_collided"]
-[connection signal="body_entered" from="Detectors/DangerDetector" to="CollisionHandler" method="_on_danger_entered"]
-[connection signal="powerup_ended" from="PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]
-[connection signal="powerup_started" from="PowerupHandler" to="CollisionHandler" method="_on_powerup_started"]
-[connection signal="powerup_started" from="PowerupHandler" to="Particles/ParticleEmitter" method="spawn_powerup_flash" unbinds=1]
+[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_enter" unbinds=1]
+[connection signal="body_shape_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited" unbinds=1]
+[connection signal="body_entered" from="Detectors/ItemDetector" to="Handlers/ItemHandler" method="_on_item_collided"]
+[connection signal="body_entered" from="Detectors/DangerDetector" to="Handlers/DangerHandler" method="_on_danger_entered"]
 [connection signal="aim_entered" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="activate_trajectory"]
-[connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="CollisionHandler" method="_on_player_jumped"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
-[connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="PowerupHandler" method="_on_player_blinkfly_jumped"]
-[connection signal="player_jumped" from="StateMachineHandler/Aim" to="CollisionHandler" method="_on_player_jumped"]
+[connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Handlers/GroundHandler" method="_on_player_jumped"]
+[connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Handlers/PowerupHandler" method="_on_player_blinkfly_jumped"]
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
+[connection signal="player_jumped" from="StateMachineHandler/Aim" to="Handlers/GroundHandler" method="_on_player_jumped"]
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="Particles/Dust" method="set_emitting" binds= [true]]
 [connection signal="trajectory_updated" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="_update_trajectory"]
-[connection signal="climb_finished" from="StateMachineHandler/Climb" to="CollisionHandler" method="_recalculate_normal"]
+[connection signal="climb_finished" from="StateMachineHandler/Climb" to="Handlers/GroundHandler" method="_recalculate_normal"]
 [connection signal="player_crawled" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
 [connection signal="player_stopped_crawl" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
-[connection signal="normal_recheck_requested" from="StateMachineHandler/Idle" to="CollisionHandler" method="_recalculate_normal"]
+[connection signal="normal_recheck_requested" from="StateMachineHandler/Idle" to="Handlers/GroundHandler" method="_recalculate_normal"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/Dust" method="set_emitting" binds= [false]]
 [connection signal="player_koed" from="StateMachineHandler/KO" to="SpriteTree" method="switch_sprite_branch" binds= ["normal", "ko"]]
@@ -807,3 +809,19 @@ _decceleration = 1.5
 [connection signal="player_recovered" from="StateMachineHandler/KO" to="Detectors/GroundDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachineHandler/KO" to="Detectors/ItemDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachineHandler/KO" to="Detectors/DangerDetector" method="set_monitoring" binds= [false]]
+[connection signal="land_on_ground" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "ground"]]
+[connection signal="land_on_normal" from="Handlers/GroundHandler" to="." method="_rotate_against_normal"]
+[connection signal="land_on_normal" from="Handlers/GroundHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
+[connection signal="land_on_normal" from="Handlers/GroundHandler" to="StateMachineHandler/Aim" method="_on_normal_land"]
+[connection signal="land_on_normal" from="Handlers/GroundHandler" to="StateMachineHandler/Idle" method="_normal_updated"]
+[connection signal="land_on_slip" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "slip"]]
+[connection signal="leave_ground" from="Handlers/GroundHandler" to="StateMachineHandler/Aim" method="_on_leave_ground"]
+[connection signal="leave_ground" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "air"]]
+[connection signal="powerup_ended" from="Handlers/PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]
+[connection signal="powerup_started" from="Handlers/PowerupHandler" to="Handlers/GroundHandler" method="_on_powerup_started"]
+[connection signal="powerup_started" from="Handlers/PowerupHandler" to="Particles/ParticleEmitter" method="spawn_powerup_flash" unbinds=1]
+[connection signal="collected_powerup" from="Handlers/ItemHandler" to="Handlers/PowerupHandler" method="_handle_powerup"]
+[connection signal="lose_powerup" from="Handlers/DangerHandler" to="Handlers/PowerupHandler" method="_end_powerups"]
+[connection signal="player_damaged" from="Handlers/DangerHandler" to="." method="_on_danger_entered"]
+[connection signal="player_damaged" from="Handlers/DangerHandler" to="Particles/ParticleEmitter" method="spawn_player_hit"]
+[connection signal="player_damaged" from="Handlers/DangerHandler" to="StateMachineHandler" method="set_param" binds= ["ko", true]]

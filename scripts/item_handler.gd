@@ -1,0 +1,32 @@
+extends Node
+
+signal collected_item(item_id: String)
+signal collected_powerup(powerup_id: String)
+
+const YUMFLY_STAMINA_RECOVERY = 0.25
+
+func _on_item_collided(item: Node2D) -> void:
+	if item is not Item:
+		return
+	_on_item_collected(item as Item)
+	item.queue_free()
+
+
+func _on_item_collected(item: Item) -> void:
+
+	if ItemIds.is_item_powerup(item.item_id):
+		collected_powerup.emit(item.item_id)
+		PlayerEventBus.player_consumed_item.emit(item)
+		return
+
+	if item.item_id == ItemIds.YUMFLY_ITEM:
+		PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, YUMFLY_STAMINA_RECOVERY)
+		# TODO: duplicate?
+		PlayerEventBus.player_consumed_item.emit(item)
+		PlayerEventBus.item_collected.emit(item.item_id)
+		collected_item.emit(item.item_id)
+		return
+
+	push_error('item handler: unknown item id "{0}"'.format({'0': item.item_id}))
+
+
