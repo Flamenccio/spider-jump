@@ -14,7 +14,7 @@ var _down_vector: Vector2
 var _last_position: Vector2
 
 # Lower values mean higher precision
-const _MOTION_DETECTION_PRECISION = 0.1
+const _MOTION_DETECTION_PRECISION = 0.01
 
 func enter_state() -> void:
 	_player.velocity = Vector2.ZERO
