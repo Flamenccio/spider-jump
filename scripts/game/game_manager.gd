@@ -22,6 +22,7 @@ func _ready() -> void:
 			_on_score_updated(value)
 	)
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		get_tree().call_group('item', 'remove_powerup')
 		if powerup == ItemIds.SUPER_GRUB_POWERUP:
 			_old_stamina_drain = _stamina_drain_amount
 			_stamina_drain_amount = 0.0

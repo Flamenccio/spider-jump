@@ -3,6 +3,15 @@ extends Node
 @export var _game_manager: Node
 @export var _decorations: Array[LevelDecoration]
 var height: float = 0.0
+var no_powerups: bool = false
+
+func _ready() -> void:
+	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		no_powerups = true
+	)
+	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+		no_powerups = false
+	)
 
 
 func _on_level_spawned(level: Node2D) -> void:
@@ -45,6 +54,9 @@ func _unpack_item_boxes(level: Node2D) -> void:
 	var children = level.get_children(true)
 	for child in children:
 		if child is ItemBox:
+			if no_powerups:
+				(child as ItemBox).spawn_loot(0)
+				continue
 			(child as ItemBox).spawn_loot(GameConstants.difficulty)
 
 

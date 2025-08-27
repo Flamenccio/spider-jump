@@ -42,6 +42,7 @@ enabled=PackedStringArray("res://addons/debugdraw2d/plugin.cfg", "res://addons/i
 [global_group]
 
 player="Player character"
+powerup="item that grants the player a powerup"
 
 [input]
 

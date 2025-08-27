@@ -10,7 +10,7 @@ radius = 3.0
 atlas = ExtResource("2_7bchr")
 region = Rect2(32, 0, 8, 8)
 
-[node name="HeavyBeetle" type="StaticBody2D"]
+[node name="HeavyBeetle" type="StaticBody2D" groups=["powerup"]]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_fce8i")

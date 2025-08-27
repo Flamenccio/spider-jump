@@ -76,6 +76,10 @@ func _physics_process(delta: float) -> void:
 	ray_query.collision_mask = _active_shapecast.collision_mask
 
 	var ray_result = _raycaster.intersect_ray(ray_query)
+
+	if ray_result.size() == 0:
+		return
+
 	var ray_intersection = ray_result['position']
 	var ray_collider = ray_result['collider']
 	var climb_position = _active_shapecast.global_position

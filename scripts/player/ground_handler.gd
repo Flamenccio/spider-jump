@@ -123,6 +123,7 @@ func _search_for_slip(body: Node2D, shape_index: int) -> void:
 
 	if _raycaster.raycast_source.global_position.y <= top:
 		if _track_ground(collider):
+			land_on_normal.emit(Vector2.UP)
 			land_on_slip.emit()
 
 
