@@ -693,7 +693,7 @@ _player = NodePath("../..")
 [node name="Crawl" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player")]
 script = ExtResource("37_g5jhy")
 _player = NodePath("../..")
-_move_speed = 15.0
+_move_speed = 20.0
 
 [node name="Entry" type="Node" parent="StateMachineHandler"]
 script = ExtResource("38_holxr")
