@@ -7,6 +7,7 @@ signal climb_started()
 @export var _ground_detector_l: ShapeCast2D
 @export var _ground_detector_r: ShapeCast2D
 @export var _raycaster: Raycaster
+@export_flags_2d_physics var _unclimbable: int
 
 var _active_shapecast: ShapeCast2D
 var active: bool = false
@@ -63,6 +64,7 @@ func _physics_process(delta: float) -> void:
 
 	var raycast_direction := Vector2.ZERO
 
+	# Adjust _climb_position if it's too far from the surface for the player to stick to
 	if _active_shapecast == _ground_detector_l:
 		raycast_direction = _LEFT_DETECTOR_RAYCAST_DIRECTION.rotated(_player.rotation) * _DETECTOR_RAYCAST_LENGTH
 	elif _active_shapecast == _ground_detector_r:
@@ -75,8 +77,13 @@ func _physics_process(delta: float) -> void:
 
 	var ray_result = _raycaster.intersect_ray(ray_query)
 	var ray_intersection = ray_result['position']
+	var ray_collider = ray_result['collider']
 	var climb_position = _active_shapecast.global_position
 	var shapecast_distance = climb_position.distance_to(ray_intersection)
+
+	# Do not ledge climb if the player is standing on an unclimbable surface
+	if ray_collider.collision_layer & _unclimbable > 0:
+		return
 
 	if shapecast_distance > _shapecast_radius:
 		var vector_to_climb_position = (ray_intersection - climb_position).normalized()

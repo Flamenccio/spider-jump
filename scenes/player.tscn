@@ -535,6 +535,7 @@ _player = NodePath("..")
 _ground_detector_l = NodePath("../Detectors/LedgeDetectorL")
 _ground_detector_r = NodePath("../Detectors/LedgeDetectorR")
 _raycaster = NodePath("../Casters/Raycaster")
+_unclimbable = 4
 
 [node name="Casters" type="Node" parent="."]
 
