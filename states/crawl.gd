@@ -7,7 +7,7 @@ signal player_stopped_crawl()
 @export var _move_speed: float = 1.0
 var _move_input: Vector2
 
-const _HEAVY_BEETLE_MULTIPLIER = 5.0
+const _HEAVY_BEETLE_MULTIPLIER = 3.0
 const _SUPER_GRUB_MULTIPLIER = 1.8
 const _BLINKFLY_MULTILPIER = 1.6
 

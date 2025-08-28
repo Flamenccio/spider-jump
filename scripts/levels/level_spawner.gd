@@ -98,7 +98,6 @@ func _spawn_level(level: SavedLevel) -> void:
 		var old = _active_levels_queue.pop_front() as Node
 		_level_type_history.pop_front()
 		old.queue_free()
-	print('level history: ', _level_type_history)
 
 
 func spawn_new_level(excluding: Array[String] = []) -> void:
@@ -122,12 +121,10 @@ func spawn_new_level(excluding: Array[String] = []) -> void:
 	var r = randf_range(0.0, 1.0)
 	var threshold = (float(active_duplicates) / float(_MAX_DUPLICATE_LEVEL_TYPES))
 	if r > threshold:
-		print('roll hit!')
 		_spawn_level(random)
 		return
 
 	# Spawn another level type!
-	print('roll missed... spawning another level type')
 	excluding.append(random.saved_name)
 	spawn_new_level(excluding)
 

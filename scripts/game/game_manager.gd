@@ -22,7 +22,7 @@ func _ready() -> void:
 			_on_score_updated(value)
 	)
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
-		get_tree().call_group('item', 'remove_powerup')
+		call_deferred('_remove_all_powerups')
 		if powerup == ItemIds.SUPER_GRUB_POWERUP:
 			_old_stamina_drain = _stamina_drain_amount
 			_stamina_drain_amount = 0.0
@@ -35,6 +35,11 @@ func _ready() -> void:
 	# Pause drain
 	PlayerEventBus.powerup_flash_start.connect(func(): _pause_stamina_drain = true)
 	PlayerEventBus.powerup_flash_end.connect(func(): _pause_stamina_drain = false)
+
+
+# Replaces all existing powerup items with yumfly
+func _remove_all_powerups() -> void:
+	get_tree().call_group('powerup', 'remove_powerup')
 
 
 func game_over() -> void:
