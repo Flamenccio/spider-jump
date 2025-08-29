@@ -29,4 +29,5 @@ func exit_state() -> void:
 
 func update_state(delta: float) -> void:
 	_player.move_and_slide()
-	_player.velocity = _player.velocity + _gravity_vector
+	_player.velocity += _gravity_vector * delta
+

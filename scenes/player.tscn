@@ -712,6 +712,7 @@ _player = NodePath("../..")
 [node name="KO" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player")]
 script = ExtResource("41_u2ulf")
 _player = NodePath("../..")
+_ko_gravity = 980.0
 _ko_jump_force = 150.0
 
 [node name="Powerup" type="Node" parent="StateMachineHandler"]
