@@ -32,6 +32,7 @@ func _end_powerups() -> void:
 	powerup_ended.emit()
 	_animator.switch_sprite_branch('normal')
 	PlayerEventBus.powerup_ended.emit(current_powerup)
+	GameConstants.current_powerup = ItemIds.NO_POWERUP
 	while _powerup_end_queue.size() > 0:
 		var p = _powerup_end_queue.pop_front() as Callable
 		p.call()

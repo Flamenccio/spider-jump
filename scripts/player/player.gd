@@ -27,7 +27,7 @@ const _DEFAULT_INVINCIBILITY_TIME = 6.0
 
 func _ready() -> void:
 	_invincibility_timer.one_shot = true
-	_invincibility_timer.timeout.connect(func(): 
+	_invincibility_timer.timeout.connect(func():
 		invincibility_ended.emit()
 	)
 	add_child(_invincibility_timer)

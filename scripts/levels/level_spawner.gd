@@ -71,7 +71,6 @@ func _load_levels(path: String) -> Array[SavedLevel]:
 	# Searches through the directory recursively
 	while current != '':
 		var full_path = '{0}/{1}'.format({'0': path, '1': current})
-		print('full path: ', full_path)
 		if dir.current_is_dir():
 			loaded_levels.append_array(_load_levels(full_path))
 		elif _res_regex.search(current):

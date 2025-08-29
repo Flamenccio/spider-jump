@@ -10,6 +10,8 @@ var _climb_origin: Vector2
 const _CLIMB_VELOCITY = 50
 const _CLIMB_DURATION = 0.10
 
+const _CLIMB_DURATION_MULTIPLIER_HEAVY_BEETLE = 1.4
+
 func _ready() -> void:
 	_climb_timer.wait_time = _CLIMB_DURATION
 	_climb_timer.one_shot = true
@@ -18,6 +20,15 @@ func _ready() -> void:
 		set_param('climb', false)
 	)
 	add_child(_climb_timer)
+
+	PlayerEventBus.powerup_started.connect(func(powerup: String):
+		if powerup == ItemIds.HEAVY_BEETLE_POWERUP:
+			_climb_timer.wait_time *= _CLIMB_DURATION_MULTIPLIER_HEAVY_BEETLE
+	)
+	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+		if powerup == ItemIds.HEAVY_BEETLE_POWERUP:
+			_climb_timer.wait_time /= _CLIMB_DURATION_MULTIPLIER_HEAVY_BEETLE
+	)
 
 
 func enter_state() -> void:
