@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="6_e1j6l"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="7_pl11u"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://scripts/levels/level_spawner.gd" id="8_bhx41"]
-[ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/base.res" id="9_qnb83"]
+[ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/reference/base.res" id="9_qnb83"]
 [ext_resource type="Script" uid="uid://daiq6c47nx1ko" path="res://scripts/level_decorator.gd" id="10_e1j6l"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/player.tscn" id="10_sww3w"]
 [ext_resource type="Script" uid="uid://bysji3wvke32e" path="res://scripts/level_decoration.gd" id="11_bhx41"]

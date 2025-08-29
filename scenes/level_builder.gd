@@ -3,12 +3,12 @@ extends Node2D
 
 @export_group('Save settings')
 @export var _save_level_name: String
-@export var _save_path: String
+@export_dir var _save_path: String
 @export_tool_button('Save') var _save_button: Callable = _save
 
 @export_group('Load settings')
 @export var _load_level_name: String
-@export var _load_path: String
+@export_dir var _load_path: String
 @export_tool_button('Load') var _load_button: Callable = _load
 
 @export_group('Level settings')

@@ -60,6 +60,7 @@ func _load_levels(path: String) -> Array[SavedLevel]:
 
 	var loaded_levels: Array[SavedLevel] = []
 	var dir := DirAccess.open(path)
+
 	dir.list_dir_begin()
 	var current = dir.get_next()
 
@@ -69,12 +70,14 @@ func _load_levels(path: String) -> Array[SavedLevel]:
 
 	# Searches through the directory recursively
 	while current != '':
+		var full_path = '{0}/{1}'.format({'0': path, '1': current})
+		print('full path: ', full_path)
 		if dir.current_is_dir():
-			loaded_levels.append_array(_load_levels(current))
+			loaded_levels.append_array(_load_levels(full_path))
 		elif _res_regex.search(current):
-			var loaded := ResourceLoader.load(dir.get_current_dir() + current)
+			var loaded := ResourceLoader.load(full_path)
 			if loaded is not SavedLevel:
-				print('level spawner: WARNING! "{0}" is not a SavedLevel!'.format({'0': current}))
+				push_warning('level spawner: "{0}" is not a SavedLevel!'.format({'0': current}))
 			loaded_levels.append(loaded)
 		current = dir.get_next()
 	

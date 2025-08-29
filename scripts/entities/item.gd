@@ -9,5 +9,6 @@ var item_id: String:
 		return
 
 func remove_powerup() -> void:
+	print('removed!')
 	TheGlobalSpawner.instantiate_scene(load("res://scenes/level_objects/yummy_fly.tscn"), global_position, 0.0)
 	queue_free()
