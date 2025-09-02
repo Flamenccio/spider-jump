@@ -76,7 +76,7 @@ func _handle_powerup(powerup: String) -> void:
 			_defer_powerup_timer(10)
 			_animator.switch_sprite_branch(ItemIds.HOPPERPOP_POWERUP)
 		ItemIds.HEAVY_BEETLE_POWERUP:
-			_defer_powerup_timer(15)
+			_defer_powerup_timer(12)
 			_animator.switch_sprite_branch(ItemIds.HEAVY_BEETLE_POWERUP)
 			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY * 1.5
 			_powerup_end_queue.push_back(func():
