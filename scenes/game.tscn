@@ -83,6 +83,7 @@ animations = [{
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_player")]
 script = ExtResource("1_264po")
+_debug_initial_difficulty = 2
 _base_stamina_drain_amount = 0.033
 _player = NodePath("Player")
 

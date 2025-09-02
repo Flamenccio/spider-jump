@@ -10,6 +10,9 @@ extends SavedNode
 ## Minimum difficulty level required for this level to spawn
 @export var minimum_level: int = 0
 
+var highest_tile_height: int = 99999
+var lowest_tile_height: int = -99999
+
 func instantiate() -> Node2D:
 
 	var instance = Node2D.new()
@@ -47,6 +50,7 @@ func save_level(level: Node2D, minimum_difficulty: int = 0, level_name: String =
 			saved_tilemap.save_tilemap(child as TileMapLayer)
 			tilemaps.append(saved_tilemap)
 			_calculate_height(child as TileMapLayer)
+			print('found tilemap ', child.name)
 
 		if child is StaticBody2D:
 			var saved_tilemap_collider = SavedTilemapCollider.new()
@@ -61,12 +65,9 @@ func save_level(level: Node2D, minimum_difficulty: int = 0, level_name: String =
 
 func _calculate_height(tilemap: TileMapLayer) -> void:
 
-	# Find highest and lowest points
-	var highest: int = 9999
-	var lowest: int = -9999
-
 	for tile in tilemap.get_used_cells():
-		highest = mini(highest, tile.y)
-		lowest = maxi(lowest, tile.y)
+		highest_tile_height = mini(highest_tile_height, tile.y)
+		lowest_tile_height = maxi(lowest_tile_height, tile.y)
 	
-	level_height = maxi(level_height, (lowest - highest) * tilemap.tile_set.tile_size.y)
+	level_height = maxi(level_height, (lowest_tile_height - highest_tile_height) * tilemap.tile_set.tile_size.y)
+
