@@ -86,7 +86,9 @@ func _physics_process(delta: float) -> void:
 	var shapecast_distance = climb_position.distance_to(ray_intersection)
 
 	# Do not ledge climb if the player is standing on an unclimbable surface
-	if ray_collider.collision_layer & _unclimbable > 0:
+	# ... UNLESS the current powerup is heavy beetle (allows player to climb on all surfaces)
+
+	if GameConstants.current_powerup != ItemIds.HEAVY_BEETLE_POWERUP and ray_collider.collision_layer & _unclimbable > 0:
 		return
 
 	if shapecast_distance > _shapecast_radius:
