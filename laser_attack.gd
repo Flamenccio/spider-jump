@@ -26,7 +26,7 @@ func start_attack() -> void:
 	for i in range(lasers):
 		var tile = available_tiles.pick_random()
 		available_tiles.erase(tile)
-		var horizontal = tile * TILE_SIZE - (GAME_WIDTH_TILES / 2.0) * TILE_SIZE
+		var horizontal = tile * TILE_SIZE - ((GAME_WIDTH_TILES / 2.0) * TILE_SIZE) + (TILE_SIZE / 2.0)
 		var instance := _laser_scene.instantiate()
 		lasers_array.append(instance)
 		instance.connect('laser_attack_finished', _on_laser_attack_finished)
