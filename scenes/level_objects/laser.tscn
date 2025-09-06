@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=3 uid="uid://biiejo68crtvr"]
+
+[ext_resource type="Shader" uid="uid://xu2n37r5lsyv" path="res://shaders/repeat.gdshader" id="1_03f8u"]
+[ext_resource type="Texture2D" uid="uid://b41i1werk3wdh" path="res://sprites/level_event_laser_active-Sheet.png" id="1_cv7lb"]
+[ext_resource type="Script" uid="uid://3ic8lx11hr0b" path="res://scenes/level_objects/laser.gd" id="1_hc31q"]
+[ext_resource type="Texture2D" uid="uid://cekb2udjypay6" path="res://sprites/level_event_laser_telegraph-Sheet.png" id="2_guxa4"]
+[ext_resource type="Script" uid="uid://bubhv415uy3si" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="5_wprj7"]
+[ext_resource type="Resource" uid="uid://42j7hl1ltsl1" path="res://laser.tres" id="6_lgn77"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hc31q"]
+shader = ExtResource("1_03f8u")
+shader_parameter/tiles_x = 1.0
+shader_parameter/tiles_y = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guxa4"]
+atlas = ExtResource("1_cv7lb")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03f8u"]
+atlas = ExtResource("1_cv7lb")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hc31q"]
+atlas = ExtResource("1_cv7lb")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnqhb"]
+atlas = ExtResource("2_guxa4")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgn77"]
+atlas = ExtResource("2_guxa4")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ingp4"]
+atlas = ExtResource("2_guxa4")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lgn77"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guxa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03f8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hc31q")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnqhb")
+}],
+"loop": false,
+"name": &"telegraph",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgn77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ingp4")
+}],
+"loop": true,
+"name": &"telegraph_flash",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03f8u"]
+size = Vector2(8, 256)
+
+[node name="Laser" type="StaticBody2D" node_paths=PackedStringArray("state_machine")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_hc31q")
+state_machine = NodePath("StateMachinePlayer")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 5
+z_as_relative = false
+material = SubResource("ShaderMaterial_hc31q")
+scale = Vector2(1, 32)
+sprite_frames = SubResource("SpriteFrames_lgn77")
+animation = &"telegraph_flash"
+autoplay = "telegraph"
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_03f8u")
+disabled = true
+
+[node name="StateMachinePlayer" type="Node" parent="."]
+script = ExtResource("5_wprj7")
+state_machine = ExtResource("6_lgn77")
+metadata/_custom_type_script = "uid://bubhv415uy3si"
+
+[connection signal="laser_attack_finished" from="." to="Sprite" method="hide" flags=3]
+[connection signal="laser_attack_finished" from="." to="Hitbox" method="set_disabled" flags=3 binds= [true]]
+[connection signal="laser_attack_started" from="." to="Sprite" method="play" binds= ["attack"]]
+[connection signal="laser_attack_started" from="." to="Hitbox" method="set_disabled" flags=3 binds= [false]]
+[connection signal="laser_telegraph_flash_started" from="." to="Sprite" method="play" binds= ["telegraph_flash"]]
+[connection signal="laser_telegraph_started" from="." to="Sprite" method="play" binds= ["telegraph"]]
+[connection signal="transited" from="StateMachinePlayer" to="." method="_transited_state"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn36hducnlllu"]
+
+[ext_resource type="Script" uid="uid://ca1j86odqlau2" path="res://scripts/level_events/lasers.gd" id="1_judrj"]
+[ext_resource type="PackedScene" uid="uid://m2jsi2m03wjh" path="res://scenes/level_events/laser_attack.tscn" id="2_y417i"]
+
+[node name="Lasers" type="Node"]
+script = ExtResource("1_judrj")
+_laser_attack_scene = ExtResource("2_y417i")
+height_duration = 200
+event_id = "lasers"
+metadata/_custom_type_script = "uid://co60x2dwkhhte"

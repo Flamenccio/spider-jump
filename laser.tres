@@ -1,0 +1,109 @@
+[gd_resource type="Resource" script_class="StateMachine" load_steps=18 format=3 uid="uid://42j7hl1ltsl1"]
+
+[ext_resource type="Script" uid="uid://dp62wp3cgttyx" path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" id="1_8rkoj"]
+[ext_resource type="Script" uid="uid://bsnt8wtsxcmjh" path="res://addons/imjp94.yafsm/src/states/State.gd" id="2_oge1b"]
+[ext_resource type="Script" uid="uid://cynb8ukrmur31" path="res://addons/imjp94.yafsm/src/conditions/BooleanCondition.gd" id="3_wjwgt"]
+[ext_resource type="Script" uid="uid://2ll85msjgxlh" path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" id="4_t4opi"]
+[ext_resource type="Script" uid="uid://bffblag21jkq6" path="res://addons/imjp94.yafsm/src/conditions/FloatCondition.gd" id="5_oe8jn"]
+
+[sub_resource type="Resource" id="Resource_jqme3"]
+script = ExtResource("2_oge1b")
+name = "Attack"
+metadata/graph_offset = Vector2(791.5, 361)
+
+[sub_resource type="Resource" id="Resource_rfnp3"]
+script = ExtResource("2_oge1b")
+name = "Entry"
+metadata/graph_offset = Vector2(191.5, 201)
+
+[sub_resource type="Resource" id="Resource_weold"]
+script = ExtResource("2_oge1b")
+name = "Exit"
+metadata/graph_offset = Vector2(991.5, 201)
+
+[sub_resource type="Resource" id="Resource_e68fn"]
+script = ExtResource("2_oge1b")
+name = "Telegraph"
+metadata/graph_offset = Vector2(383, 361)
+
+[sub_resource type="Resource" id="Resource_ugja1"]
+script = ExtResource("2_oge1b")
+name = "TelegraphFlash"
+metadata/graph_offset = Vector2(580.5, 201)
+
+[sub_resource type="Resource" id="Resource_3j56e"]
+script = ExtResource("3_wjwgt")
+value = true
+comparation = 0
+name = "attack_done"
+
+[sub_resource type="Resource" id="Resource_tytou"]
+script = ExtResource("4_t4opi")
+from = "Attack"
+to = "Exit"
+conditions = {
+"attack_done": SubResource("Resource_3j56e")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_a6a0c"]
+script = ExtResource("5_oe8jn")
+value = 0.33
+comparation = 5
+name = "telegraph_time"
+
+[sub_resource type="Resource" id="Resource_7ngrf"]
+script = ExtResource("4_t4opi")
+from = "Telegraph"
+to = "TelegraphFlash"
+conditions = {
+"telegraph_time": SubResource("Resource_a6a0c")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_hcnm8"]
+script = ExtResource("5_oe8jn")
+value = 0.0
+comparation = 5
+name = "telegraph_time"
+
+[sub_resource type="Resource" id="Resource_a1f3m"]
+script = ExtResource("4_t4opi")
+from = "TelegraphFlash"
+to = "Attack"
+conditions = {
+"telegraph_time": SubResource("Resource_hcnm8")
+}
+priority = 0
+
+[sub_resource type="Resource" id="Resource_ulewm"]
+script = ExtResource("4_t4opi")
+from = "Entry"
+to = "Telegraph"
+conditions = {}
+priority = 0
+
+[resource]
+script = ExtResource("1_8rkoj")
+states = {
+"Attack": SubResource("Resource_jqme3"),
+"Entry": SubResource("Resource_rfnp3"),
+"Exit": SubResource("Resource_weold"),
+"Telegraph": SubResource("Resource_e68fn"),
+"TelegraphFlash": SubResource("Resource_ugja1")
+}
+transitions = {
+"Attack": {
+"Exit": SubResource("Resource_tytou")
+},
+"Entry": {
+"Telegraph": SubResource("Resource_ulewm")
+},
+"Telegraph": {
+"TelegraphFlash": SubResource("Resource_7ngrf")
+},
+"TelegraphFlash": {
+"Attack": SubResource("Resource_a1f3m")
+}
+}
+name = ""
