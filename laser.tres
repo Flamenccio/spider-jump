@@ -46,6 +46,13 @@ conditions = {
 }
 priority = 0
 
+[sub_resource type="Resource" id="Resource_ulewm"]
+script = ExtResource("4_t4opi")
+from = "Entry"
+to = "Telegraph"
+conditions = {}
+priority = 0
+
 [sub_resource type="Resource" id="Resource_a6a0c"]
 script = ExtResource("5_oe8jn")
 value = 0.33
@@ -74,13 +81,6 @@ to = "Attack"
 conditions = {
 "telegraph_time": SubResource("Resource_hcnm8")
 }
-priority = 0
-
-[sub_resource type="Resource" id="Resource_ulewm"]
-script = ExtResource("4_t4opi")
-from = "Entry"
-to = "Telegraph"
-conditions = {}
 priority = 0
 
 [resource]

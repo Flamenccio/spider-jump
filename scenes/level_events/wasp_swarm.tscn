@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjlyvoc2yksaq"]
+
+[ext_resource type="Script" uid="uid://dpmi0dlucji46" path="res://scripts/level_events/wasp_swarm.gd" id="1_yoh1m"]
+[ext_resource type="PackedScene" uid="uid://bygoip0hlhnko" path="res://scenes/level_objects/wasp.tscn" id="2_abns1"]
+
+[node name="WaspSwarm" type="Node"]
+script = ExtResource("1_yoh1m")
+_wasp_scene = ExtResource("2_abns1")
+_base_spawn_frequency = 1.0
+height_duration = 200
+event_id = "wasp_swarm"
+metadata/_custom_type_script = "uid://co60x2dwkhhte"

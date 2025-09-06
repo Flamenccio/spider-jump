@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=43 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://821p0psjcurb" path="res://scripts/player/pull_circle.gd" id="12_sgl2t"]
 [ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="13_qouja"]
 [ext_resource type="Script" uid="uid://gq03f4frq8jk" path="res://scripts/level_event_starter.gd" id="13_wljb1"]
-[ext_resource type="PackedScene" uid="uid://cn36hducnlllu" path="res://scenes/level_events/lasers.tscn" id="14_qouja"]
+[ext_resource type="PackedScene" uid="uid://bjlyvoc2yksaq" path="res://scenes/level_events/wasp_swarm.tscn" id="14_v2yb1"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://scripts/levels/level_spawn_trigger.gd" id="14_wljb1"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="15_v2yb1"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="16_js0lu"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
+[ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="32_js0lu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -132,7 +133,7 @@ _decorations = Array[ExtResource("11_bhx41")]([SubResource("Resource_sww3w")])
 [node name="LevelEventStarter" type="Node" parent="LevelSpawner" node_paths=PackedStringArray("_camera")]
 script = ExtResource("13_wljb1")
 _camera = NodePath("../../Camera")
-_debug_lasers_event = ExtResource("14_qouja")
+_debug_event = ExtResource("14_v2yb1")
 
 [node name="Player" parent="." instance=ExtResource("10_sww3w")]
 position = Vector2(0, -12)
@@ -213,6 +214,8 @@ sprite_frames = SubResource("SpriteFrames_v2yb1")
 autoplay = "default"
 frame_progress = 0.442083
 script = ExtResource("30_sgl2t")
+
+[node name="Slip" parent="." instance=ExtResource("32_js0lu")]
 
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]

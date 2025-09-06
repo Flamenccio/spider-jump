@@ -31,6 +31,7 @@ func _ready() -> void:
 		invincibility_ended.emit()
 	)
 	add_child(_invincibility_timer)
+	GameConstants.player = self
 
 
 func _on_input_service_move_input_change(move_input: Vector2) -> void:

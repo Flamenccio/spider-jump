@@ -7,6 +7,10 @@ extends Camera2D
 ## Otherwise, only moves up
 @export var _debug: bool = false
 
+func _ready() -> void:
+	GameConstants.main_camera = self
+
+
 func _process(delta: float) -> void:
 	# Debug movement
 	if _debug:

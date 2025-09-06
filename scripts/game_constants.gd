@@ -9,3 +9,5 @@ const DEFAULT_GRAVITY = 225.0
 var difficulty := 0
 var current_gravity := DEFAULT_GRAVITY
 var current_powerup := ItemIds.NO_POWERUP
+var player: Node2D
+var main_camera: Camera2D

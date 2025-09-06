@@ -6,11 +6,12 @@ const MAXIMUM_EVENT_HISTORY = 2
 const NO_EVENT = 'none'
 
 @export var _camera: Node2D
-@export var _debug_lasers_event: PackedScene
+@export var _debug_event: PackedScene
 var _current_event := NO_EVENT
 var _event_history: Array[String]
 var _events: Dictionary = {
-	'lasers': _event_lasers,
+	'wasps': _event_wasps,
+	#'lasers': _event_lasers,
 	#'sniper': _event_sniper,
 	#'blockade': _event_blockade
 }
@@ -65,9 +66,17 @@ func _spawn_random_event() -> void:
 
 
 func _event_lasers() -> void:
-	var instance = _debug_lasers_event.instantiate()
+	var instance = _debug_event.instantiate()
 	_score_update_functions = instance.on_score_updated
 	_camera.add_child(instance)
+	instance.call('start_event')
+
+
+func _event_wasps() -> void:
+	print('wasps!!!')
+	var instance = _debug_event.instantiate()
+	_score_update_functions = instance.on_score_updated
+	add_child(instance)
 	instance.call('start_event')
 
 
