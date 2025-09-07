@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=42 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://821p0psjcurb" path="res://scripts/player/pull_circle.gd" id="12_sgl2t"]
 [ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="13_qouja"]
 [ext_resource type="Script" uid="uid://gq03f4frq8jk" path="res://scripts/level_event_starter.gd" id="13_wljb1"]
-[ext_resource type="PackedScene" uid="uid://bjlyvoc2yksaq" path="res://scenes/level_events/wasp_swarm.tscn" id="14_v2yb1"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://scripts/levels/level_spawn_trigger.gd" id="14_wljb1"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/hud.tscn" id="15_v2yb1"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/death_screen.tscn" id="16_js0lu"]
@@ -132,8 +131,8 @@ _decorations = Array[ExtResource("11_bhx41")]([SubResource("Resource_sww3w")])
 
 [node name="LevelEventStarter" type="Node" parent="LevelSpawner" node_paths=PackedStringArray("_camera")]
 script = ExtResource("13_wljb1")
+_level_event_path = "res://resources/level_events/"
 _camera = NodePath("../../Camera")
-_debug_event = ExtResource("14_v2yb1")
 
 [node name="Player" parent="." instance=ExtResource("10_sww3w")]
 position = Vector2(0, -12)

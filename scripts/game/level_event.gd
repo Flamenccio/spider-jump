@@ -1,6 +1,8 @@
 class_name LevelEvent
 extends Node
 
+signal event_finished()
+
 ## How many points the player must gain for the event to end
 @export var height_duration: int = 100
 @export var event_id: String
@@ -42,5 +44,6 @@ func on_score_updated(new_score: int) -> void:
 	score_achieved = maxi(score_achieved, new_score - base_score)
 
 	if score_achieved >= height_duration:
+		event_finished.emit()
 		end_event()
 

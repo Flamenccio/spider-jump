@@ -34,7 +34,6 @@ var _file_extension_dictionary := {
 	ResourceType.TEXT_SCENE: TEXT_SCENE_FILE_EXTENSION,
 }
 
-
 ## Returns all resource whose type is specified
 ## by `resource_type` found in `path`.
 ## If `recursive` is `true`, also loads resources from all sub-directories.
@@ -45,7 +44,6 @@ func fetch_resources_from_path(path: String, recursive: bool = true) -> Array[Re
 	if not dir:
 		push_error('resource batch loader: invalid path "{0}"'.format({"0": path}))
 		return []
-
 
 	dir.list_dir_begin()
 	var current_file = dir.get_next()
@@ -60,9 +58,12 @@ func fetch_resources_from_path(path: String, recursive: bool = true) -> Array[Re
 			loaded_resources.append(loaded)
 		current_file = dir.get_next()
 
+	dir.list_dir_end()
 	return loaded_resources
 
 
+## Returns all resources found in `paths`.
+## If `recursive` is `true`, also searches all subdirectories.
 func fetch_resources_from_multiple_paths(paths: Array[String], recursive: bool = true) -> Array[Resource]:
 
 	# If looking recursively, searching subdirectories may result

@@ -34,7 +34,7 @@ func start_attack() -> void:
 
 
 func add_laser(laser: Node2D, horizontal_offset: float) -> void:
-	add_child(laser)
+	GameConstants.main_camera.add_child(laser)
 	laser.position = Vector2(horizontal_offset, 0)
 
 

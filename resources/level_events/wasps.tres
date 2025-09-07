@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="NamedPackedScene" load_steps=3 format=3 uid="uid://uc7gyqh0md82"]
+
+[ext_resource type="Script" uid="uid://di64m1lpab7lt" path="res://scripts/named_packed_scene.gd" id="1_5bfar"]
+[ext_resource type="PackedScene" uid="uid://bjlyvoc2yksaq" path="res://scenes/level_events/wasp_swarm.tscn" id="1_eetqv"]
+
+[resource]
+script = ExtResource("1_5bfar")
+packed_scene = ExtResource("1_eetqv")
+name = "wasp_swarm"
+metadata/_custom_type_script = "uid://di64m1lpab7lt"

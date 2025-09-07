@@ -27,81 +27,6 @@ const _MAX_ACTIVE_LEVELS = 6
 # If a level type appears this many times in the level history, it cannot be the next level
 const _MAX_DUPLICATE_LEVEL_TYPES = 2
 
-
-func _ready() -> void:
-
-	if _level_path == '' or _level_path == null:
-		printerr('level spawner: invalid level path!')
-		return
-
-	if _initial_level == null:
-		print('level spawner: WARNING! initial level is null!')
-
-	_res_regex.compile('.*\\.res')
-	_loaded_levels = _load_levels(_level_path)
-
-	# Remove initial level from loaded levels
-	_loaded_levels.erase(_initial_level)
-	
-	_loaded_levels = _loaded_levels.filter(func(l: SavedLevel): return l != null)
-
-	# Remove levels with a minimum difficulty below 0
-	_loaded_levels = _loaded_levels.filter(func(l: SavedLevel): return l.minimum_level >= 0)
-
-	_on_level_up(0)
-	
-	# Spawn two levels at first
-	_spawn_level(_initial_level)
-	_spawn_trigger.call('travel_to_next_elevation')
-	spawn_new_level()
-
-
-func _load_levels(path: String) -> Array[SavedLevel]:
-
-	var loaded_levels: Array[SavedLevel] = []
-	var dir := DirAccess.open(path)
-
-	dir.list_dir_begin()
-	var current = dir.get_next()
-
-	if not dir:
-		printerr('level spawner: unable to open path "{0}"'.format({'0': path}))
-		return loaded_levels
-
-	# Searches through the directory recursively
-	while current != '':
-		var full_path = '{0}/{1}'.format({'0': path, '1': current})
-		if dir.current_is_dir():
-			loaded_levels.append_array(_load_levels(full_path))
-		elif _res_regex.search(current):
-			var loaded := ResourceLoader.load(full_path)
-			if loaded is not SavedLevel:
-				push_warning('level spawner: "{0}" is not a SavedLevel!'.format({'0': current}))
-			loaded_levels.append(loaded)
-		current = dir.get_next()
-	
-	dir.list_dir_end()
-	return loaded_levels
-
-
-func _spawn_level(level: SavedLevel) -> void:
-	var new_level_height = level.level_height
-	var instance = level.instantiate()
-	call_deferred('add_child', instance)
-	instance.global_position = Vector2(0, _game_height)
-	_game_height -= new_level_height
-	new_level_spawned.emit(_game_height)
-	new_level_body_spawned.emit(instance as Node2D)
-
-	# Track new level and destroy old one
-	_active_levels_queue.push_back(instance)
-	_level_type_history.push_back(level.saved_name)
-	if _active_levels_queue.size() >= _MAX_ACTIVE_LEVELS:
-		var old = _active_levels_queue.pop_front() as Node
-		_level_type_history.pop_front()
-		old.queue_free()
-
-
 func spawn_new_level(excluding: Array[String] = []) -> void:
 	var random
 
@@ -129,6 +54,56 @@ func spawn_new_level(excluding: Array[String] = []) -> void:
 	# Spawn another level type!
 	excluding.append(random.saved_name)
 	spawn_new_level(excluding)
+
+
+func _ready() -> void:
+
+	if _level_path == '' or _level_path == null:
+		printerr('level spawner: invalid level path!')
+		return
+
+	if _initial_level == null:
+		print('level spawner: WARNING! initial level is null!')
+
+	var loader = ResourceBatchLoader.new()
+	loader.resource_type = ResourceBatchLoader.ResourceType.GENERIC
+	var loaded_resources = loader.fetch_resources_from_path(_level_path)
+	loaded_resources = loaded_resources.filter(func(r: Resource): return r is SavedLevel)
+
+	for resource in loaded_resources:
+		_loaded_levels.append(resource as SavedLevel)
+
+	# Remove initial level from loaded levels
+	_loaded_levels.erase(_initial_level)
+	_loaded_levels = _loaded_levels.filter(func(l: SavedLevel): return l != null)
+
+	# Remove levels with a minimum difficulty below 0
+	_loaded_levels = _loaded_levels.filter(func(l: SavedLevel): return l.minimum_level >= 0)
+
+	_on_level_up(0)
+	
+	# Spawn two levels at first
+	_spawn_level(_initial_level)
+	_spawn_trigger.call('travel_to_next_elevation')
+	spawn_new_level()
+
+
+func _spawn_level(level: SavedLevel) -> void:
+	var new_level_height = level.level_height
+	var instance = level.instantiate()
+	call_deferred('add_child', instance)
+	instance.global_position = Vector2(0, _game_height)
+	_game_height -= new_level_height
+	new_level_spawned.emit(_game_height)
+	new_level_body_spawned.emit(instance as Node2D)
+
+	# Track new level and destroy old one
+	_active_levels_queue.push_back(instance)
+	_level_type_history.push_back(level.saved_name)
+	if _active_levels_queue.size() >= _MAX_ACTIVE_LEVELS:
+		var old = _active_levels_queue.pop_front() as Node
+		_level_type_history.pop_front()
+		old.queue_free()
 
 
 # Filter out levels that do not meet minimum difficulty (level) requirement
