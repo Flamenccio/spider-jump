@@ -1,12 +1,12 @@
 extends Node2D
 
 signal player_entered()
-@export var _particle_emitter: SpriteParticleEmitter
-@export var _high_score_saver: Node
+
+const _DEATH_TIMER_DURATION = 3.0
 
 var _death_timer: Timer = Timer.new()
 
-const _DEATH_TIMER_DURATION = 3.0
+@export var _high_score_saver: Node
 
 func _ready() -> void:
 	_death_timer.one_shot = true
@@ -16,6 +16,7 @@ func _ready() -> void:
 
 
 func _on_stats_saver_ready() -> void:
+
 	var high_score = _high_score_saver.get_high_score()
 
 	# Move to high score elevation
@@ -28,6 +29,6 @@ func _on_stats_saver_ready() -> void:
 
 
 func _on_player_entered() -> void:
-	_particle_emitter.spawn_particle('high_score', global_position)
+	GlobalFlashParticleSpawner.spawn_particle("player_high_score_text", global_position, 0.0)
 	_death_timer.start()
 	player_entered.emit()

@@ -8,6 +8,8 @@ extends Resource
 @export var scale: Vector2 = Vector2(1.0, 1.0)
 @export var shader: ShaderMaterial
 @export var z_index: int = 10
+@export var expiration_type: FlashParticle.ExpirationType = FlashParticle.ExpirationType.ANIMATION_END
+@export var expiration_loops: int
 
 func instantiate_particle(global_position: Vector2, rotation: float = 0.0) -> void:
 	var instance := FlashParticle.new()
@@ -23,5 +25,7 @@ func _add_particle(particle: FlashParticle, global_position: Vector2, rotation: 
 	particle.z_index = z_index
 	particle.scale = scale
 	particle.material = shader
+	particle.expiration_loops = expiration_loops
+	particle.expiration_type = expiration_type
 	var animations = frames.get_animation_names()
 	particle.play(animations[0])

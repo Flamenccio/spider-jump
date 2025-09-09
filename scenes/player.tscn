@@ -19,7 +19,7 @@
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
-[ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/custom_particle_emitter.gd" id="21_a38lo"]
+[ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/player_particle_emitter.gd" id="21_a38lo"]
 [ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://scripts/player/ledge_climb.gd" id="24_l71n6"]
 [ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/parabola_particles.tscn" id="28_pf23h"]
 [ext_resource type="Script" uid="uid://ciukd8uvw0shs" path="res://scripts/player_state_machine.gd" id="32_mx1m4"]

@@ -56,4 +56,4 @@ particle_name = "player_powerup_gain"
 frames = SubResource("SpriteFrames_e7ry4")
 offset = Vector2(0, 0)
 scale = Vector2(128, 1)
-z_index = 0
+z_index = 1

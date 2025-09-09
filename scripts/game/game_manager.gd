@@ -5,18 +5,20 @@ signal on_game_over()
 signal stamina_drained(amount: float)
 signal score_updated(score: int)
 
-## Base amount of stamina drained per second, from 0.0 - 1.0
-@export var _debug_initial_difficulty: int = 0
-@export var _base_stamina_drain_amount: float = 0.0
+const _LEVEL_UP_DRAIN_INCREASE = 0.010
+
 var _stamina_drain_amount: float = 0.0
 var _old_stamina_drain: float = 0.0
 var _pause_stamina_drain: bool = false
 
-@export var _player: Node2D
-
-const _LEVEL_UP_DRAIN_INCREASE = 0.005
+## Base amount of stamina drained per second, from 0.0 - 1.0
+@export var _debug_initial_difficulty: int = 0
+@export var _base_stamina_drain_amount: float = 0.0
+var _player: Node2D
 
 func _ready() -> void:
+
+	_player = GameConstants.player
 	_stamina_drain_amount = _base_stamina_drain_amount
 	GameConstants.difficulty = _debug_initial_difficulty
 

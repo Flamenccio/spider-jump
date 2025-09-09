@@ -1,9 +1,8 @@
-[gd_scene load_steps=41 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=40 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
 [ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://scripts/game/death_trigger.gd" id="4_37s47"]
-[ext_resource type="PackedScene" uid="uid://cmsarojf16j7v" path="res://scenes/player_death_lights.tscn" id="5_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="6_e1j6l"]
 [ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="7_pl11u"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://scripts/levels/level_spawner.gd" id="8_bhx41"]
@@ -81,11 +80,10 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("_player")]
+[node name="Game" type="Node2D"]
 script = ExtResource("1_264po")
-_debug_initial_difficulty = 6
+_debug_initial_difficulty = 1
 _base_stamina_drain_amount = 0.033
-_player = NodePath("Player")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
@@ -100,7 +98,6 @@ collision_layer = 0
 collision_priority = 5.0
 priority = 5
 script = ExtResource("4_37s47")
-vfx = ExtResource("5_bt5mj")
 
 [node name="Shape" type="CollisionShape2D" parent="Camera/DeathTrigger"]
 shape = SubResource("RectangleShape2D_eow3j")

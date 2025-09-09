@@ -1,42 +1,42 @@
-[gd_scene load_steps=13 format=3 uid="uid://126u4pc2wld0"]
+[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=13 format=3 uid="uid://dhie40qs3f6re"]
 
-[ext_resource type="Script" uid="uid://bxem3g423nk86" path="res://scripts/flash_particle_preview.gd" id="1_v476d"]
-[ext_resource type="Texture2D" uid="uid://csrmndrimud8b" path="res://sprites/player_death_lights-Sheet.png" id="1_vnq7h"]
+[ext_resource type="Texture2D" uid="uid://csrmndrimud8b" path="res://sprites/player_death_lights-Sheet.png" id="1_4mpr6"]
+[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="2_v3phk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8304l"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lemdf"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(8, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6dmx"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(16, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3a20s"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(24, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bessa"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(32, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1fbri"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(40, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2xs7k"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(48, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yln2l"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(56, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uf5ml"]
-atlas = ExtResource("1_vnq7h")
+atlas = ExtResource("1_4mpr6")
 region = Rect2(64, 0, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e7ry4"]
@@ -74,13 +74,12 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="FlashParticlePreview" type="AnimatedSprite2D"]
-z_index = 5
+[resource]
+script = ExtResource("2_v3phk")
+particle_name = "player_death_flash"
+frames = SubResource("SpriteFrames_e7ry4")
+offset = Vector2(0, 0)
 scale = Vector2(1, 128)
-sprite_frames = SubResource("SpriteFrames_e7ry4")
-autoplay = "default"
-frame = 8
-frame_progress = 1.0
-script = ExtResource("1_v476d")
-_file_name = "player_death_flash"
-_directory = "res://resources/flash_particles/"
+z_index = 5
+expiration_type = 0
+expiration_loops = 1
