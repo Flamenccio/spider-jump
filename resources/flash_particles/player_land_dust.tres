@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=12 format=3 uid="uid://bfwg0aldfjhr5"]
+
+[ext_resource type="Texture2D" uid="uid://bob41fd1hruxu" path="res://sprites/land_dust-Sheet.png" id="1_2utay"]
+[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="1_dctpk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahu6x"]
+atlas = ExtResource("1_2utay")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8mg5"]
+atlas = ExtResource("1_2utay")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo5av"]
+atlas = ExtResource("1_2utay")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i60m5"]
+atlas = ExtResource("1_2utay")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2kk6"]
+atlas = ExtResource("1_2utay")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbcal"]
+atlas = ExtResource("1_2utay")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87btx"]
+atlas = ExtResource("1_2utay")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_di4fo"]
+atlas = ExtResource("1_2utay")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7ry4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahu6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8mg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo5av")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i60m5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2kk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbcal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87btx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_di4fo")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[resource]
+script = ExtResource("1_dctpk")
+particle_name = "player_land_dust"
+frames = SubResource("SpriteFrames_e7ry4")
+offset = Vector2(0, -6)

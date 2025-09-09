@@ -1,7 +1,6 @@
-[gd_scene load_steps=42 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=41 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
-[ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="2_1kice"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
 [ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://scripts/game/death_trigger.gd" id="4_37s47"]
 [ext_resource type="PackedScene" uid="uid://cmsarojf16j7v" path="res://scenes/player_death_lights.tscn" id="5_bt5mj"]
@@ -87,9 +86,6 @@ script = ExtResource("1_264po")
 _debug_initial_difficulty = 6
 _base_stamina_drain_amount = 0.033
 _player = NodePath("Player")
-
-[node name="GlobalSpawner" type="Node2D" parent="."]
-script = ExtResource("2_1kice")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)

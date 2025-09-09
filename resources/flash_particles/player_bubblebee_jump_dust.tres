@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=9 format=3 uid="uid://djwt7u0ysowgj"]
+
+[ext_resource type="Texture2D" uid="uid://dkkfsmtphyx2b" path="res://sprites/player_bubblebee_jump_dust-Sheet.png" id="1_ujrwb"]
+[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="2_d4k2o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8304l"]
+atlas = ExtResource("1_ujrwb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lemdf"]
+atlas = ExtResource("1_ujrwb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6dmx"]
+atlas = ExtResource("1_ujrwb")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a20s"]
+atlas = ExtResource("1_ujrwb")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bessa"]
+atlas = ExtResource("1_ujrwb")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7ry4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8304l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lemdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6dmx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a20s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bessa")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[resource]
+script = ExtResource("2_d4k2o")
+particle_name = "player_bubblebee_jump_dust"
+frames = SubResource("SpriteFrames_e7ry4")
+offset = Vector2(0, 0)

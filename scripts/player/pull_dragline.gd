@@ -55,4 +55,3 @@ func _handle_powerup_end(powerup: String) -> void:
 	elif powerup == ItemIds.BLINKFLY_POWERUP:
 		_blinkfly_hide = false
 		show()
-

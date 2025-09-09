@@ -9,4 +9,3 @@ func spawn_particle(particle: String, position: Vector2, rotation: float = 0.0) 
 		printerr('sprite particle emitter: no particle with name "{0}"'.format({'0': particle}))
 		return
 	_particles[index].spawn_particle(position, rotation)
-

@@ -1,10 +1,9 @@
 extends Node
 
-signal spawn_particle(particle: String, position: Vector2, rotation: float)
+var _jumped: bool = false
+var _particle_spawner := GlobalFlashParticleSpawner
 
 @export var _player: Node2D
-
-var _jumped: bool = false
 
 # Called when player lands
 func spawn_dust(normal: Vector2) -> void:
@@ -17,28 +16,29 @@ func spawn_dust(normal: Vector2) -> void:
 	if not _jumped: return
 	_jumped = false
 	var angle_rad = (Vector2.UP).angle_to(normal)
-	spawn_particle.emit('land_dust', _player.global_position, angle_rad)
+	_particle_spawner.spawn_particle("player_land_dust", _player.global_position, angle_rad)
 
 
 # Called when player jumps
 func spawn_jump_dust() -> void:
 	_jumped = true
-	spawn_particle.emit('jump_dust', _player.global_position, _player.rotation)
+	_particle_spawner.spawn_particle("player_jump_dust", _player.global_position, _player.rotation)
 
-
+# Called when player jumps under the hopperpop powerup
 func spawn_hopperpop_jump_dust() -> void:
 	_jumped = true
-	spawn_particle.emit('hopperpop_jump_dust', _player.global_position, _player.rotation)
+	_particle_spawner.spawn_particle("player_hopperpop_jump_dust", _player.global_position, _player.rotation)
 
 
 func spawn_bubblebee_jump_dust() -> void:
 	_jumped = true
-	spawn_particle.emit('bubblebee_jump_dust', _player.global_position, _player.rotation)
+	_particle_spawner.spawn_particle("player_bubblebee_jump_dust", _player.global_position, _player.rotation)
 
 
 func spawn_player_hit() -> void:
-	spawn_particle.emit('player_hit', _player.global_position, 0.0)
+	_particle_spawner.spawn_particle("player_hit", _player.global_position, 0)
 
 
 func spawn_powerup_flash() -> void:
-	spawn_particle.emit('powerup_flash', _player.global_position, 0.0)
+	_particle_spawner.spawn_particle("player_powerup_gain", _player.global_position, 0)
+	_particle_spawner.spawn_particle("player_powerup_gain", _player.global_position, PI / 2.0)

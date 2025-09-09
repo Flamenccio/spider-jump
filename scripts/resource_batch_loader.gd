@@ -99,4 +99,3 @@ func _remove_subdirectories(paths: Array[String]) -> Array[String]:
 
 func _get_file_extension() -> String:
 	return _file_extension_dictionary[resource_type]
-

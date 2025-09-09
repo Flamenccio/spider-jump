@@ -23,6 +23,7 @@ GameConstants="*res://scripts/game_constants.gd"
 PlayerEventBus="*res://scripts/player_event_bus.gd"
 PlayerStatsInterface="*res://scripts/player_stats_interface.gd"
 ItemIds="*res://scripts/item_ids.gd"
+GlobalFlashParticleSpawner="*res://scripts/flash_particle_spawner.gd"
 
 [display]
 
@@ -110,3 +111,4 @@ textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true

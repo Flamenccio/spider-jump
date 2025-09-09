@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=90 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -20,13 +20,8 @@
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/custom_particle_emitter.gd" id="21_a38lo"]
-[ext_resource type="PackedScene" uid="uid://dcsy57p10wcgc" path="res://scenes/landing_dust.tscn" id="21_i4ail"]
-[ext_resource type="PackedScene" uid="uid://cgfccdd6c34ro" path="res://scenes/jumping_dust.tscn" id="23_4ni07"]
 [ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://scripts/player/ledge_climb.gd" id="24_l71n6"]
-[ext_resource type="PackedScene" uid="uid://bbyn6mfqqfcud" path="res://scenes/player_hit_vfx.tscn" id="26_31cv2"]
 [ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/parabola_particles.tscn" id="28_pf23h"]
-[ext_resource type="Script" uid="uid://b4w2husdtviva" path="res://sprites/sprite_particle_emitter.gd" id="30_gl8cc"]
-[ext_resource type="Script" uid="uid://wmfb0j47nkka" path="res://scripts/custom_particle.gd" id="31_487ah"]
 [ext_resource type="Script" uid="uid://ciukd8uvw0shs" path="res://scripts/player_state_machine.gd" id="32_mx1m4"]
 [ext_resource type="Script" uid="uid://e2r68u481i5h" path="res://scripts/player/danger_detector.gd" id="33_487ah"]
 [ext_resource type="Script" uid="uid://bubhv415uy3si" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="33_bj30b"]
@@ -35,12 +30,9 @@
 [ext_resource type="Script" uid="uid://bdjhjbk0dk4pt" path="res://states/aim.gd" id="35_jc3p3"]
 [ext_resource type="Script" uid="uid://br7ajpop2vms0" path="res://behavior_state/player/climb.gd" id="36_hhpqf"]
 [ext_resource type="Script" uid="uid://dr71r23trkggu" path="res://states/crawl.gd" id="37_g5jhy"]
-[ext_resource type="PackedScene" uid="uid://cvv41rexkyv24" path="res://scenes/hopperpop_jumping_dust.tscn" id="38_2dvfe"]
 [ext_resource type="Script" uid="uid://de5mlnbdg5gtl" path="res://states/entry.gd" id="38_holxr"]
-[ext_resource type="PackedScene" uid="uid://bja2h5vps3cu" path="res://scenes/bubblebee_jump_dust.tscn" id="39_giy8y"]
 [ext_resource type="Script" uid="uid://dra5x3kg80ol8" path="res://states/fall.gd" id="39_mx1m4"]
 [ext_resource type="Script" uid="uid://bq8cyg2r3e4us" path="res://states/idle.gd" id="40_4gjji"]
-[ext_resource type="PackedScene" uid="uid://bxa2mh4g28mqc" path="res://scenes/powerup_flash.tscn" id="41_hhpqf"]
 [ext_resource type="Script" uid="uid://ddi1mvcerwx2q" path="res://behavior_state/player/ko.gd" id="41_u2ulf"]
 [ext_resource type="Script" uid="uid://bc4pxggsqm6r2" path="res://behavior_state/player/powerup_entry.gd" id="42_6e8lb"]
 [ext_resource type="Script" uid="uid://dvmvkg11wuswa" path="res://behavior_state/player/exit_powerup.gd" id="43_2gdjj"]
@@ -429,42 +421,6 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Resource" id="Resource_apa73"]
-script = ExtResource("31_487ah")
-particle_name = "land_dust"
-particle_scene = ExtResource("21_i4ail")
-metadata/_custom_type_script = "uid://wmfb0j47nkka"
-
-[sub_resource type="Resource" id="Resource_74r1k"]
-script = ExtResource("31_487ah")
-particle_name = "jump_dust"
-particle_scene = ExtResource("23_4ni07")
-metadata/_custom_type_script = "uid://wmfb0j47nkka"
-
-[sub_resource type="Resource" id="Resource_8svfe"]
-script = ExtResource("31_487ah")
-particle_name = "player_hit"
-particle_scene = ExtResource("26_31cv2")
-metadata/_custom_type_script = "uid://wmfb0j47nkka"
-
-[sub_resource type="Resource" id="Resource_giy8y"]
-script = ExtResource("31_487ah")
-particle_name = "hopperpop_jump_dust"
-particle_scene = ExtResource("38_2dvfe")
-metadata/_custom_type_script = "uid://wmfb0j47nkka"
-
-[sub_resource type="Resource" id="Resource_fdfoy"]
-script = ExtResource("31_487ah")
-particle_name = "bubblebee_jump_dust"
-particle_scene = ExtResource("39_giy8y")
-metadata/_custom_type_script = "uid://wmfb0j47nkka"
-
-[sub_resource type="Resource" id="Resource_g5jhy"]
-script = ExtResource("31_487ah")
-particle_name = "powerup_flash"
-particle_scene = ExtResource("41_hhpqf")
-metadata/_custom_type_script = "uid://wmfb0j47nkka"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_6e8lb"]
 radius = 4.0
 
@@ -614,10 +570,6 @@ anim_speed_max = 1.0
 [node name="ParticleEmitter" type="Node" parent="Particles" node_paths=PackedStringArray("_player")]
 script = ExtResource("21_a38lo")
 _player = NodePath("../..")
-
-[node name="ParticleEmitter" type="Node" parent="Particles/ParticleEmitter"]
-script = ExtResource("30_gl8cc")
-_particles = Array[ExtResource("31_487ah")]([SubResource("Resource_apa73"), SubResource("Resource_74r1k"), SubResource("Resource_8svfe"), SubResource("Resource_giy8y"), SubResource("Resource_fdfoy"), SubResource("Resource_g5jhy")])
 
 [node name="ParabolaParticles" parent="Particles" node_paths=PackedStringArray("_origin") instance=ExtResource("28_pf23h")]
 z_index = -1
@@ -785,7 +737,6 @@ script = ExtResource("49_u2ulf")
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]
 [connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
-[connection signal="spawn_particle" from="Particles/ParticleEmitter" to="Particles/ParticleEmitter/ParticleEmitter" method="spawn_particle"]
 [connection signal="body_shape_entered" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_enter" unbinds=1]
 [connection signal="body_shape_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited" unbinds=1]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="Handlers/ItemHandler" method="_on_item_collided"]

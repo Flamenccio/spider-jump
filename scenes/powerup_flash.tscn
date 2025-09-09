@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxa2mh4g28mqc"]
+[gd_scene load_steps=7 format=3 uid="uid://bk3o6q4c685xb"]
 
 [ext_resource type="Texture2D" uid="uid://rq3naiicifyw" path="res://sprites/powerup-flash-Sheet.png" id="1_4y14o"]
 [ext_resource type="Script" uid="uid://dhn67g4b5sedo" path="res://scripts/particles/powerup_flash.gd" id="2_bwdwi"]

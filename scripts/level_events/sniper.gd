@@ -15,7 +15,12 @@ func _ready() -> void:
 
 
 func start_event() -> void:
+	_activated = true
 	_ready_shot()
+
+
+func end_event() -> void:
+	queue_free()
 
 
 func _ready_shot() -> void:
@@ -27,3 +32,4 @@ func _ready_shot() -> void:
 
 func _on_sniper_shot() -> void:
 	_sniper_shot_timer.start()
+

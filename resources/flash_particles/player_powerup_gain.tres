@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=7 format=3 uid="uid://b1domwkxxv4vm"]
+
+[ext_resource type="Texture2D" uid="uid://rq3naiicifyw" path="res://sprites/powerup-flash-Sheet.png" id="1_t6jm2"]
+[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="2_77ecd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8304l"]
+atlas = ExtResource("1_t6jm2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lemdf"]
+atlas = ExtResource("1_t6jm2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6dmx"]
+atlas = ExtResource("1_t6jm2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7ry4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8304l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lemdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6dmx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8304l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lemdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6dmx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8304l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lemdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6dmx")
+}],
+"loop": false,
+"name": &"default",
+"speed": 24.0
+}]
+
+[resource]
+script = ExtResource("2_77ecd")
+particle_name = "player_powerup_gain"
+frames = SubResource("SpriteFrames_e7ry4")
+offset = Vector2(0, 0)
+scale = Vector2(128, 1)
+z_index = 0
