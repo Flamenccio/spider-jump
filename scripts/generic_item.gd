@@ -3,6 +3,7 @@ class_name GenericItem
 extends Resource
 
 const DEFAULT_SPRITE_ORDER = 10
+const ITEM_LAYER = 8
 
 @export var item_id: String
 @export var sprites: Array[Texture2D]
@@ -32,6 +33,7 @@ func instantiate_item() -> Node2D:
 	instance.add_child(collider_instance)
 	instance.item_id = item_id
 	instance.name = item_id.to_pascal_case()
+	instance.collision_layer = ITEM_LAYER
 
 	if is_powerup:
 		instance.add_to_group("powerup")

@@ -60,10 +60,10 @@ func spawn_loot(current_level: int) -> void:
 
 
 func _spawn_item(item: ItemBoxLoot) -> void:
-	if item.loot_scene == null:
+	if item.loot_item == null:
 		queue_free()
 		return
-	var instance = item.loot_scene.instantiate() as Node2D
+	var instance = item.loot_item.instantiate_item()
 	instance.position = position
 	instance.rotation = rotation
 	get_parent().call_deferred('add_child', instance)
@@ -74,4 +74,3 @@ func get_local_properties() -> Dictionary:
 	return {
 		'loot_table': loot_table,
 	}
-
