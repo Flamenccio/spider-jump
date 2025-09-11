@@ -1,0 +1,100 @@
+[gd_resource type="Resource" script_class="GenericItem" load_steps=17 format=3 uid="uid://bxec6jfxxjtft"]
+
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="1_28nu7"]
+[ext_resource type="Script" uid="uid://dp5tc34634vtw" path="res://scripts/generic_item.gd" id="1_wgnf6"]
+[ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="3_d7dhg"]
+[ext_resource type="Texture2D" uid="uid://m3vdntvgt4cf" path="res://sprites/yum_fly_glow-Sheet.png" id="4_iynhq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmm55"]
+atlas = ExtResource("3_d7dhg")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpi6r"]
+atlas = ExtResource("3_d7dhg")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4cg67"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmm55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpi6r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cg67"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4e58"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3gu6"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajhwr"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6gmg"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uptjm"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcgn7"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xm13h"]
+atlas = ExtResource("4_iynhq")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hmm55"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cg67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4e58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3gu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajhwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6gmg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uptjm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcgn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xm13h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[resource]
+script = ExtResource("1_wgnf6")
+item_id = "yum_fly"
+sprites = Array[Texture2D]([])
+sprite_frames = Array[SpriteFrames]([SubResource("SpriteFrames_4cg67"), SubResource("SpriteFrames_hmm55")])
+collision_shape = ExtResource("1_28nu7")
+metadata/_custom_type_script = "uid://dp5tc34634vtw"

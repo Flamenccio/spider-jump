@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="GenericItem" load_steps=5 format=3 uid="uid://c48hoftiv3yl0"]
+
+[ext_resource type="Script" uid="uid://dp5tc34634vtw" path="res://scripts/generic_item.gd" id="1_30a3b"]
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="1_nu1u1"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="3_fp0au"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+atlas = ExtResource("3_fp0au")
+region = Rect2(40, 0, 8, 8)
+
+[resource]
+script = ExtResource("1_30a3b")
+item_id = "antibug"
+sprites = Array[Texture2D]([SubResource("AtlasTexture_ih772")])
+sprite_frames = Array[SpriteFrames]([])
+collision_shape = ExtResource("1_nu1u1")
+is_powerup = true
+metadata/_custom_type_script = "uid://dp5tc34634vtw"
