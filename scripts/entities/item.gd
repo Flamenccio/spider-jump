@@ -24,7 +24,9 @@ func remove_powerup() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	TheGlobalSpawner.instantiate_scene(load("res://scenes/level_objects/yummy_fly.tscn"), global_position, 0.0)
+	var yumfly_instance = load("res://resources/items/yumfly.tres").instantiate_item()
+	yumfly_instance.global_position = global_position
+	get_parent().add_child(yumfly_instance)
 	queue_free()
 
 

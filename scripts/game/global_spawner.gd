@@ -9,4 +9,3 @@ func instantiate_scene(scene: PackedScene, position: Vector2, angle_rad: float) 
 		node2d.rotation = angle_rad
 		add_child(node2d)
 	else: add_child(instance)
-

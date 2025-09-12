@@ -97,4 +97,5 @@ item_id = "yum_fly"
 sprites = Array[Texture2D]([])
 sprite_frames = Array[SpriteFrames]([SubResource("SpriteFrames_4cg67"), SubResource("SpriteFrames_hmm55")])
 collision_shape = ExtResource("1_28nu7")
+is_powerup = false
 metadata/_custom_type_script = "uid://dp5tc34634vtw"
