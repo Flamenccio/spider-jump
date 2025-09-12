@@ -4,6 +4,7 @@ signal shot_fired()
 signal telegraph()
 
 const LERP_WEIGHT = 0.01
+const DANGER_FLASH_PARTICLE = "danger_flash_2"
 
 var _aim_timer: Timer = Timer.new()
 var _target: Node2D
@@ -44,6 +45,8 @@ func _on_animation_finished() -> void:
 
 
 func _fire() -> void:
+	GlobalFlashParticleSpawner.spawn_particle(DANGER_FLASH_PARTICLE, global_position, 0.0)
+	GlobalFlashParticleSpawner.spawn_particle(DANGER_FLASH_PARTICLE, global_position, PI / 2.0)
 	_aiming = false
 	telegraph.emit()
 

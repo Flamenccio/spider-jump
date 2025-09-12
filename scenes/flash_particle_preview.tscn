@@ -1,43 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://126u4pc2wld0"]
+[gd_scene load_steps=7 format=3 uid="uid://126u4pc2wld0"]
 
 [ext_resource type="Script" uid="uid://bxem3g423nk86" path="res://scripts/flash_particle_preview.gd" id="1_v476d"]
-[ext_resource type="Texture2D" uid="uid://csrmndrimud8b" path="res://sprites/player_death_lights-Sheet.png" id="1_vnq7h"]
+[ext_resource type="Texture2D" uid="uid://dy1ywhchmahus" path="res://sprites/danger_flash_2-Sheet.png" id="1_vnq7h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8304l"]
 atlas = ExtResource("1_vnq7h")
-region = Rect2(0, 0, 8, 8)
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lemdf"]
 atlas = ExtResource("1_vnq7h")
-region = Rect2(8, 0, 8, 8)
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6dmx"]
 atlas = ExtResource("1_vnq7h")
-region = Rect2(16, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3a20s"]
-atlas = ExtResource("1_vnq7h")
-region = Rect2(24, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bessa"]
-atlas = ExtResource("1_vnq7h")
-region = Rect2(32, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1fbri"]
-atlas = ExtResource("1_vnq7h")
-region = Rect2(40, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xs7k"]
-atlas = ExtResource("1_vnq7h")
-region = Rect2(48, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yln2l"]
-atlas = ExtResource("1_vnq7h")
-region = Rect2(56, 0, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uf5ml"]
-atlas = ExtResource("1_vnq7h")
-region = Rect2(64, 0, 8, 8)
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e7ry4"]
 animations = [{
@@ -50,37 +26,20 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o6dmx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3a20s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bessa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1fbri")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2xs7k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yln2l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uf5ml")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 24.0
+"speed": 20.0
 }]
 
 [node name="FlashParticlePreview" type="AnimatedSprite2D"]
 z_index = 5
-scale = Vector2(1, 128)
+scale = Vector2(128, 0.5)
 sprite_frames = SubResource("SpriteFrames_e7ry4")
 autoplay = "default"
-frame = 8
-frame_progress = 1.0
+frame = 2
+frame_progress = 0.673738
 script = ExtResource("1_v476d")
-_file_name = "player_death_flash"
+_file_name = "danger_flash_2"
 _directory = "res://resources/flash_particles/"
+_expiration_type = 1

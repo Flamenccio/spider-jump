@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=7 format=3 uid="uid://cx0fmt3uviard"]
+
+[ext_resource type="Texture2D" uid="uid://dy1ywhchmahus" path="res://sprites/danger_flash_2-Sheet.png" id="1_e33kc"]
+[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="2_38k1g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8304l"]
+atlas = ExtResource("1_e33kc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lemdf"]
+atlas = ExtResource("1_e33kc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6dmx"]
+atlas = ExtResource("1_e33kc")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7ry4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8304l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lemdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6dmx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[resource]
+script = ExtResource("2_38k1g")
+particle_name = "danger_flash_2"
+frames = SubResource("SpriteFrames_e7ry4")
+offset = Vector2(0, 0)
+scale = Vector2(128, 0.5)
+z_index = 5
+expiration_type = 1
+expiration_loops = 1

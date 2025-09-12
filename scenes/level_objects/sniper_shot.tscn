@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bquf4pck4lae" path="res://scripts/sniper_shot.gd" id="1_6cx00"]
 [ext_resource type="Texture2D" uid="uid://bfgjuq21e67cn" path="res://sprites/sniper_shot_big_2-Sheet.png" id="3_6cx00"]
 [ext_resource type="Texture2D" uid="uid://bpdnratrvj4j5" path="res://sprites/sniper_reticle-Sheet.png" id="3_me3rp"]
+[ext_resource type="Texture2D" uid="uid://tfxb3feew6dw" path="res://sprites/danger_flash-Sheet.png" id="3_pects"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nne0o"]
 radius = 16.0
@@ -11,19 +12,15 @@ radius = 16.0
 atlas = ExtResource("3_me3rp")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x3ev2"]
-atlas = ExtResource("3_me3rp")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wc7jj"]
-atlas = ExtResource("3_me3rp")
-region = Rect2(32, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1kef"]
+atlas = ExtResource("3_pects")
+region = Rect2(896, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pects"]
 atlas = ExtResource("3_6cx00")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h1kef"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgraj"]
 atlas = ExtResource("3_6cx00")
 region = Rect2(32, 0, 32, 32)
 
@@ -59,27 +56,33 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x3ev2")
+"texture": SubResource("AtlasTexture_h1kef")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wc7jj")
+"texture": SubResource("AtlasTexture_h1kef")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x3ev2")
+"texture": SubResource("AtlasTexture_h1kef")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wc7jj")
+"texture": SubResource("AtlasTexture_h1kef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1kef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1kef")
 }],
 "loop": false,
 "name": &"locked_on",
-"speed": 12.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pects")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h1kef")
+"texture": SubResource("AtlasTexture_mgraj")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1efl5")
@@ -93,12 +96,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gyf8e")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_v3pg6")
 }],
 "loop": false,
 "name": &"shot",
-"speed": 24.0
+"speed": 20.0
 }]
 
 [node name="SniperShot" type="StaticBody2D"]
@@ -114,10 +117,8 @@ disabled = true
 z_index = 5
 z_as_relative = false
 sprite_frames = SubResource("SpriteFrames_iedbv")
-animation = &"shot"
+animation = &"locked_on"
 autoplay = "aiming"
-frame = 6
-frame_progress = 1.0
 
 [connection signal="shot_fired" from="." to="Hitbox" method="set_disabled" flags=3 binds= [false]]
 [connection signal="shot_fired" from="." to="Sprite" method="play" binds= ["shot"]]

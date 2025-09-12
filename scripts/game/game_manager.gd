@@ -5,7 +5,7 @@ signal on_game_over()
 signal stamina_drained(amount: float)
 signal score_updated(score: int)
 
-const _LEVEL_UP_DRAIN_INCREASE = 0.010
+const _LEVEL_UP_DRAIN_INCREASE = 0.005
 
 var _stamina_drain_amount: float = 0.0
 var _old_stamina_drain: float = 0.0

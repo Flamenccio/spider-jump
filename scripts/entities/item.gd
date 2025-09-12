@@ -2,6 +2,8 @@
 class_name Item
 extends StaticBody2D
 
+const POWERUP_REPLACEMENT_PATH = "res://resources/items/yumfly.tres"
+
 @export var _debug_item: GenericItem
 @export var _item_id: String
 
@@ -14,7 +16,6 @@ var item_id: String:
 	set(value):
 		_item_id = value
 
-
 func _ready() -> void:
 	_play_default_animations()
 
@@ -24,9 +25,9 @@ func remove_powerup() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	var yumfly_instance = load("res://resources/items/yumfly.tres").instantiate_item()
+	var yumfly_instance = load(POWERUP_REPLACEMENT_PATH).instantiate_item()
 	yumfly_instance.global_position = global_position
-	get_parent().add_child(yumfly_instance)
+	get_parent().call_deferred("add_child", yumfly_instance)
 	queue_free()
 
 

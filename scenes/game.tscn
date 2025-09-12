@@ -82,7 +82,7 @@ animations = [{
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_264po")
-_debug_initial_difficulty = 1
+_debug_initial_difficulty = 6
 _base_stamina_drain_amount = 0.033
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
