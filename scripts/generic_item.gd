@@ -36,7 +36,7 @@ func instantiate_item() -> Node2D:
 	instance.collision_layer = ITEM_LAYER
 
 	if is_powerup:
-		instance.add_to_group("powerup")
+		instance.add_to_group("powerup", true)
 
 	return instance
 
