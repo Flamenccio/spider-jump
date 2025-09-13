@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://dk0qh8kgof0du"]
+
+[ext_resource type="Texture2D" uid="uid://crjowjcw4tojq" path="res://sprites/evil_spirit-Sheet.png" id="1_3nu27"]
+[ext_resource type="Script" uid="uid://bw4435fjgk80d" path="res://scripts/entities/evil_spirit.gd" id="1_ck7cn"]
+[ext_resource type="Texture2D" uid="uid://dqmbua76uiid4" path="res://sprites/evil_spirit_particles-Sheet.png" id="3_dna4b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ck7cn"]
+radius = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dna4b"]
+atlas = ExtResource("1_3nu27")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv4f5"]
+atlas = ExtResource("1_3nu27")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgsj8"]
+atlas = ExtResource("1_3nu27")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovkad"]
+atlas = ExtResource("1_3nu27")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_woir1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dna4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv4f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgsj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovkad")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dna4b"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="EvilSpirit" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_ck7cn")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ck7cn")
+disabled = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_woir1")
+autoplay = "default"
+frame = 1
+frame_progress = 0.817722
+
+[node name="SpookyParticles" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_dna4b")
+emitting = false
+texture = ExtResource("3_dna4b")
+fixed_fps = 15
+emission_shape = 2
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+radial_accel_min = 2.0
+radial_accel_max = 5.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[connection signal="evil_spirit_activated" from="." to="Hitbox" method="set_disabled" flags=3 binds= [false]]
+[connection signal="evil_spirit_activated" from="." to="Sprite" method="set_visible" flags=3 binds= [true]]
+[connection signal="evil_spirit_activated" from="." to="SpookyParticles" method="set_emitting" flags=3 binds= [true]]

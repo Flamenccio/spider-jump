@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ku5r3jysj44x"]
+
+[ext_resource type="Script" uid="uid://dgi4uhot7roat" path="res://scripts/level_events/evil_spirit_attack.gd" id="1_uuap6"]
+[ext_resource type="PackedScene" uid="uid://dk0qh8kgof0du" path="res://scenes/evil_spirit.tscn" id="2_a1px8"]
+
+[node name="EvilSpiritAttack" type="Node"]
+script = ExtResource("1_uuap6")
+_evil_spirit_scene = ExtResource("2_a1px8")
+height_duration = 300
+event_id = "evil_spirit"
+metadata/_custom_type_script = "uid://co60x2dwkhhte"
