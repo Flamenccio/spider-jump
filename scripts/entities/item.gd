@@ -26,6 +26,9 @@ func remove_powerup() -> void:
 	if Engine.is_editor_hint():
 		return
 
+	if is_queued_for_deletion():
+		return
+
 	var yumfly_instance = _powerup_replacement.instantiate_item()
 	call_deferred("_replace_powerup", yumfly_instance)
 
