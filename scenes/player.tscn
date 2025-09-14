@@ -776,6 +776,7 @@ script = ExtResource("49_u2ulf")
 [connection signal="powerup_started" from="Handlers/PowerupHandler" to="Handlers/GroundHandler" method="_on_powerup_started"]
 [connection signal="powerup_started" from="Handlers/PowerupHandler" to="Particles/ParticleEmitter" method="spawn_powerup_flash" unbinds=1]
 [connection signal="collected_powerup" from="Handlers/ItemHandler" to="Handlers/PowerupHandler" method="_handle_powerup"]
+[connection signal="heavy_beetle_damaged" from="Handlers/DangerHandler" to="Handlers/PowerupHandler" method="_on_player_hurt"]
 [connection signal="lose_powerup" from="Handlers/DangerHandler" to="Handlers/PowerupHandler" method="_end_powerups"]
 [connection signal="player_damaged" from="Handlers/DangerHandler" to="." method="_on_danger_entered"]
 [connection signal="player_damaged" from="Handlers/DangerHandler" to="Particles/ParticleEmitter" method="spawn_player_hit"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=45 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -28,7 +28,11 @@
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
+[ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="30_v2yb1"]
+[ext_resource type="Resource" uid="uid://bu73qvqlgwfe7" path="res://resources/powerups/heavy_beetle.tres" id="31_js0lu"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="32_gxtfn"]
 [ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="32_js0lu"]
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="33_twgab"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -79,6 +83,10 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+atlas = ExtResource("32_gxtfn")
+region = Rect2(32, 0, 8, 8)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_264po")
@@ -208,6 +216,18 @@ frame_progress = 0.442083
 script = ExtResource("30_sgl2t")
 
 [node name="Slip" parent="." instance=ExtResource("32_js0lu")]
+
+[node name="HeavyBeetle" parent="." instance=ExtResource("30_v2yb1")]
+position = Vector2(0, -81)
+_debug_item = ExtResource("31_js0lu")
+_item_id = "heavy_beetle"
+
+[node name="@Sprite2D@25357" type="Sprite2D" parent="HeavyBeetle"]
+z_index = 10
+texture = SubResource("AtlasTexture_ih772")
+
+[node name="@CollisionShape2D@25358" type="CollisionShape2D" parent="HeavyBeetle"]
+shape = ExtResource("33_twgab")
 
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]

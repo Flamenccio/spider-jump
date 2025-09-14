@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=9 format=3 uid="uid://bw6u73j16boqw"]
+
+[ext_resource type="Texture2D" uid="uid://b6x7r1mgurbb7" path="res://sprites/heavy_beetle_deflect-Sheet.png" id="1_3ol6q"]
+[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="1_u6lqr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1hs0"]
+atlas = ExtResource("1_3ol6q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5grp"]
+atlas = ExtResource("1_3ol6q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svtto"]
+atlas = ExtResource("1_3ol6q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdfr4"]
+atlas = ExtResource("1_3ol6q")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujvv5"]
+atlas = ExtResource("1_3ol6q")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42jln"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1hs0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5grp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svtto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdfr4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujvv5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[resource]
+script = ExtResource("1_u6lqr")
+particle_name = "heavy_beetle_deflect"
+frames = SubResource("SpriteFrames_42jln")
+offset = Vector2(0, 0)
+scale = Vector2(1, 1)
+z_index = 10
+expiration_type = 0
+expiration_loops = 0
+metadata/_custom_type_script = "uid://bgsqdi06rfc2h"

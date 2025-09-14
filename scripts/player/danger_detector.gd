@@ -2,8 +2,6 @@ extends Area2D
 
 var _shapes: Array[CollisionShape2D]
 
-# TODO: player cannot get hurt again after getting hurt once
-
 func _ready() -> void:
 	var children = get_children()
 	for child in children:
