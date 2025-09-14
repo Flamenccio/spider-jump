@@ -1,5 +1,6 @@
 extends Node
 
+signal on_powerup_started()
 signal powerup_started(powerup: String)
 signal powerup_ended()
 
@@ -15,7 +16,7 @@ const _BLINKFLY_USES = 8
 # Every time the player contacts a dangerous item under the
 # heavy beetle powerup, deduct this amount of time from the
 # powerup duration.
-const _HEAVY_BEETLE_HURT_TIME_REDUCTION = 1.5
+const _HEAVY_BEETLE_HURT_TIME_REDUCTION = 2.0
 
 var current_powerup: String = ''
 var _powerup_end_queue: Array[Callable]
@@ -26,6 +27,7 @@ var _powerup_flash_timer: Timer = Timer.new()
 
 
 func _ready() -> void:
+
 	_powerup_timer.timeout.connect(_end_powerups)
 	_powerup_timer.one_shot = true
 	add_child(_powerup_timer)
@@ -44,7 +46,7 @@ func _process(_delta: float) -> void:
 
 
 func _end_powerups() -> void:
-	if current_powerup == ItemIds.NO_POWERUP:
+	if current_powerup == ItemIds.NO_POWERUP or current_powerup == "":
 		return
 	_powerup_timer.stop()
 	powerup_ended.emit()
@@ -55,6 +57,7 @@ func _end_powerups() -> void:
 		var p = _powerup_end_queue.pop_front() as Callable
 		p.call()
 	current_powerup = ItemIds.NO_POWERUP
+	GlobalFlashParticleSpawner.spawn_particle("powerup_loss_flash", GameConstants.player.global_position, 0.0)
 
 
 func _handle_powerup(powerup: String) -> void:
@@ -62,6 +65,7 @@ func _handle_powerup(powerup: String) -> void:
 	# End any existing powerup
 	_end_powerups()
 	powerup_started.emit(powerup)
+	on_powerup_started.emit()
 	PlayerEventBus.powerup_started.emit(powerup)
 	PlayerEventBus.powerup_flash_start.emit()
 	_powerup_flash_timer.start()

@@ -1,47 +1,33 @@
-[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=11 format=3 uid="uid://c8tbhjhn77v78"]
+[gd_resource type="Resource" script_class="SavedFlashParticle" load_steps=9 format=3 uid="uid://c8tbhjhn77v78"]
 
-[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="1_jl3cg"]
-[ext_resource type="Texture2D" uid="uid://tfxb3feew6dw" path="res://sprites/danger_flash-Sheet.png" id="1_p1wve"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p1wve"]
-atlas = ExtResource("1_p1wve")
-region = Rect2(0, 0, 128, 128)
+[ext_resource type="Texture2D" uid="uid://tfxb3feew6dw" path="res://sprites/danger_flash-Sheet.png" id="1_7y6qq"]
+[ext_resource type="Script" uid="uid://bgsqdi06rfc2h" path="res://scripts/particles/saved_flash_particle.gd" id="2_mbbvm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqsoy"]
-atlas = ExtResource("1_p1wve")
+atlas = ExtResource("1_7y6qq")
 region = Rect2(128, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3ubve"]
-atlas = ExtResource("1_p1wve")
-region = Rect2(256, 0, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_5r1hx"]
-atlas = ExtResource("1_p1wve")
+atlas = ExtResource("1_7y6qq")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ql5wa"]
-atlas = ExtResource("1_p1wve")
+atlas = ExtResource("1_7y6qq")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ukt4a"]
-atlas = ExtResource("1_p1wve")
+atlas = ExtResource("1_7y6qq")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_61xn1"]
-atlas = ExtResource("1_p1wve")
+atlas = ExtResource("1_7y6qq")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a5naf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p1wve")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_bqsoy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3ubve")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5r1hx")
@@ -57,12 +43,12 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 12.0
+"speed": 15.0
 }]
 
 [resource]
-script = ExtResource("1_jl3cg")
-particle_name = "danger_flash"
+script = ExtResource("2_mbbvm")
+particle_name = "powerup_loss_flash"
 frames = SubResource("SpriteFrames_a5naf")
 offset = Vector2(0, 0)
 scale = Vector2(1, 1)

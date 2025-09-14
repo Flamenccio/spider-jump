@@ -6,7 +6,7 @@ signal timeout()
 
 var autostart: bool = false
 var one_shot: bool = false
-var paused: bool = false
+var paused: bool = true
 var wait_time: float = 1.0
 var time_left: float = 0.0
 

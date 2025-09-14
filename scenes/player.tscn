@@ -772,6 +772,7 @@ script = ExtResource("49_u2ulf")
 [connection signal="land_on_slip" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "slip"]]
 [connection signal="leave_ground" from="Handlers/GroundHandler" to="StateMachineHandler/Aim" method="_on_leave_ground"]
 [connection signal="leave_ground" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "air"]]
+[connection signal="on_powerup_started" from="Handlers/PowerupHandler" to="." method="_start_invincibility" binds= [2.0]]
 [connection signal="powerup_ended" from="Handlers/PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]
 [connection signal="powerup_started" from="Handlers/PowerupHandler" to="Handlers/GroundHandler" method="_on_powerup_started"]
 [connection signal="powerup_started" from="Handlers/PowerupHandler" to="Particles/ParticleEmitter" method="spawn_powerup_flash" unbinds=1]

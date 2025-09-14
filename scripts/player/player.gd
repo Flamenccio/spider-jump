@@ -68,7 +68,7 @@ func _on_danger_entered() -> void:
 
 
 func _on_player_fell(here: Vector2) -> void:
-	_start_invincibility()
+	_start_invincibility(_DEFAULT_INVINCIBILITY_TIME)
 	internal_player_fell.emit(here)
 
 
@@ -80,7 +80,7 @@ func _on_safe_spot_set(pos: Vector2) -> void:
 	external_set_safe_spot.emit(pos)
 
 
-func _start_invincibility(time: float = _DEFAULT_INVINCIBILITY_TIME) -> void:
+func _start_invincibility(time: float) -> void:
 	_invincibility_timer.stop()
 	_invincibility_timer.start(time)
 	invincibility_started.emit()
