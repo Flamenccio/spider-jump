@@ -6,25 +6,26 @@ signal player_jumped()
 signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 signal player_blinkfly_jumped()
 
-@export var _ground_check: RaycastCheck
-@export var _player: CharacterBody2D
-@export var _animator: SpriteTree
-@export var _jump_force: float = 1.0
-@export var _particle_emitter: Node
-
-var _pull_input: Vector2
-var _jumped: bool = false
-var _surface_normal: Vector2
-var _powerup: String = 'none'
-
 const _MAX_SHAPECAST_RESULTS = 4
 const _HOPPERPOP_MULTIPLIER = 1.6
 const _BUBBLEBEE_MULTIPLIER = 0.83
 const _HEAVY_BEETLE_MULTIPLIER = 1.0
 const _SUPER_GRUB_MULTIPLIER = 1.12
 const _BLINKFLY_MULTIPLIER = 5.0
-
 const _MAX_BLINKFLY_DISTANCE = 200.0
+const _GROUND_LAYER = 2
+const _SLIP_LAYER = 4
+
+var _pull_input: Vector2
+var _jumped: bool = false
+var _surface_normal: Vector2
+var _powerup: String = 'none'
+
+@export var _ground_check: RaycastCheck
+@export var _player: CharacterBody2D
+@export var _animator: SpriteTree
+@export var _jump_force: float = 1.0
+@export var _particle_emitter: Node
 
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
@@ -66,6 +67,12 @@ func enter_state() -> void:
 
 func exit_state() -> void:
 	_jumped = false
+
+
+func update_state(delta: float) -> void:
+	if not _jumped:
+		return
+	_player.move_and_slide()
 
 
 func _on_pull_release() -> void:
@@ -113,12 +120,6 @@ func _jump() -> void:
 			_particle_emitter.spawn_jump_dust()
 
 
-func update_state(delta: float) -> void:
-	if not _jumped:
-		return
-	_player.move_and_slide()
-
-
 func _is_jump_direction_valid(direction: Vector2) -> bool:
 	var dot = floorf(direction.dot(_surface_normal))
 	return dot > 0.0 or _surface_normal == Vector2.ZERO
@@ -146,6 +147,10 @@ func _blinkfly_jump() -> void:
 	var results = _ground_check.intersect_ray(ray_destination)
 
 	if results.size() == 0:
+		return
+
+	var valid_landing := (results["collider"] as CollisionObject2D).collision_layer == _GROUND_LAYER
+	if not valid_landing:
 		return
 
 	_animator.play_branch_animation('warp')
