@@ -26,17 +26,17 @@ const _SEARCH_SPAN_HEIGHT = 8.0
 const _SEARCH_SPAN_WIDTH = 112.0
 const _MAX_SEARCHES = 20
 
-func _save_state() -> void:
+func _save_state(force: bool = false) -> void:
 	var rounded_position = Vector2(roundf(_player.global_position.x), roundf(_player.global_position.y))
 
 	# Check area for danger (spikes)
 	var results := _danger_shapecast.intersect_shape(Vector2.ZERO, _MAX_SHAPECAST_RESULTS)
-	if results.size() > 0:
+	if results.size() > 0 and not force:
 		return
 
 	# Check if area is on the ground
 	var results_2 := _safe_spot_shapecast.intersect_shape(Vector2.ZERO)
-	if results_2.size() == 0:
+	if results_2.size() == 0 and not force:
 		return
 
 	var valid = false
@@ -49,7 +49,7 @@ func _save_state() -> void:
 		if valid:
 			break
 
-	if not valid:
+	if not valid and not force:
 		return
 
 	_position = rounded_position

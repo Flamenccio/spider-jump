@@ -21,10 +21,10 @@ func _on_item_collected(item: Item) -> void:
 
 	if item.item_id == ItemIds.YUMFLY_ITEM:
 		PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, YUMFLY_STAMINA_RECOVERY)
-		# TODO: duplicate?
 		PlayerEventBus.player_consumed_item.emit(item)
 		PlayerEventBus.item_collected.emit(item.item_id)
 		collected_item.emit(item.item_id)
+		GlobalFlashParticleSpawner.spawn_particle("item_collected", item.global_position, 0.0)
 		return
 
 	push_error('item handler: unknown item id "{0}"'.format({'0': item.item_id}))

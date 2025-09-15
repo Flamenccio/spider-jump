@@ -34,6 +34,10 @@ func _ready() -> void:
 	GameConstants.player = self
 
 
+func on_level_up_platform_reached() -> void:
+	external_set_safe_spot.emit(global_position)
+
+
 func _on_input_service_move_input_change(move_input: Vector2) -> void:
 	internal_move_input_change.emit(move_input)
 
