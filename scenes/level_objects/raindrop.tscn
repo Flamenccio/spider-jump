@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://hsagybsxkyat"]
+
+[ext_resource type="Texture2D" uid="uid://xe3ui8dsv2ci" path="res://sprites/raindrop_1.png" id="1_1g0my"]
+[ext_resource type="Script" uid="uid://eiyi85n4wsk8" path="res://scripts/entities/raindrop.gd" id="1_mh8bc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1g0my"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mh8bc"]
+atlas = ExtResource("1_1g0my")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1g0my"]
+radius = 7.0
+
+[node name="Raindrop" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 23
+physics_material_override = SubResource("PhysicsMaterial_1g0my")
+lock_rotation = true
+script = ExtResource("1_mh8bc")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_mh8bc")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1g0my")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
