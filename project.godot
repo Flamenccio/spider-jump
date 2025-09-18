@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="spider-jump"
-run/main_scene="uid://c3vqs430qpt8w"
-config/features=PackedStringArray("4.4", "Mobile")
+run/main_scene="uid://ive8w8v858du"
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://sprites/icon.svg"
 
 [autoload]

@@ -37,7 +37,6 @@ size = Vector2(256, 16)
 script = ExtResource("11_bhx41")
 decoration_name = "level_up_platform"
 scene = ExtResource("12_qnb83")
-difficulty_level = 0
 metadata/_custom_type_script = "uid://bysji3wvke32e"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]

@@ -64,7 +64,6 @@ metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 script = ExtResource("1_uehea")
 loot_item = ExtResource("16_6mj5w")
 loot_chance = 0.354573
-minimum_level = 0
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [resource]

@@ -1,0 +1,108 @@
+[gd_scene load_steps=11 format=3 uid="uid://ive8w8v858du"]
+
+[ext_resource type="Script" uid="uid://sfl4mrieo753" path="res://scripts/ui/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://dp2wmxagsoqx3" path="res://sprites/title_screen_elements-Sheet.png" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://dbs0f2vbqjyh3" path="res://sprites/title_screen_buttons.png" id="2_ekxnf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtw2f"]
+atlas = ExtResource("2_ekxnf")
+region = Rect2(64, 0, 48, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa1go"]
+atlas = ExtResource("2_ekxnf")
+region = Rect2(64, 64, 48, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbmy8"]
+atlas = ExtResource("2_ekxnf")
+region = Rect2(64, 32, 48, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqqt6"]
+atlas = ExtResource("2_ekxnf")
+region = Rect2(112, 0, 48, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu84c"]
+atlas = ExtResource("2_ekxnf")
+region = Rect2(112, 64, 48, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ln24"]
+atlas = ExtResource("2_ekxnf")
+region = Rect2(112, 32, 48, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekxnf"]
+atlas = ExtResource("1_l6cm7")
+region = Rect2(0, 0, 92, 46)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqqt6")
+
+[node name="ExitButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = 152.0
+offset_right = 24.0
+offset_bottom = 173.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(24, 10)
+texture_normal = SubResource("AtlasTexture_rtw2f")
+texture_pressed = SubResource("AtlasTexture_oa1go")
+texture_hover = SubResource("AtlasTexture_tbmy8")
+
+[node name="PlayButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = 47.0
+offset_right = 24.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(24, 10)
+texture_normal = SubResource("AtlasTexture_bqqt6")
+texture_pressed = SubResource("AtlasTexture_wu84c")
+texture_hover = SubResource("AtlasTexture_8ln24")
+
+[node name="TitleSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -161.0
+offset_right = 46.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(46, 23)
+texture = SubResource("AtlasTexture_ekxnf")
+
+[node name="SecretButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 36.0
+offset_right = 760.0
+offset_bottom = 220.0
+button_mask = 2
+
+[connection signal="pressed" from="ExitButton" to="." method="_quit_game"]
+[connection signal="pressed" from="PlayButton" to="." method="_load_arcade"]

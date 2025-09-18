@@ -12,7 +12,6 @@ region = Rect2(40, 0, 8, 8)
 script = ExtResource("1_30a3b")
 item_id = "antibug"
 sprites = Array[Texture2D]([SubResource("AtlasTexture_ih772")])
-sprite_frames = Array[SpriteFrames]([])
 collision_shape = ExtResource("1_nu1u1")
 is_powerup = true
 metadata/_custom_type_script = "uid://dp5tc34634vtw"

@@ -75,8 +75,6 @@ metadata/graph_offset = Vector2(388, 197.5)
 script = ExtResource("5_6y1cm")
 from = "Entry"
 to = "Hover"
-conditions = {}
-priority = 0
 
 [sub_resource type="Resource" id="Resource_acxwh"]
 script = ExtResource("4_gbx1n")
@@ -91,12 +89,9 @@ to = "Exit"
 conditions = {
 "powerup": SubResource("Resource_acxwh")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_cu227"]
 script = ExtResource("3_10p3u")
-value = false
-comparation = 0
 name = "flying"
 
 [sub_resource type="Resource" id="Resource_okt1n"]
@@ -106,7 +101,6 @@ to = "Hover"
 conditions = {
 "flying": SubResource("Resource_cu227")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_kxcq3"]
 script = ExtResource("4_gbx1n")
@@ -121,12 +115,10 @@ to = "Exit"
 conditions = {
 "powerup": SubResource("Resource_kxcq3")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_t0krm"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "flying"
 
 [sub_resource type="Resource" id="Resource_or4rm"]
@@ -136,7 +128,6 @@ to = "Fly"
 conditions = {
 "flying": SubResource("Resource_t0krm")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_v7luo"]
 script = ExtResource("1_ridqv")
@@ -165,7 +156,6 @@ metadata/graph_offset = Vector2(648.5, 81)
 [sub_resource type="Resource" id="Resource_10p3u"]
 script = ExtResource("4_gbx1n")
 value = "none"
-comparation = 0
 name = "powerup"
 
 [sub_resource type="Resource" id="Resource_pv58n"]
@@ -175,12 +165,10 @@ to = "Exit"
 conditions = {
 "powerup": SubResource("Resource_10p3u")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_cydmp"]
 script = ExtResource("4_gbx1n")
 value = "hoverfly"
-comparation = 0
 name = "powerup"
 
 [sub_resource type="Resource" id="Resource_jai2h"]
@@ -190,14 +178,11 @@ to = "Hoverfly"
 conditions = {
 "powerup": SubResource("Resource_cydmp")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_7okp4"]
 script = ExtResource("5_6y1cm")
 from = "Hoverfly"
 to = "Exit"
-conditions = {}
-priority = 0
 
 [sub_resource type="Resource" id="Resource_dgmrv"]
 script = ExtResource("1_ridqv")
@@ -220,20 +205,16 @@ metadata/graph_offset = Vector2(1288, 601)
 
 [sub_resource type="Resource" id="Resource_gl8cc"]
 script = ExtResource("3_10p3u")
-value = false
-comparation = 0
 name = "aim"
 
 [sub_resource type="Resource" id="Resource_t4otl"]
 script = ExtResource("4_gbx1n")
 value = "air"
-comparation = 0
 name = "ground_type"
 
 [sub_resource type="Resource" id="Resource_md1ol"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "jump"
 
 [sub_resource type="Resource" id="Resource_a38lo"]
@@ -245,18 +226,13 @@ conditions = {
 "ground_type": SubResource("Resource_t4otl"),
 "jump": SubResource("Resource_md1ol")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_bj30b"]
 script = ExtResource("3_10p3u")
-value = false
-comparation = 0
 name = "aim"
 
 [sub_resource type="Resource" id="Resource_hax0n"]
 script = ExtResource("3_10p3u")
-value = false
-comparation = 0
 name = "jump"
 
 [sub_resource type="Resource" id="Resource_jc3p3"]
@@ -267,12 +243,10 @@ conditions = {
 "aim": SubResource("Resource_bj30b"),
 "jump": SubResource("Resource_hax0n")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_g5jhy"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "ko"
 
 [sub_resource type="Resource" id="Resource_holxr"]
@@ -282,7 +256,6 @@ to = "KO"
 conditions = {
 "ko": SubResource("Resource_g5jhy")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_1o3xr"]
 script = ExtResource("4_gbx1n")
@@ -297,12 +270,9 @@ to = "Powerup"
 conditions = {
 "powerup": SubResource("Resource_1o3xr")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_giy8y"]
 script = ExtResource("3_10p3u")
-value = false
-comparation = 0
 name = "climb"
 
 [sub_resource type="Resource" id="Resource_fdfoy"]
@@ -312,7 +282,6 @@ to = "Fall"
 conditions = {
 "climb": SubResource("Resource_giy8y")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_gsat8"]
 script = ExtResource("4_gbx1n")
@@ -327,12 +296,10 @@ to = "Powerup"
 conditions = {
 "powerup": SubResource("Resource_gsat8")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_pf23h"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "aim"
 
 [sub_resource type="Resource" id="Resource_dt7fs"]
@@ -349,12 +316,10 @@ conditions = {
 "aim": SubResource("Resource_pf23h"),
 "ground_type": SubResource("Resource_dt7fs")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_cs1tg"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "climb"
 
 [sub_resource type="Resource" id="Resource_2dvfe"]
@@ -364,12 +329,10 @@ to = "Climb"
 conditions = {
 "climb": SubResource("Resource_cs1tg")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_wnwbv"]
 script = ExtResource("4_gbx1n")
 value = "air"
-comparation = 0
 name = "ground_type"
 
 [sub_resource type="Resource" id="Resource_i4ail"]
@@ -379,12 +342,9 @@ to = "Fall"
 conditions = {
 "ground_type": SubResource("Resource_wnwbv")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_wqfne"]
 script = ExtResource("3_10p3u")
-value = false
-comparation = 0
 name = "crawl"
 
 [sub_resource type="Resource" id="Resource_60mlk"]
@@ -394,12 +354,10 @@ to = "Idle"
 conditions = {
 "crawl": SubResource("Resource_wqfne")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_mx1m4"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "ko"
 
 [sub_resource type="Resource" id="Resource_4gjji"]
@@ -409,7 +367,6 @@ to = "KO"
 conditions = {
 "ko": SubResource("Resource_mx1m4")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_f6uty"]
 script = ExtResource("4_gbx1n")
@@ -424,25 +381,20 @@ to = "Powerup"
 conditions = {
 "powerup": SubResource("Resource_f6uty")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_oprun"]
 script = ExtResource("5_6y1cm")
 from = "Entry"
 to = "Idle"
-conditions = {}
-priority = 0
 
 [sub_resource type="Resource" id="Resource_c6blh"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "aim"
 
 [sub_resource type="Resource" id="Resource_niqx1"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "bubble"
 
 [sub_resource type="Resource" id="Resource_tvwt6"]
@@ -453,7 +405,6 @@ conditions = {
 "aim": SubResource("Resource_c6blh"),
 "bubble": SubResource("Resource_niqx1")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_487ah"]
 script = ExtResource("4_gbx1n")
@@ -468,12 +419,10 @@ to = "Idle"
 conditions = {
 "ground_type": SubResource("Resource_487ah")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_u2ulf"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "ko"
 
 [sub_resource type="Resource" id="Resource_6e8lb"]
@@ -483,7 +432,6 @@ to = "KO"
 conditions = {
 "ko": SubResource("Resource_u2ulf")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_k0xlr"]
 script = ExtResource("4_gbx1n")
@@ -498,12 +446,10 @@ to = "Powerup"
 conditions = {
 "powerup": SubResource("Resource_k0xlr")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_l71n6"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "aim"
 
 [sub_resource type="Resource" id="Resource_ke2ow"]
@@ -520,12 +466,10 @@ conditions = {
 "aim": SubResource("Resource_l71n6"),
 "ground_type": SubResource("Resource_ke2ow")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_ujl30"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "crawl"
 
 [sub_resource type="Resource" id="Resource_qfm1y"]
@@ -540,7 +484,6 @@ priority = 2
 [sub_resource type="Resource" id="Resource_31cv2"]
 script = ExtResource("4_gbx1n")
 value = "air"
-comparation = 0
 name = "ground_type"
 
 [sub_resource type="Resource" id="Resource_fulsm"]
@@ -550,12 +493,10 @@ to = "Fall"
 conditions = {
 "ground_type": SubResource("Resource_31cv2")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_2gdjj"]
 script = ExtResource("3_10p3u")
 value = true
-comparation = 0
 name = "ko"
 
 [sub_resource type="Resource" id="Resource_sc3ue"]
@@ -565,7 +506,6 @@ to = "KO"
 conditions = {
 "ko": SubResource("Resource_2gdjj")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_8e3hu"]
 script = ExtResource("4_gbx1n")
@@ -580,12 +520,9 @@ to = "Powerup"
 conditions = {
 "powerup": SubResource("Resource_8e3hu")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_lxlsd"]
 script = ExtResource("3_10p3u")
-value = false
-comparation = 0
 name = "ko"
 
 [sub_resource type="Resource" id="Resource_ha2mi"]
@@ -595,14 +532,11 @@ to = "Idle"
 conditions = {
 "ko": SubResource("Resource_lxlsd")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_frv0a"]
 script = ExtResource("5_6y1cm")
 from = "Powerup"
 to = "Fall"
-conditions = {}
-priority = 0
 
 [resource]
 script = ExtResource("1_ridqv")
@@ -658,4 +592,3 @@ transitions = {
 "Fall": SubResource("Resource_frv0a")
 }
 }
-name = ""
