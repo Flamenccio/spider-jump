@@ -6,8 +6,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ln24"]
 shader = ExtResource("1_nu058")
-shader_parameter/start_time = 0.0
-shader_parameter/direction = 1
+shader_parameter/progress = 0.0
+shader_parameter/move_top_side = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jk1qb"]
 atlas = ExtResource("1_hugti")

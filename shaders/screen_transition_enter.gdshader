@@ -1,25 +1,22 @@
 shader_type canvas_item;
 
-const float fill_time_seconds = 2.0;
-const float pixel_factor = 128.0;
-
 // set by gd scripts
-uniform float start_time = 0.0;
-uniform int direction = 1;
+uniform float progress = 0.0;
+
+// if FALSE, moves bottom side
+// if TRUE, moves top side
+uniform bool move_top_side = false;
 
 void fragment() {
 
-	float progress = (TIME - start_time) / fill_time_seconds;
-	progress = clamp(progress, 0.0, 1.0);
+	float screen_y = FRAGCOORD.y;
 	vec4 base_color = texture(TEXTURE, UV);
+	float t = progress;
 
-	bool exit = (direction == -1 && UV.y < progress);
-	bool enter = (direction == 1 && UV.y > progress);
-
-	if ((exit && !enter) || (!exit && enter)) {
+	if ((screen_y > t && !move_top_side) || (screen_y < t && move_top_side)) {
 		COLOR = vec4(base_color.r, base_color.g, base_color.b, 0.0);
 	}
-	else {
+	else{
 		COLOR = base_color;
 	}
 }

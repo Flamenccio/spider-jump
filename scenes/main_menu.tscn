@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://ive8w8v858du"]
+[gd_scene load_steps=16 format=3 uid="uid://ive8w8v858du"]
 
 [ext_resource type="Script" uid="uid://sfl4mrieo753" path="res://scripts/ui/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dp2wmxagsoqx3" path="res://sprites/title_screen_elements-Sheet.png" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://dbs0f2vbqjyh3" path="res://sprites/title_screen_buttons.png" id="2_ekxnf"]
-[ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/screen_wipe.tscn" id="4_wu84c"]
+[ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="4_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="5_oa1go"]
+[ext_resource type="Script" uid="uid://cvr6mktnrj5xl" path="res://scripts/ui/screen_transition_sprite.gd" id="6_tbmy8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rtw2f"]
 atlas = ExtResource("2_ekxnf")
@@ -32,6 +34,14 @@ region = Rect2(112, 32, 48, 21)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekxnf"]
 atlas = ExtResource("1_l6cm7")
 region = Rect2(0, 0, 92, 46)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ln24"]
+shader = ExtResource("4_rtw2f")
+shader_parameter/progress = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk1qb"]
+atlas = ExtResource("5_oa1go")
+region = Rect2(80, 8, 8, 8)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -105,8 +115,17 @@ offset_right = 760.0
 offset_bottom = 220.0
 button_mask = 2
 
-[node name="Black" parent="." instance=ExtResource("4_wu84c")]
+[node name="Black" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_8ln24")
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jk1qb")
+script = ExtResource("6_tbmy8")
 
 [connection signal="pressed" from="ExitButton" to="." method="_quit_game"]
 [connection signal="pressed" from="PlayButton" to="Black" method="play_enter_animation"]
