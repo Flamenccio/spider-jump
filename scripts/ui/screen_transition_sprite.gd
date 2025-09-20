@@ -2,8 +2,15 @@ extends TextureRect
 
 signal transition_animation_finished()
 
+enum RectSide {
+	TOP,
+	RIGHT,
+	BOTTOM,
+	LEFT,
+}
+
 const _PROGRESS_PARAMETER = "progress"
-const _SIDE_PARAMETER = "move_top_side"
+const _SIDE_PARAMETER = "moving_side"
 
 ## Delay in seconds after screen wipe starts before emitting
 ## transition_animation_finished signal
@@ -15,6 +22,7 @@ const _SCREEN_WIPE_DURATION = 0.333
 
 var _shader_timer := Timer.new()
 var _animation_active := false
+var _active_side := RectSide.TOP
 
 ## Determines the direction the moving side of the screen wipe
 ## travels in[br]
@@ -22,6 +30,12 @@ var _animation_active := false
 ## - `_animation_direction < 0`: upward movement
 var _animation_direction := 0
 var _animation_progress := 0.0
+
+## Determines which side of the sprite to affect when animating entering
+@export var enter_side := RectSide.TOP
+
+## Determines which side of the sprite to affect when animating exiting
+@export var exit_side := RectSide.BOTTOM
 
 func _ready() -> void:
 
@@ -41,33 +55,68 @@ func _process(delta: float) -> void:
 	if _animation_active:
 		var _fill_rate = (1.0 / _SCREEN_WIPE_DURATION)
 		_animation_progress += _fill_rate * delta * _animation_direction
-		_set_sprite_fill(_animation_progress)
+		_set_sprite_fill(smoothstep(0.0, 1.0, _animation_progress), _active_side)
+		#_set_sprite_fill(_animation_progress, _active_side)
 
 
+## Animate the **sprite** entering (becomes visible)
 func play_enter_animation() -> void:
+
+	print("entering")
+
 	if _animation_active:
 		return
+
+
 	show()
 	_animation_active = true
-	_animation_direction = 1
-	material.set_shader_parameter(_SIDE_PARAMETER, false)
+	_active_side = enter_side
+	material.set_shader_parameter(_SIDE_PARAMETER, _active_side)
 	_shader_timer.start(_TRANSITION_TIME)
 
-
-func play_exit_animation() -> void:
-	if _animation_active:
-		return
-	material.set_shader_parameter(_SIDE_PARAMETER, true)
+	# Start empty
 	_animation_progress = 0.0
-	_set_sprite_fill(_animation_progress)
+	_set_sprite_fill(_animation_progress, enter_side)
+
+	# Progress forward
+	_animation_direction = 1
+
+
+## Animate the **sprite** exiting (becomes invisible)
+func play_exit_animation() -> void:
+
+	print("exiting")
+
+	if _animation_active:
+		return
+
 	show()
 	_animation_active = true
-	_animation_direction = 1
+	_active_side = exit_side
+	material.set_shader_parameter(_SIDE_PARAMETER, _active_side)
 	_shader_timer.timeout.connect(func():
-		hide()
-	, ConnectFlags.CONNECT_ONE_SHOT)
+		hide(), ConnectFlags.CONNECT_ONE_SHOT)
 	_shader_timer.start(_TRANSITION_TIME)
 
+	# Start full
+	_animation_progress = 1.0
+	_set_sprite_fill(_animation_progress, exit_side)
 
-func _set_sprite_fill(fill_percent: float) -> void:
-	material.set_shader_parameter(_PROGRESS_PARAMETER, position.y + fill_percent * size.y)
+	# Progress backward
+	_animation_direction = -1
+
+
+func _set_sprite_fill(fill_percent: float, side: RectSide) -> void:
+
+	var fill_length := size.y if side == RectSide.TOP or side == RectSide.BOTTOM else size.x
+
+	var fill_position := position.y if side == RectSide.TOP or side == RectSide.BOTTOM else position.x
+
+	var shader_progress := 0.0
+
+	if side == RectSide.TOP or side == RectSide.LEFT:
+		shader_progress = fill_position + (fill_length - fill_percent * fill_length)
+	else:
+		shader_progress = fill_position + fill_percent * fill_length
+
+	material.set_shader_parameter(_PROGRESS_PARAMETER, shader_progress)
