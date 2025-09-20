@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=41 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://ckbmtup38vh4f" path="res://sprites/pull_circle_hoverfly-Sheet.png" id="17_sww3w"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="18_twgab"]
 [ext_resource type="Script" uid="uid://bhhvu1j2kktg0" path="res://scripts/player/player_safe_spot.gd" id="20_1kice"]
+[ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/screen_wipe.tscn" id="20_sgl2t"]
 [ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
@@ -158,6 +159,8 @@ texture = ExtResource("6_e1j6l")
 
 [node name="DeathScreen" parent="UI" instance=ExtResource("16_js0lu")]
 
+[node name="Black" parent="UI" instance=ExtResource("20_sgl2t")]
+
 [node name="PlayerStats" type="Node" parent="."]
 script = ExtResource("17_gxtfn")
 
@@ -210,6 +213,7 @@ script = ExtResource("30_sgl2t")
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
+[connection signal="ready" from="." to="UI/Black" method="play_exit_animation"]
 [connection signal="score_updated" from="." to="LevelSpawner/LevelEventStarter" method="_on_score_updated"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
 [connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
