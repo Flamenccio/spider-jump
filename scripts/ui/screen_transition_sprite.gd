@@ -12,9 +12,9 @@ enum RectSide {
 const _PROGRESS_PARAMETER = "progress"
 const _SIDE_PARAMETER = "moving_side"
 
-## Delay in seconds after screen wipe starts before emitting
+## Delay in seconds after screen wipe ends before emitting
 ## transition_animation_finished signal
-const _TRANSITION_TIME = 0.666
+const _TRANSITION_TIME = 0.333
 
 ## How long screen wipe takes to complete in both directions,
 ## in seconds
@@ -23,6 +23,7 @@ const _SCREEN_WIPE_DURATION = 0.333
 var _shader_timer := Timer.new()
 var _animation_active := false
 var _active_side := RectSide.TOP
+var _active_duration := _SCREEN_WIPE_DURATION
 
 ## Determines the direction the moving side of the screen wipe
 ## travels in[br]
@@ -36,6 +37,8 @@ var _animation_progress := 0.0
 
 ## Determines which side of the sprite to affect when animating exiting
 @export var exit_side := RectSide.BOTTOM
+@export var enter_duration := _SCREEN_WIPE_DURATION
+@export var exit_duration := _SCREEN_WIPE_DURATION
 
 func _ready() -> void:
 
@@ -53,7 +56,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if _animation_active:
-		var _fill_rate = (1.0 / _SCREEN_WIPE_DURATION)
+		var _fill_rate = (1.0 / _active_duration)
 		_animation_progress += _fill_rate * delta * _animation_direction
 		_set_sprite_fill(smoothstep(0.0, 1.0, _animation_progress), _active_side)
 		#_set_sprite_fill(_animation_progress, _active_side)
@@ -62,17 +65,16 @@ func _process(delta: float) -> void:
 ## Animate the **sprite** entering (becomes visible)
 func play_enter_animation() -> void:
 
-	print("entering")
-
 	if _animation_active:
 		return
 
-
+	print("{0} entering".format({"0": name}))
 	show()
+	_active_duration = enter_duration
 	_animation_active = true
 	_active_side = enter_side
 	material.set_shader_parameter(_SIDE_PARAMETER, _active_side)
-	_shader_timer.start(_TRANSITION_TIME)
+	_shader_timer.start(_TRANSITION_TIME + _active_duration)
 
 	# Start empty
 	_animation_progress = 0.0
@@ -85,12 +87,12 @@ func play_enter_animation() -> void:
 ## Animate the **sprite** exiting (becomes invisible)
 func play_exit_animation() -> void:
 
-	print("exiting")
-
 	if _animation_active:
 		return
 
+	print("{0} exiting".format({"0": name}))
 	show()
+	_active_duration = exit_duration
 	_animation_active = true
 	_active_side = exit_side
 	material.set_shader_parameter(_SIDE_PARAMETER, _active_side)

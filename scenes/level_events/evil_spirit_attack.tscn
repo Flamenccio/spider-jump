@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dk0qh8kgof0du" path="res://scenes/evil_spirit.tscn" id="2_a1px8"]
 
 [node name="EvilSpiritAttack" type="Node"]
+process_mode = 1
 script = ExtResource("1_uuap6")
 _evil_spirit_scene = ExtResource("2_a1px8")
 height_duration = 300

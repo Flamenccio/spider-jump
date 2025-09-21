@@ -50,6 +50,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="EvilSpirit" type="StaticBody2D"]
+process_mode = 1
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_ck7cn")

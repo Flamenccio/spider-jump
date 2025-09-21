@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bygoip0hlhnko" path="res://scenes/level_objects/wasp.tscn" id="2_abns1"]
 
 [node name="WaspSwarm" type="Node"]
+process_mode = 1
 script = ExtResource("1_yoh1m")
 _wasp_scene = ExtResource("2_abns1")
 _base_spawn_frequency = 1.0

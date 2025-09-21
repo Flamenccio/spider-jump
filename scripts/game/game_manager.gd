@@ -4,17 +4,23 @@ signal levelled_up(new_level: int)
 signal on_game_over()
 signal stamina_drained(amount: float)
 signal score_updated(score: int)
+signal pause_screen_enabled()
+signal pause_screen_disabled()
+signal game_exited()
 
 const _LEVEL_UP_DRAIN_INCREASE = 0.005
+const _MAIN_MENU_UID = "uid://ive8w8v858du"
 
 var _stamina_drain_amount: float = 0.0
 var _old_stamina_drain: float = 0.0
 var _pause_stamina_drain: bool = false
+var _player: Node2D
+var _game_paused := false
+var _pause_screen_animation_complete := true
 
 ## Base amount of stamina drained per second, from 0.0 - 1.0
 @export var _debug_initial_difficulty: int = 0
 @export var _base_stamina_drain_amount: float = 0.0
-var _player: Node2D
 
 func _ready() -> void:
 
@@ -56,7 +62,7 @@ func game_over() -> void:
 
 
 func _process(delta: float) -> void:
-	if _pause_stamina_drain:
+	if _pause_stamina_drain or _game_paused:
 		return
 	stamina_drained.emit(_stamina_drain_amount * delta * -1)
 	var point = floori(_player.global_position.y / GameConstants.PIXELS_PER_POINT)
@@ -78,3 +84,41 @@ func _level_up(next_level: int) -> void:
 # TODO: adjust if needed
 func get_next_level_up_score(difficulty: int) -> int:
 	return 100 * (difficulty + 1) + 50 * difficulty
+
+
+func _on_pause_toggle() -> void:
+
+	if not _pause_screen_animation_complete:
+		return
+	
+	_pause_screen_animation_complete = false
+
+	if _game_paused:
+		pause_screen_disabled.emit()
+	else:
+		pause_screen_enabled.emit()
+	_game_paused = not _game_paused
+	get_tree().paused = _game_paused
+
+
+func _on_pause_screen_animation_done() -> void:
+	_pause_screen_animation_complete = true
+
+
+func _on_game_exit() -> void:
+	if not _game_paused:
+		return
+	get_tree().paused = false
+	if get_tree().change_scene_to_file(ResourceUID.uid_to_path(_MAIN_MENU_UID)) != OK:
+		push_error("error occured when exiting to main menu")
+		return
+
+
+func _on_pause_screen_pause_screen_button_pressed(button: String) -> void:
+	match button:
+		"exit":
+			game_exited.emit()
+		"resume":
+			_on_pause_toggle()
+		_:
+			return

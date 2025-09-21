@@ -109,5 +109,7 @@ button_mask = 2
 layout_mode = 1
 
 [connection signal="pressed" from="ExitButton" to="." method="_quit_game"]
+[connection signal="pressed" from="PlayButton" to="." method="_queue_load_arcade"]
 [connection signal="pressed" from="PlayButton" to="Black" method="play_enter_animation"]
-[connection signal="transition_animation_finished" from="Black" to="." method="_load_arcade"]
+[connection signal="ready" from="Black" to="Black" method="play_exit_animation"]
+[connection signal="transition_animation_finished" from="Black" to="." method="_on_black_transition_animation_finished"]

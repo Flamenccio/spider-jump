@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dsb66hi83np7q" path="res://scripts/entities/item.gd" id="1_cypp3"]
 
 [node name="GenericItem" type="StaticBody2D"]
+process_mode = 1
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_cypp3")

@@ -34,7 +34,6 @@ metadata/graph_offset = Vector2(580.5, 201)
 [sub_resource type="Resource" id="Resource_3j56e"]
 script = ExtResource("3_wjwgt")
 value = true
-comparation = 0
 name = "attack_done"
 
 [sub_resource type="Resource" id="Resource_tytou"]
@@ -44,14 +43,11 @@ to = "Exit"
 conditions = {
 "attack_done": SubResource("Resource_3j56e")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_ulewm"]
 script = ExtResource("4_t4opi")
 from = "Entry"
 to = "Telegraph"
-conditions = {}
-priority = 0
 
 [sub_resource type="Resource" id="Resource_a6a0c"]
 script = ExtResource("5_oe8jn")
@@ -66,11 +62,9 @@ to = "TelegraphFlash"
 conditions = {
 "telegraph_time": SubResource("Resource_a6a0c")
 }
-priority = 0
 
 [sub_resource type="Resource" id="Resource_hcnm8"]
 script = ExtResource("5_oe8jn")
-value = 0.0
 comparation = 5
 name = "telegraph_time"
 
@@ -81,7 +75,6 @@ to = "Attack"
 conditions = {
 "telegraph_time": SubResource("Resource_hcnm8")
 }
-priority = 0
 
 [resource]
 script = ExtResource("1_8rkoj")
@@ -106,4 +99,3 @@ transitions = {
 "Attack": SubResource("Resource_a1f3m")
 }
 }
-name = ""

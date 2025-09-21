@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://m2jsi2m03wjh" path="res://scenes/level_objects/laser_attack.tscn" id="2_y417i"]
 
 [node name="Lasers" type="Node"]
+process_mode = 1
 script = ExtResource("1_judrj")
 _laser_attack_scene = ExtResource("2_y417i")
 height_duration = 200

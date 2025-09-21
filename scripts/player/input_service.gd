@@ -4,21 +4,24 @@ signal move_input_change(move_input: Vector2)
 signal pull_input_change(pull_input: Vector2)
 signal pull_release()
 signal pull_press()
-
-@export var _pull_origin: Node2D
-var _current_move_input: Vector2 = Vector2.ZERO
-var _joypad_input: bool = false
-var _current_max_pull_distance: float
+signal pause_button_pressed()
 
 # When using KBM pull, the maximum distance from the
 # pull origin (player) that results in the highest
 # launch power when released from this distance.
 const _MAX_PULL_DISTANCE = 32.0
+
 const _MIN_PULL_DISTANCE = 8.0
 
 ## When using KBM, the maximum distance from the
 ## pull origin when using the hoverfly powerup.
 const _MAX_PULL_DISTANCE_HOVER = 48.0
+
+var _current_move_input: Vector2 = Vector2.ZERO
+var _joypad_input: bool = false
+var _current_max_pull_distance: float
+
+@export var _pull_origin: Node2D
 
 func _ready() -> void:
 
@@ -32,29 +35,6 @@ func _ready() -> void:
 	_current_max_pull_distance = _MAX_PULL_DISTANCE
 
 
-func _handle_powerup(powerup: String) -> void:
-	if powerup == ItemIds.HOVERFLY_POWERUP:
-		_current_max_pull_distance = _MAX_PULL_DISTANCE_HOVER
-
-
-func _handle_powerup_end(powerup: String) -> void:
-	if powerup == ItemIds.HOVERFLY_POWERUP:
-		_current_max_pull_distance = _MAX_PULL_DISTANCE
-
-
-func _handle_joy_connection_change(device: int, connect: bool) -> void:
-
-	if connect: print('connected: ', device)
-	else: print('disconnected: ', device)
-
-	_joypad_input = Input.get_connected_joypads().size() > 0
-
-
-func _input(event: InputEvent) -> void:
-	_handle_move_input()
-	_handle_pull(event)
-
-
 func _process(delta: float) -> void:
 	if _joypad_input:
 		_handle_pull_input_joy()
@@ -62,6 +42,12 @@ func _process(delta: float) -> void:
 		_handle_pull_input_kbm()
 	# debug draw
 	#DebugDraw2D.circle(_pull_origin.global_position, _MAX_PULL_DISTANCE, 16, Color.RED, 0.5, delta)
+
+
+func _input(event: InputEvent) -> void:
+	_handle_move_input()
+	_handle_pull(event)
+	_handle_pause_button(event)
 
 
 func _handle_move_input() -> void:
@@ -113,3 +99,24 @@ func _deadzone(raw_input: float, deadzone: float, maximum: float) -> float:
 	return raw_input_sign * (processed_input - deadzone) / (maximum - deadzone)
 
 
+func _handle_powerup(powerup: String) -> void:
+	if powerup == ItemIds.HOVERFLY_POWERUP:
+		_current_max_pull_distance = _MAX_PULL_DISTANCE_HOVER
+
+
+func _handle_powerup_end(powerup: String) -> void:
+	if powerup == ItemIds.HOVERFLY_POWERUP:
+		_current_max_pull_distance = _MAX_PULL_DISTANCE
+
+
+func _handle_joy_connection_change(device: int, connect: bool) -> void:
+
+	if connect: print('connected: ', device)
+	else: print('disconnected: ', device)
+
+	_joypad_input = Input.get_connected_joypads().size() > 0
+
+
+func _handle_pause_button(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		pause_button_pressed.emit()

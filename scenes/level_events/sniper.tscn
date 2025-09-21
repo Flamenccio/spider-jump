@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://wbomsndl0m0p" path="res://scenes/level_objects/sniper_shot.tscn" id="2_iq0y0"]
 
 [node name="Sniper" type="Node"]
+process_mode = 1
 script = ExtResource("1_8nlgp")
 _sniper_shot_scene = ExtResource("2_iq0y0")
 _sniper_shot_frequency = 3.0

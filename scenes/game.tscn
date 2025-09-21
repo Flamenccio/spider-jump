@@ -25,11 +25,11 @@
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/screen_wipe.tscn" id="20_sgl2t"]
 [ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
+[ext_resource type="PackedScene" uid="uid://dind7ho1brwrn" path="res://scenes/pause_screen.tscn" id="21_qouja"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
-[ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/slip.tscn" id="32_js0lu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -81,10 +81,12 @@ animations = [{
 }]
 
 [node name="Game" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_264po")
 _base_stamina_drain_amount = 0.033
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
+process_mode = 1
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
@@ -107,10 +109,12 @@ scale = Vector2(1.97784, 0.137882)
 texture = ExtResource("6_e1j6l")
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
+process_mode = 3
 script = ExtResource("7_pl11u")
 _pull_origin = NodePath("../Player")
 
 [node name="LevelSpawner" type="Node2D" parent="." node_paths=PackedStringArray("_spawn_trigger")]
+process_mode = 1
 script = ExtResource("8_bhx41")
 _level_path = "res://levels/"
 _initial_level = ExtResource("9_qnb83")
@@ -130,6 +134,7 @@ _camera = NodePath("../../Camera")
 position = Vector2(0, -12)
 
 [node name="PullCircle" type="Sprite2D" parent="Player"]
+process_mode = 1
 texture = ExtResource("11_suyxu")
 script = ExtResource("12_sgl2t")
 _active_sprite = ExtResource("11_suyxu")
@@ -158,11 +163,15 @@ texture = ExtResource("6_e1j6l")
 [node name="Hud" parent="UI" instance=ExtResource("15_v2yb1")]
 
 [node name="DeathScreen" parent="UI" instance=ExtResource("16_js0lu")]
+visible = false
 
-[node name="Black" parent="UI" instance=ExtResource("20_sgl2t")]
-visible = true
+[node name="PauseScreen" parent="UI" instance=ExtResource("21_qouja")]
+visible = false
+
+[node name="TransitionWipe" parent="UI" instance=ExtResource("20_sgl2t")]
 
 [node name="PlayerStats" type="Node" parent="."]
+process_mode = 1
 script = ExtResource("17_gxtfn")
 
 [node name="PlayerSafeSpot" type="VisibleOnScreenNotifier2D" parent="."]
@@ -198,6 +207,7 @@ position = Vector2(0, -60)
 _high_score_saver = NodePath("../PlayerStatsSaver")
 
 [node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
+process_mode = 1
 width = 1.0
 default_color = Color(0.160708, 0.674632, 0.996078, 1)
 script = ExtResource("18_twgab")
@@ -209,11 +219,14 @@ autoplay = "default"
 frame_progress = 0.442083
 script = ExtResource("30_sgl2t")
 
-[node name="Slip" parent="." instance=ExtResource("32_js0lu")]
-
+[connection signal="game_exited" from="." to="UI/TransitionWipe" method="play_enter_animation"]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
+[connection signal="pause_screen_disabled" from="." to="UI/Hud" method="show" flags=3]
+[connection signal="pause_screen_disabled" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled"]
+[connection signal="pause_screen_enabled" from="." to="UI/Hud" method="hide" flags=3]
+[connection signal="pause_screen_enabled" from="." to="UI/PauseScreen" method="_on_pause_screen_enabled"]
 [connection signal="score_updated" from="." to="LevelSpawner/LevelEventStarter" method="_on_score_updated"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
 [connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
@@ -222,6 +235,7 @@ script = ExtResource("30_sgl2t")
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
 [connection signal="player_fell_here" from="Camera/DeathTrigger" to="Player" method="_on_player_fell"]
 [connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
+[connection signal="pause_button_pressed" from="InputService" to="." method="_on_pause_toggle"]
 [connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
 [connection signal="pull_input_change" from="InputService" to="PullDragline" method="pull_update"]
 [connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]
@@ -240,7 +254,10 @@ script = ExtResource("30_sgl2t")
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
 [connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
-[connection signal="ready" from="UI/Black" to="UI/Black" method="play_exit_animation" flags=3]
+[connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
+[connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
+[connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation" flags=3]
+[connection signal="transition_animation_finished" from="UI/TransitionWipe" to="." method="_on_game_exit"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_entered"]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [true]]

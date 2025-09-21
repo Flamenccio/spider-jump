@@ -76,6 +76,7 @@ animations = [{
 size = Vector2(8, 256)
 
 [node name="Laser" type="StaticBody2D" node_paths=PackedStringArray("state_machine")]
+process_mode = 1
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_hc31q")
