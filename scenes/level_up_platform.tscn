@@ -25,7 +25,7 @@ tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_byf52")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btdyi"]
-size = Vector2(96, 34)
+size = Vector2(96, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y6v4l"]
 size = Vector2(96, 8)
@@ -55,7 +55,7 @@ tile_set = SubResource("TileSet_btdyi")
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SecondaryTrigger"]
-position = Vector2(0, -21)
+position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_btdyi")
 
 [node name="PlatformTrigger" type="Area2D" parent="."]
@@ -69,5 +69,5 @@ shape = SubResource("RectangleShape2D_y6v4l")
 [connection signal="platform_triggered" from="." to="CollisionShape2D" method="set_disabled" flags=3 binds= [false]]
 [connection signal="body_entered" from="SecondaryTrigger" to="." method="_on_player_enter_secondary_trigger"]
 [connection signal="body_exited" from="SecondaryTrigger" to="." method="_on_player_exit_secondary_trigger" unbinds=1]
-[connection signal="body_entered" from="PlatformTrigger" to="." method="_on_player_enter_platform_trigger"]
+[connection signal="body_entered" from="PlatformTrigger" to="." method="_on_player_enter_platform_trigger" unbinds=1]
 [connection signal="body_exited" from="PlatformTrigger" to="." method="_on_player_exit_platform_trigger"]
