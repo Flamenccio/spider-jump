@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://c22pgr73hau3t"]
+
+[ext_resource type="Script" uid="uid://h8yloqb81e1j" path="res://scripts/ui/powerup_hint.gd" id="1_bqea1"]
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_vwibk"]
+[ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="2_4trsu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0svpu"]
+shader = ExtResource("2_4trsu")
+shader_parameter/oscillate_active = true
+shader_parameter/tint = Vector4(1, 0.5, 0.5, 0)
+shader_parameter/oscillate_speed = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqea1"]
+font = ExtResource("1_vwibk")
+font_size = 32
+
+[node name="PowerupHint" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqea1")
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_0svpu")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -471.5
+offset_top = -132.0
+offset_right = 471.5
+offset_bottom = -87.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_bqea1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="text_requested" from="." to="Label" method="set_text" flags=3]

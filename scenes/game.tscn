@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=48 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -27,9 +27,15 @@
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="PackedScene" uid="uid://dind7ho1brwrn" path="res://scenes/pause_screen.tscn" id="21_qouja"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player_stats_saver.gd" id="22_37s47"]
+[ext_resource type="PackedScene" uid="uid://c22pgr73hau3t" path="res://scenes/powerup_hint.tscn" id="22_qouja"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
+[ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/player_hints.gd" id="32_wljb1"]
+[ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="33_twgab"]
+[ext_resource type="Resource" uid="uid://duiadsgrbxyya" path="res://resources/powerups/bubblebee.tres" id="34_twgab"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="35_nepv3"]
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="36_7025r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -79,6 +85,10 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+atlas = ExtResource("35_nepv3")
+region = Rect2(16, 0, 8, 8)
 
 [node name="Game" type="Node2D"]
 process_mode = 3
@@ -170,6 +180,8 @@ visible = false
 
 [node name="TransitionWipe" parent="UI" instance=ExtResource("20_sgl2t")]
 
+[node name="PowerupHint" parent="UI" instance=ExtResource("22_qouja")]
+
 [node name="PlayerStats" type="Node" parent="."]
 process_mode = 1
 script = ExtResource("17_gxtfn")
@@ -219,6 +231,22 @@ autoplay = "default"
 frame_progress = 0.442083
 script = ExtResource("30_sgl2t")
 
+[node name="PlayerHints" type="Node" parent="."]
+script = ExtResource("32_wljb1")
+
+[node name="Bubblebee" parent="." instance=ExtResource("33_twgab")]
+position = Vector2(1, -90)
+_debug_item = ExtResource("34_twgab")
+_item_id = "bubblebee"
+
+[node name="@Sprite2D@31248" type="Sprite2D" parent="Bubblebee"]
+z_index = 10
+texture = SubResource("AtlasTexture_ih772")
+
+[node name="@CollisionShape2D@31249" type="CollisionShape2D" parent="Bubblebee"]
+shape = ExtResource("36_7025r")
+
+[connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="game_exited" from="." to="UI/TransitionWipe" method="play_enter_animation"]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
@@ -266,3 +294,4 @@ script = ExtResource("30_sgl2t")
 [connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]
 [connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]
 [connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]
+[connection signal="give_hint" from="PlayerHints" to="UI/PowerupHint" method="display_text"]

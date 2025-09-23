@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StringTable" load_steps=2 format=3 uid="uid://cmgi6gm7vlqbh"]
+
+[ext_resource type="Script" uid="uid://dletn8hm13rxb" path="res://scripts/string_table.gd" id="1_rqwg4"]
+
+[resource]
+resource_name = "powerup_hints"
+script = ExtResource("1_rqwg4")
+_table = Dictionary[String, String]({
+"hint.antibug": "Reversed gravity!",
+"hint.blinkfly": "Jump to your reticle!",
+"hint.bubblebee": "Mid-air jumps!",
+"hint.heavy_beetle": "Crawl fast and invulnerable!",
+"hint.hopperpop": "High jump!",
+"hint.hoverfly": "Point and fly!",
+"hint.super_grub": "Unlimited stamina!"
+})
+metadata/_custom_type_script = "uid://dletn8hm13rxb"
