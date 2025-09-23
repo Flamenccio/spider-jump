@@ -24,7 +24,6 @@ PlayerEventBus="*res://scripts/player_event_bus.gd"
 PlayerStatsInterface="*res://scripts/player_stats_interface.gd"
 ItemIds="*res://scripts/item_ids.gd"
 GlobalFlashParticleSpawner="*res://scripts/flash_particle_spawner.gd"
-StringTableServer="*res://scripts/string_table_loader.gd"
 
 [display]
 
@@ -110,7 +109,7 @@ pause={
 [internationalization]
 
 locale/translation_remaps={}
-locale/translations=PackedStringArray("res://resources/translations/en.tres")
+locale/translations=PackedStringArray("res://translations/spider_jump_translations.en.translation")
 
 [layer_names]
 

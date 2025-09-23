@@ -33,7 +33,7 @@
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/player_hints.gd" id="32_wljb1"]
 [ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="33_twgab"]
-[ext_resource type="Resource" uid="uid://duiadsgrbxyya" path="res://resources/powerups/bubblebee.tres" id="34_twgab"]
+[ext_resource type="Resource" uid="uid://bdw182pwtkml6" path="res://resources/powerups/blinkfly.tres" id="34_twgab"]
 [ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="35_nepv3"]
 [ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="36_7025r"]
 
@@ -88,7 +88,7 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
 atlas = ExtResource("35_nepv3")
-region = Rect2(16, 0, 8, 8)
+region = Rect2(48, 0, 8, 8)
 
 [node name="Game" type="Node2D"]
 process_mode = 3
@@ -234,16 +234,16 @@ script = ExtResource("30_sgl2t")
 [node name="PlayerHints" type="Node" parent="."]
 script = ExtResource("32_wljb1")
 
-[node name="Bubblebee" parent="." instance=ExtResource("33_twgab")]
+[node name="Blinkfly" parent="." instance=ExtResource("33_twgab")]
 position = Vector2(1, -90)
 _debug_item = ExtResource("34_twgab")
-_item_id = "bubblebee"
+_item_id = "blinkfly"
 
-[node name="@Sprite2D@31248" type="Sprite2D" parent="Bubblebee"]
+[node name="@Sprite2D@29131" type="Sprite2D" parent="Blinkfly"]
 z_index = 10
 texture = SubResource("AtlasTexture_ih772")
 
-[node name="@CollisionShape2D@31249" type="CollisionShape2D" parent="Bubblebee"]
+[node name="@CollisionShape2D@29132" type="CollisionShape2D" parent="Blinkfly"]
 shape = ExtResource("36_7025r")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]

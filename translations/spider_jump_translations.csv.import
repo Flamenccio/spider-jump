@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dijplrp1i6lp8"
+
+[deps]
+
+files=["res://translations/spider_jump_translations.en.translation"]
+
+source_file="res://translations/spider_jump_translations.csv"
+dest_files=["res://translations/spider_jump_translations.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0
