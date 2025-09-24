@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmyyp1qc3tf0m"]
+
+[ext_resource type="Script" uid="uid://cf6gnht3r5w12" path="res://scripts/entities/swift_yumfly.gd" id="1_b312c"]
+[ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_8tmim"]
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="2_b312c"]
+[ext_resource type="Texture2D" uid="uid://c04lmyxnwo8ie" path="res://sprites/swift_yum_fly_sparkles-Sheet.png" id="4_r3cs1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b312c"]
+atlas = ExtResource("2_8tmim")
+region = Rect2(32, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3cs1"]
+atlas = ExtResource("2_8tmim")
+region = Rect2(40, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pml48"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b312c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3cs1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b312c"]
+radius = 40.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r3cs1"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="SwiftYumfly" type="StaticBody2D"]
+z_index = 5
+z_as_relative = false
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_b312c")
+_item_id = "swift_yum_fly"
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = ExtResource("2_b312c")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pml48")
+
+[node name="PlayerChaseDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChaseDetector"]
+shape = SubResource("CircleShape2D_b312c")
+
+[node name="PlayerCollectDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollectDetector"]
+shape = ExtResource("2_b312c")
+
+[node name="ScreenDetector" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-3, -3, 6, 6)
+
+[node name="Sparkles" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_r3cs1")
+amount = 6
+texture = ExtResource("4_r3cs1")
+emission_shape = 2
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[connection signal="chase_started" from="." to="PlayerChaseDetector/CollisionShape2D" method="set_disabled" flags=3 binds= [true]]
+[connection signal="body_entered" from="PlayerChaseDetector" to="." method="_on_player_detected" unbinds=1]
+[connection signal="screen_entered" from="ScreenDetector" to="." method="_on_entered_screen"]
+[connection signal="screen_exited" from="ScreenDetector" to="." method="_on_exited_screen"]

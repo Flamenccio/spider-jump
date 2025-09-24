@@ -10,6 +10,7 @@ const BUBBLEBEE_POWERUP = 'bubblebee'
 const ANTIBUG_POWERUP = 'antibug'
 const NO_POWERUP = 'none'
 const YUMFLY_ITEM = 'yum_fly'
+const SWIFT_YUMFLY_ITEM = 'swift_yum_fly'
 
 const _POWERUPS: Array[StringName] = [
 	HOVERFLY_POWERUP,
@@ -23,6 +24,7 @@ const _POWERUPS: Array[StringName] = [
 
 const _ITEMS: Array[StringName] = [
 	YUMFLY_ITEM,
+	SWIFT_YUMFLY_ITEM,
 ]
 
 func is_item_powerup(item_id: String) -> bool:

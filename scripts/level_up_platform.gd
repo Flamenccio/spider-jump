@@ -22,7 +22,6 @@ func _on_player_enter_secondary_trigger(body:Node2D) -> void:
 	_attempt_platform_trigger(body)
 
 
-
 func _on_player_exit_secondary_trigger() -> void:
 	if _triggered:
 		return

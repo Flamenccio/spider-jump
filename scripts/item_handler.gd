@@ -4,12 +4,14 @@ signal collected_item(item_id: String)
 signal collected_powerup(powerup_id: String)
 
 const YUMFLY_STAMINA_RECOVERY = 0.25
+const SWIFT_YUMFLY_STAMINA_RECOVERY = 0.125
 
 func _on_item_collided(item: Node2D) -> void:
 	if item is not Item:
 		return
-	_on_item_collected(item as Item)
-	item.queue_free()
+	var item_class := item as Item
+	_on_item_collected(item_class)
+	item.on_item_collected()
 
 
 func _on_item_collected(item: Item) -> void:
@@ -21,6 +23,14 @@ func _on_item_collected(item: Item) -> void:
 
 	if item.item_id == ItemIds.YUMFLY_ITEM:
 		PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, YUMFLY_STAMINA_RECOVERY)
+		PlayerEventBus.player_consumed_item.emit(item)
+		PlayerEventBus.item_collected.emit(item.item_id)
+		collected_item.emit(item.item_id)
+		GlobalFlashParticleSpawner.spawn_particle("item_collected", item.global_position, 0.0)
+		return
+
+	if item.item_id == ItemIds.SWIFT_YUMFLY_ITEM:
+		PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, SWIFT_YUMFLY_STAMINA_RECOVERY)
 		PlayerEventBus.player_consumed_item.emit(item)
 		PlayerEventBus.item_collected.emit(item.item_id)
 		collected_item.emit(item.item_id)

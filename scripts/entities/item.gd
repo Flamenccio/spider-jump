@@ -21,6 +21,10 @@ func _ready() -> void:
 	_play_default_animations()
 
 
+func on_item_collected() -> void:
+	_on_item_collected()
+
+
 func remove_powerup() -> void:
 
 	if Engine.is_editor_hint():
@@ -77,3 +81,7 @@ func _reparent_debug_child(child: Node) -> void:
 	child.owner = get_tree().edited_scene_root
 	if child is Node2D:
 		child.position = Vector2.ZERO
+
+
+func _on_item_collected() -> void:
+	queue_free()
