@@ -1,11 +1,12 @@
 class_name SpriteTree
 extends Node2D
 
+var _branches: Array[AnimatedSprite2D]
+var _active_branch: AnimatedSprite2D
+
 ## Name of the default active branch.
 ## If left blank, the first branch in the array is chosen
 @export var _default_branch: String
-var _branches: Array[AnimatedSprite2D]
-var _active_branch: AnimatedSprite2D
 
 func _ready() -> void:
 
@@ -18,7 +19,6 @@ func _ready() -> void:
 			new_sprite.hide()
 			_branches.append(new_sprite)
 
-
 	if _branches.size() == 0:
 		push_error('sprite tree: no sprite branches!')
 		return
@@ -30,6 +30,16 @@ func _ready() -> void:
 	# Set active branch to _default_branch
 	else:
 		switch_sprite_branch(_default_branch)
+
+
+func flip_horizontal(flip: bool) -> void:
+	for sprite in _branches:
+		sprite.flip_h = flip
+
+
+func flip_vertical(flip: bool) -> void:
+	for sprite in _branches:
+		sprite.flip_v = flip
 
 
 ## Switches the current active branch to `to`. Automatically converted to **PascalCase** to match node-naming conventions.

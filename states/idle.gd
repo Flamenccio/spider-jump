@@ -4,7 +4,6 @@ signal player_entered_idle()
 signal normal_recheck_requested()
 
 @export var _animator: SpriteTree
-@export var _gravity_scale: float = 1.0
 @export var _player: CharacterBody2D
 
 var _floor_suction_force: float = 0.5
@@ -25,7 +24,7 @@ func enter_state() -> void:
 	player_entered_idle.emit()
 
 
-func update_state(delta: float) -> void:
+func update_state(_delta: float) -> void:
 
 	_player.move_and_collide(_down_vector * _floor_suction_force)
 
@@ -34,7 +33,7 @@ func update_state(delta: float) -> void:
 		_last_position = _player.global_position
 
 
-func _normal_updated(normal: Vector2) -> void:
+func _normal_updated(_normal: Vector2) -> void:
 	_down_vector = Vector2.from_angle(_player.rotation - (3 * PI / 2.0))
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=91 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" uid="uid://ddi1mvcerwx2q" path="res://behavior_state/player/ko.gd" id="41_u2ulf"]
 [ext_resource type="Script" uid="uid://bc4pxggsqm6r2" path="res://behavior_state/player/powerup_entry.gd" id="42_6e8lb"]
 [ext_resource type="Script" uid="uid://dvmvkg11wuswa" path="res://behavior_state/player/exit_powerup.gd" id="43_2gdjj"]
+[ext_resource type="Script" uid="uid://b5qt5klwp6ofn" path="res://scripts/player/sprite_flipper.gd" id="43_dgu1j"]
 [ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="44_mx1m4"]
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="46_u2ulf"]
@@ -659,7 +660,6 @@ _player = NodePath("../..")
 [node name="Idle" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_animator", "_player")]
 script = ExtResource("40_4gjji")
 _animator = NodePath("../../SpriteTree")
-_gravity_scale = 0.33
 _player = NodePath("../..")
 
 [node name="KO" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player")]
@@ -716,6 +716,11 @@ script = ExtResource("48_4gjji")
 
 [node name="DangerHandler" type="Node" parent="Handlers"]
 script = ExtResource("49_u2ulf")
+
+[node name="SpriteFlipper" type="Node" parent="." node_paths=PackedStringArray("_sprite_tree", "_player")]
+script = ExtResource("43_dgu1j")
+_sprite_tree = NodePath("../SpriteTree")
+_player = NodePath("..")
 
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]
