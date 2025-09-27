@@ -14,7 +14,7 @@ var _down_vector: Vector2
 var _last_position: Vector2
 
 # Lower values mean higher precision
-const _MOTION_DETECTION_PRECISION = 0.01
+const _MOTION_DETECTION_PRECISION = 0.10
 
 func enter_state() -> void:
 	_player.velocity = Vector2.ZERO
@@ -39,7 +39,13 @@ func _normal_updated(normal: Vector2) -> void:
 
 
 func _motion_detected() -> bool:
+
 	var snapped_last_position = _last_position.snappedf(_MOTION_DETECTION_PRECISION)
 	var snapped_global_position = _player.global_position.snappedf(_MOTION_DETECTION_PRECISION)
-	return snapped_last_position != snapped_global_position
+	var motion_detected = snapped_last_position != snapped_global_position
 
+	if motion_detected:
+		# Snap to position to prevent player getting stuck at corners
+		_player.global_position = snapped_global_position
+
+	return motion_detected
