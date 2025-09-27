@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://tjmj5v6lw2as" path="res://scripts/ui/life_bar.gd" id="3_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://dj6nc2r4uunkq" path="res://sprites/life.png" id="4_uo2fv"]
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="6_5pdws"]
-[ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/digit_display.tscn" id="6_047uy"]
+[ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="6_047uy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")

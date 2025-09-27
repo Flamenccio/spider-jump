@@ -68,7 +68,6 @@ func play_enter_animation() -> void:
 	if _animation_active:
 		return
 
-	print("{0} entering".format({"0": name}))
 	show()
 	_active_duration = enter_duration
 	_animation_active = true
@@ -90,7 +89,6 @@ func play_exit_animation() -> void:
 	if _animation_active:
 		return
 
-	print("{0} exiting".format({"0": name}))
 	show()
 	_active_duration = exit_duration
 	_animation_active = true

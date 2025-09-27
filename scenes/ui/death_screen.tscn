@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://scripts/ui/ui_controller.gd" id="1_dwo6e"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_dwo6e"]
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="3_7ns25"]
-[ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/digit_display.tscn" id="3_mqh5l"]
+[ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="3_mqh5l"]
 [ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="5_gwety"]
 [ext_resource type="Script" uid="uid://doklq8uylia54" path="res://scripts/shader_manager.gd" id="6_wfw3d"]
 

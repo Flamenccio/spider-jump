@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="1_nu058"]
 [ext_resource type="Script" uid="uid://cvr6mktnrj5xl" path="res://scripts/ui/screen_transition_sprite.gd" id="2_nu058"]
-[ext_resource type="Texture2D" uid="uid://dq08b2rsqhfuk" path="res://scenes/screen_wipe_2.png" id="2_yrk1i"]
+[ext_resource type="Texture2D" uid="uid://dq08b2rsqhfuk" path="res://sprites/screen_wipe_2.png" id="2_yrk1i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ln24"]
 shader = ExtResource("1_nu058")

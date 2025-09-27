@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/player_particle_emitter.gd" id="21_a38lo"]
 [ext_resource type="Script" uid="uid://b18q1me1fgeo8" path="res://scripts/player/ledge_climb.gd" id="24_l71n6"]
-[ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/parabola_particles.tscn" id="28_pf23h"]
+[ext_resource type="PackedScene" uid="uid://bcwgm2lsqvudp" path="res://scenes/misc/parabola_particles.tscn" id="28_pf23h"]
 [ext_resource type="Script" uid="uid://ciukd8uvw0shs" path="res://scripts/player_state_machine.gd" id="32_mx1m4"]
 [ext_resource type="Script" uid="uid://e2r68u481i5h" path="res://scripts/player/danger_detector.gd" id="33_487ah"]
 [ext_resource type="Script" uid="uid://bubhv415uy3si" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="33_bj30b"]
