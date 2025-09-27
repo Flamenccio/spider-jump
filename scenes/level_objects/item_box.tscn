@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cvgknv5hx4uwm"]
 
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="1_8vxx2"]
-[ext_resource type="Script" uid="uid://5p3w835j81ec" path="res://scripts/item_box.gd" id="1_rp6ev"]
+[ext_resource type="Script" uid="uid://5p3w835j81ec" path="res://scripts/game/item_box.gd" id="1_rp6ev"]
 [ext_resource type="Resource" uid="uid://c0p0fb7uoe6l8" path="res://resources/default_loot_box.tres" id="2_0fdv3"]
 
 [node name="ItemBox" type="Node2D"]

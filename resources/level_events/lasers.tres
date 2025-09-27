@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="NamedPackedScene" load_steps=3 format=3 uid="uid://dsubj7wx2b368"]
 
-[ext_resource type="Script" uid="uid://di64m1lpab7lt" path="res://scripts/named_packed_scene.gd" id="1_cr242"]
+[ext_resource type="Script" uid="uid://di64m1lpab7lt" path="res://scripts/utility/named_packed_scene.gd" id="1_cr242"]
 [ext_resource type="PackedScene" uid="uid://cn36hducnlllu" path="res://scenes/level_events/lasers.tscn" id="1_s2xi6"]
 
 [resource]

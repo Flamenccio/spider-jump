@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://m2jsi2m03wjh"]
 
-[ext_resource type="Script" uid="uid://daggkeel5565b" path="res://laser_attack.gd" id="1_x6ctn"]
+[ext_resource type="Script" uid="uid://daggkeel5565b" path="res://scripts/entities/laser_attack.gd" id="1_x6ctn"]
 [ext_resource type="PackedScene" uid="uid://biiejo68crtvr" path="res://scenes/level_objects/laser.tscn" id="2_vi38b"]
 
 [node name="LaserAttack" type="Node2D"]

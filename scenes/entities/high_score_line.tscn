@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bbd2meqorrjoe"]
 
-[ext_resource type="Script" uid="uid://bwlut33e1ye6a" path="res://scripts/high_score_line.gd" id="1_ao4fa"]
+[ext_resource type="Script" uid="uid://bwlut33e1ye6a" path="res://scripts/game/high_score_line.gd" id="1_ao4fa"]
 [ext_resource type="Texture2D" uid="uid://wovy1tqu5mb7" path="res://sprites/high_score_line.png" id="1_vj61t"]
 [ext_resource type="Texture2D" uid="uid://dk71uw1mbteqt" path="res://sprites/confetti_1-Sheet.png" id="2_op4m1"]
 

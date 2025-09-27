@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bygoip0hlhnko"]
 
-[ext_resource type="Script" uid="uid://baa51cfsalq2j" path="res://wasp.gd" id="1_aw6mf"]
+[ext_resource type="Script" uid="uid://baa51cfsalq2j" path="res://scripts/entities/wasp.gd" id="1_aw6mf"]
 [ext_resource type="Texture2D" uid="uid://qase628auigv" path="res://sprites/wasp-Sheet.png" id="1_wv8lk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aw6mf"]

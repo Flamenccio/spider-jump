@@ -1,10 +1,10 @@
 @tool
 class_name ItemBox
+extends LevelObject
 ## Marks a location where an item could spawn.
 ##
 ## Placed in the level builder to set a place where a random
 ## item will spawn in.
-extends LevelObject
 
 @export var loot_table: LootTable
 

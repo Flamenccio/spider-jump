@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="3_7ns25"]
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="3_mqh5l"]
 [ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="5_gwety"]
-[ext_resource type="Script" uid="uid://doklq8uylia54" path="res://scripts/shader_manager.gd" id="6_wfw3d"]
+[ext_resource type="Script" uid="uid://doklq8uylia54" path="res://scripts/utility/shader_manager.gd" id="6_wfw3d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mqh5l"]
 atlas = ExtResource("2_dwo6e")

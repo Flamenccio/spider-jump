@@ -2,10 +2,10 @@
 
 [ext_resource type="Shader" uid="uid://xu2n37r5lsyv" path="res://shaders/repeat.gdshader" id="1_03f8u"]
 [ext_resource type="Texture2D" uid="uid://b41i1werk3wdh" path="res://sprites/level_event_laser_active-Sheet.png" id="1_cv7lb"]
-[ext_resource type="Script" uid="uid://3ic8lx11hr0b" path="res://scripts/laser.gd" id="1_hc31q"]
+[ext_resource type="Script" uid="uid://3ic8lx11hr0b" path="res://scripts/entities/laser.gd" id="1_hc31q"]
 [ext_resource type="Texture2D" uid="uid://cekb2udjypay6" path="res://sprites/level_event_laser_telegraph-Sheet.png" id="2_guxa4"]
 [ext_resource type="Script" uid="uid://bubhv415uy3si" path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" id="5_wprj7"]
-[ext_resource type="Resource" uid="uid://42j7hl1ltsl1" path="res://laser.tres" id="6_lgn77"]
+[ext_resource type="Resource" uid="uid://42j7hl1ltsl1" path="res://state_machines/laser.tres" id="6_lgn77"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hc31q"]
 shader = ExtResource("1_03f8u")

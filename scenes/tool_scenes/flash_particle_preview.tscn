@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://126u4pc2wld0"]
 
-[ext_resource type="Script" uid="uid://bxem3g423nk86" path="res://scripts/flash_particle_preview.gd" id="1_v476d"]
+[ext_resource type="Script" uid="uid://bxem3g423nk86" path="res://scripts/tool_scenes/flash_particle_preview.gd" id="1_v476d"]
 [ext_resource type="Texture2D" uid="uid://dy1ywhchmahus" path="res://sprites/danger_flash_2-Sheet.png" id="1_vnq7h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8304l"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://wbomsndl0m0p"]
 
-[ext_resource type="Script" uid="uid://bquf4pck4lae" path="res://scripts/sniper_shot.gd" id="1_6cx00"]
+[ext_resource type="Script" uid="uid://bquf4pck4lae" path="res://scripts/entities/sniper_shot.gd" id="1_6cx00"]
 [ext_resource type="Texture2D" uid="uid://bfgjuq21e67cn" path="res://sprites/sniper_shot_big_2-Sheet.png" id="3_6cx00"]
 [ext_resource type="Texture2D" uid="uid://bpdnratrvj4j5" path="res://sprites/sniper_reticle-Sheet.png" id="3_me3rp"]
 [ext_resource type="Texture2D" uid="uid://tfxb3feew6dw" path="res://sprites/danger_flash-Sheet.png" id="3_pects"]
