@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dm3ht1lv7fpou"]
+[gd_scene load_steps=13 format=3 uid="uid://dm3ht1lv7fpou"]
 
 [ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://scripts/ui/ui_controller.gd" id="1_dwo6e"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_dwo6e"]
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="3_7ns25"]
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="3_0863s"]
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="3_mqh5l"]
 [ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="5_gwety"]
 [ext_resource type="Script" uid="uid://doklq8uylia54" path="res://scripts/utility/shader_manager.gd" id="6_wfw3d"]
@@ -12,12 +13,14 @@ atlas = ExtResource("2_dwo6e")
 region = Rect2(74, 2, 20, 20)
 
 [sub_resource type="LabelSettings" id="LabelSettings_itto5"]
-font_size = 96
+font = ExtResource("3_0863s")
+font_size = 64
 font_color = Color(1, 0.00392157, 0.00392157, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dwo6e"]
+font = ExtResource("3_0863s")
 font_size = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wfw3d"]
@@ -27,6 +30,7 @@ shader_parameter/tint = Vector4(1, 0.5, 0.5, 1)
 shader_parameter/oscillate_speed = 10.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ns25"]
+font = ExtResource("3_0863s")
 font_size = 32
 
 [node name="DeathScreen" type="Control"]
@@ -103,11 +107,11 @@ text = "Score"
 label_settings = SubResource("LabelSettings_dwo6e")
 
 [node name="ScoreDisplay" type="HFlowContainer" parent="Score"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 95.0
-offset_top = 11.0
+offset_top = 4.0
 offset_right = 127.0
-offset_bottom = 19.0
+offset_bottom = 12.0
 scale = Vector2(4, 4)
 theme_override_constants/h_separation = -1
 script = ExtResource("3_7ns25")
@@ -151,9 +155,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -98.0
+offset_left = -83.0
 offset_top = -20.0
-offset_right = 102.0
+offset_right = 117.0
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -166,11 +170,11 @@ label_settings = SubResource("LabelSettings_7ns25")
 script = ExtResource("6_wfw3d")
 
 [node name="ScoreDisplay" type="HFlowContainer" parent="HighScore"]
-layout_mode = 2
-offset_left = 95.0
-offset_top = 11.0
-offset_right = 127.0
-offset_bottom = 19.0
+layout_mode = 0
+offset_left = 94.0
+offset_top = 5.0
+offset_right = 126.0
+offset_bottom = 13.0
 scale = Vector2(4, 4)
 theme_override_constants/h_separation = -1
 script = ExtResource("3_7ns25")
