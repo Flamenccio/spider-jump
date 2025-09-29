@@ -24,6 +24,7 @@ func spawn_jump_dust() -> void:
 	_jumped = true
 	_particle_spawner.spawn_particle("player_jump_dust", _player.global_position, _player.rotation)
 
+
 # Called when player jumps under the hopperpop powerup
 func spawn_hopperpop_jump_dust() -> void:
 	_jumped = true

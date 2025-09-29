@@ -39,6 +39,7 @@ func _on_ground_enter(body_rid: RID, body: Node2D, body_shape_index: int) -> voi
 			# Do not rotate towards normal when hoverfly powerup
 			if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
 				_update_current_surface_normal(body.shape_owner_get_owner(body_shape_index))
+			
 	
 	# Slip
 	if GameConstants.current_powerup != ItemIds.HEAVY_BEETLE_POWERUP:

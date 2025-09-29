@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dind7ho1brwrn"]
+[gd_scene load_steps=13 format=3 uid="uid://dind7ho1brwrn"]
 
 [ext_resource type="Script" uid="uid://drqv7cbcuecnt" path="res://scripts/ui/pause_screen.gd" id="1_27awe"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_gchx3"]
 [ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_qeunj"]
 [ext_resource type="Texture2D" uid="uid://8e7tqh61xbai" path="res://sprites/pause_menu_elements.png" id="3_hr2n2"]
+[ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_wrw5x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27awe"]
 atlas = ExtResource("3_hr2n2")
@@ -114,6 +115,10 @@ texture_normal = SubResource("AtlasTexture_o31j6")
 texture_pressed = SubResource("AtlasTexture_lubob")
 texture_hover = SubResource("AtlasTexture_213y4")
 
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wrw5x")
+bus = &"UI"
+
 [connection signal="internal_disabled" from="." to="TitleBar" method="play_exit_animation"]
 [connection signal="internal_disabled" from="." to="Title" method="hide" flags=3]
 [connection signal="internal_disabled" from="." to="ResumeButton" method="hide" flags=3]
@@ -123,5 +128,7 @@ texture_hover = SubResource("AtlasTexture_213y4")
 [connection signal="internal_enabled" from="." to="ResumeButton" method="show" flags=3]
 [connection signal="internal_enabled" from="." to="ExitButton" method="show" flags=3]
 [connection signal="transition_animation_finished" from="TitleBar" to="." method="_on_title_bar_animation_complete"]
+[connection signal="pressed" from="ResumeButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="ResumeButton" to="." method="_on_button_pressed" binds= ["resume"]]
+[connection signal="pressed" from="ExitButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_button_pressed" binds= ["exit"]]

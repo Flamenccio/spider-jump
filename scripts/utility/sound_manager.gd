@@ -1,5 +1,6 @@
 class_name SoundManager
 extends Node
+## Handles non positional playing of sounds and music.
 
 const _DEFAULT_SOUND_DIRECTORY = "res://sounds/"
 const _DEFAULT_MUSIC_DIRECTORY = "res://music/"
@@ -11,12 +12,31 @@ const _MP3_EXTENSION = ".mp3"
 const _WAV_EXTENSION = ".wav"
 const _REGEX_END_STRING = "$"
 
+# Sound players
+const _DEFAULT_MAX_PLAYERS = 20
+const _DEFAULT_POLYPHONY = 1
+
 var _ogg_regex := RegEx.new()
 var _mp3_regex := RegEx.new()
 var _wav_regex := RegEx.new()
 
+# Sound dictionaries
+## Readonly copy of sounds dictionary
+var sounds: Dictionary:
+	get:
+		return _sounds.duplicate()
+	set(value):
+		return
+## Readonly copy of music dictionary
+var music: Dictionary:
+	get:
+		return _music.duplicate()
+	set(value):
+		return
 var _sounds := {}
 var _music := {}
+var _available_sound_players: Array[AudioStreamPlayer]
+var _busy_sound_players: Array[AudioStreamPlayer]
 
 ## Searches for sound files recursively on ready.[br]
 ## If none given, searches through `res://sounds/` by default.
@@ -26,7 +46,11 @@ var _music := {}
 ## If none given, searches through `res://music/` by default.
 @export var _music_directories: Array[String]
 
+@export var _max_players: int = -1
+
 func _ready() -> void:
+
+	_max_players = _max_players if _max_players > -1 else _DEFAULT_MAX_PLAYERS
 
 	# Compile regex
 	_ogg_regex.compile(_FILE_EXTENSION_REGEX_BASE + _OGG_EXTENSION + _REGEX_END_STRING)
@@ -35,20 +59,81 @@ func _ready() -> void:
 
 	# Load stuff
 	if _sounds_directories.size() == 0:
-		var full_paths = _load_sounds(_DEFAULT_SOUND_DIRECTORY)
-		_sounds.merge(_to_dictionary(full_paths, _DEFAULT_SOUND_DIRECTORY))
+		# If loading from default locations and not the global sound manager,
+		# copy the loaded sounds from the global sound manager
+		if GlobalSoundManager != self:
+			_sounds.assign(GlobalSoundManager.sounds)
+		else:
+			var full_paths = _load_sounds(_DEFAULT_SOUND_DIRECTORY)
+			_sounds.merge(_to_dictionary(full_paths, _DEFAULT_SOUND_DIRECTORY))
 	else:
 		for d in _sounds_directories:
 			var full_paths = _load_sounds(d)
 			_sounds.merge(_to_dictionary(full_paths, d))
 
 	if _music_directories.size() == 0:
-		var full_paths = _load_sounds(_DEFAULT_MUSIC_DIRECTORY)
-		_music.merge(_to_dictionary(full_paths, _DEFAULT_MUSIC_DIRECTORY))
+		if GlobalSoundManager != self:
+			_music.assign(GlobalSoundManager.music)
+		else:
+			var full_paths = _load_sounds(_DEFAULT_MUSIC_DIRECTORY)
+			_music.merge(_to_dictionary(full_paths, _DEFAULT_MUSIC_DIRECTORY))
 	else:
 		for d in _music_directories:
 			var full_paths = _load_sounds(d)
 			_music.merge(_to_dictionary(full_paths, d))
+
+
+## Play a nonpositional sound with id `sound_id`.
+func play_sound(sound_id: String, bus: String = "Master") -> void:
+
+	var file_path = _sounds[sound_id] as String
+	var sound: AudioStream
+
+	if file_path.contains(_MP3_EXTENSION):
+		sound = AudioStreamMP3.load_from_file(file_path)
+	elif file_path.contains(_OGG_EXTENSION):
+		sound = AudioStreamOggVorbis.load_from_file(file_path)
+	elif file_path.contains(_WAV_EXTENSION):
+		sound = AudioStreamWAV.load_from_file(file_path)
+	else:
+		push_warning("sound manager: invalid audio '{0}'".format({"0": sound_id}))
+		return
+
+	_enqueue_sound(sound, bus)
+
+
+func _enqueue_sound(sound: AudioStream, bus: String) -> void:
+
+	# All available sound players are busy
+	if _busy_sound_players.size() >= _max_players:
+		push_warning("sound manager: ran out of audio players!")
+		return
+
+	# Use an available sound player
+	if _available_sound_players.size() > 0:
+		var next_player = _available_sound_players.pop_front()
+		next_player.stream = sound
+		next_player.bus = bus
+		next_player.play()
+		return
+
+	# Make another sound player
+	if _available_sound_players.size() == 0:
+		var new_player = AudioStreamPlayer.new()
+		add_child(new_player)
+		new_player.max_polyphony = _DEFAULT_POLYPHONY
+		new_player.finished.connect(_return_player.bind(new_player))
+		new_player.stream = sound
+		new_player.bus = bus
+		new_player.play()
+		return
+
+
+func _return_player(player: AudioStreamPlayer) -> void:
+	player.stop()
+	player.stream = null
+	_busy_sound_players.erase(player)
+	_available_sound_players.push_back(player)
 
 
 func _load_sounds(directory: String) -> Array[String]:
@@ -88,12 +173,3 @@ func _to_dictionary(paths: Array[String], parent_path: String) -> Dictionary:
 
 	return dict
 
-
-## Play a nonpositional sound.
-func play_sound(sound_id: String) -> void:
-	## TODO: complete
-	## TODO: make a sound player node class
-	# must handle one-shot and persistent situations
-	# must handle non-positional and positional situations
-	var file_path = _sounds[sound_id]
-	pass

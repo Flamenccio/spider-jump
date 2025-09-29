@@ -26,6 +26,7 @@ var _powerup: String = 'none'
 @export var _animator: SpriteTree
 @export var _jump_force: float = 1.0
 @export var _particle_emitter: Node
+@export var _sound_player: Node
 
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
@@ -110,13 +111,19 @@ func _jump() -> void:
 	_jumped = true
 	player_jumped.emit()
 
-	# Spawn particles
+	# Spawn effects
 	match _powerup:
 		ItemIds.HOPPERPOP_POWERUP:
+			_sound_player.play_hopperpop_jump()
 			_particle_emitter.spawn_hopperpop_jump_dust()
 		ItemIds.BUBBLEBEE_POWERUP:
+			_sound_player.play_bubblebee_jump()
 			_particle_emitter.spawn_bubblebee_jump_dust()
+		ItemIds.ANTIBUG_POWERUP:
+			_sound_player.play_antibug_jump()
+			_particle_emitter.spawn_jump_dust()
 		_:
+			_sound_player.play_jump()
 			_particle_emitter.spawn_jump_dust()
 
 
@@ -159,4 +166,5 @@ func _blinkfly_jump() -> void:
 	_jumped = true
 	player_blinkfly_jumped.emit()
 	_particle_emitter.spawn_jump_dust()
+	_sound_player.play_blinkfly_jump()
 

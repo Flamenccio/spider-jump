@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://ive8w8v858du"]
+[gd_scene load_steps=13 format=3 uid="uid://ive8w8v858du"]
 
 [ext_resource type="Script" uid="uid://sfl4mrieo753" path="res://scripts/ui/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dp2wmxagsoqx3" path="res://sprites/title_screen_elements-Sheet.png" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://dbs0f2vbqjyh3" path="res://sprites/title_screen_buttons.png" id="2_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="4_wu84c"]
+[ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_x2yvf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rtw2f"]
 atlas = ExtResource("2_ekxnf")
@@ -108,8 +109,14 @@ button_mask = 2
 [node name="Black" parent="." instance=ExtResource("4_wu84c")]
 layout_mode = 1
 
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_x2yvf")
+bus = &"UI"
+
 [connection signal="pressed" from="ExitButton" to="." method="_quit_game"]
+[connection signal="pressed" from="ExitButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="PlayButton" to="." method="_queue_load_arcade"]
 [connection signal="pressed" from="PlayButton" to="Black" method="play_enter_animation"]
+[connection signal="pressed" from="PlayButton" to="ButtonSelect" method="play"]
 [connection signal="ready" from="Black" to="Black" method="play_exit_animation"]
 [connection signal="transition_animation_finished" from="Black" to="." method="_on_black_transition_animation_finished"]
