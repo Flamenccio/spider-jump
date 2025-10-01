@@ -129,13 +129,13 @@ func _on_item_collected(item: String) -> void:
 func _on_player_landed() -> void:
 	if _blinkfly_jumped:
 		_blinkfly_jumped = false
-		_powerup_timer.change_time_left(-1.0)
 		if _powerup_timer.time_left <= 0.0:
 			_end_powerups()
 
 
 func _on_player_blinkfly_jumped() -> void:
 	_blinkfly_jumped = true
+	_powerup_timer.change_time_left(-1.0)
 
 
 func _on_player_hurt() -> void:
