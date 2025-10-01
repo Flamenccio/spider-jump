@@ -77,6 +77,7 @@ func _handle_powerup(powerup: String) -> void:
 		ItemIds.HOVERFLY_POWERUP:
 			_defer_powerup_timer(_HOVERFLY_DURATION)
 			_animator.switch_and_play(ItemIds.HOVERFLY_POWERUP, 'hover')
+			GameConstants.player.rotation = 0.0
 		ItemIds.ANTIBUG_POWERUP:
 			_powerup_end_queue.push_back(func():
 				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
