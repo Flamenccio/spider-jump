@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=93 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://dnhwoprufjf3i" path="res://scripts/player/player_sound_player.gd" id="44_dta47"]
 [ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="44_mx1m4"]
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
+[ext_resource type="AudioStream" uid="uid://b164vabg807vu" path="res://sounds/player/hoverfly_buzz.wav" id="45_w2gpp"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="46_u2ulf"]
 [ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="47_6e8lb"]
 [ext_resource type="Script" uid="uid://brlb4pd1xs1t" path="res://scripts/player/item_handler.gd" id="48_4gjji"]
@@ -727,6 +728,11 @@ _player = NodePath("..")
 [node name="SoundPlayer" type="Node" parent="."]
 script = ExtResource("44_dta47")
 
+[node name="HoverflyBuzz" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("45_w2gpp")
+volume_db = -12.0
+bus = &"SFX"
+
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]
 [connection signal="internal_player_fell" from="." to="SafeState" method="_on_player_fell"]
@@ -775,6 +781,8 @@ script = ExtResource("44_dta47")
 [connection signal="player_recovered" from="StateMachineHandler/KO" to="Detectors/GroundDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachineHandler/KO" to="Detectors/ItemDetector" method="set_monitoring" binds= [true]]
 [connection signal="player_recovered" from="StateMachineHandler/KO" to="Detectors/DangerDetector" method="set_monitoring" binds= [true]]
+[connection signal="entered_hoverfly" from="StateMachineHandler/Powerup/Hoverfly/Entry" to="HoverflyBuzz" method="play"]
+[connection signal="exited_hoverfly" from="StateMachineHandler/Powerup/Hoverfly/Exit" to="HoverflyBuzz" method="stop"]
 [connection signal="land_on_ground" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "ground"]]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="." method="_rotate_against_normal"]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
@@ -790,6 +798,7 @@ script = ExtResource("44_dta47")
 [connection signal="powerup_ended" from="Handlers/PowerupHandler" to="." method="_start_invincibility" binds= [3.0]]
 [connection signal="powerup_started" from="Handlers/PowerupHandler" to="Handlers/GroundHandler" method="_on_powerup_started"]
 [connection signal="powerup_started" from="Handlers/PowerupHandler" to="Particles/ParticleEmitter" method="spawn_powerup_flash" unbinds=1]
+[connection signal="collected_item" from="Handlers/ItemHandler" to="SoundPlayer" method="play_collect_item" unbinds=1]
 [connection signal="collected_powerup" from="Handlers/ItemHandler" to="Handlers/PowerupHandler" method="_handle_powerup"]
 [connection signal="heavy_beetle_damaged" from="Handlers/DangerHandler" to="Handlers/PowerupHandler" method="_on_player_hurt"]
 [connection signal="lose_powerup" from="Handlers/DangerHandler" to="Handlers/PowerupHandler" method="_end_powerups"]

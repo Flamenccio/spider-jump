@@ -44,3 +44,7 @@ func play_lose_powerup() -> void:
 
 func play_gain_powerup() -> void:
 	_sound_manager.play_sound("player/gain_powerup", "SFX")
+
+
+func play_collect_item() -> void:
+	_sound_manager.play_sound("ui/select", "SFX")

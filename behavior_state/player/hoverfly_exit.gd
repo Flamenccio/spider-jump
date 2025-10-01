@@ -1,5 +1,6 @@
 extends BehaviorState
 
+signal exited_hoverfly()
+
 func enter_state() -> void:
-	#_animator.switch_and_play('normal', 'idle')
-	print('exited hoverfly')
+	exited_hoverfly.emit()

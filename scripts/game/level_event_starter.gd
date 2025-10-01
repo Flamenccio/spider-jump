@@ -1,21 +1,24 @@
 extends Node
 
+signal event_started(event_id: String)
+
 # Events can spawn if the difficulty is at least equal to this
 const MINIMUM_EVENT_LEVEL = 6
 const MAXIMUM_EVENT_HISTORY = 1
 const NO_EVENT = 'none'
+
 # Number of levels that must spawn after an event finishes
 # for another event to spawn
 const EVENT_COOLDOWN = 3
-
-@export_dir var _level_event_path: String
-@export var _camera: Node2D
 
 var _loaded_events: Dictionary
 var _current_event := NO_EVENT
 var _event_cooldown := 0
 var _event_history: Array[String]
 var _score_update_functions: Callable
+
+@export_dir var _level_event_path: String
+@export var _camera: Node2D
 
 func _ready() -> void:
 
@@ -80,6 +83,8 @@ func _add_event(event: PackedScene) -> void:
 	instance.event_finished.connect(_on_event_finished)
 	TheGlobalSpawner.add_child(instance)
 	instance.call('start_event')
+	GlobalSoundManager.play_sound("game/event_start_jingle", "Music")
+	event_started.emit(_current_event)
 
 
 func _on_score_updated(score: int) -> void:

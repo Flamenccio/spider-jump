@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://uenvogxdugle"]
+
+[ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_etkkv"]
+[ext_resource type="Script" uid="uid://7ai11l3ng42o" path="res://scripts/ui/event_banner.gd" id="1_tjo2y"]
+[ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_nv8pk"]
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="3_nv8pk"]
+[ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="4_m3mpq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxs42"]
+shader = ExtResource("4_m3mpq")
+shader_parameter/oscillate_active = true
+shader_parameter/tint = Vector4(1, 0, 0.302, 0)
+shader_parameter/oscillate_speed = 16.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_04qg5"]
+font = ExtResource("3_nv8pk")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_nv8pk"]
+font = ExtResource("3_nv8pk")
+font_size = 64
+
+[node name="EventBanner" type="Control" node_paths=PackedStringArray("_event_label", "_banner")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tjo2y")
+_display_time_seconds = 2.0
+_event_label = NodePath("EventLabel")
+_banner = NodePath("Black")
+
+[node name="Black" parent="." instance=ExtResource("1_etkkv")]
+visible = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.001
+anchor_bottom = 0.0
+offset_left = -0.15200007
+offset_top = 77.0
+offset_bottom = 145.0
+grow_vertical = 1
+texture = ExtResource("2_nv8pk")
+enter_side = 1
+exit_side = 1
+enter_duration = 0.1
+exit_duration = 0.1
+
+[node name="BannerLabel" type="Label" parent="."]
+material = SubResource("ShaderMaterial_gxs42")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -232.0
+offset_top = 76.0
+offset_right = 232.0
+offset_bottom = 148.0
+grow_horizontal = 2
+text = "EVENT STARTED!"
+label_settings = SubResource("LabelSettings_04qg5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EventLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 147.0
+offset_right = 96.0
+offset_bottom = 219.0
+grow_horizontal = 2
+text = "Wasps!"
+label_settings = SubResource("LabelSettings_nv8pk")
+
+[connection signal="display_elements" from="." to="BannerLabel" method="show"]
+[connection signal="display_elements" from="." to="EventLabel" method="show"]
+[connection signal="hide_elements" from="." to="BannerLabel" method="hide"]
+[connection signal="hide_elements" from="." to="EventLabel" method="hide"]
