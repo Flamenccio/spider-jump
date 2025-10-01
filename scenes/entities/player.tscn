@@ -771,6 +771,7 @@ bus = &"SFX"
 [connection signal="climb_finished" from="StateMachineHandler/Climb" to="Handlers/GroundHandler" method="_recalculate_normal"]
 [connection signal="player_crawled" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
 [connection signal="player_stopped_crawl" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
+[connection signal="player_landed" from="StateMachineHandler/Fall" to="Handlers/PowerupHandler" method="_on_player_landed"]
 [connection signal="normal_recheck_requested" from="StateMachineHandler/Idle" to="Handlers/GroundHandler" method="_recalculate_normal"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/Dust" method="set_emitting" binds= [false]]

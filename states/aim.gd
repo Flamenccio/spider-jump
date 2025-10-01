@@ -11,7 +11,7 @@ const _HOPPERPOP_MULTIPLIER = 1.6
 const _BUBBLEBEE_MULTIPLIER = 0.83
 const _HEAVY_BEETLE_MULTIPLIER = 1.0
 const _SUPER_GRUB_MULTIPLIER = 1.12
-const _BLINKFLY_MULTIPLIER = 5.0
+const _BLINKFLY_MULTIPLIER = 1.8
 const _MAX_BLINKFLY_DISTANCE = 200.0
 const _GROUND_LAYER = 2
 const _SLIP_LAYER = 4
@@ -56,6 +56,7 @@ func _ready() -> void:
 				_jump_force /= _SUPER_GRUB_MULTIPLIER
 			ItemIds.BLINKFLY_POWERUP:
 				_jump_force /= _BLINKFLY_MULTIPLIER
+				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 	)
 
 
@@ -160,6 +161,9 @@ func _blinkfly_jump() -> void:
 	if not valid_landing:
 		return
 
+	#DebugDraw2D.circle_filled(results["position"], 2.0, 16, Color.RED, 1.0)
+
+	GameConstants.current_gravity = 0.0
 	_animator.play_branch_animation('warp')
 	set_param('jump', true)
 	_player.velocity = _pull_input.normalized() *  _jump_force
@@ -167,4 +171,5 @@ func _blinkfly_jump() -> void:
 	player_blinkfly_jumped.emit()
 	_particle_emitter.spawn_jump_dust()
 	_sound_player.play_blinkfly_jump()
+	#_player.global_position = results["position"]
 

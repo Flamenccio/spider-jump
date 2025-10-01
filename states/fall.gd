@@ -1,9 +1,12 @@
 extends BehaviorState
 
-@export var _animator: SpriteTree
-@export var _player: CharacterBody2D
+signal player_landed()
+
 var motion: Vector2
 var _current_powerup: String
+
+@export var _animator: SpriteTree
+@export var _player: CharacterBody2D
 
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
@@ -17,6 +20,10 @@ func _ready() -> void:
 func enter_state() -> void:
 	if _current_powerup != ItemIds.BLINKFLY_POWERUP:
 		_animator.play_branch_animation('fall')
+
+
+func exit_state() -> void:
+	player_landed.emit()
 
 
 func update_state(delta: float) -> void:

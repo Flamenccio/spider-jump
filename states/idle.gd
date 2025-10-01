@@ -16,12 +16,16 @@ var _last_position: Vector2
 const _MOTION_DETECTION_PRECISION = 0.10
 
 func enter_state() -> void:
+
 	_player.velocity = Vector2.ZERO
 	_last_position = _player.global_position
 	_down_vector = Vector2.from_angle(_player.rotation - (3 * PI / 2.0))
 	set_param('jump', false)
 	_animator.play_branch_animation('idle')
 	player_entered_idle.emit()
+
+	if GameConstants.current_powerup == ItemIds.BLINKFLY_POWERUP:
+		GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 
 
 func update_state(_delta: float) -> void:

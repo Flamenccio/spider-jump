@@ -22,6 +22,7 @@ var current_powerup: String = ''
 var _powerup_end_queue: Array[Callable]
 var _powerup_timer: ExtendableTimer = ExtendableTimer.new()
 var _powerup_flash_timer: Timer = Timer.new()
+var _blinkfly_jumped := false
 
 @export var _animator: SpriteTree
 
@@ -125,10 +126,16 @@ func _on_item_collected(item: String) -> void:
 			_powerup_timer.change_time_left(1.0)
 
 
+func _on_player_landed() -> void:
+	if _blinkfly_jumped:
+		_blinkfly_jumped = false
+		_powerup_timer.change_time_left(-1.0)
+		if _powerup_timer.time_left <= 0.0:
+			_end_powerups()
+
+
 func _on_player_blinkfly_jumped() -> void:
-	_powerup_timer.change_time_left(-1.0)
-	if _powerup_timer.time_left <= 0.0:
-		_end_powerups()
+	_blinkfly_jumped = true
 
 
 func _on_player_hurt() -> void:
