@@ -2,6 +2,8 @@ class_name SoundManager
 extends Node
 ## Handles non positional playing of sounds and music.
 
+signal sound_effect_finished(sound_id: String)
+
 const _DEFAULT_SOUND_DIRECTORY = "res://sounds/"
 const _DEFAULT_MUSIC_DIRECTORY = "res://music/"
 
@@ -37,6 +39,8 @@ var _sounds := {}
 var _music := {}
 var _available_sound_players: Array[AudioStreamPlayer]
 var _busy_sound_players: Array[AudioStreamPlayer]
+var _main_music_player: AudioStreamPlayer
+var _music_pause_timer := Timer.new()
 
 ## Searches for sound files recursively on ready.[br]
 ## If none given, searches through `res://sounds/` by default.
@@ -82,27 +86,49 @@ func _ready() -> void:
 			var full_paths = _load_sounds(d)
 			_music.merge(_to_dictionary(full_paths, d))
 
+	_main_music_player = AudioStreamPlayer.new()
+	_main_music_player.bus = "Music"
+	add_child(_main_music_player)
+
+	_music_pause_timer.wait_time = 1.0
+	_music_pause_timer.one_shot = true
+	_music_pause_timer.timeout.connect(func(): resume_music())
+	add_child(_music_pause_timer)
+
 
 ## Play a nonpositional sound with id `sound_id`.
 func play_sound(sound_id: String, bus: String = "Master") -> void:
-
 	var file_path = _sounds[sound_id] as String
-	var sound: AudioStream
+	_enqueue_sound(_get_audio_stream(file_path), bus, sound_id)
 
-	if file_path.contains(_MP3_EXTENSION):
-		sound = AudioStreamMP3.load_from_file(file_path)
-	elif file_path.contains(_OGG_EXTENSION):
-		sound = AudioStreamOggVorbis.load_from_file(file_path)
-	elif file_path.contains(_WAV_EXTENSION):
-		sound = AudioStreamWAV.load_from_file(file_path)
+
+func play_music(music_id: String) -> void:
+	_main_music_player.stream = _get_audio_stream(_music[music_id])
+	_main_music_player.play()
+
+
+func pause_music(pause_time: float = -1.0) -> void:
+	_main_music_player.stream_paused = true
+	_music_pause_timer.start(pause_time)
+
+
+func resume_music() -> void:
+	_main_music_player.stream_paused = false
+
+
+func _get_audio_stream(stream_path: String) -> AudioStream:
+	if stream_path.contains(_MP3_EXTENSION):
+		return AudioStreamMP3.load_from_file(stream_path)
+	elif stream_path.contains(_OGG_EXTENSION):
+		return AudioStreamOggVorbis.load_from_file(stream_path)
+	elif stream_path.contains(_WAV_EXTENSION):
+		return AudioStreamWAV.load_from_file(stream_path)
 	else:
-		push_warning("sound manager: invalid audio '{0}'".format({"0": sound_id}))
-		return
-
-	_enqueue_sound(sound, bus)
+		push_warning("sound manager: invalid audio '{0}'".format({"0": stream_path}))
+		return null
 
 
-func _enqueue_sound(sound: AudioStream, bus: String) -> void:
+func _enqueue_sound(sound: AudioStream, bus: String, sound_id: String) -> void:
 
 	# All available sound players are busy
 	if _busy_sound_players.size() >= _max_players:
@@ -114,6 +140,7 @@ func _enqueue_sound(sound: AudioStream, bus: String) -> void:
 		var next_player = _available_sound_players.pop_front()
 		next_player.stream = sound
 		next_player.bus = bus
+		next_player.finished.connect(emit_signal.bind("sound_effect_finished", sound_id), ConnectFlags.CONNECT_ONE_SHOT)
 		next_player.play()
 		return
 
@@ -122,6 +149,7 @@ func _enqueue_sound(sound: AudioStream, bus: String) -> void:
 		var new_player = AudioStreamPlayer.new()
 		add_child(new_player)
 		new_player.max_polyphony = _DEFAULT_POLYPHONY
+		new_player.finished.connect(emit_signal.bind("sound_effect_finished", sound_id), ConnectFlags.CONNECT_ONE_SHOT)
 		new_player.finished.connect(_return_player.bind(new_player))
 		new_player.stream = sound
 		new_player.bus = bus

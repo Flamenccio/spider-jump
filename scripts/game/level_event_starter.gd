@@ -16,6 +16,7 @@ var _current_event := NO_EVENT
 var _event_cooldown := 0
 var _event_history: Array[String]
 var _score_update_functions: Callable
+var _music_unpause_timer := Timer.new()
 
 @export_dir var _level_event_path: String
 @export var _camera: Node2D
@@ -83,6 +84,7 @@ func _add_event(event: PackedScene) -> void:
 	instance.event_finished.connect(_on_event_finished)
 	TheGlobalSpawner.add_child(instance)
 	instance.call('start_event')
+	GlobalSoundManager.pause_music(1.0)
 	GlobalSoundManager.play_sound("game/event_start_jingle", "Music")
 	event_started.emit(_current_event)
 

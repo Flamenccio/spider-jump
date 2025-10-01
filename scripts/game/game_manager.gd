@@ -50,6 +50,9 @@ func _ready() -> void:
 	PlayerEventBus.powerup_flash_start.connect(func(): _pause_stamina_drain = true)
 	PlayerEventBus.powerup_flash_end.connect(func(): _pause_stamina_drain = false)
 
+	# Play some music
+	GlobalSoundManager.play_music("test/super_space_escape")
+
 
 # Replaces all existing powerup items with yumfly
 func _remove_all_powerups() -> void:
