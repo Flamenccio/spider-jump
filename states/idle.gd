@@ -49,6 +49,6 @@ func _motion_detected() -> bool:
 
 	if motion_detected:
 		# Snap to position to prevent player getting stuck at corners
-		_player.global_position = snapped_global_position
+		_player.global_position = snapped_global_position.round()
 
 	return motion_detected

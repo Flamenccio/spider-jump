@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhn3ipskb6u3a"]
+
+[ext_resource type="Script" uid="uid://cvs0n0h60sq05" path="res://scripts/ui/audio_settings.gd" id="1_2fil4"]
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_8tsh6"]
+[ext_resource type="PackedScene" uid="uid://3xiwvfjqw7wt" path="res://scenes/ui/volume_group.tscn" id="2_ki30a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ki30a"]
+font = ExtResource("1_8tsh6")
+font_size = 64
+
+[node name="AudioSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2fil4")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.0
+offset_top = 58.0
+offset_right = 76.0
+offset_bottom = 130.0
+grow_horizontal = 2
+text = "Audio"
+label_settings = SubResource("LabelSettings_ki30a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VolumeGroup" parent="." instance=ExtResource("2_ki30a")]
+layout_mode = 1
+offset_top = -91.0
+offset_bottom = -51.0
+volume_bus_name = "Master"
+
+[node name="VolumeGroup3" parent="." instance=ExtResource("2_ki30a")]
+layout_mode = 1
+offset_top = 81.0
+offset_bottom = 121.0
+volume_bus_name = "SFX"
+
+[node name="VolumeGroup2" parent="." instance=ExtResource("2_ki30a")]
+layout_mode = 1
+offset_top = -4.0
+offset_bottom = 36.0
+volume_bus_name = "UI"
+
+[node name="VolumeGroup4" parent="." instance=ExtResource("2_ki30a")]
+layout_mode = 1
+offset_top = 165.0
+offset_bottom = 205.0
+volume_bus_name = "Music"
