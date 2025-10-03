@@ -1,0 +1,54 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://b3t6lqd2i1gui"]
+
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_6xtt5"]
+[ext_resource type="Texture2D" uid="uid://cfn4h17l860fv" path="res://sprites/generic_buttons.png" id="2_0b1xk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xtt5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rpht"]
+atlas = ExtResource("2_0b1xk")
+region = Rect2(96, 32, 48, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_txbdh"]
+content_margin_bottom = 19.0
+texture = SubResource("AtlasTexture_2rpht")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 18.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txbdh"]
+atlas = ExtResource("2_0b1xk")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2rpht"]
+content_margin_bottom = 19.0
+texture = SubResource("AtlasTexture_txbdh")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 18.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgxob"]
+atlas = ExtResource("2_0b1xk")
+region = Rect2(96, 64, 48, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jarie"]
+content_margin_top = 6.0
+content_margin_bottom = 16.0
+texture = SubResource("AtlasTexture_mgxob")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 15.0
+
+[resource]
+Button/colors/font_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+Button/colors/font_focus_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+Button/colors/font_hover_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+Button/colors/font_pressed_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+Button/fonts/font = ExtResource("1_6xtt5")
+Button/styles/focus = SubResource("StyleBoxEmpty_6xtt5")
+Button/styles/hover = SubResource("StyleBoxTexture_txbdh")
+Button/styles/normal = SubResource("StyleBoxTexture_2rpht")
+Button/styles/pressed = SubResource("StyleBoxTexture_jarie")

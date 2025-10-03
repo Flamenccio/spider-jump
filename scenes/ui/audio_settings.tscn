@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhn3ipskb6u3a"]
+[gd_scene load_steps=6 format=3 uid="uid://dhn3ipskb6u3a"]
 
 [ext_resource type="Script" uid="uid://cvs0n0h60sq05" path="res://scripts/ui/audio_settings.gd" id="1_2fil4"]
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_8tsh6"]
 [ext_resource type="PackedScene" uid="uid://3xiwvfjqw7wt" path="res://scenes/ui/volume_group.tscn" id="2_ki30a"]
+[ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="4_evj6w"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ki30a"]
 font = ExtResource("1_8tsh6")
@@ -55,3 +56,21 @@ layout_mode = 1
 offset_top = 165.0
 offset_bottom = 205.0
 volume_bus_name = "Music"
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -84.0
+offset_right = 72.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(72, 19)
+theme = ExtResource("4_evj6w")
+text = "Back"
