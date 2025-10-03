@@ -1,34 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://ive8w8v858du"]
+[gd_scene load_steps=9 format=3 uid="uid://ive8w8v858du"]
 
 [ext_resource type="Script" uid="uid://sfl4mrieo753" path="res://scripts/ui/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dp2wmxagsoqx3" path="res://sprites/title_screen_elements-Sheet.png" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://dbs0f2vbqjyh3" path="res://sprites/title_screen_buttons.png" id="2_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="4_wu84c"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_x2yvf"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rtw2f"]
-atlas = ExtResource("2_ekxnf")
-region = Rect2(64, 0, 48, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oa1go"]
-atlas = ExtResource("2_ekxnf")
-region = Rect2(64, 64, 48, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tbmy8"]
-atlas = ExtResource("2_ekxnf")
-region = Rect2(64, 32, 48, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bqqt6"]
-atlas = ExtResource("2_ekxnf")
-region = Rect2(112, 0, 48, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wu84c"]
-atlas = ExtResource("2_ekxnf")
-region = Rect2(112, 64, 48, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8ln24"]
-atlas = ExtResource("2_ekxnf")
-region = Rect2(112, 32, 48, 21)
+[ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="6_uhagc"]
+[ext_resource type="Theme" uid="uid://bfjqdtisiiai3" path="res://ui_themes/button_green.tres" id="7_btxxm"]
+[ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="7_wb0q5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekxnf"]
 atlas = ExtResource("1_l6cm7")
@@ -43,43 +21,60 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
 
-[node name="ExitButton" type="TextureButton" parent="."]
+[node name="ExitButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = 152.0
-offset_right = 24.0
-offset_bottom = 173.0
+offset_left = -37.0
+offset_top = 254.0
+offset_right = 37.0
+offset_bottom = 293.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
-pivot_offset = Vector2(24, 10)
-texture_normal = SubResource("AtlasTexture_rtw2f")
-texture_pressed = SubResource("AtlasTexture_oa1go")
-texture_hover = SubResource("AtlasTexture_tbmy8")
+pivot_offset = Vector2(37, 19)
+theme = ExtResource("6_uhagc")
+text = "Exit Game"
 
-[node name="PlayButton" type="TextureButton" parent="."]
+[node name="PlayButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = 47.0
-offset_right = 24.0
-offset_bottom = 68.0
+offset_left = -17.0
+offset_top = 14.0
+offset_right = 17.0
+offset_bottom = 53.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
-pivot_offset = Vector2(24, 10)
-texture_normal = SubResource("AtlasTexture_bqqt6")
-texture_pressed = SubResource("AtlasTexture_wu84c")
-texture_hover = SubResource("AtlasTexture_8ln24")
+pivot_offset = Vector2(17, 19)
+theme = ExtResource("7_btxxm")
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 132.0
+offset_right = 31.0
+offset_bottom = 171.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(31, 19)
+theme = ExtResource("7_wb0q5")
+text = "Settings
+"
 
 [node name="TitleSprite" type="TextureRect" parent="."]
 layout_mode = 1
@@ -89,9 +84,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -46.0
-offset_top = -161.0
+offset_top = -206.0
 offset_right = 46.0
-offset_bottom = -115.0
+offset_bottom = -160.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)

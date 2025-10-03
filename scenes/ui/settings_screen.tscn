@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://6m7hddkqnkq7"]
+
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_5op3j"]
+[ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="2_0qbrj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0qbrj"]
+font = ExtResource("1_5op3j")
+font_size = 64
+
+[node name="SettingsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -116.0
+offset_top = 39.0
+offset_right = 116.0
+offset_bottom = 111.0
+grow_horizontal = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_0qbrj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioSettings" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -86.0
+offset_right = 28.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(28, 19)
+theme = ExtResource("2_0qbrj")
+text = "Audio
+"

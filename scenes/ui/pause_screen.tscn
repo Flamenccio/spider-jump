@@ -1,38 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://dind7ho1brwrn"]
+[gd_scene load_steps=9 format=3 uid="uid://dind7ho1brwrn"]
 
 [ext_resource type="Script" uid="uid://drqv7cbcuecnt" path="res://scripts/ui/pause_screen.gd" id="1_27awe"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_gchx3"]
 [ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_qeunj"]
 [ext_resource type="Texture2D" uid="uid://8e7tqh61xbai" path="res://sprites/pause_menu_elements.png" id="3_hr2n2"]
+[ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="5_lyq4t"]
+[ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_oc7jr"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_wrw5x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27awe"]
 atlas = ExtResource("3_hr2n2")
 region = Rect2(3, 98, 58, 12)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hr2n2"]
-atlas = ExtResource("3_hr2n2")
-region = Rect2(132, 0, 68, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_duq8p"]
-atlas = ExtResource("3_hr2n2")
-region = Rect2(132, 64, 68, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k26m1"]
-atlas = ExtResource("3_hr2n2")
-region = Rect2(132, 32, 68, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o31j6"]
-atlas = ExtResource("3_hr2n2")
-region = Rect2(0, 0, 132, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lubob"]
-atlas = ExtResource("3_hr2n2")
-region = Rect2(0, 64, 132, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_213y4"]
-atlas = ExtResource("3_hr2n2")
-region = Rect2(0, 32, 132, 21)
 
 [node name="PauseScreen" type="Control"]
 process_mode = 3
@@ -77,7 +55,7 @@ scale = Vector2(4, 4)
 pivot_offset = Vector2(29, 6)
 texture = SubResource("AtlasTexture_27awe")
 
-[node name="ResumeButton" type="TextureButton" parent="."]
+[node name="ResumeButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -92,28 +70,26 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
 pivot_offset = Vector2(34, 10)
-texture_normal = SubResource("AtlasTexture_hr2n2")
-texture_pressed = SubResource("AtlasTexture_duq8p")
-texture_hover = SubResource("AtlasTexture_k26m1")
+theme = ExtResource("5_lyq4t")
+text = "Resume"
 
-[node name="ExitButton" type="TextureButton" parent="."]
+[node name="ExitButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -66.0
-offset_top = 70.0
-offset_right = 66.0
-offset_bottom = 91.0
+offset_left = -56.25
+offset_top = 142.0
+offset_right = 55.75
+offset_bottom = 181.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
-pivot_offset = Vector2(66, 10)
-texture_normal = SubResource("AtlasTexture_o31j6")
-texture_pressed = SubResource("AtlasTexture_lubob")
-texture_hover = SubResource("AtlasTexture_213y4")
+pivot_offset = Vector2(56, 19)
+theme = ExtResource("5_oc7jr")
+text = "Exit to Title"
 
 [node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_wrw5x")
@@ -121,12 +97,12 @@ bus = &"UI"
 
 [connection signal="internal_disabled" from="." to="TitleBar" method="play_exit_animation"]
 [connection signal="internal_disabled" from="." to="Title" method="hide" flags=3]
-[connection signal="internal_disabled" from="." to="ResumeButton" method="hide" flags=3]
 [connection signal="internal_disabled" from="." to="ExitButton" method="hide" flags=3]
+[connection signal="internal_disabled" from="." to="ResumeButton" method="hide" flags=3]
 [connection signal="internal_enabled" from="." to="TitleBar" method="play_enter_animation"]
 [connection signal="internal_enabled" from="." to="Title" method="show" flags=3]
-[connection signal="internal_enabled" from="." to="ResumeButton" method="show" flags=3]
 [connection signal="internal_enabled" from="." to="ExitButton" method="show" flags=3]
+[connection signal="internal_enabled" from="." to="ResumeButton" method="show" flags=3]
 [connection signal="transition_animation_finished" from="TitleBar" to="." method="_on_title_bar_animation_complete"]
 [connection signal="pressed" from="ResumeButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="ResumeButton" to="." method="_on_button_pressed" binds= ["resume"]]
