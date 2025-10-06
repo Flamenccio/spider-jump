@@ -29,60 +29,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -37.0
-offset_top = 254.0
-offset_right = 37.0
-offset_bottom = 284.0
+offset_left = -89.0
+offset_top = 49.0
+offset_right = 89.0
+offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(37, 19)
-theme = ExtResource("6_uhagc")
-text = "Exit Game"
+scale = Vector2(2, 2)
+pivot_offset = Vector2(89, 49)
 
-[node name="PlayButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.0
-offset_top = 14.0
-offset_right = 17.0
-offset_bottom = 44.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(17, 19)
+[node name="PlayButton" type="Button" parent="Buttons"]
+layout_mode = 2
 theme = ExtResource("7_btxxm")
-text = "Play"
+text = "ui.button.title.start"
 
-[node name="SettingsButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = 132.0
-offset_right = 31.0
-offset_bottom = 162.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(31, 19)
+[node name="SettingsButton" type="Button" parent="Buttons"]
+layout_mode = 2
 theme = ExtResource("7_wb0q5")
-text = "Settings
-"
+text = "ui.button.generic.settings"
+
+[node name="ExitButton" type="Button" parent="Buttons"]
+layout_mode = 2
+theme = ExtResource("6_uhagc")
+text = "ui.button.title.exit"
 
 [node name="TitleSprite" type="TextureRect" parent="."]
 layout_mode = 1
@@ -101,14 +77,6 @@ scale = Vector2(4, 4)
 pivot_offset = Vector2(46, 23)
 texture = SubResource("AtlasTexture_ekxnf")
 
-[node name="SecretButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 392.0
-offset_top = 36.0
-offset_right = 760.0
-offset_bottom = 220.0
-button_mask = 2
-
 [node name="Black" parent="." instance=ExtResource("4_wu84c")]
 material = SubResource("ShaderMaterial_7suek")
 layout_mode = 1
@@ -123,12 +91,12 @@ layout_mode = 1
 stream = ExtResource("5_x2yvf")
 bus = &"UI"
 
-[connection signal="pressed" from="ExitButton" to="." method="_quit_game"]
-[connection signal="pressed" from="ExitButton" to="ButtonSelect" method="play"]
-[connection signal="pressed" from="PlayButton" to="." method="_queue_load_arcade"]
-[connection signal="pressed" from="PlayButton" to="Black" method="play_enter_animation"]
-[connection signal="pressed" from="PlayButton" to="ButtonSelect" method="play"]
-[connection signal="pressed" from="SettingsButton" to="SettingsScreen" method="reveal_screen"]
-[connection signal="pressed" from="SettingsButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="Buttons/PlayButton" to="." method="_queue_load_arcade"]
+[connection signal="pressed" from="Buttons/PlayButton" to="Black" method="play_enter_animation"]
+[connection signal="pressed" from="Buttons/PlayButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="Buttons/SettingsButton" to="SettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="Buttons/SettingsButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="Buttons/ExitButton" to="." method="_quit_game"]
+[connection signal="pressed" from="Buttons/ExitButton" to="ButtonSelect" method="play"]
 [connection signal="ready" from="Black" to="Black" method="play_exit_animation"]
 [connection signal="transition_animation_finished" from="Black" to="." method="_on_black_transition_animation_finished"]

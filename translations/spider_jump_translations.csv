@@ -10,3 +10,17 @@ event.evil_spirit,Evil spirit
 event.sniper,Sniper
 event.lasers,Laser attack
 event.wasp_swarm,Wasps!
+ui.button.generic.back,Back
+ui.button.settings.audio,Audio
+ui.button.title.start,Play
+ui.button.generic.settings,Settings
+ui.button.title.exit,Exit Game
+ui.label.setting_title,SETTINGS
+ui.label.paused_title,PAUSED
+ui.label.audio_settings_title,AUDIO
+ui.label.audio_bus.master,Master
+ui.label.audio_bus.ui,UI
+ui.label.audio_bus.sfx,SFX
+ui.label.audio_bus.music,Music
+ui.button.pause_screen.exit,Exit to Title
+ui.button.pause_screen.resume,Resume

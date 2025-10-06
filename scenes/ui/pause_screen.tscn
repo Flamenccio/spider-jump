@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_gchx3"]
 [ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_qeunj"]
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="3_gyuvn"]
-[ext_resource type="Texture2D" uid="uid://8e7tqh61xbai" path="res://sprites/pause_menu_elements.png" id="3_hr2n2"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="5_lyq4t"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_oc7jr"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_wrw5x"]
 [ext_resource type="PackedScene" uid="uid://6m7hddkqnkq7" path="res://scenes/ui/settings_screen.tscn" id="8_g5rtw"]
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="9_gyuvn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n1irx"]
 resource_local_to_scene = true
@@ -16,9 +16,9 @@ shader = ExtResource("3_gyuvn")
 shader_parameter/progress = 0.0
 shader_parameter/moving_side = 0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_27awe"]
-atlas = ExtResource("3_hr2n2")
-region = Rect2(3, 98, 58, 12)
+[sub_resource type="LabelSettings" id="LabelSettings_n1irx"]
+font = ExtResource("9_gyuvn")
+font_size = 64
 
 [node name="PauseScreen" type="Control"]
 process_mode = 3
@@ -50,73 +50,52 @@ enter_duration = 0.1
 exit_duration = 0.1
 metadata/_edit_use_anchors_ = true
 
-[node name="Title" type="TextureRect" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -29.0
-offset_top = 121.0
-offset_right = 29.0
-offset_bottom = 133.0
+offset_left = -272.0
+offset_top = 95.0
+offset_right = 272.0
+offset_bottom = 167.0
 grow_horizontal = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(29, 6)
-texture = SubResource("AtlasTexture_27awe")
+text = "ui.label.paused_title"
+label_settings = SubResource("LabelSettings_n1irx")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = -42.0
-offset_right = 34.0
-offset_bottom = -21.0
+offset_left = -108.0
+offset_top = 45.0
+offset_right = 108.0
+offset_bottom = 143.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(34, 10)
+scale = Vector2(2, 2)
+pivot_offset = Vector2(108, 49)
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Buttons"]
+layout_mode = 2
 theme = ExtResource("5_lyq4t")
-text = "Resume"
+text = "ui.button.pause_screen.resume"
 
-[node name="ExitButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -56.25
-offset_top = 233.0
-offset_right = 55.75
-offset_bottom = 263.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(56, 19)
+[node name="SettingsButton" type="Button" parent="Buttons"]
+layout_mode = 2
+theme = ExtResource("5_lyq4t")
+text = "ui.button.generic.settings"
+
+[node name="ExitButton" type="Button" parent="Buttons"]
+layout_mode = 2
 theme = ExtResource("5_oc7jr")
-text = "Exit to Title"
-
-[node name="SettingsButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -41.5
-offset_top = 105.0
-offset_right = 41.5
-offset_bottom = 135.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(41, 19)
-theme = ExtResource("5_lyq4t")
-text = "Settings"
+text = "ui.button.pause_screen.exit"
 
 [node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_wrw5x")
@@ -128,18 +107,14 @@ layout_mode = 1
 
 [connection signal="internal_disabled" from="." to="TitleBar" method="play_exit_animation"]
 [connection signal="internal_disabled" from="." to="Title" method="hide" flags=3]
-[connection signal="internal_disabled" from="." to="ResumeButton" method="hide" flags=3]
-[connection signal="internal_disabled" from="." to="ExitButton" method="hide" flags=3]
-[connection signal="internal_disabled" from="." to="SettingsButton" method="hide" flags=3]
+[connection signal="internal_disabled" from="." to="Buttons" method="hide" flags=3]
 [connection signal="internal_enabled" from="." to="TitleBar" method="play_enter_animation"]
 [connection signal="internal_enabled" from="." to="Title" method="show" flags=3]
-[connection signal="internal_enabled" from="." to="ResumeButton" method="show" flags=3]
-[connection signal="internal_enabled" from="." to="ExitButton" method="show" flags=3]
-[connection signal="internal_enabled" from="." to="SettingsButton" method="show" flags=3]
+[connection signal="internal_enabled" from="." to="Buttons" method="show" flags=3]
 [connection signal="transition_animation_finished" from="TitleBar" to="." method="_on_title_bar_animation_complete"]
-[connection signal="pressed" from="ResumeButton" to="ButtonSelect" method="play"]
-[connection signal="pressed" from="ResumeButton" to="." method="_on_button_pressed" binds= ["resume"]]
-[connection signal="pressed" from="ExitButton" to="ButtonSelect" method="play"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_button_pressed" binds= ["exit"]]
-[connection signal="pressed" from="SettingsButton" to="ButtonSelect" method="play"]
-[connection signal="pressed" from="SettingsButton" to="SettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="Buttons/ResumeButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="Buttons/ResumeButton" to="." method="_on_button_pressed" binds= ["resume"]]
+[connection signal="pressed" from="Buttons/SettingsButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="Buttons/SettingsButton" to="SettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="Buttons/ExitButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_button_pressed" binds= ["exit"]]

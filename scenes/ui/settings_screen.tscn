@@ -37,57 +37,46 @@ mouse_filter = 0
 enter_duration = 0.2
 exit_duration = 0.2
 
-[node name="Label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -116.0
-offset_top = 39.0
-offset_right = 116.0
-offset_bottom = 111.0
+offset_left = -272.0
+offset_top = 36.0
+offset_right = 272.0
+offset_bottom = 108.0
 grow_horizontal = 2
-text = "Settings"
+text = "ui.label.setting_title"
 label_settings = SubResource("LabelSettings_0qbrj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AudioSettings" type="Button" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -86.0
-offset_right = 28.0
-offset_bottom = -56.0
+offset_left = -82.0
+offset_top = -61.0
+offset_right = 82.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(28, 19)
-theme = ExtResource("2_0qbrj")
-text = "Audio
-"
+scale = Vector2(2, 2)
+pivot_offset = Vector2(82, 32)
 
-[node name="BackButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -19.0
-offset_top = 239.0
-offset_right = 19.0
-offset_bottom = 269.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(19, 19)
+[node name="AudioSettings" type="Button" parent="Buttons"]
+layout_mode = 2
+theme = ExtResource("2_0qbrj")
+text = "ui.button.settings.audio"
+
+[node name="BackButton" type="Button" parent="Buttons"]
+layout_mode = 2
 theme = ExtResource("5_dyuo2")
-text = "Back"
+text = "ui.button.generic.back"
 
 [node name="AudioSettingsScreen" parent="." node_paths=PackedStringArray("_ignore_nodes") instance=ExtResource("6_klwlf")]
 visible = false
@@ -101,8 +90,8 @@ bus = &"UI"
 [connection signal="screen_revealed" from="." to="SettingsScreenBackground" method="play_enter_animation"]
 [connection signal="enter_transition_finished" from="SettingsScreenBackground" to="." method="show_all_elements"]
 [connection signal="exit_transition_finished" from="SettingsScreenBackground" to="." method="hide_screen"]
-[connection signal="pressed" from="AudioSettings" to="AudioSettingsScreen" method="reveal_screen"]
-[connection signal="pressed" from="AudioSettings" to="SelectSound" method="play"]
-[connection signal="pressed" from="BackButton" to="." method="hide_all_elements"]
-[connection signal="pressed" from="BackButton" to="SettingsScreenBackground" method="play_exit_animation"]
-[connection signal="pressed" from="BackButton" to="SelectSound" method="play"]
+[connection signal="pressed" from="Buttons/AudioSettings" to="AudioSettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="Buttons/AudioSettings" to="SelectSound" method="play"]
+[connection signal="pressed" from="Buttons/BackButton" to="." method="hide_all_elements"]
+[connection signal="pressed" from="Buttons/BackButton" to="SettingsScreenBackground" method="play_exit_animation"]
+[connection signal="pressed" from="Buttons/BackButton" to="SelectSound" method="play"]
