@@ -16,6 +16,10 @@ func _load_arcade() -> void:
 		push_error("main menu: something went wrong!")
 
 
+func _load_settings() -> void:
+	pass
+
+
 func _quit_game() -> void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()

@@ -1,16 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://ive8w8v858du"]
+[gd_scene load_steps=12 format=3 uid="uid://ive8w8v858du"]
 
 [ext_resource type="Script" uid="uid://sfl4mrieo753" path="res://scripts/ui/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dp2wmxagsoqx3" path="res://sprites/title_screen_elements-Sheet.png" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="4_wu84c"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_x2yvf"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="6_uhagc"]
+[ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="7_8g5eo"]
 [ext_resource type="Theme" uid="uid://bfjqdtisiiai3" path="res://ui_themes/button_green.tres" id="7_btxxm"]
+[ext_resource type="PackedScene" uid="uid://6m7hddkqnkq7" path="res://scenes/ui/settings_screen.tscn" id="7_q85j6"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="7_wb0q5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekxnf"]
 atlas = ExtResource("1_l6cm7")
 region = Rect2(0, 0, 92, 46)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7suek"]
+resource_local_to_scene = true
+shader = ExtResource("7_8g5eo")
+shader_parameter/progress = 0.0
+shader_parameter/moving_side = 0
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -102,6 +110,13 @@ offset_bottom = 220.0
 button_mask = 2
 
 [node name="Black" parent="." instance=ExtResource("4_wu84c")]
+material = SubResource("ShaderMaterial_7suek")
+layout_mode = 1
+enter_duration = 0.2
+exit_duration = 0.2
+
+[node name="SettingsScreen" parent="." instance=ExtResource("7_q85j6")]
+visible = false
 layout_mode = 1
 
 [node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
@@ -113,5 +128,7 @@ bus = &"UI"
 [connection signal="pressed" from="PlayButton" to="." method="_queue_load_arcade"]
 [connection signal="pressed" from="PlayButton" to="Black" method="play_enter_animation"]
 [connection signal="pressed" from="PlayButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="SettingsButton" to="SettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="SettingsButton" to="ButtonSelect" method="play"]
 [connection signal="ready" from="Black" to="Black" method="play_exit_animation"]
 [connection signal="transition_animation_finished" from="Black" to="." method="_on_black_transition_animation_finished"]

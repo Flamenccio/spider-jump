@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhn3ipskb6u3a"]
+[gd_scene load_steps=8 format=3 uid="uid://dhn3ipskb6u3a"]
 
 [ext_resource type="Script" uid="uid://cvs0n0h60sq05" path="res://scripts/ui/audio_settings.gd" id="1_2fil4"]
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_8tsh6"]
 [ext_resource type="PackedScene" uid="uid://3xiwvfjqw7wt" path="res://scenes/ui/volume_group.tscn" id="2_ki30a"]
+[ext_resource type="Texture2D" uid="uid://dq08b2rsqhfuk" path="res://sprites/screen_wipe_2.png" id="2_olebe"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="4_evj6w"]
+[ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="6_olebe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ki30a"]
 font = ExtResource("1_8tsh6")
@@ -17,6 +19,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2fil4")
+_start_hidden = true
+
+[node name="AudioSettingsBackground" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_olebe")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -74,3 +86,10 @@ scale = Vector2(2, 2)
 pivot_offset = Vector2(72, 19)
 theme = ExtResource("4_evj6w")
 text = "Back"
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_olebe")
+bus = &"UI"
+
+[connection signal="pressed" from="Exit" to="." method="hide_screen"]
+[connection signal="pressed" from="Exit" to="SelectSound" method="play"]

@@ -1,4 +1,4 @@
-extends Control
+extends UIScreen
 
 ## 0% on volume slider
 const _MIN_VOLUME_DB = -80

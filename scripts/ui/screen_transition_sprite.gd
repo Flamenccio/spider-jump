@@ -1,6 +1,9 @@
+class_name ScreenTransition
 extends TextureRect
 
 signal transition_animation_finished()
+signal exit_transition_finished()
+signal enter_transition_finished()
 
 enum RectSide {
 	TOP,
@@ -14,7 +17,7 @@ const _SIDE_PARAMETER = "moving_side"
 
 ## Delay in seconds after screen wipe ends before emitting
 ## transition_animation_finished signal
-const _TRANSITION_TIME = 0.333
+const _TRANSITION_TIME = 0.2
 
 ## How long screen wipe takes to complete in both directions,
 ## in seconds
@@ -59,7 +62,6 @@ func _process(delta: float) -> void:
 		var _fill_rate = (1.0 / _active_duration)
 		_animation_progress += _fill_rate * delta * _animation_direction
 		_set_sprite_fill(smoothstep(0.0, 1.0, _animation_progress), _active_side)
-		#_set_sprite_fill(_animation_progress, _active_side)
 
 
 ## Animate the **sprite** entering (becomes visible)
@@ -73,6 +75,9 @@ func play_enter_animation() -> void:
 	_animation_active = true
 	_active_side = enter_side
 	material.set_shader_parameter(_SIDE_PARAMETER, _active_side)
+	_shader_timer.timeout.connect(func(): 
+		enter_transition_finished.emit(),
+		ConnectFlags.CONNECT_ONE_SHOT)
 	_shader_timer.start(_TRANSITION_TIME + _active_duration)
 
 	# Start empty
@@ -94,8 +99,10 @@ func play_exit_animation() -> void:
 	_animation_active = true
 	_active_side = exit_side
 	material.set_shader_parameter(_SIDE_PARAMETER, _active_side)
-	_shader_timer.timeout.connect(func():
-		hide(), ConnectFlags.CONNECT_ONE_SHOT)
+	_shader_timer.timeout.connect(func(): 
+		hide()
+		exit_transition_finished.emit(),
+		ConnectFlags.CONNECT_ONE_SHOT)
 	_shader_timer.start(_TRANSITION_TIME)
 
 	# Start full

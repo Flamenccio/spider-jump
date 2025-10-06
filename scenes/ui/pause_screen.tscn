@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dind7ho1brwrn"]
+[gd_scene load_steps=10 format=3 uid="uid://dind7ho1brwrn"]
 
 [ext_resource type="Script" uid="uid://drqv7cbcuecnt" path="res://scripts/ui/pause_screen.gd" id="1_27awe"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_gchx3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="5_lyq4t"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_oc7jr"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_wrw5x"]
+[ext_resource type="PackedScene" uid="uid://6m7hddkqnkq7" path="res://scenes/ui/settings_screen.tscn" id="8_g5rtw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27awe"]
 atlas = ExtResource("3_hr2n2")
@@ -81,9 +82,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -56.25
-offset_top = 142.0
+offset_top = 233.0
 offset_right = 55.75
-offset_bottom = 181.0
+offset_bottom = 272.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
@@ -91,20 +92,46 @@ pivot_offset = Vector2(56, 19)
 theme = ExtResource("5_oc7jr")
 text = "Exit to Title"
 
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = 105.0
+offset_right = 41.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(41, 19)
+theme = ExtResource("5_lyq4t")
+text = "Settings"
+
 [node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_wrw5x")
 bus = &"UI"
 
+[node name="SettingsScreen" parent="." instance=ExtResource("8_g5rtw")]
+visible = false
+layout_mode = 1
+
 [connection signal="internal_disabled" from="." to="TitleBar" method="play_exit_animation"]
 [connection signal="internal_disabled" from="." to="Title" method="hide" flags=3]
-[connection signal="internal_disabled" from="." to="ExitButton" method="hide" flags=3]
 [connection signal="internal_disabled" from="." to="ResumeButton" method="hide" flags=3]
+[connection signal="internal_disabled" from="." to="ExitButton" method="hide" flags=3]
+[connection signal="internal_disabled" from="." to="SettingsButton" method="hide" flags=3]
 [connection signal="internal_enabled" from="." to="TitleBar" method="play_enter_animation"]
 [connection signal="internal_enabled" from="." to="Title" method="show" flags=3]
-[connection signal="internal_enabled" from="." to="ExitButton" method="show" flags=3]
 [connection signal="internal_enabled" from="." to="ResumeButton" method="show" flags=3]
+[connection signal="internal_enabled" from="." to="ExitButton" method="show" flags=3]
+[connection signal="internal_enabled" from="." to="SettingsButton" method="show" flags=3]
 [connection signal="transition_animation_finished" from="TitleBar" to="." method="_on_title_bar_animation_complete"]
 [connection signal="pressed" from="ResumeButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="ResumeButton" to="." method="_on_button_pressed" binds= ["resume"]]
 [connection signal="pressed" from="ExitButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_button_pressed" binds= ["exit"]]
+[connection signal="pressed" from="SettingsButton" to="ButtonSelect" method="play"]
+[connection signal="pressed" from="SettingsButton" to="SettingsScreen" method="reveal_screen"]

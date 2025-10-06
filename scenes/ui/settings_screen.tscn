@@ -1,19 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://6m7hddkqnkq7"]
+[gd_scene load_steps=9 format=3 uid="uid://6m7hddkqnkq7"]
 
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_5op3j"]
+[ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_n5rhh"]
+[ext_resource type="Script" uid="uid://c5c3hp4dmvjuk" path="res://scripts/ui/ui_screen.gd" id="1_o0pos"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="2_0qbrj"]
+[ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_dyuo2"]
+[ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="6_8y8uj"]
+[ext_resource type="PackedScene" uid="uid://dhn3ipskb6u3a" path="res://scenes/ui/audio_settings.tscn" id="6_klwlf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0qbrj"]
 font = ExtResource("1_5op3j")
 font_size = 64
 
-[node name="SettingsScreen" type="Control"]
+[node name="SettingsScreen" type="Control" node_paths=PackedStringArray("_ignore_nodes")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_o0pos")
+_ignore_nodes = [NodePath("SettingsScreenBackground"), NodePath("AudioSettingsScreen")]
+_start_hidden = true
+
+[node name="SettingsScreenBackground" parent="." instance=ExtResource("1_n5rhh")]
+layout_mode = 1
+mouse_filter = 0
+enter_duration = 0.2
+exit_duration = 0.2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -48,3 +62,39 @@ pivot_offset = Vector2(28, 19)
 theme = ExtResource("2_0qbrj")
 text = "Audio
 "
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = 239.0
+offset_right = 19.0
+offset_bottom = 278.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(19, 19)
+theme = ExtResource("5_dyuo2")
+text = "Back"
+
+[node name="AudioSettingsScreen" parent="." node_paths=PackedStringArray("_ignore_nodes") instance=ExtResource("6_klwlf")]
+visible = false
+layout_mode = 1
+_ignore_nodes = [null, NodePath(".")]
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8y8uj")
+bus = &"UI"
+
+[connection signal="screen_revealed" from="." to="SettingsScreenBackground" method="play_enter_animation"]
+[connection signal="enter_transition_finished" from="SettingsScreenBackground" to="." method="show_all_elements"]
+[connection signal="exit_transition_finished" from="SettingsScreenBackground" to="." method="hide_screen"]
+[connection signal="pressed" from="AudioSettings" to="AudioSettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="AudioSettings" to="SelectSound" method="play"]
+[connection signal="pressed" from="BackButton" to="." method="hide_all_elements"]
+[connection signal="pressed" from="BackButton" to="SettingsScreenBackground" method="play_exit_animation"]
+[connection signal="pressed" from="BackButton" to="SelectSound" method="play"]

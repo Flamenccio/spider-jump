@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://dq08b2rsqhfuk" path="res://sprites/screen_wipe_2.png" id="2_yrk1i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ln24"]
+resource_local_to_scene = true
 shader = ExtResource("1_nu058")
 shader_parameter/progress = 0.0
 shader_parameter/moving_side = 0
 
-[node name="Black" type="TextureRect"]
+[node name="ScreenWipe" type="TextureRect"]
 visible = false
 material = SubResource("ShaderMaterial_8ln24")
 anchors_preset = 15

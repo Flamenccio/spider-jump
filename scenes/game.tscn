@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=52 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player/player_stats_saver.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://c22pgr73hau3t" path="res://scenes/ui/powerup_hint.tscn" id="22_qouja"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/entities/high_score_line.tscn" id="23_bt5mj"]
+[ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="24_7025r"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/game/player_hints.gd" id="32_wljb1"]
@@ -58,6 +59,12 @@ region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
 size = Vector2(160, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4url"]
+resource_local_to_scene = true
+shader = ExtResource("24_7025r")
+shader_parameter/progress = 0.0
+shader_parameter/moving_side = 0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
 atlas = ExtResource("6_e1j6l")
@@ -186,6 +193,9 @@ visible = false
 visible = false
 
 [node name="TransitionWipe" parent="UI" instance=ExtResource("20_sgl2t")]
+material = SubResource("ShaderMaterial_m4url")
+enter_duration = 0.2
+exit_duration = 0.2
 
 [node name="PlayerStats" type="Node" parent="."]
 process_mode = 1
