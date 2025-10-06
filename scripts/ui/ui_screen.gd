@@ -17,13 +17,11 @@ func _ready() -> void:
 
 
 func hide_screen() -> void:
-	print("{0}: hiding screen".format({"0": name}))
 	hide()
 	screen_hidden.emit()
 
 
 func reveal_screen() -> void:
-	print("{0}: revealing screen".format({"0": name}))
 	show()
 	screen_revealed.emit()
 

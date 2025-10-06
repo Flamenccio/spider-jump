@@ -1,13 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://dind7ho1brwrn"]
+[gd_scene load_steps=12 format=3 uid="uid://dind7ho1brwrn"]
 
 [ext_resource type="Script" uid="uid://drqv7cbcuecnt" path="res://scripts/ui/pause_screen.gd" id="1_27awe"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_gchx3"]
 [ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_qeunj"]
+[ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="3_gyuvn"]
 [ext_resource type="Texture2D" uid="uid://8e7tqh61xbai" path="res://sprites/pause_menu_elements.png" id="3_hr2n2"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="5_lyq4t"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_oc7jr"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="5_wrw5x"]
 [ext_resource type="PackedScene" uid="uid://6m7hddkqnkq7" path="res://scenes/ui/settings_screen.tscn" id="8_g5rtw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n1irx"]
+resource_local_to_scene = true
+shader = ExtResource("3_gyuvn")
+shader_parameter/progress = 0.0
+shader_parameter/moving_side = 0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27awe"]
 atlas = ExtResource("3_hr2n2")
@@ -25,6 +32,7 @@ script = ExtResource("1_27awe")
 
 [node name="TitleBar" parent="." instance=ExtResource("1_gchx3")]
 visible = true
+material = SubResource("ShaderMaterial_n1irx")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.00086805556
@@ -84,7 +92,7 @@ anchor_bottom = 0.5
 offset_left = -56.25
 offset_top = 233.0
 offset_right = 55.75
-offset_bottom = 272.0
+offset_bottom = 263.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
@@ -102,7 +110,7 @@ anchor_bottom = 0.5
 offset_left = -41.5
 offset_top = 105.0
 offset_right = 41.5
-offset_bottom = 144.0
+offset_bottom = 135.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
