@@ -116,6 +116,10 @@ func resume_music() -> void:
 	_main_music_player.stream_paused = false
 
 
+func stop_music() -> void:
+	_main_music_player.stop()
+
+
 func _get_audio_stream(stream_path: String) -> AudioStream:
 	if stream_path.contains(_MP3_EXTENSION):
 		return AudioStreamMP3.load_from_file(stream_path)

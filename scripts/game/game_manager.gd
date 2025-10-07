@@ -90,6 +90,7 @@ func _on_game_exit() -> void:
 	if not _game_paused:
 		return
 	get_tree().paused = false
+	GlobalSoundManager.stop_music()
 	if get_tree().change_scene_to_file(ResourceUID.uid_to_path(_MAIN_MENU_UID)) != OK:
 		push_error("error occured when exiting to main menu")
 		return
