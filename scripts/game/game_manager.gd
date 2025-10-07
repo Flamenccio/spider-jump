@@ -2,30 +2,23 @@ extends Node2D
 
 signal levelled_up(new_level: int)
 signal on_game_over()
-signal stamina_drained(amount: float)
 signal score_updated(score: int)
 signal pause_screen_enabled()
 signal pause_screen_disabled()
 signal game_exited()
 
-const _LEVEL_UP_DRAIN_INCREASE = 0.005
 const _MAIN_MENU_UID = "uid://ive8w8v858du"
 
-var _stamina_drain_amount: float = 0.0
-var _old_stamina_drain: float = 0.0
-var _pause_stamina_drain: bool = false
 var _player: Node2D
 var _game_paused := false
 var _pause_screen_animation_complete := true
 
 ## Base amount of stamina drained per second, from 0.0 - 1.0
 @export var _debug_initial_difficulty: int = 0
-@export var _base_stamina_drain_amount: float = 0.0
 
 func _ready() -> void:
 
 	_player = GameConstants.player
-	_stamina_drain_amount = _base_stamina_drain_amount
 	GameConstants.difficulty = _debug_initial_difficulty
 
 	if _debug_initial_difficulty > 0:
@@ -35,28 +28,12 @@ func _ready() -> void:
 		if stat == PlayerStatsInterface.STATS_SCORE:
 			_on_score_updated(value)
 	)
-	PlayerEventBus.powerup_started.connect(func(powerup: String):
+	PlayerEventBus.powerup_started.connect(func(_powerup: String):
 		call_deferred('_remove_all_powerups')
-		if powerup == ItemIds.SUPER_GRUB_POWERUP:
-			_old_stamina_drain = _stamina_drain_amount
-			_stamina_drain_amount = 0.0
 	)
-	PlayerEventBus.powerup_ended.connect(func(powerup: String):
-		if powerup == ItemIds.SUPER_GRUB_POWERUP:
-			_stamina_drain_amount = _old_stamina_drain
-	)
-
-	# Pause drain
-	PlayerEventBus.powerup_flash_start.connect(func(): _pause_stamina_drain = true)
-	PlayerEventBus.powerup_flash_end.connect(func(): _pause_stamina_drain = false)
 
 	# Play some music
 	GlobalSoundManager.play_music("test/super_space_escape")
-
-
-# Replaces all existing powerup items with yumfly
-func _remove_all_powerups() -> void:
-	get_tree().call_group('powerup', 'remove_powerup')
 
 
 func game_over() -> void:
@@ -64,10 +41,12 @@ func game_over() -> void:
 	on_game_over.emit()
 
 
+# Replaces all existing powerup items with yumfly
+func _remove_all_powerups() -> void:
+	get_tree().call_group('powerup', 'remove_powerup')
+
+
 func _process(delta: float) -> void:
-	if _pause_stamina_drain or _game_paused:
-		return
-	stamina_drained.emit(_stamina_drain_amount * delta * -1)
 	var point = floori(_player.global_position.y / GameConstants.PIXELS_PER_POINT)
 	score_updated.emit(point)
 
@@ -80,7 +59,6 @@ func _on_score_updated(score: int) -> void:
 
 func _level_up(next_level: int) -> void:
 	GameConstants.difficulty = next_level
-	_stamina_drain_amount += _LEVEL_UP_DRAIN_INCREASE
 	levelled_up.emit(GameConstants.difficulty)
 
 

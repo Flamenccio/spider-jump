@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=48 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -34,11 +34,8 @@
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/game/player_hints.gd" id="32_wljb1"]
-[ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="33_twgab"]
-[ext_resource type="Resource" uid="uid://b3dk2h5mocpbw" path="res://resources/powerups/hoverfly.tres" id="34_02fa5"]
-[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="35_nepv3"]
-[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="36_7025r"]
 [ext_resource type="Script" uid="uid://c2xgxrcw3hung" path="res://scenes/sound_manager_interface.gd" id="37_02fa5"]
+[ext_resource type="Script" uid="uid://bdx7qqns2omy" path="res://scripts/game/stamina_drainer.gd" id="40_m4url"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -95,14 +92,9 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
-atlas = ExtResource("35_nepv3")
-region = Rect2(0, 0, 8, 8)
-
 [node name="Game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_264po")
-_base_stamina_drain_amount = 0.033
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 process_mode = 1
@@ -249,24 +241,17 @@ script = ExtResource("30_sgl2t")
 [node name="PlayerHints" type="Node" parent="."]
 script = ExtResource("32_wljb1")
 
-[node name="Hoverfly" parent="." instance=ExtResource("33_twgab")]
-position = Vector2(49, -100)
-_debug_item = ExtResource("34_02fa5")
-_item_id = "hoverfly"
-
-[node name="@Sprite2D@28311" type="Sprite2D" parent="Hoverfly"]
-z_index = 10
-texture = SubResource("AtlasTexture_ih772")
-
-[node name="@CollisionShape2D@28312" type="CollisionShape2D" parent="Hoverfly"]
-shape = ExtResource("36_7025r")
-
 [node name="SoundManagerInterface" type="Node" parent="."]
 script = ExtResource("37_02fa5")
+
+[node name="StaminaDrainer" type="Node" parent="."]
+process_mode = 1
+script = ExtResource("40_m4url")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="game_exited" from="." to="UI/TransitionWipe" method="play_enter_animation"]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
+[connection signal="levelled_up" from="." to="StaminaDrainer" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
 [connection signal="pause_screen_disabled" from="." to="UI/Hud" method="show" flags=3]
@@ -275,7 +260,6 @@ script = ExtResource("37_02fa5")
 [connection signal="pause_screen_enabled" from="." to="UI/PauseScreen" method="_on_pause_screen_enabled"]
 [connection signal="score_updated" from="." to="LevelSpawner/LevelEventStarter" method="_on_score_updated"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
-[connection signal="stamina_drained" from="." to="PlayerStats" method="change_stamina"]
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="Player/PullCircle" method="show"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
@@ -315,3 +299,4 @@ script = ExtResource("37_02fa5")
 [connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]
 [connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]
 [connection signal="give_hint" from="PlayerHints" to="UI/PowerupHint" method="display_text"]
+[connection signal="stamina_drained" from="StaminaDrainer" to="PlayerStats" method="change_stamina"]
