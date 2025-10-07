@@ -67,7 +67,6 @@ func resume_drain(priority: int = 0) -> void:
 
 func _on_level_up(new_level: int) -> void:
 	_stamina_drain += _get_stamina_drain_increase(new_level - 1)
-	print("stamina drain is now: ", _stamina_drain)
 
 
 func _get_stamina_drain_increase(level: int) -> float:

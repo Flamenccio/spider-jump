@@ -62,18 +62,22 @@ grow_vertical = 2
 [node name="Master" parent="VolumeSliders" instance=ExtResource("2_ki30a")]
 layout_mode = 2
 volume_bus_name = "ui.label.audio_bus.master"
+volume_bus_id = "Master"
 
 [node name="SFX" parent="VolumeSliders" instance=ExtResource("2_ki30a")]
 layout_mode = 2
 volume_bus_name = "ui.label.audio_bus.sfx"
+volume_bus_id = "SFX"
 
 [node name="UI" parent="VolumeSliders" instance=ExtResource("2_ki30a")]
 layout_mode = 2
 volume_bus_name = "ui.label.audio_bus.ui"
+volume_bus_id = "UI"
 
 [node name="Music" parent="VolumeSliders" instance=ExtResource("2_ki30a")]
 layout_mode = 2
 volume_bus_name = "ui.label.audio_bus.music"
+volume_bus_id = "Music"
 
 [node name="SelectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_olebe")

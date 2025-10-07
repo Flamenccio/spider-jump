@@ -15,6 +15,7 @@ var _volume_bus_name: String
 		volume_bus_name_updated.emit(value)
 	get:
 		return _volume_bus_name
+@export var volume_bus_id: String
 
 func set_volume_percent(percent: float) -> void:
 	set_volume_slider.emit(percent)
