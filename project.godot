@@ -111,6 +111,7 @@ pause={
 
 locale/translation_remaps={
 "res://scenes/ui/audio_settings.tscn": PackedStringArray(),
+"res://scenes/ui/death_screen.tscn": PackedStringArray(),
 "res://scenes/ui/main_menu.tscn": PackedStringArray(),
 "res://scenes/ui/pause_screen.tscn": PackedStringArray(),
 "res://scenes/ui/settings_screen.tscn": PackedStringArray(),

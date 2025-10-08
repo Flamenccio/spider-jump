@@ -24,3 +24,6 @@ ui.label.audio_bus.sfx,SFX
 ui.label.audio_bus.music,Music
 ui.button.pause_screen.exit,Exit to Title
 ui.button.pause_screen.resume,Resume
+ui.label.death_screen.game_over,GAME OVER
+ui.label.generic.score,Score
+ui.label.generic.high_score,High score

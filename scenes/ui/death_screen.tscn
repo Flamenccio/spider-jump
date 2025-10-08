@@ -69,7 +69,7 @@ grow_vertical = 2
 
 [node name="YouDied" type="Label" parent="YouDiedContainer"]
 layout_mode = 2
-text = "GAME OVER!"
+text = "ui.label.death_screen.game_over"
 label_settings = SubResource("LabelSettings_itto5")
 horizontal_alignment = 1
 
@@ -87,24 +87,15 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScoreLabelContainer" type="HFlowContainer" parent="Score"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 180.0
-offset_bottom = 29.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScoreLabel" type="Label" parent="Score/ScoreLabelContainer"]
-layout_mode = 2
-text = "Score"
+[node name="ScoreLabel" type="Label" parent="Score"]
+layout_mode = 0
+offset_left = -198.0
+offset_right = 90.0
+offset_bottom = 36.0
+text = "ui.label.generic.score"
 label_settings = SubResource("LabelSettings_dwo6e")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="ScoreDisplay" type="HFlowContainer" parent="Score"]
 layout_mode = 0
@@ -148,25 +139,15 @@ offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScoreLabelContainer" type="HFlowContainer" parent="HighScore"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -83.0
-offset_top = -20.0
-offset_right = 117.0
-offset_bottom = 29.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScoreLabel" type="Label" parent="HighScore/ScoreLabelContainer"]
+[node name="ScoreLabel" type="Label" parent="HighScore"]
 material = SubResource("ShaderMaterial_wfw3d")
-layout_mode = 2
-text = "High score"
+layout_mode = 0
+offset_left = -270.0
+offset_right = 90.0
+offset_bottom = 36.0
+text = "ui.label.generic.high_score"
 label_settings = SubResource("LabelSettings_7ns25")
+horizontal_alignment = 2
 script = ExtResource("6_wfw3d")
 
 [node name="ScoreDisplay" type="HFlowContainer" parent="HighScore"]
@@ -199,4 +180,4 @@ layout_mode = 2
 
 [connection signal="internal_high_score_updated" from="." to="HighScore/ScoreDisplay" method="display_value"]
 [connection signal="internal_score_updated" from="." to="Score/ScoreDisplay" method="display_value"]
-[connection signal="new_high_score_reached" from="." to="HighScore/ScoreLabelContainer/ScoreLabel" method="set_shader_param" binds= ["oscillate_active", true]]
+[connection signal="new_high_score_reached" from="." to="HighScore/ScoreLabel" method="set_shader_param" binds= ["oscillate_active", true]]
