@@ -48,7 +48,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
 shader = ExtResource("2_dt7fs")
-shader_parameter/ghost = false
+shader_parameter/ghost_frequency = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
 atlas = ExtResource("2_qfm1y")
@@ -458,30 +458,37 @@ autoplay = "idle"
 script = ExtResource("4_wqfne")
 
 [node name="Antibug" type="AnimatedSprite2D" parent="SpriteTree"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_cs1tg")
 animation = &"fall"
 
 [node name="Hoverfly" type="AnimatedSprite2D" parent="SpriteTree"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_hhpqf")
 animation = &"hover"
 
 [node name="SuperGrub" type="AnimatedSprite2D" parent="SpriteTree"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_hax0n")
 animation = &"idle"
 
 [node name="Bubblebee" type="AnimatedSprite2D" parent="SpriteTree"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_t4otl")
 animation = &"fall"
 
 [node name="Hopperpop" type="AnimatedSprite2D" parent="SpriteTree"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_ha2mi")
 animation = &"fall"
 
 [node name="HeavyBeetle" type="AnimatedSprite2D" parent="SpriteTree"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_2a3c5")
 animation = &"fall"
 
 [node name="Blinkfly" type="AnimatedSprite2D" parent="SpriteTree"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_g5jhy")
 animation = &"fall"
 
@@ -744,10 +751,9 @@ bus = &"SFX"
 [connection signal="internal_pull_release" from="." to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
 [connection signal="internal_pull_release" from="." to="StateMachineHandler" method="set_param" binds= ["aim", false]]
 [connection signal="internal_safe_spot_updated" from="." to="SafeState" method="_safe_spot_updated"]
-[connection signal="invincibility_ended" from="." to="SpriteTree/Normal" method="_stop_invincibility_flashing"]
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
-[connection signal="invincibility_started" from="." to="SpriteTree/Normal" method="_activate_invincibility_flashing"]
-[connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector"]
+[connection signal="invincibility_started" from="." to="SpriteTree/Normal" method="start_invincibility_flashing"]
+[connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector" unbinds=1]
 [connection signal="moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", false]]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]

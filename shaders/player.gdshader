@@ -1,17 +1,23 @@
 shader_type canvas_item;
 
-uniform bool ghost = false;
+const float ghost_alpha = 0.40;
+uniform float ghost_frequency = 0.0;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
 void fragment() {
-
-	if (ghost){
-		vec4 previous_color = texture(TEXTURE, UV);
-		vec4 col = vec4(previous_color.r, previous_color.g, previous_color.b, max(previous_color.a - 0.40, 0.0));
-		COLOR = col;
+	
+	float t = TIME * ghost_frequency;
+	
+	if (round(mod(t, 2.0)) == 0.0){
+		COLOR = texture(TEXTURE, UV);
+	}
+	else{
+		vec4 base_color = texture(TEXTURE, UV);
+		float alpha = max(base_color.a - ghost_alpha, 0.0);
+		COLOR = vec4(base_color.r, base_color.g, base_color.b, alpha);
 	}
 }
 

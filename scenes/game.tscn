@@ -95,6 +95,7 @@ animations = [{
 [node name="Game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_264po")
+_debug_initial_difficulty = 4
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 process_mode = 1

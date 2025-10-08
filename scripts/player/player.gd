@@ -16,7 +16,7 @@ signal external_set_safe_spot(here: Vector2)
 signal stop_moving()
 signal moving()
 
-signal invincibility_started()
+signal invincibility_started(duration: float)
 signal invincibility_ended()
 
 # Used for invincibility after getting hurt
@@ -87,5 +87,5 @@ func _on_safe_spot_set(pos: Vector2) -> void:
 func _start_invincibility(time: float) -> void:
 	_invincibility_timer.stop()
 	_invincibility_timer.start(time)
-	invincibility_started.emit()
+	invincibility_started.emit(time)
 	
