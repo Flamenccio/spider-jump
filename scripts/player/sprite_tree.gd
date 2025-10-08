@@ -1,72 +1,48 @@
 class_name SpriteTree
 extends Node2D
 
-var _branches: Array[AnimatedSprite2D]
-var _active_branch: AnimatedSprite2D
+const _DELIMITER = "_"
+
+var _current_branch := ""
 
 ## Name of the default active branch.
-## If left blank, the first branch in the array is chosen
-@export var _default_branch: String
+@export var _default_branch := ""
+
+## Animated sprite to use.
+@export var _sprite: AnimatedSprite2D
 
 func _ready() -> void:
-
-	# Get branches in children
-	var children = get_children()
-	for child in children:
-		if child is AnimatedSprite2D:
-			var new_sprite = child as AnimatedSprite2D
-			new_sprite.stop()
-			new_sprite.hide()
-			_branches.append(new_sprite)
-
-	if _branches.size() == 0:
-		push_error('sprite tree: no sprite branches!')
+	if _sprite == null:
+		push_error("sprite tree: sprite is null")
 		return
-
-	# Set default branch
-	# Set active branch to first
-	if _default_branch == null or _default_branch == '':
-		_active_branch = _branches[0]
-	# Set active branch to _default_branch
-	else:
-		switch_sprite_branch(_default_branch)
+	switch_sprite_branch(_default_branch)
 
 
 func flip_horizontal(flip: bool) -> void:
-	for sprite in _branches:
-		sprite.flip_h = flip
+	_sprite.flip_h = flip
 
 
 func flip_vertical(flip: bool) -> void:
-	for sprite in _branches:
-		sprite.flip_v = flip
+	_sprite.flip_v = flip
 
 
-## Switches the current active branch to `to`. Automatically converted to **PascalCase** to match node-naming conventions.
-func switch_sprite_branch(to: String) -> void:
-	to = to.to_pascal_case()
-	var index = _branches.find_custom(func(a: AnimatedSprite2D): return a.name == to)
-	if index < 0:
-		push_error('sprite tree: no sprite branches with name "{0}"'.format({'0': to}))
-		return
-	var old = _active_branch
-	_active_branch = _branches[index]
-	var old_animation = ''
-	if old != null:
-		old_animation = _active_branch.animation
-		old.stop()
-		old.hide()
-	_active_branch.show()
-	if _active_branch.sprite_frames.has_animation(old_animation) and old_animation != '':
-		_active_branch.play(old_animation)
+func switch_sprite_branch(branch: String) -> void:
+	branch = branch.to_snake_case()
+	var animation_suffix := _get_animation_suffix(_current_branch, _sprite.animation)
+	_current_branch = branch
+	play_branch_animation(animation_suffix)
 
 
-## Plays an animation on the current branch
 func play_branch_animation(animation: String) -> void:
-	if _active_branch == null:
-		push_error('sprite tree: _active_branch is null!')
+
+	animation = animation.to_snake_case()
+	var target_animation = _make_animation_id(_current_branch, animation)
+
+	if not _sprite.sprite_frames.has_animation(target_animation):
+		push_warning("sprite tree: no animation '{0}' exists".format({"0": target_animation}))
 		return
-	_active_branch.play(animation)
+
+	_sprite.play(target_animation)
 
 
 ## Switches to an sprite branch `branch` and plays animation `animation`.
@@ -75,3 +51,10 @@ func switch_and_play(branch: String, animation: String) -> void:
 	switch_sprite_branch(branch)
 	play_branch_animation(animation)
 
+
+func _make_animation_id(branch: String, animation: String) -> String:
+	return "{0}_{1}".format({"0": _current_branch, "1": animation})
+
+
+func _get_animation_suffix(branch: String, complete_animation: String) -> String:
+	return complete_animation.right(-(branch.length() + 1))
