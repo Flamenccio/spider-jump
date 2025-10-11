@@ -26,7 +26,7 @@ func end_event() -> void:
 func _ready_shot() -> void:
 	var instance = _sniper_shot_scene.instantiate()
 	instance.shot_fired.connect(_on_sniper_shot)
-	TheGlobalSpawner.add_child(instance)
+	GameConstants.game_spawner.add_child(instance)
 	instance.set_target(GameConstants.player)
 
 

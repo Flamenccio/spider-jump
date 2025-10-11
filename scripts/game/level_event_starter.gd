@@ -82,7 +82,7 @@ func _add_event(event: PackedScene) -> void:
 	var instance = event.instantiate()
 	_score_update_functions = instance.on_score_updated
 	instance.event_finished.connect(_on_event_finished)
-	TheGlobalSpawner.add_child(instance)
+	GameConstants.game_spawner.add_child(instance)
 	instance.call('start_event')
 	GlobalSoundManager.pause_music(1.0)
 	GlobalSoundManager.play_sound("game/event_start_jingle", "Music")

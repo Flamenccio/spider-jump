@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dm3ht1lv7fpou"]
+[gd_scene load_steps=14 format=3 uid="uid://dm3ht1lv7fpou"]
 
 [ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://scripts/ui/ui_controller.gd" id="1_dwo6e"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_dwo6e"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="3_mqh5l"]
 [ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="5_gwety"]
 [ext_resource type="Script" uid="uid://doklq8uylia54" path="res://scripts/utility/shader_manager.gd" id="6_wfw3d"]
+[ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="8_5d08o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mqh5l"]
 atlas = ExtResource("2_dwo6e")
@@ -178,6 +179,28 @@ layout_mode = 2
 [node name="DigitDisplay6" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
+[node name="TitleButtonContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -89.0
+offset_right = 96.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(96, 15)
+
+[node name="TitleButton" type="Button" parent="TitleButtonContainer"]
+layout_mode = 2
+theme = ExtResource("8_5d08o")
+text = "ui.button.pause_screen.exit"
+
 [connection signal="internal_high_score_updated" from="." to="HighScore/ScoreDisplay" method="display_value"]
 [connection signal="internal_score_updated" from="." to="Score/ScoreDisplay" method="display_value"]
 [connection signal="new_high_score_reached" from="." to="HighScore/ScoreLabel" method="set_shader_param" binds= ["oscillate_active", true]]
+[connection signal="pressed" from="TitleButtonContainer/TitleButton" to="." method="_on_button_pressed" binds= ["exit"]]

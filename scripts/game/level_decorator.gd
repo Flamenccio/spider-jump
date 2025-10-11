@@ -13,10 +13,10 @@ var _swift_yumfly_scene: PackedScene
 @export var _decorations: Array[LevelDecoration]
 
 func _ready() -> void:
-	PlayerEventBus.powerup_started.connect(func(powerup: String):
+	PlayerEventBus.powerup_started.connect(func(_powerup: String):
 		no_powerups = true
 	)
-	PlayerEventBus.powerup_ended.connect(func(powerup: String):
+	PlayerEventBus.powerup_ended.connect(func(_powerup: String):
 		no_powerups = false
 	)
 	_swift_yumfly_scene = load(ResourceUID.uid_to_path("uid://bmyyp1qc3tf0m"))
@@ -26,8 +26,8 @@ func _on_level_spawned(level: Node2D) -> void:
 	_decorate_level(level)
 
 
-func _on_game_height_updated(height: float) -> void:
-	self.height = height
+func _on_game_height_updated(updated_height: float) -> void:
+	height = updated_height
 
 
 func _decorate_level(level_body: Node2D) -> void:

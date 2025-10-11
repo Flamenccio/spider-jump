@@ -13,8 +13,15 @@ var _player: Node2D
 var _game_paused := false
 var _pause_screen_animation_complete := true
 
+@export var _game_spawner: GlobalSpawner
+
 ## Base amount of stamina drained per second, from 0.0 - 1.0
 @export var _debug_initial_difficulty: int = 0
+
+
+func _enter_tree() -> void:
+	GameConstants.game_spawner = _game_spawner
+
 
 func _ready() -> void:
 
@@ -62,7 +69,6 @@ func _level_up(next_level: int) -> void:
 	levelled_up.emit(GameConstants.difficulty)
 
 
-# TODO: adjust if needed
 func get_next_level_up_score(difficulty: int) -> int:
 	return 100 * (difficulty + 1) + 50 * difficulty
 
@@ -87,8 +93,6 @@ func _on_pause_screen_animation_done() -> void:
 
 
 func _on_game_exit() -> void:
-	if not _game_paused:
-		return
 	get_tree().paused = false
 	GlobalSoundManager.stop_music()
 	if get_tree().change_scene_to_file(ResourceUID.uid_to_path(_MAIN_MENU_UID)) != OK:
@@ -99,6 +103,8 @@ func _on_game_exit() -> void:
 func _on_pause_screen_pause_screen_button_pressed(button: String) -> void:
 	match button:
 		"exit":
+			#GlobalSoundManager.suppress_sounds()
+			#GlobalSoundManager.stop_all_sounds()
 			game_exited.emit()
 		"resume":
 			_on_pause_toggle()

@@ -21,6 +21,7 @@ const _DEFAULT_POLYPHONY = 1
 var _ogg_regex := RegEx.new()
 var _mp3_regex := RegEx.new()
 var _wav_regex := RegEx.new()
+var _sounds_suppressed := false
 
 # Sound dictionaries
 ## Readonly copy of sounds dictionary
@@ -98,8 +99,31 @@ func _ready() -> void:
 
 ## Play a nonpositional sound with id `sound_id`.
 func play_sound(sound_id: String, bus: String = "Master") -> void:
+	print("played sound")
+	if _sounds_suppressed:
+		return
 	var file_path = _sounds[sound_id] as String
 	_enqueue_sound(_get_audio_stream(file_path), bus, sound_id)
+
+
+func stop_all_sounds() -> void:
+	print("stopping sounds")
+	for b in _busy_sound_players:
+		b.stop()
+		b.stream = null
+		_available_sound_players.push_back(b)
+		_busy_sound_players.erase(b)
+
+
+## Prevents sounds from being played.
+func suppress_sounds() -> void:
+	print("suppressing sounds")
+	_sounds_suppressed = true
+
+
+## Allows sounds to be played.
+func allow_sounds() -> void:
+	_sounds_suppressed = false
 
 
 func play_music(music_id: String) -> void:

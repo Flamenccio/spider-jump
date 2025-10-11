@@ -18,7 +18,7 @@ func instantiate_particle(global_position: Vector2, rotation: float = 0.0) -> vo
 
 
 func _add_particle(particle: FlashParticle, global_position: Vector2, rotation: float) -> void:
-	TheGlobalSpawner.add_child(particle)
+	GameConstants.game_spawner.add_child(particle)
 	particle.global_position = global_position
 	particle.rotation = rotation
 	particle.offset = offset

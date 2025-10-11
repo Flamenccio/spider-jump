@@ -3,6 +3,7 @@ extends Control
 signal internal_score_updated(score: int)
 signal internal_high_score_updated(score: int)
 signal new_high_score_reached()
+signal death_screen_button_pressed(button: String)
 
 @export var _visible_on_ready: bool = true
 
@@ -27,3 +28,7 @@ func _update_high_score(score: int) -> void:
 
 func _new_high_score_reached() -> void:
 	new_high_score_reached.emit()
+
+
+func _on_button_pressed(button: String) -> void:
+	death_screen_button_pressed.emit(button)

@@ -32,7 +32,7 @@ func _spawn_wasp() -> void:
 
 func _add_wasp(wasp: Node2D, right_side: bool) -> void:
 
-	TheGlobalSpawner.add_child(wasp)
+	GameConstants.game_spawner.add_child(wasp)
 	var elevation_offset = -1 * roundf(randf_range(0, _TILE_SIZE * _SCREEN_TILE_HEIGHT))
 	var player_elevation = GameConstants.player.global_position.y
 	var spawn_position := Vector2.ZERO

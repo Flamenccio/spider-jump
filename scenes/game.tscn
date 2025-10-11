@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=49 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/game/player_hints.gd" id="32_wljb1"]
 [ext_resource type="Script" uid="uid://c2xgxrcw3hung" path="res://scenes/sound_manager_interface.gd" id="37_02fa5"]
+[ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="37_nepv3"]
 [ext_resource type="Script" uid="uid://bdx7qqns2omy" path="res://scripts/game/stamina_drainer.gd" id="40_m4url"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
@@ -92,10 +93,10 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_game_spawner")]
 process_mode = 3
 script = ExtResource("1_264po")
-_debug_initial_difficulty = 4
+_game_spawner = NodePath("GameSpawner")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 process_mode = 1
@@ -249,6 +250,10 @@ script = ExtResource("37_02fa5")
 process_mode = 1
 script = ExtResource("40_m4url")
 
+[node name="GameSpawner" type="Node2D" parent="."]
+script = ExtResource("37_nepv3")
+metadata/_custom_type_script = "uid://bc14d6efnxlji"
+
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="game_exited" from="." to="UI/TransitionWipe" method="play_enter_animation"]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
@@ -288,8 +293,9 @@ script = ExtResource("40_m4url")
 [connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
 [connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
 [connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
+[connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
+[connection signal="enter_transition_finished" from="UI/TransitionWipe" to="." method="_on_game_exit"]
 [connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation" flags=3]
-[connection signal="transition_animation_finished" from="UI/TransitionWipe" to="." method="_on_game_exit"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="player_hurt" from="PlayerStats" to="SoundManagerInterface" method="play_sound" binds= ["player/lose_powerup", "SFX"]]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_entered"]
