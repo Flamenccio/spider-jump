@@ -27,3 +27,4 @@ ui.button.pause_screen.resume,Resume
 ui.label.death_screen.game_over,GAME OVER
 ui.label.generic.score,Score
 ui.label.generic.high_score,High score
+ui.label.hud.level,Level

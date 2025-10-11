@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=20 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://scripts/ui/hud.gd" id="1_oo0fn"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dj6nc2r4uunkq" path="res://sprites/life.png" id="4_uo2fv"]
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="6_5pdws"]
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="6_047uy"]
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="9_4jqwt"]
+[ext_resource type="Script" uid="uid://cil6812nlkvdc" path="res://scripts/ui/level_label.gd" id="10_kicr4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
@@ -40,6 +42,10 @@ region = Rect2(0, 0, 8, 8)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5pdws"]
 atlas = ExtResource("4_uo2fv")
 region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kicr4"]
+font = ExtResource("9_4jqwt")
+font_size = 32
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -190,6 +196,25 @@ layout_mode = 2
 [node name="DigitDisplay6" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
 layout_mode = 2
 
+[node name="LevelDisplay" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -58.0
+offset_right = 93.0
+offset_bottom = -18.0
+grow_vertical = 0
+
+[node name="LevelLabel" type="Label" parent="LevelDisplay"]
+layout_mode = 2
+text = "Level "
+label_settings = SubResource("LabelSettings_kicr4")
+vertical_alignment = 1
+script = ExtResource("10_kicr4")
+
+[connection signal="internal_difficulty_level_updated" from="." to="LevelDisplay/LevelLabel" method="update_level"]
 [connection signal="internal_health_updated" from="." to="Life/HFlowContainer" method="display_life"]
 [connection signal="internal_powerup_ended" from="." to="PowerupTimer/CenterContainer/PowerupTimer" method="hide"]
 [connection signal="internal_powerup_started" from="." to="PowerupTimer/CenterContainer/PowerupTimer" method="show" unbinds=1]

@@ -124,7 +124,7 @@ scale = Vector2(1.97784, 0.137882)
 texture = ExtResource("6_e1j6l")
 
 [node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
-process_mode = 3
+process_mode = 1
 script = ExtResource("7_pl11u")
 _pull_origin = NodePath("../Player")
 
@@ -265,6 +265,7 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="game_exited" from="." to="UI/TransitionWipe" method="play_enter_animation"]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
+[connection signal="levelled_up" from="." to="UI/Hud" method="_on_difficulty_level_updated"]
 [connection signal="levelled_up" from="." to="StaminaDrainer" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
 [connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]

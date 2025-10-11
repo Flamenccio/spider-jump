@@ -2,6 +2,7 @@ extends Control
 
 signal external_health_lost(where: Control)
 
+signal internal_difficulty_level_updated(difficulty_level: int)
 signal internal_stamina_updated(current_stamina: float)
 signal internal_health_updated(current_health: int)
 signal internal_score_updated(current_score: int)
@@ -41,4 +42,8 @@ func _on_score_updated(current_score: int) -> void:
 
 func _internal_on_life_lost(screen_coords: Control) -> void:
 	external_health_lost.emit(screen_coords)
+
+
+func _on_difficulty_level_updated(level: int) -> void:
+	internal_difficulty_level_updated.emit(level)
 

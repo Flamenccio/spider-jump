@@ -100,7 +100,6 @@ func _ready() -> void:
 
 ## Play a nonpositional sound with id `sound_id`.
 func play_sound(sound_id: String, bus: String = "Master") -> void:
-	print("played sound")
 	if _sounds_suppressed:
 		return
 	var file_path = _sounds[sound_id] as String
@@ -108,7 +107,6 @@ func play_sound(sound_id: String, bus: String = "Master") -> void:
 
 
 func stop_all_sounds() -> void:
-	print("stopping sounds")
 	for b in _busy_sound_players:
 		b.stop()
 		b.stream = null
@@ -118,7 +116,6 @@ func stop_all_sounds() -> void:
 
 ## Prevents sounds from being played.
 func suppress_sounds() -> void:
-	print("suppressing sounds")
 	_sounds_suppressed = true
 
 
