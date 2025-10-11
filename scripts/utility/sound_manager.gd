@@ -51,6 +51,7 @@ var _music_pause_timer := Timer.new()
 ## If none given, searches through `res://music/` by default.
 @export var _music_directories: Array[String]
 
+## If `-1`, uses `_DEFAULT_MAX_PLAYERS`, 20
 @export var _max_players: int = -1
 
 func _ready() -> void:

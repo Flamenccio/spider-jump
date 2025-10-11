@@ -84,8 +84,8 @@ func _add_event(event: PackedScene) -> void:
 	instance.event_finished.connect(_on_event_finished)
 	GameConstants.game_spawner.add_child(instance)
 	instance.call('start_event')
-	GlobalSoundManager.pause_music(1.0)
-	GlobalSoundManager.play_sound("game/event_start_jingle", "Music")
+	GameConstants.game_sounds.pause_music(1.0)
+	GameConstants.game_sounds.play_sound("game/event_start_jingle", "Music")
 	event_started.emit(_current_event)
 
 

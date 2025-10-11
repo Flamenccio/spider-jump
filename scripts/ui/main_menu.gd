@@ -4,12 +4,6 @@ const ARCADE_GAME_UID = "uid://c3vqs430qpt8w"
 
 var _queued_game_mode := ""
 
-func _ready() -> void:
-	# Unsuppress sound effect playing. Used when the player returns from
-	# a session, where exiting a game suppresses sound effects
-	GlobalSoundManager.allow_sounds()
-
-
 func _queue_load_arcade() -> void:
 	if _queued_game_mode != "":
 		return

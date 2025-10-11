@@ -1,7 +1,11 @@
 extends Node
 
-var _sound_manager := GlobalSoundManager
+var _sound_manager: SoundManager
 var _jumped := false
+
+func _ready() -> void:
+	_sound_manager = GameConstants.game_sounds
+
 
 func play_jump() -> void:
 	_jumped = true

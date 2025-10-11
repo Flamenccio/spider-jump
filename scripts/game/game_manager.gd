@@ -14,6 +14,7 @@ var _game_paused := false
 var _pause_screen_animation_complete := true
 
 @export var _game_spawner: GlobalSpawner
+@export var _game_sound_manager: SoundManager
 
 ## Base amount of stamina drained per second, from 0.0 - 1.0
 @export var _debug_initial_difficulty: int = 0
@@ -21,6 +22,7 @@ var _pause_screen_animation_complete := true
 
 func _enter_tree() -> void:
 	GameConstants.game_spawner = _game_spawner
+	GameConstants.game_sounds = _game_sound_manager
 
 
 func _ready() -> void:
@@ -40,7 +42,7 @@ func _ready() -> void:
 	)
 
 	# Play some music
-	GlobalSoundManager.play_music("test/super_space_escape")
+	GameConstants.game_sounds.play_music("test/super_space_escape")
 
 
 func game_over() -> void:
@@ -94,7 +96,7 @@ func _on_pause_screen_animation_done() -> void:
 
 func _on_game_exit() -> void:
 	get_tree().paused = false
-	GlobalSoundManager.stop_music()
+	GameConstants.game_sounds.stop_music()
 	if get_tree().change_scene_to_file(ResourceUID.uid_to_path(_MAIN_MENU_UID)) != OK:
 		push_error("error occured when exiting to main menu")
 		return
@@ -103,8 +105,6 @@ func _on_game_exit() -> void:
 func _on_pause_screen_pause_screen_button_pressed(button: String) -> void:
 	match button:
 		"exit":
-			#GlobalSoundManager.suppress_sounds()
-			#GlobalSoundManager.stop_all_sounds()
 			game_exited.emit()
 		"resume":
 			_on_pause_toggle()
