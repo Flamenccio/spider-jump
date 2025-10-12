@@ -1,13 +1,10 @@
 extends UIScreen
 
-## 0% on volume slider
-const _MIN_VOLUME_DB = -80
-
-## 100% on volume slider
-const _MAX_VOLUME_DB = 0
-
 func _ready() -> void:
+	_init_sliders()
 
+
+func _init_sliders() -> void:
 	var children = _get_children_recursive(self)
 	var volume_sliders: Array[VolumeSlider]
 	for c in children:
@@ -52,7 +49,7 @@ func _attach_slider_listener(bus_index: int, volume_sliders: Array[VolumeSlider]
 
 
 func _update_bus_volume(new_volume_percent: float, bus_index: int) -> void:
-	AudioServer.set_bus_volume_db(bus_index, new_volume_percent / 100.0)
+	AudioServer.set_bus_volume_linear(bus_index, new_volume_percent / 100.0)
 
 
 func _get_children_recursive(node: Node) -> Array[Node]:
@@ -61,3 +58,8 @@ func _get_children_recursive(node: Node) -> Array[Node]:
 		arr.append(c)
 		arr.append_array(_get_children_recursive(c))
 	return arr
+
+
+func _on_audio_settings_exit() -> void:
+	SettingsService.update_audio_settings_from_server()
+

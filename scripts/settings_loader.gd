@@ -32,6 +32,7 @@ func update_audio_settings_from_server() -> void:
 
 	for i in buses:
 		bus_volumes[AudioServer.get_bus_name(i)] = AudioServer.get_bus_volume_linear(i)
+		print("{0}: {1}".format({"0": AudioServer.get_bus_name(i), "1": AudioServer.get_bus_volume_linear(i)}))
 
 	update_audio_setting(bus_volumes)
 

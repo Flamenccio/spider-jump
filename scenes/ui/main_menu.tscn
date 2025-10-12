@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ive8w8v858du"]
+[gd_scene load_steps=12 format=3 uid="uid://ive8w8v858du"]
 
 [ext_resource type="Script" uid="uid://sfl4mrieo753" path="res://scripts/ui/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://dp2wmxagsoqx3" path="res://sprites/title_screen_elements-Sheet.png" id="1_l6cm7"]
@@ -9,7 +9,6 @@
 [ext_resource type="Theme" uid="uid://bfjqdtisiiai3" path="res://ui_themes/button_green.tres" id="7_btxxm"]
 [ext_resource type="PackedScene" uid="uid://6m7hddkqnkq7" path="res://scenes/ui/settings_screen.tscn" id="7_q85j6"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="7_wb0q5"]
-[ext_resource type="Script" uid="uid://cns1tujp32efj" path="res://scripts/settings_loader.gd" id="10_8g5eo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekxnf"]
 atlas = ExtResource("1_l6cm7")
@@ -91,9 +90,6 @@ layout_mode = 1
 [node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_x2yvf")
 bus = &"UI"
-
-[node name="SettingsLoader" type="Node" parent="."]
-script = ExtResource("10_8g5eo")
 
 [connection signal="pressed" from="Buttons/PlayButton" to="." method="_queue_load_arcade"]
 [connection signal="pressed" from="Buttons/PlayButton" to="Black" method="play_enter_animation"]
