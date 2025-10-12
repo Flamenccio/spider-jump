@@ -34,8 +34,8 @@ _start_hidden = true
 material = SubResource("ShaderMaterial_jowa0")
 layout_mode = 1
 mouse_filter = 0
-enter_duration = 0.2
-exit_duration = 0.2
+enter_duration = 0.15
+exit_duration = 0.15
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1

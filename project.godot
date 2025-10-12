@@ -25,6 +25,7 @@ PlayerStatsInterface="*res://scripts/globals/player_stats_interface.gd"
 ItemIds="*res://scripts/globals/item_ids.gd"
 GlobalFlashParticleSpawner="*res://scripts/globals/flash_particle_spawner.gd"
 GlobalSoundManager="*res://scripts/utility/sound_manager.gd"
+SettingsService="*res://scripts/settings_loader.gd"
 
 [display]
 

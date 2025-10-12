@@ -226,4 +226,3 @@ func _to_dictionary(paths: Array[String], parent_path: String) -> Dictionary:
 		dict[id] = p
 
 	return dict
-

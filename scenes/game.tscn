@@ -190,8 +190,8 @@ visible = false
 
 [node name="TransitionWipe" parent="UI" instance=ExtResource("20_sgl2t")]
 material = SubResource("ShaderMaterial_m4url")
-enter_duration = 0.2
-exit_duration = 0.2
+enter_duration = 0.15
+exit_duration = 0.15
 
 [node name="PlayerStats" type="Node" parent="."]
 process_mode = 1
@@ -306,7 +306,6 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="enter_transition_finished" from="UI/TransitionWipe" to="." method="_on_game_exit"]
 [connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation" flags=3]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
-[connection signal="player_hurt" from="PlayerStats" to="SoundManagerInterface" method="play_sound" binds= ["player/lose_powerup", "SFX"]]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_entered"]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [true]]
 [connection signal="screen_exited" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_exited"]

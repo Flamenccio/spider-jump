@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhn3ipskb6u3a"]
+[gd_scene load_steps=9 format=3 uid="uid://dhn3ipskb6u3a"]
 
 [ext_resource type="Script" uid="uid://cvs0n0h60sq05" path="res://scripts/ui/audio_settings.gd" id="1_2fil4"]
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_8tsh6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dq08b2rsqhfuk" path="res://sprites/screen_wipe_2.png" id="2_olebe"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="4_evj6w"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="6_olebe"]
+[ext_resource type="Script" uid="uid://cns1tujp32efj" path="res://scripts/settings_loader.gd" id="7_x8ylx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ki30a"]
 font = ExtResource("1_8tsh6")
@@ -106,5 +107,10 @@ size_flags_vertical = 4
 theme = ExtResource("4_evj6w")
 text = "ui.button.generic.back"
 
+[node name="SettingsManager" type="Node" parent="."]
+script = ExtResource("7_x8ylx")
+metadata/_custom_type_script = "uid://cns1tujp32efj"
+
 [connection signal="pressed" from="AspectRatioContainer/Exit" to="." method="hide_screen"]
 [connection signal="pressed" from="AspectRatioContainer/Exit" to="SelectSound" method="play"]
+[connection signal="pressed" from="AspectRatioContainer/Exit" to="SettingsManager" method="update_audio_settings_from_server"]
