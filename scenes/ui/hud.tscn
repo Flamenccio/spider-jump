@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=22 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://scripts/ui/hud.gd" id="1_oo0fn"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="6_047uy"]
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="9_4jqwt"]
 [ext_resource type="Script" uid="uid://cil6812nlkvdc" path="res://scripts/ui/level_label.gd" id="10_kicr4"]
+[ext_resource type="Script" uid="uid://db68p5fjedisk" path="res://scripts/ui/high_score_label.gd" id="11_mj13f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
@@ -46,6 +47,12 @@ region = Rect2(8, 0, 8, 8)
 [sub_resource type="LabelSettings" id="LabelSettings_kicr4"]
 font = ExtResource("9_4jqwt")
 font_size = 32
+font_color = Color(0.37254903, 0.34117648, 0.30980393, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mj13f"]
+font = ExtResource("9_4jqwt")
+font_size = 32
+font_color = Color(0.37254903, 0.34117648, 0.30980393, 1)
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -196,15 +203,15 @@ layout_mode = 2
 [node name="DigitDisplay6" parent="Score/HFlowContainer" instance=ExtResource("6_047uy")]
 layout_mode = 2
 
-[node name="LevelDisplay" type="MarginContainer" parent="."]
+[node name="LevelDisplay" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 13.0
-offset_top = -58.0
-offset_right = 93.0
-offset_bottom = -18.0
+offset_top = -93.0
+offset_right = 153.0
+offset_bottom = -17.0
 grow_vertical = 0
 
 [node name="LevelLabel" type="Label" parent="LevelDisplay"]
@@ -213,6 +220,12 @@ text = "Level "
 label_settings = SubResource("LabelSettings_kicr4")
 vertical_alignment = 1
 script = ExtResource("10_kicr4")
+
+[node name="HighScoreLabel" type="Label" parent="LevelDisplay"]
+layout_mode = 2
+text = "Hi: 000000"
+label_settings = SubResource("LabelSettings_mj13f")
+script = ExtResource("11_mj13f")
 
 [connection signal="internal_difficulty_level_updated" from="." to="LevelDisplay/LevelLabel" method="update_level"]
 [connection signal="internal_health_updated" from="." to="Life/HFlowContainer" method="display_life"]
