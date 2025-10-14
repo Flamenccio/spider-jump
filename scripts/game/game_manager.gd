@@ -6,13 +6,16 @@ signal score_updated(score: int)
 signal pause_screen_enabled()
 signal pause_screen_disabled()
 signal game_exited()
+signal game_restarted()
 
 const _MAIN_MENU_UID = "uid://ive8w8v858du"
+const _GAME_SCENE_UID = "uid://c3vqs430qpt8w"
 
 var _player: Node2D
 var _game_paused := false
 var _pause_screen_animation_complete := true
 
+@export var _game_screen_transition: ScreenTransition
 @export var _game_spawner: GlobalSpawner
 @export var _game_sound_manager: SoundManager
 
@@ -95,18 +98,40 @@ func _on_pause_screen_animation_done() -> void:
 
 
 func _on_game_exit() -> void:
-	get_tree().paused = false
 	GameConstants.game_sounds.stop_music()
+	_game_screen_transition.enter_transition_finished.connect(_exit_game, ConnectFlags.CONNECT_ONE_SHOT)
+	_game_screen_transition.play_enter_animation()
+
+
+func _exit_game() -> void:
+	get_tree().paused = false
 	if get_tree().change_scene_to_file(ResourceUID.uid_to_path(_MAIN_MENU_UID)) != OK:
 		push_error("error occured when exiting to main menu")
 		return
+	game_exited.emit()
+
+
+func _on_game_restart() -> void:
+	GameConstants.game_sounds.stop_music()
+	_game_screen_transition.enter_transition_finished.connect(_restart_game, ConnectFlags.CONNECT_ONE_SHOT)
+	_game_screen_transition.play_enter_animation()
+
+
+func _restart_game() -> void:
+	get_tree().paused = false
+	if get_tree().change_scene_to_file(ResourceUID.uid_to_path(_GAME_SCENE_UID)) != OK:
+		push_error("error occured when restarting game")
+		return
+	game_restarted.emit()
 
 
 func _on_pause_screen_pause_screen_button_pressed(button: String) -> void:
 	match button:
 		"exit":
-			game_exited.emit()
+			_on_game_exit()
 		"resume":
 			_on_pause_toggle()
+		"restart":
+			_on_game_restart()
 		_:
 			return

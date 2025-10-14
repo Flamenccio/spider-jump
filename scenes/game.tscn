@@ -94,9 +94,10 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("_game_spawner", "_game_sound_manager")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner", "_game_sound_manager")]
 process_mode = 3
 script = ExtResource("1_264po")
+_game_screen_transition = NodePath("UI/TransitionWipe")
 _game_spawner = NodePath("GameSpawner")
 _game_sound_manager = NodePath("GameSounds")
 
@@ -191,7 +192,6 @@ visible = false
 [node name="TransitionWipe" parent="UI" instance=ExtResource("20_sgl2t")]
 material = SubResource("ShaderMaterial_m4url")
 enter_duration = 0.15
-exit_duration = 0.15
 
 [node name="PlayerStats" type="Node" parent="."]
 process_mode = 1
@@ -263,7 +263,6 @@ script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
-[connection signal="game_exited" from="." to="UI/TransitionWipe" method="play_enter_animation"]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="levelled_up" from="." to="UI/Hud" method="_on_difficulty_level_updated"]
 [connection signal="levelled_up" from="." to="StaminaDrainer" method="_on_level_up"]
@@ -303,8 +302,7 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
 [connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
-[connection signal="enter_transition_finished" from="UI/TransitionWipe" to="." method="_on_game_exit"]
-[connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation" flags=3]
+[connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_entered"]
 [connection signal="screen_entered" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [true]]

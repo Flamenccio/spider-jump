@@ -179,7 +179,7 @@ layout_mode = 2
 [node name="DigitDisplay6" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="TitleButtonContainer" type="AspectRatioContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -187,15 +187,20 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -96.0
-offset_top = -89.0
+offset_top = -131.0
 offset_right = 96.0
-offset_bottom = -59.0
+offset_bottom = -67.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(2, 2)
-pivot_offset = Vector2(96, 15)
+pivot_offset = Vector2(96, 32)
 
-[node name="TitleButton" type="Button" parent="TitleButtonContainer"]
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_5d08o")
+text = "Restart"
+
+[node name="TitleButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_5d08o")
 text = "ui.button.pause_screen.exit"
@@ -203,4 +208,5 @@ text = "ui.button.pause_screen.exit"
 [connection signal="internal_high_score_updated" from="." to="HighScore/ScoreDisplay" method="display_value"]
 [connection signal="internal_score_updated" from="." to="Score/ScoreDisplay" method="display_value"]
 [connection signal="new_high_score_reached" from="." to="HighScore/ScoreLabel" method="set_shader_param" binds= ["oscillate_active", true]]
-[connection signal="pressed" from="TitleButtonContainer/TitleButton" to="." method="_on_button_pressed" binds= ["exit"]]
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_button_pressed" binds= ["restart"]]
+[connection signal="pressed" from="VBoxContainer/TitleButton" to="." method="_on_button_pressed" binds= ["exit"]]

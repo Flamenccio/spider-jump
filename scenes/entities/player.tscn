@@ -47,6 +47,7 @@
 [ext_resource type="Script" uid="uid://dxnvroxa5x5nj" path="res://scripts/player/danger_handler.gd" id="49_u2ulf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqfne"]
+resource_local_to_scene = true
 shader = ExtResource("2_dt7fs")
 shader_parameter/ghost_frequency = 0.0
 

@@ -92,6 +92,11 @@ layout_mode = 2
 theme = ExtResource("5_lyq4t")
 text = "ui.button.generic.settings"
 
+[node name="RestartButton" type="Button" parent="Buttons"]
+layout_mode = 2
+theme = ExtResource("5_oc7jr")
+text = "Restart"
+
 [node name="ExitButton" type="Button" parent="Buttons"]
 layout_mode = 2
 theme = ExtResource("5_oc7jr")
@@ -116,5 +121,6 @@ layout_mode = 1
 [connection signal="pressed" from="Buttons/ResumeButton" to="." method="_on_button_pressed" binds= ["resume"]]
 [connection signal="pressed" from="Buttons/SettingsButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="Buttons/SettingsButton" to="SettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="Buttons/RestartButton" to="." method="_on_button_pressed" binds= ["restart"]]
 [connection signal="pressed" from="Buttons/ExitButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_button_pressed" binds= ["exit"]]
