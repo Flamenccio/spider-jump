@@ -125,7 +125,9 @@ func allow_sounds() -> void:
 
 
 func play_music(music_id: String) -> void:
-	_main_music_player.stream = _get_audio_stream(_music[music_id])
+	var audio_stream = _get_audio_stream(_music[music_id])
+	audio_stream.loop = true
+	_main_music_player.stream = audio_stream
 	_main_music_player.play()
 
 

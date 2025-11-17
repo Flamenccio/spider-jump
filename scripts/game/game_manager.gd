@@ -45,7 +45,7 @@ func _ready() -> void:
 	)
 
 	# Play some music
-	GameConstants.game_sounds.play_music("test/super_space_escape")
+	GameConstants.game_sounds.play_music("spider_jump")
 
 
 func game_over() -> void:
