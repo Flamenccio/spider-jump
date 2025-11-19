@@ -72,8 +72,21 @@ func get_sounds() -> Dictionary:
 
 ## Play a nonpositional sound with id `sound_id`.
 func play_sound(sound_id: String) -> void:
+
 	if _sounds_suppressed:
 		return
+
+	var sfx = load(_sounds.get(sound_id))
+
+	if sfx == null:
+		return
+	if not _main_global_sound_player.has_stream_playback():
+		var new_stream = AudioStreamPolyphonic.new()
+		_main_global_sound_player.stream = new_stream
+		_main_global_sound_player.play()
+
+	var playback := _main_global_sound_player.get_stream_playback()
+	playback.play_stream(sfx, 0.0, 0.0, 1.0, 0, _SFX_BUS)
 
 
 ## Stops all sounds started by [code]play_sound[/code].
