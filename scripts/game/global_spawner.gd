@@ -21,5 +21,4 @@ func inherit_node(node: Node) -> void:
 
 func _on_game_restarted() -> void:
 	for c in get_children():
-		print("remove: ", c)
 		c.queue_free()
