@@ -47,5 +47,5 @@ func _attempt_platform_trigger(player: Node2D) -> void:
 		PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, _LEVEL_UP_STAMINA_RESTORE)
 		platform_triggered.emit()
 		GlobalFlashParticleSpawner.spawn_particle("player_level_up_text", global_position, 0.0)
-		GameConstants.game_sounds.play_sound("player/level_up", "SFX")
+		GlobalSoundManager.play_sound("player/level_up")
 		player.call("on_level_up_platform_reached")

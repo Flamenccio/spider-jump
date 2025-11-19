@@ -17,7 +17,6 @@ var _pause_screen_animation_complete := true
 
 @export var _game_screen_transition: ScreenTransition
 @export var _game_spawner: GlobalSpawner
-@export var _game_sound_manager: SoundManager
 
 ## Base amount of stamina drained per second, from 0.0 - 1.0
 @export var _debug_initial_difficulty: int = 0
@@ -25,7 +24,6 @@ var _pause_screen_animation_complete := true
 
 func _enter_tree() -> void:
 	GameConstants.game_spawner = _game_spawner
-	GameConstants.game_sounds = _game_sound_manager
 
 
 func _ready() -> void:
@@ -45,7 +43,7 @@ func _ready() -> void:
 	)
 
 	# Play some music
-	GameConstants.game_sounds.play_music("spider_jump")
+	GlobalSoundManager.play_music("spider_jump")
 
 
 func game_over() -> void:
@@ -98,7 +96,7 @@ func _on_pause_screen_animation_done() -> void:
 
 
 func _on_game_exit() -> void:
-	GameConstants.game_sounds.stop_music()
+	GlobalSoundManager.stop_music()
 	_game_screen_transition.enter_transition_finished.connect(_exit_game, ConnectFlags.CONNECT_ONE_SHOT)
 	_game_screen_transition.play_enter_animation()
 
@@ -112,7 +110,7 @@ func _exit_game() -> void:
 
 
 func _on_game_restart() -> void:
-	GameConstants.game_sounds.stop_music()
+	GlobalSoundManager.stop_music()
 	_game_screen_transition.enter_transition_finished.connect(_restart_game, ConnectFlags.CONNECT_ONE_SHOT)
 	_game_screen_transition.play_enter_animation()
 
