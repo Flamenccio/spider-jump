@@ -26,6 +26,7 @@ ItemIds="*res://scripts/globals/item_ids.gd"
 GlobalFlashParticleSpawner="*res://scripts/globals/flash_particle_spawner.gd"
 GlobalSoundManager="*res://scripts/utility/sound_manager.gd"
 SettingsService="*res://scripts/settings_loader.gd"
+GameEventBus="*res://scripts/globals/game_event_bus.gd"
 
 [display]
 

@@ -94,12 +94,11 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner", "_game_sound_manager")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
 script = ExtResource("1_264po")
 _game_screen_transition = NodePath("UI/TransitionWipe")
 _game_spawner = NodePath("GameSpawner")
-_game_sound_manager = NodePath("GameSounds")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 process_mode = 1

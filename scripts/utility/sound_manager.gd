@@ -53,6 +53,11 @@ func _ready() -> void:
 	_music = _to_dictionary(_load_sound_files(_DEFAULT_MUSIC_DIRECTORY), _DEFAULT_MUSIC_DIRECTORY)
 	_sounds = _to_dictionary(_load_sound_files(_DEFAULT_SOUND_DIRECTORY), _DEFAULT_SOUND_DIRECTORY)
 
+	# Create music pause timer
+	_music_pause_timer.one_shot = true
+	_music_pause_timer.timeout.connect(resume_music)
+	add_child(_music_pause_timer)
+
 
 # ---
 # DICTIONARY

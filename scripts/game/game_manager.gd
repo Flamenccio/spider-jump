@@ -121,6 +121,7 @@ func _restart_game() -> void:
 		push_error("error occured when restarting game")
 		return
 	game_restarted.emit()
+	GameEventBus.game_restarted.emit()
 
 
 func _on_pause_screen_pause_screen_button_pressed(button: String) -> void:
