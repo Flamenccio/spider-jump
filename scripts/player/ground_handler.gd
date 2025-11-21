@@ -19,7 +19,6 @@ var surface_contacts: Array[Node]:
 
 var _current_climbable_layers: int = 0
 
-
 func _ready() -> void:
 	_current_climbable_layers = _ground_layer
 	PlayerEventBus.powerup_started.connect(_on_powerup_started)
@@ -34,12 +33,10 @@ func _on_ground_enter(body_rid: RID, body: Node2D, body_shape_index: int) -> voi
 	# Ground
 	if _is_on_collision_layer(body, _ground_layer) or slip_ground_enabled:
 		if _track_ground(shape_owner):
-			land_on_ground.emit()
 
 			# Do not rotate towards normal when hoverfly powerup
 			if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
 				_update_current_surface_normal(body.shape_owner_get_owner(body_shape_index))
-			
 	
 	# Slip
 	if GameConstants.current_powerup != ItemIds.HEAVY_BEETLE_POWERUP:
@@ -90,24 +87,28 @@ func _recalculate_normal() -> void:
 
 
 func _is_on_collision_layer(node: Node, layer: int) -> bool:
+	if node is CollisionShape2D:
+		return node.get_parent().collision_layer & layer > 0
 	return node.collision_layer & layer > 0
 
 
 func _track_ground(ground: Node) -> bool:
 	if not _surface_contacts.has(ground):
 		_surface_contacts.push_front(ground)
+		_update_ground_type()
 		return true
 	return false
 
 
 func _untrack_ground(ground: Node) -> bool:
 	if not _surface_contacts.has(ground):
+		_update_ground_type()
 		return false
 	_surface_contacts.erase(ground)
 	return true
 
 
-## Stand on slippery ground below
+## Stand on slippery ground below (or above, depending on gravity)
 func _search_for_slip(body: Node2D, shape_index: int) -> void:
 
 	if not _is_on_collision_layer(body, _slip_layer):
@@ -125,7 +126,6 @@ func _search_for_slip(body: Node2D, shape_index: int) -> void:
 	if _raycaster.raycast_source.global_position.y <= top:
 		if _track_ground(collider):
 			land_on_normal.emit(Vector2.UP)
-			land_on_slip.emit()
 
 
 func _on_powerup_started(powerup: String) -> void:
@@ -146,3 +146,39 @@ func _on_player_jumped() -> void:
 	# Clear ground contacts
 	_surface_contacts.clear()
 	leave_ground.emit()
+
+
+# Sets the ground type depending on all surface contacts
+func _update_ground_type() -> void:
+
+	"""
+	- If there are no surface contacts (the array is empty),
+	then the surface type is AIR
+	- If the only type of surface currently in contact is SLIP,
+	then the surface type is SLIP
+	- Otherwise, if there is at least one GROUND surface, the surface
+	type is GROUND
+	"""
+
+	# Set AIR surface
+	if _surface_contacts.size() == 0:
+		leave_ground.emit()
+		return
+
+	var surface_type_count = func(accum, surface, layer):
+		if _is_on_collision_layer(surface, layer):
+			return accum + 1
+		return accum
+
+	var slip_count = _surface_contacts.reduce(surface_type_count.bind(_slip_layer), 0)
+	var ground_count = _surface_contacts.reduce(surface_type_count.bind(_ground_layer), 0)
+
+	# Set SLIP surface
+	if slip_count > 0 and ground_count == 0:
+		land_on_slip.emit()
+		return
+
+	# Set GROUND surface
+	if ground_count > 0:
+		land_on_ground.emit()
+		return
