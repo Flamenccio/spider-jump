@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=87 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -41,6 +41,7 @@
 [ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="44_mx1m4"]
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
 [ext_resource type="AudioStream" uid="uid://b164vabg807vu" path="res://sounds/player/hoverfly_buzz.wav" id="45_w2gpp"]
+[ext_resource type="Script" uid="uid://dmjhh0bw5pyfd" path="res://scripts/player/tilemap_cast.gd" id="46_fanr8"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="46_u2ulf"]
 [ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="47_6e8lb"]
 [ext_resource type="Script" uid="uid://brlb4pd1xs1t" path="res://scripts/player/item_handler.gd" id="48_4gjji"]
@@ -404,6 +405,9 @@ radius = 2.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ke2ow"]
 radius = 3.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2gpp"]
+radius = 3.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 process_mode = 1
 z_index = 5
@@ -673,6 +677,15 @@ script = ExtResource("44_dta47")
 stream = ExtResource("45_w2gpp")
 volume_db = -12.0
 bus = &"SFX"
+
+[node name="TilemapCast" type="ShapeCast2D" parent="." node_paths=PackedStringArray("_player_body")]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_w2gpp")
+target_position = Vector2(1, 0)
+max_results = 4
+collision_mask = 0
+script = ExtResource("46_fanr8")
+_player_body = NodePath("..")
 
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]

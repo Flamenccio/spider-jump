@@ -1,5 +1,6 @@
 extends Node
 
+@export var _tilemap_shapecast: ShapeCast2D
 @export var _raycaster: Raycaster
 @export_flags_2d_physics var _ground_layer: int
 @export_flags_2d_physics var _slip_layer: int
@@ -134,12 +135,14 @@ func _on_powerup_started(powerup: String) -> void:
 			land_on_normal.emit(Vector2.UP)
 		ItemIds.HEAVY_BEETLE_POWERUP:
 			_current_climbable_layers = _ground_layer | _slip_layer
+			_tilemap_shapecast.collision_mask = _current_climbable_layers
 
 
 func _on_powerup_ended(powerup: String) -> void:
 	match powerup:
 		ItemIds.HEAVY_BEETLE_POWERUP:
 			_current_climbable_layers = _ground_layer
+			_tilemap_shapecast.collison_mask = _current_climbable_layers
 
 
 func _on_player_jumped() -> void:
