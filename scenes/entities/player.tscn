@@ -649,8 +649,9 @@ _decceleration = 1.5
 
 [node name="Handlers" type="Node" parent="."]
 
-[node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_raycaster")]
+[node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_tilemap_shapecast", "_raycaster")]
 script = ExtResource("15_wqfne")
+_tilemap_shapecast = NodePath("../../TilemapCast")
 _raycaster = NodePath("../../Casters/Raycaster")
 _ground_layer = 2
 _slip_layer = 4
@@ -681,11 +682,12 @@ bus = &"SFX"
 [node name="TilemapCast" type="ShapeCast2D" parent="." node_paths=PackedStringArray("_player_body")]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_w2gpp")
-target_position = Vector2(1, 0)
+target_position = Vector2(0, 2)
 max_results = 4
 collision_mask = 0
 script = ExtResource("46_fanr8")
 _player_body = NodePath("..")
+_cast_length = 3.0
 
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]

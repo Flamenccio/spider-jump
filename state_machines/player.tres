@@ -382,11 +382,6 @@ conditions = {
 "powerup": SubResource("Resource_f6uty")
 }
 
-[sub_resource type="Resource" id="Resource_oprun"]
-script = ExtResource("5_6y1cm")
-from = "Entry"
-to = "Idle"
-
 [sub_resource type="Resource" id="Resource_c6blh"]
 script = ExtResource("3_10p3u")
 value = true
@@ -538,6 +533,11 @@ script = ExtResource("5_6y1cm")
 from = "Powerup"
 to = "Fall"
 
+[sub_resource type="Resource" id="Resource_oprun"]
+script = ExtResource("5_6y1cm")
+from = "Entry"
+to = "Fall"
+
 [resource]
 script = ExtResource("1_ridqv")
 states = {
@@ -570,7 +570,7 @@ transitions = {
 "Powerup": SubResource("Resource_it77i")
 },
 "Entry": {
-"Idle": SubResource("Resource_oprun")
+"Fall": SubResource("Resource_oprun")
 },
 "Fall": {
 "Aim": SubResource("Resource_tvwt6"),

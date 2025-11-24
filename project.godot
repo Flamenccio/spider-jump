@@ -51,6 +51,8 @@ enabled=PackedStringArray("res://addons/debugdraw2d/plugin.cfg", "res://addons/i
 
 player="Player character"
 powerup="item that grants the player a powerup"
+surface_ground="Surfaces that the player can climb"
+surface_slip="Surfaces that the player can stand on, but cannot climb and jump from"
 
 [input]
 
