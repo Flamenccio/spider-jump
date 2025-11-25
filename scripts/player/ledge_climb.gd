@@ -3,26 +3,31 @@ extends Node
 signal climbed_around_ledge(climb_to: Vector2)
 signal climb_started()
 
-@export var _player: Node2D
-@export var _ground_detector_l: ShapeCast2D
-@export var _ground_detector_r: ShapeCast2D
-@export var _raycaster: Raycaster
-@export_flags_2d_physics var _unclimbable: int
-
-var _active_shapecast: ShapeCast2D
-var active: bool = false
-var _surface_point: Vector2
-var _shapecast_radius: float
-
 const _RIGHT_DETECTOR_RAYCAST_DIRECTION = Vector2.LEFT
 const _LEFT_DETECTOR_RAYCAST_DIRECTION = Vector2.RIGHT
 const _DETECTOR_RAYCAST_LENGTH = 8.0
 const _RADIUS_PADDING = 0.2
 
+var _active_shapecast: ShapeCast2D
+var active: bool = false
+var _surface_point: Vector2
+var _shapecast_radius: float
+var _raycast_query: RaycastQuery
+
+@export var _player: Node2D
+@export var _ground_detector_l: ShapeCast2D
+@export var _ground_detector_r: ShapeCast2D
+@export_flags_2d_physics var _unclimbable: int
+
 func _ready() -> void:
+
 	_ground_detector_l.enabled = false
 	_ground_detector_r.enabled = false
 	_shapecast_radius = _ground_detector_l.shape.radius + _RADIUS_PADDING
+
+	# Create raycast query
+	_raycast_query = RaycastQuery.new()
+	_raycast_query.source = _player
 
 
 func set_active(a: bool) -> void:
@@ -54,10 +59,8 @@ func _physics_process(delta: float) -> void:
 
 	if not active:
 		return
-
 	if not _active_shapecast:
 		return
-
 	# If the area is clear the player can climb to it
 	if not _is_shape_cast_empty(_active_shapecast):
 		return
@@ -70,12 +73,8 @@ func _physics_process(delta: float) -> void:
 	elif _active_shapecast == _ground_detector_r:
 		raycast_direction = _RIGHT_DETECTOR_RAYCAST_DIRECTION.rotated(_player.rotation) * _DETECTOR_RAYCAST_LENGTH
 
-	var ray_query = PhysicsRayQueryParameters2D.new()
-	ray_query.from = _active_shapecast.global_position
-	ray_query.to = _active_shapecast.global_position + raycast_direction
-	ray_query.collision_mask = _active_shapecast.collision_mask
-
-	var ray_result = _raycaster.intersect_ray(ray_query)
+	_raycast_query.collision_mask = _active_shapecast.collision_mask
+	var ray_result = _raycast_query.raycast_query(_active_shapecast.global_position, _active_shapecast.global_position + raycast_direction)
 
 	if ray_result.size() == 0:
 		return
@@ -84,11 +83,15 @@ func _physics_process(delta: float) -> void:
 	var ray_collider = ray_result['collider']
 	var climb_position = _active_shapecast.global_position
 	var shapecast_distance = climb_position.distance_to(ray_intersection)
+	var ray_collider_layers = ray_collider.get("collision_layer")
+
+	if ray_collider_layers == null:
+		if ray_collider is TileMapLayer:
+			ray_collider_layers = TileMapUtilities.get_tilemap_collision_layers(ray_collider)
 
 	# Do not ledge climb if the player is standing on an unclimbable surface
 	# ... UNLESS the current powerup is heavy beetle (allows player to climb on all surfaces)
-
-	if GameConstants.current_powerup != ItemIds.HEAVY_BEETLE_POWERUP and ray_collider.collision_layer & _unclimbable > 0:
+	if GameConstants.current_powerup != ItemIds.HEAVY_BEETLE_POWERUP and ray_collider_layers & _unclimbable > 0:
 		return
 
 	if shapecast_distance > _shapecast_radius:

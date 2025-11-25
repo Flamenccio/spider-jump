@@ -1,7 +1,13 @@
-[gd_scene load_steps=8 format=4 uid="uid://b48my00oe5b5y"]
+[gd_scene load_steps=18 format=4 uid="uid://b48my00oe5b5y"]
 
 [ext_resource type="Script" uid="uid://dwbs88y6ibdl2" path="res://scripts/tool_scenes/level_builder.gd" id="1_77rll"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_yyvap"]
+[ext_resource type="Script" uid="uid://2s3twniveswm" path="res://scripts/levels/object_switch.gd" id="4_gvl0n"]
+[ext_resource type="PackedScene" uid="uid://cvgknv5hx4uwm" path="res://scenes/level_objects/item_box.tscn" id="4_jfcp0"]
+[ext_resource type="Script" uid="uid://kn57yj25jwiy" path="res://scripts/levels/saved_level_object.gd" id="5_1jlcl"]
+[ext_resource type="PackedScene" uid="uid://epbopmmrox4j" path="res://scenes/level_objects/object_switch.tscn" id="5_jfcp0"]
+[ext_resource type="Resource" uid="uid://c0p0fb7uoe6l8" path="res://resources/default_loot_box.tres" id="7_6t8vq"]
+[ext_resource type="Script" uid="uid://5p3w835j81ec" path="res://scripts/game/item_box.gd" id="8_85qtn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 0.0
@@ -67,18 +73,79 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_cbp6q")
 
+[sub_resource type="Resource" id="Resource_v3f0g"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(44, -54)
+local_properties = {
+"loot_table": ExtResource("7_6t8vq")
+}
+
+[sub_resource type="Resource" id="Resource_k0blx"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-44, -150)
+local_properties = {
+"loot_table": ExtResource("7_6t8vq")
+}
+
+[sub_resource type="Resource" id="Resource_70jg4"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(-40, -239)
+local_properties = {
+"loot_table": ExtResource("7_6t8vq")
+}
+
+[sub_resource type="Resource" id="Resource_ued1h"]
+script = ExtResource("5_1jlcl")
+packed_scene = ExtResource("4_jfcp0")
+local_position = Vector2(41, -240)
+local_properties = {
+"loot_table": ExtResource("7_6t8vq")
+}
+
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_77rll")
-_save_level_name = "base"
-_save_path = "res://levels/reference/"
-_load_level_name = "base"
-_load_path = "res://levels/reference/"
-_minimum_difficulty = -1
+_save_level_name = "zipper"
+_save_path = "res://levels/level_0/"
+_load_level_name = "zipper"
+_load_path = "res://levels/level_0/"
 
-[node name="Ground" type="TileMapLayer" parent="." groups=["surface_ground"]]
-tile_map_data = PackedByteArray("AAD5//X/AAALAAEAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAALAAEAAAD5//v/AAALAAEAAAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAAKAAEAAAD6////AAAKAAAAAAD7////AAAKAAAAAAD8////AAAKAAAAAAD9////AAAKAAAAAAD+////AAAKAAAAAAD/////AAAKAAAAAAAAAP//AAAKAAAAAAABAP//AAAKAAAAAAACAP//AAAKAAAAAAADAP//AAAKAAAAAAAEAP//AAAKAAAAAAAFAP//AAAKAAAAAAAGAPX/AAAJAAEAAAAGAPb/AAAJAAEAAAAGAPf/AAAJAAEAAAAGAPj/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAKAAEAAAAGAPr/AAAJAAEAAAAGAPv/AAAJAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAA=")
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD5//z/AAALAAEAAAD5//3/AAALAAEAAAD5//7/AAALAAEAAAD5////AAALAAEAAAAGAPz/AAAJAAEAAAAGAP3/AAAJAAEAAAAGAP7/AAAJAAEAAAAGAP//AAAJAAEAAAAGAPv/AAAJAAEAAAD5//v/AAAKAAEAAAAGAPr/AAAJAAEAAAAGAPn/AAAJAAEAAAAGAPj/AAAJAAEAAAD5//j/AAALAAEAAAD5//n/AAALAAEAAAD5//r/AAAKAAEAAAD6//v/AAAKAAIAAAD7//v/AAALAAIAAAD7//r/AAALAAAAAAD6//r/AAAKAAAAAAAFAPr/AAAGAAAAAAAGAPT/AAAJAAEAAAAGAPX/AAAJAAEAAAAGAPb/AAAJAAEAAAAGAPf/AAAJAAEAAAD5//T/AAALAAEAAAD5//X/AAALAAEAAAD5//b/AAALAAEAAAD5//f/AAALAAEAAAD5//L/AAALAAEAAAD5//P/AAALAAEAAAAGAPL/AAAJAAEAAAAGAPP/AAAJAAEAAAD///T/AAAJAAAAAAD///X/AAAJAAIAAAAAAPT/AAALAAAAAAAAAPX/AAALAAIAAAD5/+//AAALAAEAAAAGAO//AAAKAAEAAAD5/+3/AAALAAEAAAD5/+7/AAALAAEAAAD6/+7/AAAGAAAAAAAEAO7/AAAJAAAAAAAEAO//AAAJAAIAAAAFAO7/AAAKAAAAAAAFAO//AAAKAAIAAAAGAO3/AAAJAAEAAAAGAO7/AAAKAAEAAAAGAPH/AAAJAAEAAAAGAPD/AAAJAAEAAAD5//H/AAALAAEAAAD5//D/AAALAAEAAAD5/+z/AAALAAEAAAD5/+v/AAALAAEAAAD5/+r/AAALAAEAAAD//+n/AAAJAAIAAAAAAOn/AAALAAIAAAD//+j/AAAJAAAAAAAAAOj/AAALAAAAAAAGAOz/AAAJAAEAAAAGAOv/AAAJAAEAAAAGAOr/AAAJAAEAAAAGAOn/AAAJAAEAAAAGAOj/AAAJAAEAAAAGAOf/AAAJAAEAAAAGAOb/AAAJAAEAAAAGAOX/AAAJAAEAAAAGAOT/AAAKAAEAAAD5/+T/AAAKAAEAAAD5/+X/AAALAAEAAAD5/+b/AAALAAEAAAD5/+f/AAALAAEAAAD5/+j/AAALAAEAAAD5/+n/AAALAAEAAAD8/+T/AAALAAIAAAD7/+T/AAAKAAIAAAD6/+T/AAAKAAIAAAD5/+P/AAAKAAEAAAD6/+P/AAAKAAAAAAD7/+P/AAAKAAAAAAD8/+P/AAALAAAAAAAFAOT/AAAKAAIAAAAEAOT/AAAKAAIAAAADAOT/AAAJAAIAAAADAOP/AAAJAAAAAAAEAOP/AAAKAAAAAAAFAOP/AAAKAAAAAAAGAOP/AAAKAAEAAAAGAOL/AAAJAAEAAAAGAOH/AAAJAAEAAAAGAOD/AAAJAAEAAAAGAN//AAAJAAEAAAD5/+L/AAALAAEAAAD5/+H/AAALAAEAAAD5/+D/AAALAAEAAAD5/9//AAALAAEAAAA=")
 tile_set = SubResource("TileSet_tlwt5")
-collision_visibility_mode = 1
 
 [node name="Slip" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_cbp6q")
+
+[node name="ObjectSwitch" type="Node2D" parent="." instance=ExtResource("5_jfcp0")]
+script = ExtResource("4_gvl0n")
+min_objects = 1
+max_objects = 1
+objects = Array[ExtResource("5_1jlcl")]([SubResource("Resource_v3f0g"), SubResource("Resource_k0blx"), SubResource("Resource_70jg4"), SubResource("Resource_ued1h")])
+packed_scene_path = "res://scenes/level_objects/object_switch.tscn"
+
+[node name="ItemBox" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(44, -54)
+script = ExtResource("8_85qtn")
+loot_table = ExtResource("7_6t8vq")
+packed_scene_path = "res://scenes/level_objects/item_box.tscn"
+
+[node name="@Node2D@59840" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-44, -150)
+script = ExtResource("8_85qtn")
+loot_table = ExtResource("7_6t8vq")
+packed_scene_path = "res://scenes/level_objects/item_box.tscn"
+
+[node name="@Node2D@59841" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(-40, -239)
+script = ExtResource("8_85qtn")
+loot_table = ExtResource("7_6t8vq")
+packed_scene_path = "res://scenes/level_objects/item_box.tscn"
+
+[node name="@Node2D@59842" type="Node2D" parent="ObjectSwitch" instance=ExtResource("4_jfcp0")]
+position = Vector2(41, -240)
+script = ExtResource("8_85qtn")
+loot_table = ExtResource("7_6t8vq")
+packed_scene_path = "res://scenes/level_objects/item_box.tscn"

@@ -3,6 +3,8 @@ extends Node2D
 
 func _ready() -> void:
 	GameEventBus.game_restarted.connect(_on_game_restarted)
+	if TheGlobalSpawner == self:
+		GameConstants.game_spawner = self
 
 
 func instantiate_scene(scene: PackedScene, spawn_position: Vector2, angle_rad: float) -> void:

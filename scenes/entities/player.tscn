@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dbbm203x14qqx" path="res://sprites/player_blinkfly.png" id="12_holxr"]
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://scripts/player/ground_handler.gd" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://scripts/collision/ground_raycast.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://c0ons1lxb731t" path="res://scripts/utility/raycaster.gd" id="17_6e8lb"]
 [ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://scripts/collision/shape_cast_check.gd" id="17_qfm1y"]
 [ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
@@ -41,7 +40,6 @@
 [ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="44_mx1m4"]
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
 [ext_resource type="AudioStream" uid="uid://b164vabg807vu" path="res://sounds/player/hoverfly_buzz.wav" id="45_w2gpp"]
-[ext_resource type="Script" uid="uid://dmjhh0bw5pyfd" path="res://scripts/player/tilemap_cast.gd" id="46_fanr8"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="46_u2ulf"]
 [ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="47_6e8lb"]
 [ext_resource type="Script" uid="uid://brlb4pd1xs1t" path="res://scripts/player/item_handler.gd" id="48_4gjji"]
@@ -406,7 +404,7 @@ radius = 2.0
 radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w2gpp"]
-radius = 3.0
+radius = 5.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 process_mode = 1
@@ -439,7 +437,7 @@ script = ExtResource("24_l71n6")
 _player = NodePath("..")
 _ground_detector_l = NodePath("../Detectors/LedgeDetectorL")
 _ground_detector_r = NodePath("../Detectors/LedgeDetectorR")
-_raycaster = NodePath("../Casters/Raycaster")
+_raycaster = NodePath("")
 _unclimbable = 4
 
 [node name="Casters" type="Node" parent="."]
@@ -487,10 +485,6 @@ script = ExtResource("16_qfm1y")
 _raycast_layer = 4
 raycast_source = NodePath("../..")
 metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
-
-[node name="Raycaster" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("17_6e8lb")
-raycast_source = NodePath("../..")
 
 [node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player", "_danger_shapecast", "_safe_spot_shapecast", "_safe_spot_distance_raycast")]
 script = ExtResource("19_4r5pv")
@@ -649,10 +643,10 @@ _decceleration = 1.5
 
 [node name="Handlers" type="Node" parent="."]
 
-[node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_tilemap_shapecast", "_raycaster")]
+[node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_player")]
 script = ExtResource("15_wqfne")
-_tilemap_shapecast = NodePath("../../TilemapCast")
-_raycaster = NodePath("../../Casters/Raycaster")
+_player = NodePath("../..")
+_tilemap_shapecast_shape = SubResource("CircleShape2D_w2gpp")
 _ground_layer = 2
 _slip_layer = 4
 
@@ -678,16 +672,6 @@ script = ExtResource("44_dta47")
 stream = ExtResource("45_w2gpp")
 volume_db = -12.0
 bus = &"SFX"
-
-[node name="TilemapCast" type="ShapeCast2D" parent="." node_paths=PackedStringArray("_player_body")]
-position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_w2gpp")
-target_position = Vector2(0, 2)
-max_results = 4
-collision_mask = 0
-script = ExtResource("46_fanr8")
-_player_body = NodePath("..")
-_cast_length = 3.0
 
 [connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]

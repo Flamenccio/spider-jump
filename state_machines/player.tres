@@ -382,6 +382,11 @@ conditions = {
 "powerup": SubResource("Resource_f6uty")
 }
 
+[sub_resource type="Resource" id="Resource_oprun"]
+script = ExtResource("5_6y1cm")
+from = "Entry"
+to = "Fall"
+
 [sub_resource type="Resource" id="Resource_c6blh"]
 script = ExtResource("3_10p3u")
 value = true
@@ -531,11 +536,6 @@ conditions = {
 [sub_resource type="Resource" id="Resource_frv0a"]
 script = ExtResource("5_6y1cm")
 from = "Powerup"
-to = "Fall"
-
-[sub_resource type="Resource" id="Resource_oprun"]
-script = ExtResource("5_6y1cm")
-from = "Entry"
 to = "Fall"
 
 [resource]
