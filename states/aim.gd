@@ -65,6 +65,7 @@ func enter_state() -> void:
 	if _powerup != ItemIds.BLINKFLY_POWERUP:
 		aim_entered.emit()
 	_animator.play_branch_animation('aim')
+	_player.velocity = Vector2.ZERO
 
 
 func exit_state() -> void:
@@ -74,7 +75,7 @@ func exit_state() -> void:
 func update_state(delta: float) -> void:
 	if not _jumped:
 		return
-	_player.move_and_slide()
+	#_player.move_and_slide()
 
 
 func _on_pull_release() -> void:

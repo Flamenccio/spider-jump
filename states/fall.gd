@@ -28,4 +28,3 @@ func exit_state() -> void:
 
 func update_state(delta: float) -> void:
 	_player.velocity += Vector2(0.0, GameConstants.current_gravity * delta)
-	_player.move_and_slide()

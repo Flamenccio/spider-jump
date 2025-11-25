@@ -30,8 +30,7 @@ func enter_state() -> void:
 
 func update_state(_delta: float) -> void:
 
-	_player.move_and_collide(_down_vector * _floor_suction_force)
-
+	#_player.move_and_collide(_down_vector * _floor_suction_force)
 	if _motion_detected():
 		normal_recheck_requested.emit()
 		_last_position = _player.global_position

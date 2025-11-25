@@ -15,7 +15,7 @@ tile_map_data = PackedByteArray("AAAIAPX/AAAKAAAAAAAJAPX/AAAKAAAAAAAKAPX/AAAKAAA
 tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQAAAAHAPn/AAAJAAQAAAAHAPr/AAAJAAQAAAAHAPv/AAAJAAQAAAAHAPz/AAAJAAQAAAAHAP3/AAAJAAQAAAAHAP7/AAAJAAQAAAAHAP//AAAJAAQAAAAHAPX/AAAJAAMAAAA=")
 
 [node name="Player" parent="." instance=ExtResource("3_nrstc")]
-position = Vector2(0, -16)
+position = Vector2(-11, -67)
 wall_min_slide_angle = 3.1415927
 safe_margin = 0.5
 

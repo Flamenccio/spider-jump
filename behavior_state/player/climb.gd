@@ -48,5 +48,5 @@ func exit_state() -> void:
 func update_state(delta: float) -> void:
 	var to_target = (_climb_target - _player.global_position) * _CLIMB_VELOCITY
 	_player.velocity = to_target
-	_player.move_and_slide()
+	#_player.move_and_slide()
 

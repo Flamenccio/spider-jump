@@ -30,6 +30,7 @@ func _ready() -> void:
 	_current_climbable_layers = _ground_layer
 	PlayerEventBus.powerup_started.connect(_on_powerup_started)
 	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
+	PlayerEventBus.player_collision_enter.connect(_on_player_collided)
 
 	# Set up raycast
 	_raycast_query = RaycastQuery.new()
@@ -43,7 +44,6 @@ func _on_ground_enter(body_rid: RID, body: Node2D, body_shape_index: int) -> voi
 	if _player.get_slide_collision_count() == 0:
 		return
 	var slide_collision := _player.get_last_slide_collision()
-	print("ANGLE: ", rad_to_deg(slide_collision.get_angle()))
 
 	var surface_group := 0
 
@@ -101,11 +101,6 @@ func _is_below_player(point: Vector2, normal: Vector2) -> bool:
 
 
 func _on_ground_exited(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
-	"""
-	if _current_surface != null:
-		_current_surface = null
-		leave_ground.emit()
-	"""
 	pass
 
 
@@ -113,6 +108,7 @@ func _on_ground_exited(body_rid: RID, body: Node2D, body_shape_index: int) -> vo
 ## surface the player touched.
 func _recalculate_normal() -> void:
 
+	"""
 	if _current_surface == null:
 		return
 
@@ -123,6 +119,8 @@ func _recalculate_normal() -> void:
 
 	var normal = results.get("normal")
 	land_on_normal.emit(normal)
+	"""
+	pass
 
 
 func _on_powerup_started(powerup: String) -> void:
@@ -153,6 +151,63 @@ func _surface_is_same(surface_info_a: SurfaceInfo, surface_info_b: SurfaceInfo) 
 
 func _update_current_surface_info(new_surface_info: SurfaceInfo) -> void:
 	_current_surface = new_surface_info
+
+
+func _on_player_collided(collision: KinematicCollision2D) -> void:
+	_handle_collision(collision)
+	pass
+
+
+func _handle_collision(collision: KinematicCollision2D) -> void:
+
+	# Handle collision
+	var collider = collision.get_collider()
+
+	if collider is TileMapLayer:
+		_collide_with_tile_map_layer(collider, collision)
+	elif collider is CollisionObject2D:
+		_collide_with_collision_object(collider, collision)
+
+
+func _collide_with_collision_object(obj: CollisionObject2D, collision: KinematicCollision2D) -> void:
+	var new_surface := SurfaceInfo.new(collision.get_normal(), obj.collision_layer, collision.get_position())
+	if _surface_is_same(_current_surface, new_surface):
+		return
+	_handle_surface(new_surface)
+
+
+func _collide_with_tile_map_layer(tilemap: TileMapLayer, collision: KinematicCollision2D) -> void:
+	var tilemap_layers = tilemap.tile_set.get_physics_layer_collision_layer(0)
+	var surface_type = tilemap_layers & _ground_layer | tilemap_layers & _slip_layer
+	var new_surface := SurfaceInfo.new(collision.get_normal(), surface_type, collision.get_position())
+	if _surface_is_same(_current_surface, new_surface):
+		return
+	_handle_surface(new_surface)
+
+
+func _handle_surface(new_surface: SurfaceInfo) -> void:
+
+	# Handle ground surfaces
+	if new_surface.surface_type == _ground_layer:
+		# Do not update normal when hoverfly
+		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
+			pass
+			land_on_normal.emit(new_surface.normal)
+		land_on_ground.emit()
+		_update_current_surface_info(new_surface)
+
+	# Handle slippery surfaces
+	elif new_surface.surface_type == _slip_layer:
+		if GameConstants.current_powerup == ItemIds.HEAVY_BEETLE_POWERUP:
+			land_on_normal.emit(new_surface.normal)
+			land_on_slip.emit()
+			_update_current_surface_info(new_surface)
+		else:
+			# Add to surfaces if in direction of player gravity
+			if _is_below_player(new_surface.contact_point, new_surface.normal):
+				land_on_normal.emit(new_surface.normal)
+				land_on_slip.emit()
+				_update_current_surface_info(new_surface)
 
 
 class SurfaceInfo:

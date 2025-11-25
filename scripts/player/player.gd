@@ -34,6 +34,11 @@ func _ready() -> void:
 	GameConstants.player = self
 
 
+func _physics_process(delta: float) -> void:
+	if move_and_slide():
+		PlayerEventBus.player_collision_enter.emit(get_last_slide_collision())
+
+
 func on_level_up_platform_reached() -> void:
 	external_set_safe_spot.emit(global_position)
 
