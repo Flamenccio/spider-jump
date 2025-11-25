@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=84 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -403,9 +403,6 @@ radius = 2.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ke2ow"]
 radius = 3.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_w2gpp"]
-radius = 5.0
-
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 process_mode = 1
 z_index = 5
@@ -413,6 +410,8 @@ z_as_relative = false
 texture_filter = 1
 collision_mask = 6
 collision_priority = 50.0
+slide_on_ceiling = false
+wall_min_slide_angle = 1.5707964
 platform_floor_layers = 0
 script = ExtResource("1_a8ls1")
 
@@ -432,12 +431,11 @@ _sprite = NodePath("../Sprite")
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_31cv2")
 
-[node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_player", "_ground_detector_l", "_ground_detector_r", "_raycaster")]
+[node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_player", "_ground_detector_l", "_ground_detector_r")]
 script = ExtResource("24_l71n6")
 _player = NodePath("..")
 _ground_detector_l = NodePath("../Detectors/LedgeDetectorL")
 _ground_detector_r = NodePath("../Detectors/LedgeDetectorR")
-_raycaster = NodePath("")
 _unclimbable = 4
 
 [node name="Casters" type="Node" parent="."]
@@ -646,7 +644,6 @@ _decceleration = 1.5
 [node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_player")]
 script = ExtResource("15_wqfne")
 _player = NodePath("../..")
-_tilemap_shapecast_shape = SubResource("CircleShape2D_w2gpp")
 _ground_layer = 2
 _slip_layer = 4
 

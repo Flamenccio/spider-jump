@@ -146,7 +146,7 @@ _level_event_path = "res://resources/level_events/"
 _camera = NodePath("../../Camera")
 
 [node name="Player" parent="." instance=ExtResource("10_sww3w")]
-position = Vector2(0, -12)
+position = Vector2(0, -30)
 
 [node name="PullCircle" type="Sprite2D" parent="Player"]
 process_mode = 1

@@ -13,19 +13,15 @@ var _current_climbable_layers: int = 0:
 	set(value):
 		if value < 0:
 			return
-		if _tilemap_shapecast_query != null:
-			_tilemap_shapecast_query.collision_mask = value
 		if _raycast_query != null:
 			_raycast_query.collision_mask = value
 		_current_climbable_layers = value
 	get:
 		return _current_climbable_layers
 
-var _tilemap_shapecast_query: ShapecastQuery
 var _raycast_query: RaycastQuery
 
-@export var _player: Node2D
-@export var _tilemap_shapecast_shape: Shape2D
+@export var _player: CharacterBody2D
 @export_flags_2d_physics var _ground_layer: int
 @export_flags_2d_physics var _slip_layer: int
 
@@ -35,16 +31,6 @@ func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(_on_powerup_started)
 	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
 
-	# Set up shapecast
-	if _tilemap_shapecast_shape == null:
-		push_error("Tilemap shapecast shape not set")
-		return
-
-	_tilemap_shapecast_query = ShapecastQuery.new()
-	_tilemap_shapecast_query.shape = _tilemap_shapecast_shape
-	_tilemap_shapecast_query.collision_mask = _current_climbable_layers
-	_tilemap_shapecast_query.source = _player
-
 	# Set up raycast
 	_raycast_query = RaycastQuery.new()
 	_raycast_query.collision_mask = _current_climbable_layers
@@ -53,23 +39,25 @@ func _ready() -> void:
 
 func _on_ground_enter(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
 
+	# Get collision data from player
+	if _player.get_slide_collision_count() == 0:
+		return
+	var slide_collision := _player.get_last_slide_collision()
+	print("ANGLE: ", rad_to_deg(slide_collision.get_angle()))
+
 	var surface_group := 0
 
 	# Determine surface group
 	if body is TileMapLayer:
-		if not TileMapUtilities.get_physics_layers_collision_layers(body, _ground_layer).is_empty():
+		if TileMapUtilities.get_tilemap_collision_layers(body) == _ground_layer:
 			surface_group = _ground_layer
-		elif not TileMapUtilities.get_physics_layers_collision_layers(body, _slip_layer).is_empty():
+		elif TileMapUtilities.get_tilemap_collision_layers(body) == _slip_layer:
 			surface_group = _slip_layer
 	else:
 		surface_group = body.collision_layer
 
-	# Get shapecast result
-	var shapecast_result = _tilemap_shapecast_query.shapecast_query(_player.global_position, _player.global_position)
-	if shapecast_result.is_empty():
-		return
-	
-	var new_surface = SurfaceInfo.new(shapecast_result.get("normal"), surface_group, shapecast_result.get("point"))
+	var new_surface = SurfaceInfo.new(slide_collision.get_normal(), surface_group, slide_collision.get_position())
+	DebugDraw2D.circle_filled(slide_collision.get_position(), 1.0, 16, Color.RED, 2.0)
 
 	# Handle ground surfaces
 	if surface_group == _ground_layer:
@@ -88,23 +76,26 @@ func _on_ground_enter(body_rid: RID, body: Node2D, body_shape_index: int) -> voi
 			_update_current_surface_info(new_surface)
 		else:
 			# Add to surfaces if in direction of player gravity
-			if _is_below_player(body):
+			if _is_below_player(new_surface.contact_point, new_surface.normal):
 				land_on_normal.emit(new_surface.normal)
 				land_on_slip.emit()
 				_update_current_surface_info(new_surface)
 
 
-func _is_below_player(node: Node2D) -> bool:
+func _is_below_player(point: Vector2, normal: Vector2) -> bool:
+
+	# If sideways, it cannot be below player
+	if abs(normal.x) > 0.0:
+		return false
 
 	var current_gravity = GameConstants.current_gravity
-	var player = GameConstants.player
 
 	if current_gravity == 0:
 		return true
 	elif current_gravity > 0: # Falling
-		return node.global_position.y > player.global_position.y
+		return point.y > _player.global_position.y
 	elif current_gravity < 0: # Rising
-		return node.global_position.y < player.global_position.y
+		return point.y < _player.global_position.y
 
 	return false
 
