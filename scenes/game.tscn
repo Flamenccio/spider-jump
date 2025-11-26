@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://scripts/player/player_stats.gd" id="17_gxtfn"]
 [ext_resource type="Texture2D" uid="uid://ckbmtup38vh4f" path="res://sprites/pull_circle_hoverfly-Sheet.png" id="17_sww3w"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="18_twgab"]
-[ext_resource type="Script" uid="uid://bhhvu1j2kktg0" path="res://scripts/player/player_safe_spot.gd" id="20_1kice"]
 [ext_resource type="PackedScene" uid="uid://uenvogxdugle" path="res://scenes/ui/event_banner.tscn" id="20_nepv3"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="20_sgl2t"]
 [ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
@@ -31,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://c22pgr73hau3t" path="res://scenes/ui/powerup_hint.tscn" id="22_qouja"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/entities/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="24_7025r"]
+[ext_resource type="Script" uid="uid://b2c6pwskneus5" path="res://scripts/player/player_recovery_point.gd" id="26_nepv3"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/game/player_hints.gd" id="32_wljb1"]
@@ -196,11 +196,11 @@ enter_duration = 0.15
 process_mode = 1
 script = ExtResource("17_gxtfn")
 
-[node name="PlayerSafeSpot" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="PlayerRecoveryPoint" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-0.5, -0.5, 1, 1)
-script = ExtResource("20_1kice")
+script = ExtResource("26_nepv3")
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayerSafeSpot"]
+[node name="DebugSprite" type="Sprite2D" parent="PlayerRecoveryPoint"]
 visible = false
 scale = Vector2(0.0195312, 0.0195312)
 texture = SubResource("AtlasTexture_264po")
@@ -294,7 +294,7 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="event_started" from="LevelSpawner/LevelEventStarter" to="UI/EventBanner" method="start_event"]
 [connection signal="external_danger_entered" from="Player" to="Player/PullCircle" method="hide"]
-[connection signal="external_set_safe_spot" from="Player" to="PlayerSafeSpot" method="set_global_position"]
+[connection signal="internal_safe_spot_updated" from="Player" to="Player/SafeState" method="_safe_spot_updated"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
 [connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
@@ -303,10 +303,6 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
-[connection signal="screen_entered" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_entered"]
-[connection signal="screen_entered" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [true]]
-[connection signal="screen_exited" from="PlayerSafeSpot" to="PlayerSafeSpot" method="_on_screen_exited"]
-[connection signal="screen_exited" from="PlayerSafeSpot" to="Player" method="_on_safe_spot_updated" binds= [false]]
 [connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]
 [connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]
 [connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]

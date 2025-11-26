@@ -10,7 +10,6 @@ signal internal_player_fell(here: Vector2)
 
 # External use
 signal external_danger_entered()
-signal external_set_safe_spot(here: Vector2)
 
 # Any
 signal stop_moving()
@@ -40,7 +39,7 @@ func _physics_process(delta: float) -> void:
 
 
 func on_level_up_platform_reached() -> void:
-	external_set_safe_spot.emit(global_position)
+	GameConstants.recovery_point.global_position = global_position
 
 
 func _on_input_service_move_input_change(move_input: Vector2) -> void:
@@ -83,10 +82,6 @@ func _on_player_fell(here: Vector2) -> void:
 
 func _on_safe_spot_updated(on_screen: bool) -> void:
 	internal_safe_spot_updated.emit(on_screen)
-
-
-func _on_safe_spot_set(pos: Vector2) -> void:
-	external_set_safe_spot.emit(pos)
 
 
 func _start_invincibility(time: float) -> void:

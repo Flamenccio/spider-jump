@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -385,6 +385,9 @@ radius = 3.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_holxr"]
 radius = 5.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dta47"]
+radius = 4.0
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_60mlk"]
 particles_animation = true
 particles_anim_h_frames = 5
@@ -484,12 +487,10 @@ _raycast_layer = 4
 raycast_source = NodePath("../..")
 metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
 
-[node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player", "_danger_shapecast", "_safe_spot_shapecast", "_safe_spot_distance_raycast")]
+[node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player")]
 script = ExtResource("19_4r5pv")
 _player = NodePath("..")
-_danger_shapecast = NodePath("../Casters/DangerShapecast")
-_safe_spot_shapecast = NodePath("../Casters/SafeSpotCheck")
-_safe_spot_distance_raycast = NodePath("../Casters/SafeSpotDistanceCheck")
+_shape_cast_shape = SubResource("CircleShape2D_dta47")
 _danger_layers = 16
 _slippery_layers = 4
 _climbable_layers = 2
@@ -680,7 +681,6 @@ bus = &"SFX"
 [connection signal="internal_pull_release" from="." to="StateMachineHandler/Aim" method="_on_pull_release"]
 [connection signal="internal_pull_release" from="." to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
 [connection signal="internal_pull_release" from="." to="StateMachineHandler" method="set_param" binds= ["aim", false]]
-[connection signal="internal_safe_spot_updated" from="." to="SafeState" method="_safe_spot_updated"]
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
 [connection signal="invincibility_started" from="." to="Sprite" method="start_invincibility_flashing"]
 [connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector" unbinds=1]
@@ -689,7 +689,6 @@ bus = &"SFX"
 [connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]
-[connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
 [connection signal="body_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited"]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="Handlers/ItemHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="Detectors/DangerDetector" to="Handlers/DangerHandler" method="_on_danger_entered"]

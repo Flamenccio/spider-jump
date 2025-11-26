@@ -12,3 +12,4 @@ var current_gravity := DEFAULT_GRAVITY
 var current_powerup := ItemIds.NO_POWERUP
 var player: Node2D
 var main_camera: Camera2D
+var recovery_point: VisibleOnScreenNotifier2D
