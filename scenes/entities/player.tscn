@@ -520,7 +520,6 @@ _particle_count = 6
 [node name="Detectors" type="Node2D" parent="."]
 
 [node name="GroundDetector" type="Area2D" parent="Detectors"]
-visible = false
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 6
@@ -529,7 +528,6 @@ priority = 5
 
 [node name="Shape" type="CollisionShape2D" parent="Detectors/GroundDetector"]
 shape = SubResource("RectangleShape2D_dta47")
-disabled = true
 
 [node name="ItemDetector" type="Area2D" parent="Detectors"]
 position = Vector2(0, 1)
@@ -692,8 +690,7 @@ bus = &"SFX"
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]
 [connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
-[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_enter" unbinds=1]
-[connection signal="body_shape_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited" unbinds=1]
+[connection signal="body_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited"]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="Handlers/ItemHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="Detectors/DangerDetector" to="Handlers/DangerHandler" method="_on_danger_entered"]
 [connection signal="aim_entered" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="activate_trajectory"]
@@ -710,7 +707,6 @@ bus = &"SFX"
 [connection signal="player_crawled" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
 [connection signal="player_stopped_crawl" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
 [connection signal="player_landed" from="StateMachineHandler/Fall" to="Handlers/PowerupHandler" method="_on_player_landed"]
-[connection signal="normal_recheck_requested" from="StateMachineHandler/Idle" to="Handlers/GroundHandler" method="_recalculate_normal"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/Dust" method="set_emitting" binds= [false]]
 [connection signal="player_koed" from="StateMachineHandler/KO" to="SpriteTree" method="switch_and_play" binds= ["normal", "ko"]]
@@ -726,7 +722,6 @@ bus = &"SFX"
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="." method="_rotate_against_normal"]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="StateMachineHandler/Aim" method="_on_normal_land"]
-[connection signal="land_on_normal" from="Handlers/GroundHandler" to="StateMachineHandler/Idle" method="_normal_updated"]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="SoundPlayer" method="play_land" unbinds=1]
 [connection signal="land_on_slip" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "slip"]]
 [connection signal="leave_ground" from="Handlers/GroundHandler" to="StateMachineHandler/Aim" method="_on_leave_ground"]

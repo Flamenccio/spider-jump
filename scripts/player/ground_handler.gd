@@ -38,50 +38,6 @@ func _ready() -> void:
 	_raycast_query.source = _player
 
 
-func _on_ground_enter(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
-
-	# Get collision data from player
-	if _player.get_slide_collision_count() == 0:
-		return
-	var slide_collision := _player.get_last_slide_collision()
-
-	var surface_group := 0
-
-	# Determine surface group
-	if body is TileMapLayer:
-		if TileMapUtilities.get_tilemap_collision_layers(body) == _ground_layer:
-			surface_group = _ground_layer
-		elif TileMapUtilities.get_tilemap_collision_layers(body) == _slip_layer:
-			surface_group = _slip_layer
-	else:
-		surface_group = body.collision_layer
-
-	var new_surface = SurfaceInfo.new(slide_collision.get_normal(), surface_group, slide_collision.get_position())
-	DebugDraw2D.circle_filled(slide_collision.get_position(), 1.0, 16, Color.RED, 2.0)
-
-	# Handle ground surfaces
-	if surface_group == _ground_layer:
-		# Do not update normal when hoverfly
-		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
-			pass
-			land_on_normal.emit(new_surface.normal)
-		land_on_ground.emit()
-		_update_current_surface_info(new_surface)
-
-	# Handle slippery surfaces
-	elif surface_group == _slip_layer:
-		if GameConstants.current_powerup == ItemIds.HEAVY_BEETLE_POWERUP:
-			land_on_normal.emit(new_surface.normal)
-			land_on_slip.emit()
-			_update_current_surface_info(new_surface)
-		else:
-			# Add to surfaces if in direction of player gravity
-			if _is_below_player(new_surface.contact_point, new_surface.normal):
-				land_on_normal.emit(new_surface.normal)
-				land_on_slip.emit()
-				_update_current_surface_info(new_surface)
-
-
 func _is_below_player(point: Vector2, normal: Vector2) -> bool:
 
 	# If sideways, it cannot be below player
@@ -100,27 +56,20 @@ func _is_below_player(point: Vector2, normal: Vector2) -> bool:
 	return false
 
 
-func _on_ground_exited(body_rid: RID, body: Node2D, body_shape_index: int) -> void:
-	pass
-
-
-## Calculates and updates the current surface normal to the latest
-## surface the player touched.
-func _recalculate_normal() -> void:
-
-	"""
+func _on_ground_exited(body: Node2D) -> void:
 	if _current_surface == null:
 		return
-
-	var results = _raycast_query.raycast_query(_player.global_position, _current_surface.contact_point)
-
-	if results.is_empty():
+	var surface_layer := 0
+	if body is TileMapLayer:
+		var tilemap_layers = body.tile_set.get_physics_layer_collision_layer(0)
+		surface_layer = tilemap_layers & _ground_layer | tilemap_layers & _slip_layer
+	elif body is CollisionObject2D:
+		surface_layer = body.collision_layer
+	else:
 		return
-
-	var normal = results.get("normal")
-	land_on_normal.emit(normal)
-	"""
-	pass
+	if _current_surface.surface_type == surface_layer:
+		_current_surface = null
+		leave_ground.emit()
 
 
 func _on_powerup_started(powerup: String) -> void:
@@ -155,7 +104,6 @@ func _update_current_surface_info(new_surface_info: SurfaceInfo) -> void:
 
 func _on_player_collided(collision: KinematicCollision2D) -> void:
 	_handle_collision(collision)
-	pass
 
 
 func _handle_collision(collision: KinematicCollision2D) -> void:

@@ -173,4 +173,3 @@ func _blinkfly_jump() -> void:
 	_particle_emitter.spawn_jump_dust()
 	_sound_player.play_blinkfly_jump()
 	#_player.global_position = results["position"]
-
