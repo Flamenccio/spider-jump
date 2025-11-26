@@ -572,9 +572,10 @@ metadata/_custom_type_script = "uid://bn1ivxhedsqfp"
 script = ExtResource("33_bj30b")
 state_machine = ExtResource("34_jc3p3")
 
-[node name="Aim" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_ground_check", "_player", "_animator", "_particle_emitter", "_sound_player")]
+[node name="Aim" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player", "_animator", "_particle_emitter", "_sound_player")]
 script = ExtResource("35_jc3p3")
-_ground_check = NodePath("../../Casters/GroundRaycast")
+_climbable_layer = 2
+_unclimbable_layer = 4
 _player = NodePath("../..")
 _animator = NodePath("../../SpriteTree")
 _jump_force = 170.0
