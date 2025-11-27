@@ -74,10 +74,18 @@ func _enter_tree() -> void:
 		_create_default_player.call_deferred()
 
 
+func set_param(param: String, value: Variant) -> void:
+	_state_machine_player.set_param(param, value)
+
+
 func _create_default_player() -> void:
 
 	# Create default SMP, if there is no SMP yet
 	if _state_machine_player != null:
+		return
+	
+	# Do not do anything if the tree isn't created yet
+	if not is_inside_tree():
 		return
 
 	var default_smp = StateMachinePlayer.new()
@@ -361,7 +369,3 @@ func _push_status_message(message: String) -> void:
 	if _silent:
 		return
 	print(message)
-
-
-func set_param(param: String, value: Variant) -> void:
-	_state_machine_player.set_param(param, value)
