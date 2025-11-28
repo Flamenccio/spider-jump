@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=81 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -13,9 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://dhrojosr38xuv" path="res://sprites/player_heavy_beetle.png" id="11_fdfoy"]
 [ext_resource type="Texture2D" uid="uid://dbbm203x14qqx" path="res://sprites/player_blinkfly.png" id="12_holxr"]
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://scripts/player/ground_handler.gd" id="15_wqfne"]
-[ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://scripts/collision/ground_raycast.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://scripts/collision/shape_cast_check.gd" id="17_qfm1y"]
-[ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/player_particle_emitter.gd" id="21_a38lo"]
@@ -380,12 +377,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_31cv2"]
-radius = 3.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_holxr"]
-radius = 5.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_dta47"]
 radius = 4.0
 
@@ -445,52 +436,6 @@ _player = NodePath("..")
 _ground_detector_l = NodePath("../Detectors/LedgeDetectorL")
 _ground_detector_r = NodePath("../Detectors/LedgeDetectorR")
 _unclimbable = 4
-
-[node name="Casters" type="Node" parent="."]
-
-[node name="GroundRaycast" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 6
-raycast_source = NodePath("../..")
-
-[node name="SlipShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = ExtResource("18_fulsm")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 4
-
-[node name="GroundShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = ExtResource("18_fulsm")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 6
-metadata/_custom_type_script = "uid://bdjmy758l3rls"
-
-[node name="DangerShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = SubResource("CircleShape2D_31cv2")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 16
-metadata/_custom_type_script = "uid://bdjmy758l3rls"
-
-[node name="SafeSpotCheck" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = SubResource("CircleShape2D_holxr")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 22
-metadata/_custom_type_script = "uid://bdjmy758l3rls"
-
-[node name="SafeSpotDistanceCheck" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 6
-raycast_source = NodePath("../..")
-metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
-
-[node name="SlipRaycast" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 4
-raycast_source = NodePath("../..")
-metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
 
 [node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player")]
 script = ExtResource("19_4r5pv")

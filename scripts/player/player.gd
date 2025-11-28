@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # External use
-signal external_danger_entered()
+signal danger_entered()
 
 # Any
 signal stop_moving()
@@ -24,6 +24,7 @@ func _ready() -> void:
 	add_child(_invincibility_timer)
 	GameConstants.player = self
 	GlobalInputServer.pull_origin = self
+	
 	PlayerEventBus.player_fell.connect(_on_player_fell)
 
 
@@ -45,7 +46,7 @@ func _rotate_against_normal(normal: Vector2) -> void:
 
 
 func _on_danger_entered() -> void:
-	external_danger_entered.emit()
+	danger_entered.emit()
 
 
 func _on_player_fell(here: Vector2) -> void:
