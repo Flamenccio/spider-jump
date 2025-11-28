@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=5 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/level_objects/ground.tscn" id="1_dvny0"]
 [ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/level_objects/slip.tscn" id="2_xwrkq"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/entities/player.tscn" id="3_nrstc"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="4_7448y"]
-[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="5_ar7ra"]
 
 [node name="World" type="Node2D"]
 
@@ -17,7 +16,6 @@ tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQ
 [node name="Player" parent="." instance=ExtResource("3_nrstc")]
 position = Vector2(-11, -67)
 wall_min_slide_angle = 3.1415927
-safe_margin = 0.5
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
@@ -26,12 +24,3 @@ position_smoothing_speed = 2.0
 script = ExtResource("4_7448y")
 _follow_target = NodePath("../Player")
 _debug = true
-
-[node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
-script = ExtResource("5_ar7ra")
-_pull_origin = NodePath("../Player")
-
-[connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
-[connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
-[connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]
-[connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]

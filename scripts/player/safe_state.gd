@@ -43,6 +43,9 @@ func _ready() -> void:
 
 
 func _save_state(force: bool = false) -> void:
+	
+	if GameConstants.recovery_point == null:
+		return
 
 	_connect_recovery_point_signals()
 	var rounded_position = Vector2(roundf(_player.global_position.x), roundf(_player.global_position.y))

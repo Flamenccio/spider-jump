@@ -57,6 +57,7 @@ func _setup_local() -> void:
 	global.pull_input_updated.connect(func(x): pull_input_updated.emit(x))
 	global.pull_pressed.connect(func(): pull_pressed.emit())
 	global.pull_released.connect(func(): pull_released.emit())
+	global.pause_button_pressed.connect(func(): pause_button_pressed.emit())
 
 
 func _on_powerup_started(powerup: String) -> void:

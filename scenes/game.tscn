@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
 [ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://scripts/game/death_trigger.gd" id="4_37s47"]
+[ext_resource type="Script" uid="uid://cfterj86j0hyu" path="res://scripts/globals/input_server.gd" id="6_05nbr"]
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="6_e1j6l"]
-[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="7_pl11u"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://scripts/levels/level_spawner.gd" id="8_bhx41"]
 [ext_resource type="Resource" uid="uid://dvblvmsdlica3" path="res://levels/reference/base.res" id="9_qnb83"]
 [ext_resource type="Script" uid="uid://daiq6c47nx1ko" path="res://scripts/game/level_decorator.gd" id="10_e1j6l"]
@@ -131,10 +131,9 @@ visible = false
 scale = Vector2(1.97784, 0.137882)
 texture = ExtResource("6_e1j6l")
 
-[node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
-process_mode = 1
-script = ExtResource("7_pl11u")
-_pull_origin = NodePath("../Player")
+[node name="InputServer" type="Node" parent="."]
+script = ExtResource("6_05nbr")
+metadata/_custom_type_script = "uid://cfterj86j0hyu"
 
 [node name="LevelSpawner" type="Node2D" parent="." node_paths=PackedStringArray("_spawn_trigger")]
 process_mode = 1
@@ -296,13 +295,13 @@ shape = ExtResource("42_oaba0")
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="Player/PullCircle" method="show"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
-[connection signal="pause_button_pressed" from="InputService" to="." method="_on_pause_toggle"]
-[connection signal="pull_input_change" from="InputService" to="PullDragline" method="pull_update"]
-[connection signal="pull_press" from="InputService" to="Player/PullCircle" method="set_active"]
-[connection signal="pull_press" from="InputService" to="PullDragline" method="pull_set_active" binds= [true]]
-[connection signal="pull_release" from="InputService" to="Player/PullCircle" method="set_inactive"]
-[connection signal="pull_release" from="InputService" to="PullDragline" method="hide"]
-[connection signal="pull_release" from="InputService" to="PullDragline" method="pull_set_active" binds= [false]]
+[connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
+[connection signal="pull_input_updated" from="InputServer" to="PullDragline" method="pull_update"]
+[connection signal="pull_pressed" from="InputServer" to="Player/PullCircle" method="set_active"]
+[connection signal="pull_pressed" from="InputServer" to="PullDragline" method="pull_set_active" binds= [true]]
+[connection signal="pull_released" from="InputServer" to="Player/PullCircle" method="set_inactive"]
+[connection signal="pull_released" from="InputServer" to="PullDragline" method="hide"]
+[connection signal="pull_released" from="InputServer" to="PullDragline" method="pull_set_active" binds= [false]]
 [connection signal="new_level_body_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_level_spawned"]
 [connection signal="new_level_body_spawned" from="LevelSpawner" to="LevelSpawner/LevelEventStarter" method="_on_level_spawned"]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_game_height_updated"]

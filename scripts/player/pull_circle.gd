@@ -64,4 +64,3 @@ func _handle_powerup_end(powerup: String) -> void:
 		hover_powerup = false
 	elif powerup == ItemIds.BLINKFLY_POWERUP:
 		show()
-
