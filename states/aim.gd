@@ -10,7 +10,7 @@ const _HOPPERPOP_MULTIPLIER = 1.6
 const _BUBBLEBEE_MULTIPLIER = 0.83
 const _HEAVY_BEETLE_MULTIPLIER = 1.0
 const _SUPER_GRUB_MULTIPLIER = 1.12
-const _BLINKFLY_MULTIPLIER = 1.8
+const _BLINKFLY_MULTIPLIER = 2.0
 const _MAX_BLINKFLY_DISTANCE = 200.0
 
 var _pull_input: Vector2
@@ -79,6 +79,7 @@ func exit_state() -> void:
 func _on_pull_release() -> void:
 	if not state_active:
 		return
+	
 	if _powerup == ItemIds.BLINKFLY_POWERUP:
 		_blinkfly_jump()
 		return
@@ -89,6 +90,7 @@ func _on_pull_input_change(input: Vector2) -> void:
 
 	if not state_active:
 		return
+		
 	_pull_input = input
 
 	# Emit predicted trajectory

@@ -79,9 +79,12 @@ func _input(event: InputEvent) -> void:
 	if _is_local:
 		return
 	_handle_move_input()
-	_handle_pull_input()
 	_handle_pull_trigger(event)
 	_handle_pause_button(event)
+
+
+func _process(_delta: float) -> void:
+	_handle_pull_input()
 
 
 func _handle_move_input() -> void:
@@ -106,6 +109,7 @@ func _handle_pull_input() -> void:
 	magnitude = magnitude / _current_max_pull_distance
 	
 	var final := normalized_pull * magnitude
+
 	pull_input_updated.emit(final)
 
 
