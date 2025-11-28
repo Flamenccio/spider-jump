@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=86 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -39,6 +39,7 @@
 [ext_resource type="Script" uid="uid://dnhwoprufjf3i" path="res://scripts/player/player_sound_player.gd" id="44_dta47"]
 [ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="44_mx1m4"]
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
+[ext_resource type="Script" uid="uid://cfterj86j0hyu" path="res://scripts/globals/input_server.gd" id="45_fanr8"]
 [ext_resource type="AudioStream" uid="uid://b164vabg807vu" path="res://sounds/player/hoverfly_buzz.wav" id="45_w2gpp"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="46_u2ulf"]
 [ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="47_6e8lb"]
@@ -418,6 +419,10 @@ platform_floor_layers = 0
 safe_margin = 0.5
 script = ExtResource("1_a8ls1")
 
+[node name="InputServer" type="Node" parent="."]
+script = ExtResource("45_fanr8")
+metadata/_custom_type_script = "uid://cfterj86j0hyu"
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wqfne")
 sprite_frames = SubResource("SpriteFrames_f3sb7")
@@ -672,21 +677,21 @@ stream = ExtResource("45_w2gpp")
 volume_db = -12.0
 bus = &"SFX"
 
-[connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
-[connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]
-[connection signal="internal_player_fell" from="." to="SafeState" method="_on_player_fell"]
-[connection signal="internal_pull_input_change" from="." to="StateMachineHandler/Aim" method="_on_pull_input_change"]
-[connection signal="internal_pull_input_change" from="." to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_update"]
-[connection signal="internal_pull_press" from="." to="StateMachineHandler/Powerup/Hoverfly/Hover" method="_on_pull_input_press"]
-[connection signal="internal_pull_press" from="." to="StateMachineHandler" method="set_param" binds= ["aim", true]]
-[connection signal="internal_pull_release" from="." to="StateMachineHandler/Aim" method="_on_pull_release"]
-[connection signal="internal_pull_release" from="." to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
-[connection signal="internal_pull_release" from="." to="StateMachineHandler" method="set_param" binds= ["aim", false]]
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
 [connection signal="invincibility_started" from="." to="Sprite" method="start_invincibility_flashing"]
 [connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector" unbinds=1]
 [connection signal="moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", false]]
+[connection signal="move_input_updated" from="InputServer" to="." method="_on_move_updated"]
+[connection signal="move_input_updated" from="InputServer" to="LedgeClimb" method="_on_player_move_change"]
+[connection signal="move_input_updated" from="InputServer" to="StateMachineHandler/Crawl" method="_on_move_input_change"]
+[connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_input_change"]
+[connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_update"]
+[connection signal="pull_pressed" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Hover" method="_on_pull_input_press"]
+[connection signal="pull_pressed" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", true]]
+[connection signal="pull_released" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_release"]
+[connection signal="pull_released" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
+[connection signal="pull_released" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", false]]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]

@@ -25,4 +25,3 @@ func _on_pull_input_press() -> void:
 		return
 
 	set_param('flying', true)
-

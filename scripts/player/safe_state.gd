@@ -37,6 +37,9 @@ func _ready() -> void:
 	_ray_cast = RaycastQuery.new()
 	_ray_cast.collision_mask = 0
 	_ray_cast.source = _player
+	
+	# Connect signals
+	PlayerEventBus.player_fell.connect(_on_player_fell)
 
 
 func _save_state(force: bool = false) -> void:

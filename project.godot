@@ -27,6 +27,7 @@ GlobalFlashParticleSpawner="*res://scripts/globals/flash_particle_spawner.gd"
 GlobalSoundManager="*res://scripts/utility/sound_manager.gd"
 SettingsService="*res://scripts/settings_loader.gd"
 GameEventBus="*res://scripts/globals/game_event_bus.gd"
+GlobalInputServer="*res://scripts/globals/input_server.gd"
 
 [display]
 
