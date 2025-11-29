@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=52 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -38,11 +38,7 @@
 [ext_resource type="Script" uid="uid://c2xgxrcw3hung" path="res://scenes/sound_manager_interface.gd" id="37_02fa5"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="37_nepv3"]
 [ext_resource type="Script" uid="uid://b7kielrj6p8cd" path="res://scripts/utility/sound_manager.gd" id="38_nepv3"]
-[ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="39_pr1ej"]
 [ext_resource type="Script" uid="uid://bdx7qqns2omy" path="res://scripts/game/stamina_drainer.gd" id="40_m4url"]
-[ext_resource type="Resource" uid="uid://duiadsgrbxyya" path="res://resources/powerups/bubblebee.tres" id="40_pr1ej"]
-[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="41_0sl42"]
-[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="42_oaba0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -103,10 +99,6 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
-atlas = ExtResource("41_0sl42")
-region = Rect2(16, 0, 8, 8)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
@@ -275,18 +267,6 @@ process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 
-[node name="Bubblebee" parent="." instance=ExtResource("39_pr1ej")]
-position = Vector2(0, -83)
-_debug_item = ExtResource("40_pr1ej")
-_item_id = "bubblebee"
-
-[node name="@Sprite2D@53679" type="Sprite2D" parent="Bubblebee"]
-z_index = 10
-texture = SubResource("AtlasTexture_ih772")
-
-[node name="@CollisionShape2D@53680" type="CollisionShape2D" parent="Bubblebee"]
-shape = ExtResource("42_oaba0")
-
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="levelled_up" from="." to="UI/Hud" method="_on_difficulty_level_updated"]
@@ -302,6 +282,7 @@ shape = ExtResource("42_oaba0")
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="Player/PullCircle" method="show"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
+[connection signal="player_fell" from="Camera/DeathTrigger" to="Camera" method="screen_shake" binds= [0.4]]
 [connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
 [connection signal="pull_input_updated" from="InputServer" to="PullDragline" method="pull_update"]
 [connection signal="pull_pressed" from="InputServer" to="Player/PullCircle" method="set_active"]

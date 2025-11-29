@@ -6,7 +6,7 @@ signal player_landed()
 # of the player falls below this value, triggers hang time
 # gravity
 const _HANG_TIME_TRIGGER_SPEED = 3.0
-const _HANG_TIME_GRAVITY_MULTIPLIER = 0.50
+const _HANG_TIME_GRAVITY_MULTIPLIER = 0.25
 
 # Max speeds
 const _UNLIMITED_MAX_VERTICAL_SPEED = 1000.0
