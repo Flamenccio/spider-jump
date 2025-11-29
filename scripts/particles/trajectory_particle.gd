@@ -10,7 +10,7 @@ var point_on_path: Callable
 var return_to_pool: Callable
 
 # When `t` reaches this value, the particle will deactivate
-const MAX_T: float = 1.0
+const MAX_T: float = 0.5
 var t: float = 0.0
 
 func activate_particle(start_frame: int = 0, start_t: float = 0.0) -> void:

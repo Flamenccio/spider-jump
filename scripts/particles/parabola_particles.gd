@@ -85,4 +85,3 @@ func _return_particle(particle: TrajectoryParticle) -> void:
 		return
 	var found = active_particles.pop_at(index)
 	inactive_particles.push_back(found)
-

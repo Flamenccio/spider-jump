@@ -7,7 +7,7 @@ signal trajectory_updated(velocity: Vector2, acceleration: Vector2)
 signal player_blinkfly_jumped()
 
 const _HOPPERPOP_MULTIPLIER = 1.6
-const _BUBBLEBEE_MULTIPLIER = 0.83
+const _BUBBLEBEE_MULTIPLIER = 0.70
 const _HEAVY_BEETLE_MULTIPLIER = 1.0
 const _SUPER_GRUB_MULTIPLIER = 1.12
 const _BLINKFLY_MULTIPLIER = 2.0
