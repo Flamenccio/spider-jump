@@ -11,6 +11,11 @@ const _HANG_TIME_GRAVITY_MULTIPLIER = 0.50
 # Max speeds
 const _UNLIMITED_MAX_VERTICAL_SPEED = 1000.0
 
+# Powerup gravity multipliers
+const _ANTIBUG_GRAVITY_MULTIPLIER = -1.0
+const _BUBBLEBEE_GRAVITY_MULTIPLIER = 0.5
+const _HEAVY_BEETLE_GRAVITY_MULTIPLIER = 1.5
+
 var motion: Vector2
 var _jumped := false
 var _gravity := GameConstants.DEFAULT_GRAVITY
@@ -60,6 +65,11 @@ func _on_powerup_started(powerup: String) -> void:
 			GameConstants.current_max_vertical_speed = _UNLIMITED_MAX_VERTICAL_SPEED
 		ItemIds.BUBBLEBEE_POWERUP:
 			_hang_time_enabled = false
+			GameConstants.current_gravity *= _BUBBLEBEE_GRAVITY_MULTIPLIER
+		ItemIds.ANTIBUG_POWERUP:
+			GameConstants.current_gravity *= _ANTIBUG_GRAVITY_MULTIPLIER
+		ItemIds.HEAVY_BEETLE_POWERUP:
+			GameConstants.current_gravity *= _HEAVY_BEETLE_GRAVITY_MULTIPLIER
 		_:
 			return
 
@@ -72,5 +82,10 @@ func _on_powerup_ended(powerup: String) -> void:
 			GameConstants.current_max_vertical_speed = GameConstants.DEFAULT_MAX_VERTICAL_SPEED
 		ItemIds.BUBBLEBEE_POWERUP:
 			_hang_time_enabled = true
+			GameConstants.current_gravity /= _BUBBLEBEE_GRAVITY_MULTIPLIER
+		ItemIds.ANTIBUG_POWERUP:
+			GameConstants.current_gravity /= _ANTIBUG_GRAVITY_MULTIPLIER
+		ItemIds.HEAVY_BEETLE_POWERUP:
+			GameConstants.current_gravity /= _HEAVY_BEETLE_GRAVITY_MULTIPLIER
 		_:
 			return

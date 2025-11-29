@@ -4,6 +4,7 @@ signal on_powerup_started()
 signal powerup_started(powerup: String)
 signal powerup_ended()
 
+# Durations
 const _POWERUP_FLASH_DURATION = 0.333
 const _HOVERFLY_DURATION = 10.0
 const _ANTIBUG_DURATION = 10.0
@@ -19,7 +20,6 @@ const _BLINKFLY_USES = 8
 const _HEAVY_BEETLE_HURT_TIME_REDUCTION = 2.0
 
 var current_powerup: String = ''
-var _powerup_end_queue: Array[Callable]
 var _powerup_timer: ExtendableTimer = ExtendableTimer.new()
 var _powerup_flash_timer: Timer = Timer.new()
 var _blinkfly_jumped := false
@@ -54,9 +54,6 @@ func _end_powerups() -> void:
 	_animator.switch_sprite_branch('normal')
 	PlayerEventBus.powerup_ended.emit(current_powerup)
 	GameConstants.current_powerup = ItemIds.NO_POWERUP
-	while _powerup_end_queue.size() > 0:
-		var p = _powerup_end_queue.pop_front() as Callable
-		p.call()
 	current_powerup = ItemIds.NO_POWERUP
 	GlobalFlashParticleSpawner.spawn_particle("powerup_loss_flash", GameConstants.player.global_position, 0.0)
 
@@ -79,11 +76,7 @@ func _handle_powerup(powerup: String) -> void:
 			_animator.switch_and_play(ItemIds.HOVERFLY_POWERUP, 'hover')
 			GameConstants.player.rotation = 0.0
 		ItemIds.ANTIBUG_POWERUP:
-			_powerup_end_queue.push_back(func():
-				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
-			)
 			_defer_powerup_timer(_ANTIBUG_DURATION)
-			GameConstants.current_gravity = -GameConstants.DEFAULT_GRAVITY
 			_animator.switch_sprite_branch(ItemIds.ANTIBUG_POWERUP)
 		ItemIds.SUPER_GRUB_POWERUP:
 			PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, 1.0)
@@ -92,20 +85,12 @@ func _handle_powerup(powerup: String) -> void:
 		ItemIds.BUBBLEBEE_POWERUP:
 			_defer_powerup_timer(_BUBBLEBEE_DURATION)
 			_animator.switch_sprite_branch(ItemIds.BUBBLEBEE_POWERUP)
-			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY / 2.0
-			_powerup_end_queue.push_back(func():
-				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
-			)
 		ItemIds.HOPPERPOP_POWERUP:
 			_defer_powerup_timer(_HOPPERPOP_DURATION)
 			_animator.switch_sprite_branch(ItemIds.HOPPERPOP_POWERUP)
 		ItemIds.HEAVY_BEETLE_POWERUP:
 			_defer_powerup_timer(_HEAVY_BEETLE_DURATION)
 			_animator.switch_sprite_branch(ItemIds.HEAVY_BEETLE_POWERUP)
-			GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY * 1.5
-			_powerup_end_queue.push_back(func():
-				GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
-			)
 		ItemIds.BLINKFLY_POWERUP:
 			_powerup_timer.wait_time = _BLINKFLY_USES
 			_powerup_timer.time_left = _BLINKFLY_USES
