@@ -639,6 +639,7 @@ bus = &"SFX"
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", false]]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
+[connection signal="player_recovered" from="SafeState" to="Particles/ParticleEmitter" method="spawn_player_respawn"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]
 [connection signal="body_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited"]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="Handlers/ItemHandler" method="_on_item_collided"]

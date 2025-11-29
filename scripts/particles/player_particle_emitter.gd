@@ -43,3 +43,7 @@ func spawn_player_hit() -> void:
 func spawn_powerup_flash() -> void:
 	_particle_spawner.spawn_particle("player_powerup_gain", _player.global_position, 0)
 	_particle_spawner.spawn_particle("player_powerup_gain", _player.global_position, PI / 2.0)
+
+
+func spawn_player_respawn() -> void:
+	_particle_spawner.spawn_particle("player_respawn", _player.global_position, 0)

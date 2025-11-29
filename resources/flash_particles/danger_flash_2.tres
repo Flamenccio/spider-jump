@@ -36,7 +36,6 @@ animations = [{
 script = ExtResource("2_38k1g")
 particle_name = "danger_flash_2"
 frames = SubResource("SpriteFrames_e7ry4")
-offset = Vector2(0, 0)
 scale = Vector2(128, 0.5)
 z_index = 5
 expiration_type = 1
