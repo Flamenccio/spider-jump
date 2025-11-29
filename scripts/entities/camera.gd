@@ -5,6 +5,13 @@ const _MIN_SCREEN_SHAKE_POWER = 0.0
 const _SCREEN_SHAKE_DURATION_SECONDS = 0.20
 const _SCREEN_SHAKE_MAX_INTENSITY = 5.0
 
+const _MIN_SMOOTHING_SPEED = 3.0
+const _MAX_SMOOTHING_SPEED = 4.5
+const _MIN_PLAYER_SPEED = 0.0
+const _MAX_PLAYER_SPEED = 300.0
+
+const _SMOOTHING_RATIO = (_MAX_SMOOTHING_SPEED - _MIN_SMOOTHING_SPEED) / (_MAX_PLAYER_SPEED - _MIN_PLAYER_SPEED)
+
 var _screen_shake_timer := Timer.new()
 var _screen_shake_intensity := 0.0
 
@@ -30,6 +37,7 @@ func _process(delta: float) -> void:
 		_debug_movement()
 	else:
 		_movement()
+		_set_dynamic_smoothing_speed()
 
 
 func _physics_process(delta: float) -> void:
@@ -70,6 +78,17 @@ func screen_shake(power: float) -> void:
 func _get_point_in_circle() -> Vector2:
 	var random_angle = randf() * 2.0 * PI
 	return Vector2(cos(random_angle), sin(random_angle))
+
+
+func _set_dynamic_smoothing_speed() -> void:
+	if GameConstants.player == null:
+		return
+	if not position_smoothing_enabled:
+		return
+	var player_speed = GameConstants.player.get_real_velocity().length()
+	player_speed = clampf(player_speed, _MIN_PLAYER_SPEED, _MAX_PLAYER_SPEED)
+	var target_smoothing = _SMOOTHING_RATIO * player_speed + (_MIN_SMOOTHING_SPEED - _SMOOTHING_RATIO * _MIN_PLAYER_SPEED)
+	position_smoothing_speed = lerpf(position_smoothing_speed, target_smoothing, 0.05)
 
 
 func end_screen_shake() -> void:
