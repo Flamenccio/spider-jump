@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh66jtkoetxiq"]
+
+[ext_resource type="PackedScene" uid="uid://0blxm5ngq7jl" path="res://scenes/ui/jump_tutorial.tscn" id="1_2peok"]
+
+[node name="TutorialScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JumpTutorial" parent="." instance=ExtResource("1_2peok")]
+layout_mode = 1

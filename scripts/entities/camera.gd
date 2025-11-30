@@ -5,8 +5,9 @@ const _MIN_SCREEN_SHAKE_POWER = 0.0
 const _SCREEN_SHAKE_DURATION_SECONDS = 0.20
 const _SCREEN_SHAKE_MAX_INTENSITY = 5.0
 
+# Dynamic camera speed
 const _MIN_SMOOTHING_SPEED = 3.0
-const _MAX_SMOOTHING_SPEED = 4.5
+const _MAX_SMOOTHING_SPEED = 5.0
 const _MIN_PLAYER_SPEED = 0.0
 const _MAX_PLAYER_SPEED = 300.0
 
@@ -93,4 +94,5 @@ func _set_dynamic_smoothing_speed() -> void:
 
 func end_screen_shake() -> void:
 	_screen_shake_intensity = 0.0
+	offset = Vector2.ZERO
 	_screen_shake_timer.stop()
