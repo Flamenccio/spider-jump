@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://0blxm5ngq7jl"]
+[gd_scene load_steps=18 format=3 uid="uid://0blxm5ngq7jl"]
 
 [ext_resource type="LabelSettings" uid="uid://c6f5qmul324sy" path="res://label_settings/generic.tres" id="1_k8r76"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_xlqdv"]
 [ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="3_6e533"]
 [ext_resource type="Texture2D" uid="uid://8fbkn1odk3ir" path="res://sprites/tutorial_mouse-Sheet.png" id="4_4de72"]
 [ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="5_gcvyo"]
+[ext_resource type="Texture2D" uid="uid://cvamurs05kycx" path="res://sprites/tutorial_terrain.png" id="5_q5ucf"]
 [ext_resource type="Script" uid="uid://cwgwqffgaxvgk" path="res://scenes/ui/connector_line.gd" id="6_q5ucf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6e533"]
@@ -304,6 +305,21 @@ offset_top = -34.99971
 offset_bottom = -34.99971
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Terrain" type="TextureRect" parent="PanelContainer/AnimationPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -78.0
+offset_right = 149.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_q5ucf")
 
 [node name="Description" type="Label" parent="."]
 layout_mode = 2
