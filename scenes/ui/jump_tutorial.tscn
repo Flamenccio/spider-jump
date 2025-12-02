@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://0blxm5ngq7jl"]
+[gd_scene load_steps=19 format=3 uid="uid://0blxm5ngq7jl"]
 
 [ext_resource type="LabelSettings" uid="uid://c6f5qmul324sy" path="res://label_settings/generic.tres" id="1_k8r76"]
+[ext_resource type="Script" uid="uid://djrelatrhieag" path="res://scripts/ui/tutorial_page.gd" id="1_y11e4"]
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_xlqdv"]
 [ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="3_6e533"]
 [ext_resource type="Texture2D" uid="uid://8fbkn1odk3ir" path="res://sprites/tutorial_mouse-Sheet.png" id="4_4de72"]
@@ -214,7 +215,7 @@ _data = {
 &"jump_tutorial": SubResource("Animation_4de72")
 }
 
-[node name="JumpTutorial" type="VBoxContainer"]
+[node name="JumpTutorial" type="VBoxContainer" node_paths=PackedStringArray("_tutorial_animation_player")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -222,6 +223,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_y11e4")
+_tutorial_animation_player = NodePath("TutorialAnimation")
+_tutorial_animation_name = "jump_tutorial"
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 2
