@@ -3,6 +3,7 @@ extends Node
 signal collected_item(item_id: String)
 signal collected_powerup(powerup_id: String)
 
+const POWERUP_STAMINA_RECOVERY = 0.20
 const YUMFLY_STAMINA_RECOVERY = 0.25
 const SWIFT_YUMFLY_STAMINA_RECOVERY = 0.125
 
@@ -17,6 +18,7 @@ func _on_item_collided(item: Node2D) -> void:
 func _on_item_collected(item: Item) -> void:
 
 	if ItemIds.is_item_powerup(item.item_id):
+		PlayerStatsInterface.change_stat.emit(PlayerStatsInterface.STATS_STAMINA, POWERUP_STAMINA_RECOVERY)
 		collected_powerup.emit(item.item_id)
 		PlayerEventBus.player_consumed_item.emit(item)
 		return
