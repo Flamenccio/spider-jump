@@ -1,0 +1,20 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b508hufalgk4l"]
+
+[ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_6kmdr"]
+[ext_resource type="Texture2D" uid="uid://cmm5fkmioa0nu" path="res://sprites/checkbox-Sheet.png" id="1_ahus6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bxmy"]
+atlas = ExtResource("1_ahus6")
+region = Rect2(80, 16, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahus6"]
+atlas = ExtResource("1_ahus6")
+region = Rect2(16, 16, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ahus6"]
+
+[resource]
+default_font = ExtResource("1_6kmdr")
+CheckBox/icons/checked = SubResource("AtlasTexture_0bxmy")
+CheckBox/icons/unchecked = SubResource("AtlasTexture_ahus6")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_ahus6")
