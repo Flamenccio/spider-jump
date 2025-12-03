@@ -60,7 +60,6 @@ func update_state(delta: float) -> void:
 
 
 func _on_state_transited(from: String, to: String) -> void:
-	print("from: {f} to: {t}".format({"f": from, "t": to}))
 	if to != "Crawl":
 		return
 	if from == "Climb":
