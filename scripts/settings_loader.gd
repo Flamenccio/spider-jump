@@ -1,6 +1,8 @@
 class_name SettingsManager
 extends Node
 
+signal settings_updated(setting_name: String, value: Variant)
+
 const _SETTINGS_DIRECTORY = "res://resources/settings/"
 const _SETTINGS_RESOURCE = "player_settings.res"
 const _DEFAULT_AUDIO_LEVEL = 0.75
@@ -18,12 +20,7 @@ func _ready() -> void:
 ## dicitionary key is the property's name, and the value is
 ## the property's value.
 func get_settings() -> Dictionary:
-	var dict = {
-		"tutorial_played": _hot_settings.tutorial_played,
-		"repeat_tutorial": _hot_settings.repeat_tutorial,
-		"audio_levels": _hot_settings.audio_levels
-	}
-	return dict
+	return _hot_settings.get_settings_data()
 
 
 func apply_settings() -> void:
@@ -38,6 +35,7 @@ func update_audio_setting(new_audio_levels: Dictionary) -> void:
 	_load_settings()
 	_hot_settings.audio_levels.assign(new_audio_levels)
 	ResourceSaver.save(_hot_settings, _settings_path)
+	settings_updated.emit("audio_levels", new_audio_levels)
 
 
 func update_setting(setting_name: String, setting_value) -> void:
@@ -63,6 +61,7 @@ func update_setting(setting_name: String, setting_value) -> void:
 		return
 
 	_hot_settings.set(setting_name, setting_value)
+	settings_updated.emit(setting_name, setting_value)
 
 
 ## Reads the current AudioServer bus volumes and saves it to the player's settings

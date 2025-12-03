@@ -64,7 +64,7 @@ func _start_invincibility(time: float) -> void:
 
 
 func _on_move_updated(move_input: Vector2) -> void:
-	if abs(move_input.x) > 0:
+	if move_input.length() > 0:
 		moving.emit()
 	else:
 		stop_moving.emit()

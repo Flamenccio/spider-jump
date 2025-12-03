@@ -61,19 +61,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -82.0
-offset_top = -61.0
-offset_right = 82.0
-offset_bottom = 3.0
+offset_left = -103.0
+offset_top = -76.0
+offset_right = 103.0
+offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
-pivot_offset = Vector2(82, 32)
-
-[node name="AudioSettings" type="Button" parent="Settings"]
-layout_mode = 2
-theme = ExtResource("2_0qbrj")
-text = "ui.button.settings.audio"
+pivot_offset = Vector2(103, 76)
 
 [node name="RepeatTutorial" type="CheckBox" parent="Settings"]
 layout_mode = 2
@@ -81,6 +76,19 @@ theme = ExtResource("6_jowa0")
 text = "Repeat tutorial"
 script = ExtResource("7_yabvx")
 _setting_name = "repeat_tutorial"
+
+[node name="SettingsCheckbox" type="CheckBox" parent="Settings"]
+layout_mode = 2
+theme = ExtResource("6_jowa0")
+text = "Camera-based crawling"
+script = ExtResource("7_yabvx")
+_setting_name = "camera_based_crawl"
+metadata/_custom_type_script = "uid://bckldmud2nck8"
+
+[node name="AudioSettings" type="Button" parent="Settings"]
+layout_mode = 2
+theme = ExtResource("2_0qbrj")
+text = "ui.button.settings.audio"
 
 [node name="BackButton" type="Button" parent="Settings"]
 layout_mode = 2

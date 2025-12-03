@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=82 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" uid="uid://bc4pxggsqm6r2" path="res://behavior_state/player/powerup_entry.gd" id="42_6e8lb"]
 [ext_resource type="Script" uid="uid://dvmvkg11wuswa" path="res://behavior_state/player/exit_powerup.gd" id="43_2gdjj"]
 [ext_resource type="Script" uid="uid://b5qt5klwp6ofn" path="res://scripts/player/sprite_flipper.gd" id="43_dgu1j"]
+[ext_resource type="Script" uid="uid://dyn15fmeglm40" path="res://scripts/player/move_input_processor.gd" id="43_dta47"]
 [ext_resource type="Script" uid="uid://dnhwoprufjf3i" path="res://scripts/player/player_sound_player.gd" id="44_dta47"]
 [ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="44_mx1m4"]
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
@@ -414,6 +415,10 @@ script = ExtResource("1_a8ls1")
 script = ExtResource("45_fanr8")
 metadata/_custom_type_script = "uid://cfterj86j0hyu"
 
+[node name="MoveInputProcessor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("43_dta47")
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wqfne")
 sprite_frames = SubResource("SpriteFrames_f3sb7")
@@ -628,8 +633,7 @@ bus = &"SFX"
 [connection signal="moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", false]]
 [connection signal="move_input_updated" from="InputServer" to="." method="_on_move_updated"]
-[connection signal="move_input_updated" from="InputServer" to="LedgeClimb" method="_on_player_move_change"]
-[connection signal="move_input_updated" from="InputServer" to="StateMachineHandler/Crawl" method="_on_move_input_change"]
+[connection signal="move_input_updated" from="InputServer" to="MoveInputProcessor" method="_on_move_input_updated"]
 [connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_input_change"]
 [connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_update"]
 [connection signal="pull_pressed" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Hover" method="_on_pull_input_press"]
@@ -637,6 +641,8 @@ bus = &"SFX"
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_release"]
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", false]]
+[connection signal="move_input_processed" from="MoveInputProcessor" to="LedgeClimb" method="_on_player_move_change"]
+[connection signal="move_input_processed" from="MoveInputProcessor" to="StateMachineHandler/Crawl" method="_on_move_input_change"]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
 [connection signal="player_recovered" from="SafeState" to="Particles/ParticleEmitter" method="spawn_player_respawn"]
@@ -644,6 +650,7 @@ bus = &"SFX"
 [connection signal="body_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited"]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="Handlers/ItemHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="Detectors/DangerDetector" to="Handlers/DangerHandler" method="_on_danger_entered"]
+[connection signal="transited" from="StateMachineHandler/StateMachinePlayer" to="StateMachineHandler/Crawl" method="_on_state_transited"]
 [connection signal="aim_entered" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="activate_trajectory"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
