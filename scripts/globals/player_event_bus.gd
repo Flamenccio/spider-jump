@@ -31,3 +31,13 @@ signal powerup_flash_start()
 
 ## Called when the powerup flash animation ends.
 signal powerup_flash_end()
+
+## Called when the player collides into another body.
+## Passes [code]collision[/code], [code]KinematicCollision2D[/code] info
+## about the collision
+signal player_collision_enter(collision: KinematicCollision2D)
+
+## Called when the player falls to the bottom of the screen.
+## Passes [code]where[/code], a [code]Vector[/code] global position
+## where the player fell.
+signal player_fell(where: Vector2)

@@ -30,4 +30,3 @@ func _on_state_update(_s: String, delta: float) -> void:
 		return
 	if not pause_tick and active_state != null:
 		active_state.update_state(delta)
-

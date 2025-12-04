@@ -1,16 +1,7 @@
 extends CharacterBody2D
 
-# Internal use
-signal internal_move_input_change(move_input: Vector2)
-signal internal_pull_input_change(pull_input: Vector2)
-signal internal_pull_release()
-signal internal_pull_press()
-signal internal_safe_spot_updated(in_screen: bool)
-signal internal_player_fell(here: Vector2)
-
 # External use
-signal external_danger_entered()
-signal external_set_safe_spot(here: Vector2)
+signal danger_entered()
 
 # Any
 signal stop_moving()
@@ -22,6 +13,8 @@ signal invincibility_ended()
 # Used for invincibility after getting hurt
 var _invincibility_timer: Timer = Timer.new()
 
+var _movement_paused := false
+
 # In seconds
 const _DEFAULT_INVINCIBILITY_TIME = 6.0
 
@@ -32,31 +25,20 @@ func _ready() -> void:
 	)
 	add_child(_invincibility_timer)
 	GameConstants.player = self
+	GlobalInputServer.pull_origin = self
+	
+	PlayerEventBus.player_fell.connect(_on_player_fell)
+	PlayerEventBus.powerup_flash_start.connect(func(): _movement_paused = true)
+	PlayerEventBus.powerup_flash_end.connect(func(): _movement_paused = false)
+
+
+func _physics_process(delta: float) -> void:
+	if not _movement_paused and move_and_slide():
+		PlayerEventBus.player_collision_enter.emit(get_last_slide_collision())
 
 
 func on_level_up_platform_reached() -> void:
-	external_set_safe_spot.emit(global_position)
-
-
-func _on_input_service_move_input_change(move_input: Vector2) -> void:
-	internal_move_input_change.emit(move_input)
-
-	if move_input.x == 0:
-		stop_moving.emit()
-	else:
-		moving.emit()
-
-
-func _on_input_service_pull_input_change(pull_input: Vector2) -> void:
-	internal_pull_input_change.emit(pull_input)
-
-
-func _on_input_service_pull_release() -> void:
-	internal_pull_release.emit()
-
-
-func _on_input_service_pull_press() -> void:
-	internal_pull_press.emit()
+	GameConstants.recovery_point.global_position = global_position
 
 
 func _rotate_against_normal(normal: Vector2) -> void:
@@ -68,24 +50,21 @@ func _rotate_against_normal(normal: Vector2) -> void:
 
 
 func _on_danger_entered() -> void:
-	external_danger_entered.emit()
+	danger_entered.emit()
 
 
 func _on_player_fell(here: Vector2) -> void:
 	_start_invincibility(_DEFAULT_INVINCIBILITY_TIME)
-	internal_player_fell.emit(here)
-
-
-func _on_safe_spot_updated(on_screen: bool) -> void:
-	internal_safe_spot_updated.emit(on_screen)
-
-
-func _on_safe_spot_set(pos: Vector2) -> void:
-	external_set_safe_spot.emit(pos)
 
 
 func _start_invincibility(time: float) -> void:
 	_invincibility_timer.stop()
 	_invincibility_timer.start(time)
 	invincibility_started.emit(time)
-	
+
+
+func _on_move_updated(move_input: Vector2) -> void:
+	if move_input.length() > 0:
+		moving.emit()
+	else:
+		stop_moving.emit()

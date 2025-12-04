@@ -2,11 +2,11 @@ extends Node
 
 signal stamina_drained(amount: float)
 
-# At level 0, stamina will drain 3.3% per second
-const _BASE_STAMINA_DRAIN = 0.033
+# At level 0, stamina will drain 4% per second
+const _BASE_STAMINA_DRAIN = 0.035
 
-# When levelling up from level 0, stamina drain will increase by 0.5%
-const _BASE_STAMINA_DRAIN_INCREASE = 0.003
+# When levelling up from level 0, stamina drain will increase by 0.4%
+const _BASE_STAMINA_DRAIN_INCREASE = 0.004
 
 const _STAMINA_DRAIN_INCREASE_MULTIPLIER = 0.25
 

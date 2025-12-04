@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://6m7hddkqnkq7"]
+[gd_scene load_steps=13 format=3 uid="uid://6m7hddkqnkq7"]
 
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="1_5op3j"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_n5rhh"]
@@ -7,7 +7,9 @@
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="3_8680x"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_dyuo2"]
 [ext_resource type="AudioStream" uid="uid://bl83no143xg5r" path="res://sounds/ui/select.wav" id="6_8y8uj"]
+[ext_resource type="Theme" uid="uid://b508hufalgk4l" path="res://ui_themes/checkbox.tres" id="6_jowa0"]
 [ext_resource type="PackedScene" uid="uid://dhn3ipskb6u3a" path="res://scenes/ui/audio_settings.tscn" id="6_klwlf"]
+[ext_resource type="Script" uid="uid://bckldmud2nck8" path="res://scripts/ui/settings_checkbox.gd" id="7_yabvx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jowa0"]
 resource_local_to_scene = true
@@ -52,28 +54,43 @@ label_settings = SubResource("LabelSettings_0qbrj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="Settings" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -82.0
-offset_top = -61.0
-offset_right = 82.0
-offset_bottom = 3.0
+offset_left = -103.0
+offset_top = -76.0
+offset_right = 103.0
+offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
-pivot_offset = Vector2(82, 32)
+pivot_offset = Vector2(103, 76)
 
-[node name="AudioSettings" type="Button" parent="Buttons"]
+[node name="RepeatTutorial" type="CheckBox" parent="Settings"]
+layout_mode = 2
+theme = ExtResource("6_jowa0")
+text = "ui.checkbox.repeat_tutorial"
+script = ExtResource("7_yabvx")
+_setting_name = "repeat_tutorial"
+
+[node name="SettingsCheckbox" type="CheckBox" parent="Settings"]
+layout_mode = 2
+theme = ExtResource("6_jowa0")
+text = "ui.checkbox.camera_crawl"
+script = ExtResource("7_yabvx")
+_setting_name = "camera_based_crawl"
+metadata/_custom_type_script = "uid://bckldmud2nck8"
+
+[node name="AudioSettings" type="Button" parent="Settings"]
 layout_mode = 2
 theme = ExtResource("2_0qbrj")
 text = "ui.button.settings.audio"
 
-[node name="BackButton" type="Button" parent="Buttons"]
+[node name="BackButton" type="Button" parent="Settings"]
 layout_mode = 2
 theme = ExtResource("5_dyuo2")
 text = "ui.button.generic.back"
@@ -90,8 +107,8 @@ bus = &"UI"
 [connection signal="screen_revealed" from="." to="SettingsScreenBackground" method="play_enter_animation"]
 [connection signal="enter_transition_finished" from="SettingsScreenBackground" to="." method="show_all_elements"]
 [connection signal="exit_transition_finished" from="SettingsScreenBackground" to="." method="hide_screen"]
-[connection signal="pressed" from="Buttons/AudioSettings" to="AudioSettingsScreen" method="reveal_screen"]
-[connection signal="pressed" from="Buttons/AudioSettings" to="SelectSound" method="play"]
-[connection signal="pressed" from="Buttons/BackButton" to="." method="hide_all_elements"]
-[connection signal="pressed" from="Buttons/BackButton" to="SettingsScreenBackground" method="play_exit_animation"]
-[connection signal="pressed" from="Buttons/BackButton" to="SelectSound" method="play"]
+[connection signal="pressed" from="Settings/AudioSettings" to="AudioSettingsScreen" method="reveal_screen"]
+[connection signal="pressed" from="Settings/AudioSettings" to="SelectSound" method="play"]
+[connection signal="pressed" from="Settings/BackButton" to="." method="hide_all_elements"]
+[connection signal="pressed" from="Settings/BackButton" to="SettingsScreenBackground" method="play_exit_animation"]
+[connection signal="pressed" from="Settings/BackButton" to="SelectSound" method="play"]

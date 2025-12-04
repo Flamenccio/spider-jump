@@ -3,13 +3,14 @@ extends BehaviorState
 signal player_crawled()
 signal player_stopped_crawl()
 
-@export var _player: CharacterBody2D
-@export var _move_speed: float = 1.0
-var _move_input: Vector2
-
 const _HEAVY_BEETLE_MULTIPLIER = 3.0
 const _SUPER_GRUB_MULTIPLIER = 1.8
 const _BLINKFLY_MULTILPIER = 1.6
+
+var _move_input: Vector2
+
+@export var _player: CharacterBody2D
+@export var _move_speed: float = 1.0
 
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(func(powerup: String):
@@ -47,8 +48,7 @@ func _on_move_input_change(input: Vector2) -> void:
 
 func update_state(delta: float) -> void:
 
-	var horizontal = _move_input - Vector2(0, _move_input.y)
-	var crawl_vector = horizontal.rotated(_player.rotation)
+	var crawl_vector = _move_input.rotated(_player.rotation)
 
 	# Only move and collide when input is given
 	if crawl_vector.length() == 0:
@@ -57,5 +57,11 @@ func update_state(delta: float) -> void:
 
 	var movement = crawl_vector * _move_speed
 	_player.velocity = movement
-	_player.move_and_slide()
 
+
+func _on_state_transited(from: String, to: String) -> void:
+	if to != "Crawl":
+		return
+	if from == "Climb":
+		return
+	%MoveInputProcessor.force_update()

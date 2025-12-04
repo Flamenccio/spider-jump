@@ -1,0 +1,350 @@
+[gd_scene load_steps=19 format=3 uid="uid://0blxm5ngq7jl"]
+
+[ext_resource type="LabelSettings" uid="uid://c6f5qmul324sy" path="res://label_settings/generic.tres" id="1_k8r76"]
+[ext_resource type="Script" uid="uid://djrelatrhieag" path="res://scripts/ui/tutorial_page.gd" id="1_y11e4"]
+[ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_xlqdv"]
+[ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="3_6e533"]
+[ext_resource type="Texture2D" uid="uid://8fbkn1odk3ir" path="res://sprites/tutorial_mouse-Sheet.png" id="4_4de72"]
+[ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="5_gcvyo"]
+[ext_resource type="Texture2D" uid="uid://cvamurs05kycx" path="res://sprites/tutorial_terrain.png" id="5_q5ucf"]
+[ext_resource type="Script" uid="uid://cwgwqffgaxvgk" path="res://scenes/ui/connector_line.gd" id="6_q5ucf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e533"]
+atlas = ExtResource("2_xlqdv")
+region = Rect2(0, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcvyo"]
+atlas = ExtResource("4_4de72")
+region = Rect2(8, 8, 16, 16)
+
+[sub_resource type="Animation" id="Animation_gcvyo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer/AnimationPanel/Mouse:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer/AnimationPanel/Mouse:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(538, 370)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer/AnimationPanel/Mouse:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("AtlasTexture_gcvyo")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelContainer/AnimationPanel/Player/PullCircle:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_6e533")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PanelContainer/AnimationPanel/Player:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(544, 213)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PanelContainer/AnimationPanel/Player:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("AtlasTexture_6e533")]
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrihu"]
+atlas = ExtResource("4_4de72")
+region = Rect2(8, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4de72"]
+atlas = ExtResource("4_4de72")
+region = Rect2(40, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egd42"]
+atlas = ExtResource("4_4de72")
+region = Rect2(8, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qof7o"]
+atlas = ExtResource("2_xlqdv")
+region = Rect2(16, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysljr"]
+atlas = ExtResource("2_xlqdv")
+region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="Animation" id="Animation_4de72"]
+resource_name = "jump_tutorial"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer/AnimationPanel/Mouse:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer/AnimationPanel/Mouse:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(538, 370), Vector2(538, 250), Vector2(538, 250), Vector2(538, 250), Vector2(625, 325)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelContainer/AnimationPanel/Mouse:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [SubResource("AtlasTexture_nrihu"), SubResource("AtlasTexture_4de72"), SubResource("AtlasTexture_egd42")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelContainer/AnimationPanel/Player/PullCircle:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_6e533"), ExtResource("5_gcvyo"), ExtResource("3_6e533")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PanelContainer/AnimationPanel/Player:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(544, 213), Vector2(544, 213), Vector2(350, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PanelContainer/AnimationPanel/Player:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [SubResource("AtlasTexture_6e533"), SubResource("AtlasTexture_qof7o"), SubResource("AtlasTexture_ysljr")]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ConnectorLine")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [false],
+"method": &"enable_line"
+}, {
+"args": [true],
+"method": &"enable_line"
+}, {
+"args": [false],
+"method": &"enable_line"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nrihu"]
+_data = {
+&"RESET": SubResource("Animation_gcvyo"),
+&"jump_tutorial": SubResource("Animation_4de72")
+}
+
+[node name="JumpTutorial" type="VBoxContainer" node_paths=PackedStringArray("_tutorial_animation_player")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_y11e4")
+_tutorial_animation_player = NodePath("TutorialAnimation")
+_tutorial_animation_name = "jump_tutorial"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+text = "ui.label.tutorial.jump.title"
+label_settings = ExtResource("1_k8r76")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AnimationPanel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Player" type="TextureRect" parent="PanelContainer/AnimationPanel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -69.0
+offset_right = 31.99945
+offset_bottom = -4.999176
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_6e533")
+
+[node name="PullCircle" type="TextureRect" parent="PanelContainer/AnimationPanel/Player"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_6e533")
+
+[node name="PullPoint" type="Control" parent="PanelContainer/AnimationPanel/Player"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mouse" type="TextureRect" parent="PanelContainer/AnimationPanel"]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = 88.0
+offset_right = 42.0
+offset_bottom = 167.99933
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_gcvyo")
+
+[node name="PullPoint" type="Control" parent="PanelContainer/AnimationPanel/Mouse"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -34.99971
+offset_bottom = -34.99971
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Terrain" type="TextureRect" parent="PanelContainer/AnimationPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -78.0
+offset_right = 149.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_q5ucf")
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 2
+text = "ui.label.tutorial.jump.description"
+label_settings = ExtResource("1_k8r76")
+horizontal_alignment = 1
+
+[node name="TutorialAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nrihu")
+}
+autoplay = "jump_tutorial"
+
+[node name="Tutorial" type="Control" parent="."]
+layout_mode = 2
+
+[node name="ConnectorLine" type="Line2D" parent="." node_paths=PackedStringArray("_connections")]
+visible = false
+points = PackedVector2Array(0, 0, 0, 0)
+width = 6.0
+default_color = Color(0.16078432, 0.6784314, 1, 1)
+script = ExtResource("6_q5ucf")
+_connections = [NodePath("../PanelContainer/AnimationPanel/Player/PullPoint"), NodePath("../PanelContainer/AnimationPanel/Mouse/PullPoint")]
+metadata/_custom_type_script = "uid://cwgwqffgaxvgk"

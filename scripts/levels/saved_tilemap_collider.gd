@@ -38,4 +38,3 @@ func save_collider(collider: StaticBody2D) -> void:
 	collision_layer = collider.collision_layer
 	collision_mask = collider.collision_mask
 	saved_position = collider.position
-

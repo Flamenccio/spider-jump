@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://bh66jtkoetxiq"]
+
+[ext_resource type="PackedScene" uid="uid://0blxm5ngq7jl" path="res://scenes/ui/jump_tutorial.tscn" id="1_2peok"]
+[ext_resource type="Script" uid="uid://b5okpldhxshov" path="res://scripts/ui/tutorial_screen.gd" id="1_rcxmo"]
+[ext_resource type="PackedScene" uid="uid://ddt5hj1p31qhj" path="res://scenes/ui/climb_tutorial.tscn" id="3_4unk4"]
+[ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="4_hx5di"]
+[ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_03icu"]
+[ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="6_o5fh7"]
+[ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="7_wg0i6"]
+[ext_resource type="Script" uid="uid://dud81wgm8pgop" path="res://scripts/ui/tutorial_screen/tutorial_screen_scene_loader.gd" id="8_wg0i6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m745q"]
+resource_local_to_scene = true
+shader = ExtResource("7_wg0i6")
+shader_parameter/progress = 0.0
+shader_parameter/moving_side = 0
+
+[node name="TutorialScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rcxmo")
+_default_tutorial_index = 0
+
+[node name="JumpTutorial" parent="." groups=["tutorial_page"] instance=ExtResource("1_2peok")]
+visible = false
+layout_mode = 1
+
+[node name="ClimbTutorial" parent="." groups=["tutorial_page"] instance=ExtResource("3_4unk4")]
+visible = false
+layout_mode = 1
+
+[node name="Next" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -15.0
+offset_right = -60.0
+offset_bottom = 15.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme = ExtResource("4_hx5di")
+text = "Next"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 28.0
+offset_top = -15.0
+offset_right = 66.0
+offset_bottom = 15.0
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme = ExtResource("5_03icu")
+text = "Back
+"
+
+[node name="ScreenWipe" parent="." instance=ExtResource("6_o5fh7")]
+z_index = 5
+material = SubResource("ShaderMaterial_m745q")
+layout_mode = 1
+enter_duration = 0.15
+exit_duration = 0.15
+
+[node name="TutorialScreenSceneLoader" type="Node" parent="." node_paths=PackedStringArray("_screen_transition")]
+script = ExtResource("8_wg0i6")
+_screen_transition = NodePath("../ScreenWipe")
+
+[connection signal="reached_tutorial_end" from="." to="TutorialScreenSceneLoader" method="_on_tutorial_finished"]
+[connection signal="ready" from="." to="ScreenWipe" method="play_exit_animation"]
+[connection signal="pressed" from="Next" to="." method="play_next_tutorial"]
+[connection signal="pressed" from="Back" to="." method="play_previous_tutorial"]

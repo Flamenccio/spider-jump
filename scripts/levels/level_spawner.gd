@@ -22,7 +22,7 @@ var _active_levels_queue: Array[Node]
 var _level_type_history: Array[String]
 
 # 7th oldest level will be destroyed
-const _MAX_ACTIVE_LEVELS = 6
+const _MAX_ACTIVE_LEVELS = 4
 
 # If a level type appears this many times in the level history, it cannot be the next level
 const _MAX_DUPLICATE_LEVEL_TYPES = 2

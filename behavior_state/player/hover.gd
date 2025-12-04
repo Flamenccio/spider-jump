@@ -16,7 +16,7 @@ func update_state(delta: float) -> void:
 
 	var decceleration_constant = _decceleration * -1 * delta
 	_player.velocity += Vector2(decceleration_constant * velocity.x, decceleration_constant * velocity.y)
-	_player.move_and_slide()
+	#_player.move_and_slide()
 
 
 func _on_pull_input_press() -> void:
@@ -25,4 +25,3 @@ func _on_pull_input_press() -> void:
 		return
 
 	set_param('flying', true)
-

@@ -92,11 +92,11 @@ stream = ExtResource("5_x2yvf")
 bus = &"UI"
 
 [connection signal="pressed" from="Buttons/PlayButton" to="." method="_queue_load_arcade"]
-[connection signal="pressed" from="Buttons/PlayButton" to="Black" method="play_enter_animation"]
+[connection signal="pressed" from="Buttons/PlayButton" to="Black" method="play_enter_animation" flags=3]
 [connection signal="pressed" from="Buttons/PlayButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="Buttons/SettingsButton" to="SettingsScreen" method="reveal_screen"]
 [connection signal="pressed" from="Buttons/SettingsButton" to="ButtonSelect" method="play"]
 [connection signal="pressed" from="Buttons/ExitButton" to="." method="_quit_game"]
 [connection signal="pressed" from="Buttons/ExitButton" to="ButtonSelect" method="play"]
+[connection signal="enter_transition_finished" from="Black" to="." method="_on_black_transition_animation_finished"]
 [connection signal="ready" from="Black" to="Black" method="play_exit_animation"]
-[connection signal="transition_animation_finished" from="Black" to="." method="_on_black_transition_animation_finished"]

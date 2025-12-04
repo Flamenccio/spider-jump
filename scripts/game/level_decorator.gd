@@ -93,7 +93,6 @@ func _spawn_swift_yumfly(level: Node2D) -> void:
 	children = children.filter(func(i: Item): return i.item_id == ItemIds.YUMFLY_ITEM)
 
 	if children.size() == 0:
-		print("failed to spawn swift yumfly: no replacements")
 		return
 
 	_active_swift_yumflies = 1

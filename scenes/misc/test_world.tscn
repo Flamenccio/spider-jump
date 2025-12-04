@@ -1,52 +1,9 @@
-[gd_scene load_steps=22 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=5 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/level_objects/ground.tscn" id="1_dvny0"]
 [ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/level_objects/slip.tscn" id="2_xwrkq"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/entities/player.tscn" id="3_nrstc"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="4_7448y"]
-[ext_resource type="Script" uid="uid://b6it1roy42jng" path="res://scripts/player/input_service.gd" id="5_ar7ra"]
-[ext_resource type="Script" uid="uid://smn5kvfq55gk" path="res://tilemap_baker/TilemapCollisionBaker.gd" id="6_ixgyf"]
-[ext_resource type="PackedScene" uid="uid://hsagybsxkyat" path="res://scenes/level_objects/raindrop.tscn" id="7_xwrkq"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cnaw2"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnaw2"]
-size = Vector2(8, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kt6p6"]
-size = Vector2(56, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu1iw"]
-size = Vector2(8, 56)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tg7h"]
-size = Vector2(88, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ud3vi"]
-size = Vector2(120, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5457m"]
-size = Vector2(232, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivea3"]
-size = Vector2(8, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvck6"]
-size = Vector2(8, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_07jwy"]
-size = Vector2(8, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_urhrq"]
-size = Vector2(56, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfu6g"]
-size = Vector2(8, 40)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kt6p6"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mf5r"]
-size = Vector2(8, 88)
 
 [node name="World" type="Node2D"]
 
@@ -57,8 +14,8 @@ tile_map_data = PackedByteArray("AAAIAPX/AAAKAAAAAAAJAPX/AAAKAAAAAAAKAPX/AAAKAAA
 tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQAAAAHAPn/AAAJAAQAAAAHAPr/AAAJAAQAAAAHAPv/AAAJAAQAAAAHAPz/AAAJAAQAAAAHAP3/AAAJAAQAAAAHAP7/AAAJAAQAAAAHAP//AAAJAAQAAAAHAPX/AAAJAAMAAAA=")
 
 [node name="Player" parent="." instance=ExtResource("3_nrstc")]
-position = Vector2(0, -4)
-slide_on_ceiling = false
+position = Vector2(-11, -67)
+wall_min_slide_angle = 3.1415927
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 zoom = Vector2(4, 4)
@@ -67,77 +24,3 @@ position_smoothing_speed = 2.0
 script = ExtResource("4_7448y")
 _follow_target = NodePath("../Player")
 _debug = true
-
-[node name="InputService" type="Node" parent="." node_paths=PackedStringArray("_pull_origin")]
-script = ExtResource("5_ar7ra")
-_pull_origin = NodePath("../Player")
-
-[node name="GroundBaked" type="StaticBody2D" parent="."]
-collision_layer = 2
-collision_mask = 0
-physics_material_override = SubResource("PhysicsMaterial_cnaw2")
-script = ExtResource("6_ixgyf")
-tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Ground")])
-
-[node name="STICK_0" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(-108, -96)
-shape = SubResource("RectangleShape2D_cnaw2")
-
-[node name="STICK_1" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(-84, -60)
-shape = SubResource("RectangleShape2D_kt6p6")
-
-[node name="STICK_2" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(-60, -28)
-shape = SubResource("RectangleShape2D_uu1iw")
-
-[node name="STICK_3" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(-4, -92)
-shape = SubResource("RectangleShape2D_4tg7h")
-
-[node name="STICK_4" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(-4, 4)
-shape = SubResource("RectangleShape2D_ud3vi")
-
-[node name="STICK_5" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(4, -132)
-shape = SubResource("RectangleShape2D_5457m")
-
-[node name="STICK_6" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(20, -60)
-shape = SubResource("RectangleShape2D_ivea3")
-
-[node name="STICK_7" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(20, -28)
-shape = SubResource("RectangleShape2D_jvck6")
-
-[node name="STICK_8" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(36, -44)
-shape = SubResource("RectangleShape2D_07jwy")
-
-[node name="STICK_9" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(92, -84)
-shape = SubResource("RectangleShape2D_urhrq")
-
-[node name="STICK_10" type="CollisionShape2D" parent="GroundBaked"]
-position = Vector2(116, -108)
-shape = SubResource("RectangleShape2D_kfu6g")
-
-[node name="SlipBaked" type="StaticBody2D" parent="."]
-collision_layer = 4
-collision_mask = 0
-physics_material_override = SubResource("PhysicsMaterial_kt6p6")
-script = ExtResource("6_ixgyf")
-tilemaplayers_nodepaths = Array[NodePath]([NodePath("../Slip")])
-
-[node name="SLIPPERY_0" type="CollisionShape2D" parent="SlipBaked"]
-position = Vector2(60, -44)
-shape = SubResource("RectangleShape2D_6mf5r")
-
-[node name="Raindrop" parent="." instance=ExtResource("7_xwrkq")]
-position = Vector2(-67, -109)
-
-[connection signal="move_input_change" from="InputService" to="Player" method="_on_input_service_move_input_change"]
-[connection signal="pull_input_change" from="InputService" to="Player" method="_on_input_service_pull_input_change"]
-[connection signal="pull_press" from="InputService" to="Player" method="_on_input_service_pull_press"]
-[connection signal="pull_release" from="InputService" to="Player" method="_on_input_service_pull_release"]

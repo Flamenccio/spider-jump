@@ -28,3 +28,10 @@ ui.label.death_screen.game_over,GAME OVER
 ui.label.generic.score,Score
 ui.label.generic.high_score,High score
 ui.label.hud.level,Level
+ui.label.hud.high_score,High score
+ui.label.tutorial.jump.title,How to Play – Jumping
+ui.label.tutorial.jump.description,Click and drag to aim\nRelease to jump\nPowerups can change things up!
+ui.checkbox.repeat_tutorial,Repeat tutorial
+ui.checkbox.camera_crawl,Camera-based crawling
+ui.label.tutorial.climb.title,How to Play – Climbing
+ui.label.tutorial.climb.description,Use [W] [A] [S] [D] to climb\nSome surfaces cannot be climbed!

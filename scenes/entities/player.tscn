@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dmdtse0r0jamm"]
+[gd_scene load_steps=82 format=3 uid="uid://dmdtse0r0jamm"]
 
 [ext_resource type="Script" uid="uid://dgq77y7vb1lah" path="res://scripts/player/player.gd" id="1_a8ls1"]
 [ext_resource type="Shader" uid="uid://03hhmfocppm1" path="res://shaders/player.gdshader" id="2_dt7fs"]
@@ -13,10 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://dhrojosr38xuv" path="res://sprites/player_heavy_beetle.png" id="11_fdfoy"]
 [ext_resource type="Texture2D" uid="uid://dbbm203x14qqx" path="res://sprites/player_blinkfly.png" id="12_holxr"]
 [ext_resource type="Script" uid="uid://dj2pny76cdmi5" path="res://scripts/player/ground_handler.gd" id="15_wqfne"]
-[ext_resource type="Script" uid="uid://dpo14nn1hpmd2" path="res://scripts/collision/ground_raycast.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://c0ons1lxb731t" path="res://scripts/utility/raycaster.gd" id="17_6e8lb"]
-[ext_resource type="Script" uid="uid://bdjmy758l3rls" path="res://scripts/collision/shape_cast_check.gd" id="17_qfm1y"]
-[ext_resource type="Shape2D" uid="uid://clf4j6ia4qkob" path="res://collision_shapes/detector_area.tres" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://b1f45ohdq3eek" path="res://scripts/player/safe_state.gd" id="19_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bovbs8r38nhjp" path="res://sprites/trajectory_particles-Sheet.png" id="20_60mlk"]
 [ext_resource type="Script" uid="uid://e5cuk12rqwo4" path="res://scripts/particles/player_particle_emitter.gd" id="21_a38lo"]
@@ -37,9 +33,11 @@
 [ext_resource type="Script" uid="uid://bc4pxggsqm6r2" path="res://behavior_state/player/powerup_entry.gd" id="42_6e8lb"]
 [ext_resource type="Script" uid="uid://dvmvkg11wuswa" path="res://behavior_state/player/exit_powerup.gd" id="43_2gdjj"]
 [ext_resource type="Script" uid="uid://b5qt5klwp6ofn" path="res://scripts/player/sprite_flipper.gd" id="43_dgu1j"]
+[ext_resource type="Script" uid="uid://dyn15fmeglm40" path="res://scripts/player/move_input_processor.gd" id="43_dta47"]
 [ext_resource type="Script" uid="uid://dnhwoprufjf3i" path="res://scripts/player/player_sound_player.gd" id="44_dta47"]
 [ext_resource type="Script" uid="uid://8orrwuu7cbd1" path="res://behavior_state/player/hoverfly_entry.gd" id="44_mx1m4"]
 [ext_resource type="Script" uid="uid://c3vpumt4ibfs8" path="res://behavior_state/player/hoverfly_exit.gd" id="45_4gjji"]
+[ext_resource type="Script" uid="uid://cfterj86j0hyu" path="res://scripts/globals/input_server.gd" id="45_fanr8"]
 [ext_resource type="AudioStream" uid="uid://b164vabg807vu" path="res://sounds/player/hoverfly_buzz.wav" id="45_w2gpp"]
 [ext_resource type="Script" uid="uid://fxdybcfvd8ft" path="res://behavior_state/player/fly.gd" id="46_u2ulf"]
 [ext_resource type="Script" uid="uid://bh3cyx3kaoaxy" path="res://behavior_state/player/hover.gd" id="47_6e8lb"]
@@ -380,11 +378,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
 size = Vector2(6, 6)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_31cv2"]
-radius = 3.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_holxr"]
-radius = 5.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_dta47"]
+radius = 4.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_60mlk"]
 particles_animation = true
@@ -392,8 +387,8 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6e8lb"]
-radius = 4.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dta47"]
+size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ni07"]
 radius = 6.0
@@ -411,8 +406,18 @@ z_as_relative = false
 texture_filter = 1
 collision_mask = 6
 collision_priority = 50.0
+wall_min_slide_angle = 1.5707964
 platform_floor_layers = 0
+safe_margin = 0.5
 script = ExtResource("1_a8ls1")
+
+[node name="InputServer" type="Node" parent="."]
+script = ExtResource("45_fanr8")
+metadata/_custom_type_script = "uid://cfterj86j0hyu"
+
+[node name="MoveInputProcessor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("43_dta47")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wqfne")
@@ -430,70 +435,17 @@ _sprite = NodePath("../Sprite")
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_31cv2")
 
-[node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_player", "_ground_detector_l", "_ground_detector_r", "_raycaster")]
+[node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_player", "_ground_detector_l", "_ground_detector_r")]
 script = ExtResource("24_l71n6")
 _player = NodePath("..")
 _ground_detector_l = NodePath("../Detectors/LedgeDetectorL")
 _ground_detector_r = NodePath("../Detectors/LedgeDetectorR")
-_raycaster = NodePath("../Casters/Raycaster")
 _unclimbable = 4
 
-[node name="Casters" type="Node" parent="."]
-
-[node name="GroundRaycast" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 6
-raycast_source = NodePath("../..")
-
-[node name="SlipShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = ExtResource("18_fulsm")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 4
-
-[node name="GroundShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = ExtResource("18_fulsm")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 6
-metadata/_custom_type_script = "uid://bdjmy758l3rls"
-
-[node name="DangerShapecast" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = SubResource("CircleShape2D_31cv2")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 16
-metadata/_custom_type_script = "uid://bdjmy758l3rls"
-
-[node name="SafeSpotCheck" type="Node" parent="Casters" node_paths=PackedStringArray("_shape_cast_origin")]
-script = ExtResource("17_qfm1y")
-_shape = SubResource("CircleShape2D_holxr")
-_shape_cast_origin = NodePath("../..")
-_shape_cast_layers = 22
-metadata/_custom_type_script = "uid://bdjmy758l3rls"
-
-[node name="SafeSpotDistanceCheck" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 6
-raycast_source = NodePath("../..")
-metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
-
-[node name="SlipRaycast" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("16_qfm1y")
-_raycast_layer = 4
-raycast_source = NodePath("../..")
-metadata/_custom_type_script = "uid://dpo14nn1hpmd2"
-
-[node name="Raycaster" type="Node" parent="Casters" node_paths=PackedStringArray("raycast_source")]
-script = ExtResource("17_6e8lb")
-raycast_source = NodePath("../..")
-
-[node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player", "_danger_shapecast", "_safe_spot_shapecast", "_safe_spot_distance_raycast")]
+[node name="SafeState" type="Node" parent="." node_paths=PackedStringArray("_player")]
 script = ExtResource("19_4r5pv")
 _player = NodePath("..")
-_danger_shapecast = NodePath("../Casters/DangerShapecast")
-_safe_spot_shapecast = NodePath("../Casters/SafeSpotCheck")
-_safe_spot_distance_raycast = NodePath("../Casters/SafeSpotDistanceCheck")
+_shape_cast_shape = SubResource("CircleShape2D_dta47")
 _danger_layers = 16
 _slippery_layers = 4
 _climbable_layers = 2
@@ -504,9 +456,9 @@ _climbable_layers = 2
 z_index = -1
 material = SubResource("CanvasItemMaterial_60mlk")
 emitting = false
-amount = 12
+amount = 120
 texture = ExtResource("20_60mlk")
-lifetime = 1.3
+lifetime = 0.66
 fixed_fps = 8
 gravity = Vector2(0, 0)
 anim_speed_min = 1.0
@@ -531,7 +483,7 @@ collision_priority = 5.0
 priority = 5
 
 [node name="Shape" type="CollisionShape2D" parent="Detectors/GroundDetector"]
-shape = SubResource("CircleShape2D_6e8lb")
+shape = SubResource("RectangleShape2D_dta47")
 
 [node name="ItemDetector" type="Area2D" parent="Detectors"]
 position = Vector2(0, 1)
@@ -575,12 +527,13 @@ metadata/_custom_type_script = "uid://bn1ivxhedsqfp"
 script = ExtResource("33_bj30b")
 state_machine = ExtResource("34_jc3p3")
 
-[node name="Aim" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_ground_check", "_player", "_animator", "_particle_emitter", "_sound_player")]
+[node name="Aim" type="Node" parent="StateMachineHandler" node_paths=PackedStringArray("_player", "_animator", "_particle_emitter", "_sound_player")]
 script = ExtResource("35_jc3p3")
-_ground_check = NodePath("../../Casters/GroundRaycast")
+_climbable_layer = 2
+_unclimbable_layer = 4
 _player = NodePath("../..")
 _animator = NodePath("../../SpriteTree")
-_jump_force = 170.0
+_jump_force = 225.0
 _particle_emitter = NodePath("../../Particles/ParticleEmitter")
 _sound_player = NodePath("../../SoundPlayer")
 
@@ -645,9 +598,9 @@ _decceleration = 1.5
 
 [node name="Handlers" type="Node" parent="."]
 
-[node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_raycaster")]
+[node name="GroundHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("_player")]
 script = ExtResource("15_wqfne")
-_raycaster = NodePath("../../Casters/Raycaster")
+_player = NodePath("../..")
 _ground_layer = 2
 _slip_layer = 4
 
@@ -674,30 +627,30 @@ stream = ExtResource("45_w2gpp")
 volume_db = -12.0
 bus = &"SFX"
 
-[connection signal="internal_move_input_change" from="." to="LedgeClimb" method="_on_player_move_change"]
-[connection signal="internal_move_input_change" from="." to="StateMachineHandler/Crawl" method="_on_move_input_change"]
-[connection signal="internal_player_fell" from="." to="SafeState" method="_on_player_fell"]
-[connection signal="internal_pull_input_change" from="." to="StateMachineHandler/Aim" method="_on_pull_input_change"]
-[connection signal="internal_pull_input_change" from="." to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_update"]
-[connection signal="internal_pull_press" from="." to="StateMachineHandler/Powerup/Hoverfly/Hover" method="_on_pull_input_press"]
-[connection signal="internal_pull_press" from="." to="StateMachineHandler" method="set_param" binds= ["aim", true]]
-[connection signal="internal_pull_release" from="." to="StateMachineHandler/Aim" method="_on_pull_release"]
-[connection signal="internal_pull_release" from="." to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
-[connection signal="internal_pull_release" from="." to="StateMachineHandler" method="set_param" binds= ["aim", false]]
-[connection signal="internal_safe_spot_updated" from="." to="SafeState" method="_safe_spot_updated"]
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
 [connection signal="invincibility_started" from="." to="Sprite" method="start_invincibility_flashing"]
 [connection signal="invincibility_started" from="." to="Detectors/DangerDetector" method="disable_detector" unbinds=1]
 [connection signal="moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", true]]
 [connection signal="stop_moving" from="." to="StateMachineHandler/StateMachinePlayer" method="set_param" binds= ["crawl", false]]
+[connection signal="move_input_updated" from="InputServer" to="." method="_on_move_updated"]
+[connection signal="move_input_updated" from="InputServer" to="MoveInputProcessor" method="_on_move_input_updated"]
+[connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_input_change"]
+[connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_update"]
+[connection signal="pull_pressed" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Hover" method="_on_pull_input_press"]
+[connection signal="pull_pressed" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", true]]
+[connection signal="pull_released" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_release"]
+[connection signal="pull_released" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
+[connection signal="pull_released" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", false]]
+[connection signal="move_input_processed" from="MoveInputProcessor" to="LedgeClimb" method="_on_player_move_change"]
+[connection signal="move_input_processed" from="MoveInputProcessor" to="StateMachineHandler/Crawl" method="_on_move_input_change"]
 [connection signal="climb_started" from="LedgeClimb" to="StateMachineHandler" method="set_param" binds= ["climb", true]]
 [connection signal="climbed_around_ledge" from="LedgeClimb" to="StateMachineHandler/Climb" method="set_climb_target"]
+[connection signal="player_recovered" from="SafeState" to="Particles/ParticleEmitter" method="spawn_player_respawn"]
 [connection signal="player_recovered" from="SafeState" to="StateMachineHandler" method="set_param" binds= ["ko", false]]
-[connection signal="safe_spot_updated" from="SafeState" to="." method="_on_safe_spot_set"]
-[connection signal="body_shape_entered" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_enter" unbinds=1]
-[connection signal="body_shape_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited" unbinds=1]
+[connection signal="body_exited" from="Detectors/GroundDetector" to="Handlers/GroundHandler" method="_on_ground_exited"]
 [connection signal="body_entered" from="Detectors/ItemDetector" to="Handlers/ItemHandler" method="_on_item_collided"]
 [connection signal="body_entered" from="Detectors/DangerDetector" to="Handlers/DangerHandler" method="_on_danger_entered"]
+[connection signal="transited" from="StateMachineHandler/StateMachinePlayer" to="StateMachineHandler/Crawl" method="_on_state_transited"]
 [connection signal="aim_entered" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="activate_trajectory"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
@@ -712,7 +665,6 @@ bus = &"SFX"
 [connection signal="player_crawled" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
 [connection signal="player_stopped_crawl" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [false]]
 [connection signal="player_landed" from="StateMachineHandler/Fall" to="Handlers/PowerupHandler" method="_on_player_landed"]
-[connection signal="normal_recheck_requested" from="StateMachineHandler/Idle" to="Handlers/GroundHandler" method="_recalculate_normal"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_entered_idle" from="StateMachineHandler/Idle" to="Particles/Dust" method="set_emitting" binds= [false]]
 [connection signal="player_koed" from="StateMachineHandler/KO" to="SpriteTree" method="switch_and_play" binds= ["normal", "ko"]]
@@ -728,7 +680,6 @@ bus = &"SFX"
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="." method="_rotate_against_normal"]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="Particles/ParticleEmitter" method="spawn_dust"]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="StateMachineHandler/Aim" method="_on_normal_land"]
-[connection signal="land_on_normal" from="Handlers/GroundHandler" to="StateMachineHandler/Idle" method="_normal_updated"]
 [connection signal="land_on_normal" from="Handlers/GroundHandler" to="SoundPlayer" method="play_land" unbinds=1]
 [connection signal="land_on_slip" from="Handlers/GroundHandler" to="StateMachineHandler" method="set_param" binds= ["ground_type", "slip"]]
 [connection signal="leave_ground" from="Handlers/GroundHandler" to="StateMachineHandler/Aim" method="_on_leave_ground"]

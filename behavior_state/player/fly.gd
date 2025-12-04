@@ -22,11 +22,10 @@ func update_state(delta: float) -> void:
 	var normalized = new_velocity.normalized()
 	_player.velocity = normalized * new_speed
 
-	_player.move_and_slide()
+	#_player.move_and_slide()
 
 
 func _on_pull_input_release() -> void:
 	if not state_active:
 		return
 	set_param('flying', false)
-
