@@ -61,4 +61,3 @@ func get_high_score() -> int:
 	if res is not SavedPlayerStats:
 		return 0
 	return (res as SavedPlayerStats).high_score
-
