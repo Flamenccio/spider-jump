@@ -73,14 +73,14 @@ pivot_offset = Vector2(103, 76)
 [node name="RepeatTutorial" type="CheckBox" parent="Settings"]
 layout_mode = 2
 theme = ExtResource("6_jowa0")
-text = "Repeat tutorial"
+text = "ui.checkbox.repeat_tutorial"
 script = ExtResource("7_yabvx")
 _setting_name = "repeat_tutorial"
 
 [node name="SettingsCheckbox" type="CheckBox" parent="Settings"]
 layout_mode = 2
 theme = ExtResource("6_jowa0")
-text = "Camera-based crawling"
+text = "ui.checkbox.camera_crawl"
 script = ExtResource("7_yabvx")
 _setting_name = "camera_based_crawl"
 metadata/_custom_type_script = "uid://bckldmud2nck8"

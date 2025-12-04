@@ -198,7 +198,7 @@ _tutorial_animation_name = "climb_tutorial"
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 2
-text = "How to Play - Climbing"
+text = "ui.label.tutorial.climb.title"
 label_settings = ExtResource("1_aam6g")
 horizontal_alignment = 1
 
@@ -218,9 +218,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 9.0
-offset_top = -114.5
+offset_top = -134.0
 offset_right = 72.99945
-offset_bottom = -50.499542
+offset_bottom = -69.99954
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(32, 32)
@@ -274,8 +274,7 @@ texture = SubResource("AtlasTexture_aam6g")
 
 [node name="Description" type="Label" parent="."]
 layout_mode = 2
-text = "Use [W] [A] [S] [D] to climb on walls
-Some walls cannot be climbed!"
+text = "ui.label.tutorial.climb.description"
 label_settings = ExtResource("1_aam6g")
 horizontal_alignment = 1
 

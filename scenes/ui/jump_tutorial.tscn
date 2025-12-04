@@ -229,7 +229,7 @@ _tutorial_animation_name = "jump_tutorial"
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 2
-text = "How to Play - Jumping"
+text = "ui.label.tutorial.jump.title"
 label_settings = ExtResource("1_k8r76")
 horizontal_alignment = 1
 
@@ -249,9 +249,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -32.0
-offset_top = -30.0
+offset_top = -69.0
 offset_right = 31.99945
-offset_bottom = 34.000824
+offset_bottom = -4.999176
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_6e533")
@@ -291,9 +291,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -38.0
-offset_top = 127.0
+offset_top = 88.0
 offset_right = 42.0
-offset_bottom = 206.99933
+offset_bottom = 167.99933
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_gcvyo")
@@ -327,9 +327,7 @@ texture = ExtResource("5_q5ucf")
 
 [node name="Description" type="Label" parent="."]
 layout_mode = 2
-text = "Click and drag to aim
-Release to jump
-Powerups can change things up!"
+text = "ui.label.tutorial.jump.description"
 label_settings = ExtResource("1_k8r76")
 horizontal_alignment = 1
 
