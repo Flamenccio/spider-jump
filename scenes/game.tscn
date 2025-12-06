@@ -69,10 +69,6 @@ shader_parameter/moving_side = 0
 [sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
 atlas = ExtResource("6_e1j6l")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
-atlas = ExtResource("21_37s47")
-region = Rect2(3, 3, 2, 2)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0sl42"]
 shader = ExtResource("31_05nbr")
 shader_parameter/pixel_size = 4.0
@@ -99,6 +95,10 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
+atlas = ExtResource("21_37s47")
+region = Rect2(3, 3, 2, 2)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
@@ -210,23 +210,9 @@ visible = false
 scale = Vector2(0.0195312, 0.0195312)
 texture = SubResource("AtlasTexture_264po")
 
-[node name="HeartShatterParticles" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 25
-texture = SubResource("AtlasTexture_1kice")
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
-direction = Vector2(0, -1)
-spread = 22.5
-gravity = Vector2(0, 245)
-initial_velocity_min = 50.0
-initial_velocity_max = 150.0
-script = ExtResource("21_5newe")
-
 [node name="PlayerStatsSaver" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
-_directory = "res://hi_scores/"
+_records_file_uid = "uid://cj3febcfsfe7r"
 _player_stats = NodePath("../PlayerStats")
 
 [node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
@@ -267,6 +253,20 @@ process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 
+[node name="HeartShatterParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+texture = SubResource("AtlasTexture_1kice")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 22.5
+gravity = Vector2(0, 245)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+script = ExtResource("21_5newe")
+
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="levelled_up" from="." to="UI/Hud" method="_on_difficulty_level_updated"]
@@ -298,7 +298,7 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="danger_entered" from="Player" to="Player/PullCircle" method="hide"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
-[connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
+[connection signal="life_bar_depleted" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
 [connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
 [connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
@@ -306,6 +306,7 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]
 [connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]
+[connection signal="ready" from="PlayerStatsSaver" to="UI/Hud" method="_on_stats_saver_ready"]
 [connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]
 [connection signal="give_hint" from="PlayerHints" to="UI/PowerupHint" method="display_text"]
 [connection signal="stamina_drained" from="StaminaDrainer" to="PlayerStats" method="change_stamina"]

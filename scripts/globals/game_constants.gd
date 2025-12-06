@@ -16,3 +16,4 @@ var player: Node2D
 var main_camera: Camera2D
 var recovery_point: VisibleOnScreenNotifier2D
 var current_max_vertical_speed := DEFAULT_MAX_VERTICAL_SPEED
+var high_score := 0

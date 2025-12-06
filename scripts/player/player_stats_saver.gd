@@ -3,61 +3,30 @@ extends Node
 signal high_score_displayed(hi: int)
 signal high_score_updated(new_hi: int)
 
-@export var _directory: String
+@export var _records_file_uid: String
 @export var _player_stats: Node
-var save_directory: String
-
-const _SCORE_FILENAME = 'hiscore.res'
+var _hot_records: Records
+var _records_path: String
 
 func _ready() -> void:
-	var test = DirAccess.open(_directory)
-	if not test:
-		printerr('player stats saver: invalid directory')
-		return
-	save_directory = "{0}/{1}".format({"0": _directory, "1": _SCORE_FILENAME})
+	_records_path = ResourceUID.uid_to_path(_records_file_uid)
+	_hot_records = load(_records_path)
+	GameConstants.high_score = _hot_records.highest_score
 
 
 func _on_game_end() -> void:
 
 	var score = _player_stats.score
-	var dir := DirAccess.open(_directory)
-	var files = dir.get_files()
+	_hot_records.add_record(score)
 
-	if files.size() == 0 or not files.has(_SCORE_FILENAME):
-		_save_new_file(score, save_directory)
-		high_score_updated.emit(score)
+	if _hot_records.last_record_is_highest():
+		ResourceSaver.save(_hot_records, _records_path)
 		return
 
-	var res = ResourceLoader.load(save_directory)
-	if res is not SavedPlayerStats:
-		_save_new_file(score, save_directory)
-		high_score_updated.emit(score)
-		return
-
-	# Compare scores
-	res = res as SavedPlayerStats
-	var high_score = res.high_score
-	var abs_score = abs(score)
-
-	if abs_score > high_score:
-		high_score_updated.emit(abs_score)
-		res.high_score = abs_score
-		ResourceSaver.save(res, save_directory)
-
-	high_score_displayed.emit(res.high_score)
-
-
-func _save_new_file(high_score: int, dir: String) -> void:
-	var saved = SavedPlayerStats.new()
-	saved.high_score = high_score
-	ResourceSaver.save(saved, dir)
+	high_score_displayed.emit(_hot_records.highest_score)
+	high_score_updated.emit(score)
+	ResourceSaver.save(_hot_records, _records_path)
 
 
 func get_high_score() -> int:
-	var dir = DirAccess.open(_directory)
-	if not dir.file_exists(save_directory):
-		return 0
-	var res = ResourceLoader.load(save_directory)
-	if res is not SavedPlayerStats:
-		return 0
-	return (res as SavedPlayerStats).high_score
+	return _hot_records.highest_score

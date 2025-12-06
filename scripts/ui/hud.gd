@@ -1,49 +1,68 @@
 extends Control
 
-signal external_health_lost(where: Control)
+signal life_bar_depleted(control: Control)
 
-signal internal_difficulty_level_updated(difficulty_level: int)
-signal internal_stamina_updated(current_stamina: float)
-signal internal_health_updated(current_health: int)
-signal internal_score_updated(current_score: int)
-signal internal_powerup_started(powerup: String)
-signal internal_powerup_ended()
-signal internal_powerup_timer_updated(powerup_time: float, powerup_max_time: float)
+# UI elements
+@onready var _stamina_bar := %StaminaBar
+@onready var _life_bar := %LifeBar
+@onready var _score_display := %ScoreDisplay
+@onready var _powerup_time_bar := %PowerupTimeBar
+@onready var _extra_level_display := %LevelLabel
+@onready var _extra_high_score_display := %HighScoreLabel
 
 func _ready() -> void:
-	PlayerEventBus.player_stat_updated.connect(func(stat: String, value):
-		match stat:
-			PlayerStatsInterface.STATS_HEALTH:
-				_on_health_updated(value as int)
-			PlayerStatsInterface.STATS_STAMINA:
-				_on_stamina_updated(value as float)
-			PlayerStatsInterface.STATS_SCORE:
-				_on_score_updated(value as int)
-			_:
-				return
-	, ConnectFlags.CONNECT_DEFERRED)
-	PlayerEventBus.powerup_started.connect(func(powerup: String): internal_powerup_started.emit(powerup), ConnectFlags.CONNECT_DEFERRED)
-	PlayerEventBus.powerup_ended.connect(func(_d: String): internal_powerup_ended.emit(), ConnectFlags.CONNECT_DEFERRED)
-	PlayerEventBus.powerup_timer_updated.connect(func(time_left: float, duration: float): internal_powerup_timer_updated.emit(time_left, duration), ConnectFlags.CONNECT_DEFERRED)
+	PlayerEventBus.player_stat_updated.connect(_on_player_stat_updated, ConnectFlags.CONNECT_DEFERRED)
+	PlayerEventBus.powerup_started.connect(_on_powerup_started)
+	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
+	PlayerEventBus.powerup_timer_updated.connect(_on_powerup_timer_updated)
+
+
+func _on_stats_saver_ready() -> void:
+	var score_string = str(GameConstants.high_score).pad_zeros(6)
+	var label_text = "{0}: {1}".format({"0": tr("ui.label.generic.high_score"), "1": score_string})
+	_extra_high_score_display.text = label_text
+
+
+func _on_player_stat_updated(stat: String, stat_value) -> void:
+	match stat:
+		PlayerStatsInterface.STATS_HEALTH:
+			_on_health_updated(stat_value as int)
+		PlayerStatsInterface.STATS_STAMINA:
+			_on_stamina_updated(stat_value as float)
+		PlayerStatsInterface.STATS_SCORE:
+			_on_score_updated(stat_value as int)
+		_:
+			return
 
 
 func _on_stamina_updated(current_stamina: float) -> void:
 	var processed_stamina := current_stamina * 100.0
-	internal_stamina_updated.emit(processed_stamina)
+	_stamina_bar.value = processed_stamina
 
 
 func _on_health_updated(current_health: int) -> void:
-	internal_health_updated.emit(current_health)
+	if  current_health < _life_bar.life_value:
+		life_bar_depleted.emit(_life_bar)
+	_life_bar.display_life(current_health)
 
 
 func _on_score_updated(current_score: int) -> void:
-	internal_score_updated.emit(current_score)
-
-
-func _internal_on_life_lost(screen_coords: Control) -> void:
-	external_health_lost.emit(screen_coords)
+	_score_display.display_value(current_score)
 
 
 func _on_difficulty_level_updated(level: int) -> void:
-	internal_difficulty_level_updated.emit(level)
+	_extra_level_display.text = "{0} {1}".format({"0": tr("ui.label.hud.level"), "1": level})
 
+
+func _on_powerup_started(_powerup: String) -> void:
+	_powerup_time_bar.value = 100.0
+	_powerup_time_bar.show()
+
+
+func _on_powerup_ended(_powerup: String) -> void:
+	_powerup_time_bar.hide()
+
+
+func _on_powerup_timer_updated(time_left: float, duration: float) -> void:
+	var progress = time_left / duration * 100.0
+	_powerup_time_bar.value = progress
