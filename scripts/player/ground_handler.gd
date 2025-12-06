@@ -90,6 +90,7 @@ func _on_player_jumped() -> void:
 	# Clear ground contacts
 	_update_current_surface_info(null)
 	leave_ground.emit()
+	PlayerEventBus.player_jumped.emit(_player.global_position)
 
 
 func _surface_is_same(surface_info_a: SurfaceInfo, surface_info_b: SurfaceInfo) -> bool:
@@ -99,10 +100,13 @@ func _surface_is_same(surface_info_a: SurfaceInfo, surface_info_b: SurfaceInfo) 
 
 
 func _update_current_surface_info(new_surface_info: SurfaceInfo) -> void:
+	if _current_surface == null and new_surface_info != null:
+		PlayerEventBus.player_landed.emit(_player.global_position)
 	_current_surface = new_surface_info
 
 
 func _on_player_collided(collision: KinematicCollision2D) -> void:
+
 	_handle_collision(collision)
 
 

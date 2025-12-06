@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn75rko42o47k"
-path="res://.godot/imported/blinkfly_reticle-Sheet.png-49e5b71e37823727f30b09ff69671c29.ctex"
+uid="uid://dvic7bbkihdqv"
+path="res://.godot/imported/blinkfly_trajectory_flash.png-11bbe7f805b7f55c80423db3cf7664ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/blinkfly_reticle-Sheet.png"
-dest_files=["res://.godot/imported/blinkfly_reticle-Sheet.png-49e5b71e37823727f30b09ff69671c29.ctex"]
+source_file="res://sprites/blinkfly_trajectory_flash.png"
+dest_files=["res://.godot/imported/blinkfly_trajectory_flash.png-11bbe7f805b7f55c80423db3cf7664ea.ctex"]
 
 [params]
 

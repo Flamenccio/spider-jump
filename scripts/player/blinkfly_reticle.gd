@@ -28,3 +28,15 @@ func deactivate_cursor() -> void:
 func activate_cursor() -> void:
 	show()
 	_active = true
+
+
+func _on_pull_pressed() -> void:
+	if not _active:
+		return
+	play("click")
+
+
+func _on_pull_released() -> void:
+	if not _active:
+		return
+	play("default")

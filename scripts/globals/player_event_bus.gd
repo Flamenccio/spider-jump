@@ -41,3 +41,13 @@ signal player_collision_enter(collision: KinematicCollision2D)
 ## Passes [code]where[/code], a [code]Vector[/code] global position
 ## where the player fell.
 signal player_fell(where: Vector2)
+
+## Called when the player jumps.
+## Passes [code]where[/code], a [code]Vector2[/code] global position
+## where the player jumped.
+signal player_jumped(where: Vector2)
+
+## Called when the player lands.
+## Passes [code]where[/code], a [code]Vector2[/code] global position
+## where the player landed.
+signal player_landed(where: Vector2)
