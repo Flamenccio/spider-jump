@@ -304,8 +304,6 @@ script = ExtResource("21_5newe")
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
-[connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]
-[connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]
 [connection signal="ready" from="PlayerStatsSaver" to="UI/Hud" method="_on_stats_saver_ready"]
 [connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]
 [connection signal="give_hint" from="PlayerHints" to="UI/PowerupHint" method="display_text"]

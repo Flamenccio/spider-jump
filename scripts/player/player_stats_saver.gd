@@ -1,6 +1,5 @@
 extends Node
 
-signal high_score_displayed(hi: int)
 signal high_score_updated(new_hi: int)
 
 @export var _records_file_uid: String
@@ -21,10 +20,9 @@ func _on_game_end() -> void:
 
 	if _hot_records.last_record_is_highest():
 		ResourceSaver.save(_hot_records, _records_path)
+		high_score_updated.emit(score)
 		return
 
-	high_score_displayed.emit(_hot_records.highest_score)
-	high_score_updated.emit(score)
 	ResourceSaver.save(_hot_records, _records_path)
 
 
