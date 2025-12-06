@@ -64,7 +64,7 @@ text = "ui.label.death_screen.game_over"
 label_settings = SubResource("LabelSettings_itto5")
 horizontal_alignment = 1
 
-[node name="ControlCenterer" type="Node" parent="YouDied"]
+[node name="ControlCenterer" type="Node" parent="YouDied" groups=["centerer"]]
 script = ExtResource("8_qj43u")
 metadata/_custom_type_script = "uid://bmvv0126s7mjv"
 
@@ -157,7 +157,7 @@ layout_mode = 2
 [node name="DigitDisplay6" parent="Scores/HighScore/HighScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="ControlCenterer" type="Node" parent="Scores"]
+[node name="ControlCenterer" type="Node" parent="Scores" groups=["centerer"]]
 script = ExtResource("8_qj43u")
 metadata/_custom_type_script = "uid://bmvv0126s7mjv"
 
@@ -187,7 +187,7 @@ layout_mode = 2
 theme = ExtResource("8_5d08o")
 text = "ui.button.pause_screen.exit"
 
-[node name="ControlCenterer" type="Node" parent="Buttons"]
+[node name="ControlCenterer" type="Node" parent="Buttons" groups=["centerer"]]
 script = ExtResource("8_qj43u")
 metadata/_custom_type_script = "uid://bmvv0126s7mjv"
 

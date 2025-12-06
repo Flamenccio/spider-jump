@@ -2,7 +2,7 @@ class_name ControlCenterer
 extends Node
 ## Updates the pivot offset of this node's parent to be centered.
 
-var active := true
+var poll := false
 var _parent: Control
 
 func _ready() -> void:
@@ -13,6 +13,19 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not active:
+	if not poll:
 		return
 	_parent.pivot_offset = _parent.size / 2.0
+
+
+func activate_polling() -> void:
+	poll = true
+
+
+func deactivate_polling() -> void:
+	poll = false
+
+
+func center_parent() -> void:
+	_parent.pivot_offset = _parent.size / 2.0
+

@@ -1,5 +1,6 @@
 extends Camera2D
 
+# Screen shaking
 const _MAX_SCREEN_SHAKE_POWER = 1.0
 const _MIN_SCREEN_SHAKE_POWER = 0.0
 const _SCREEN_SHAKE_DURATION_SECONDS = 0.20
@@ -10,11 +11,16 @@ const _MIN_SMOOTHING_SPEED = 3.0
 const _MAX_SMOOTHING_SPEED = 5.0
 const _MIN_PLAYER_SPEED = 0.0
 const _MAX_PLAYER_SPEED = 300.0
-
 const _SMOOTHING_RATIO = (_MAX_SMOOTHING_SPEED - _MIN_SMOOTHING_SPEED) / (_MAX_PLAYER_SPEED - _MIN_PLAYER_SPEED)
+
+# Camera peeking
+const _PEEK_TRIGGER_MOUSE_DISTANCE = 0.8
 
 var _screen_shake_timer := Timer.new()
 var _screen_shake_intensity := 0.0
+var _player_pulling := false
+var _peek_offset := Vector2.ZERO
+var _screen_shake_offset := Vector2.ZERO
 
 @export var _follow_target: Node2D
 
@@ -40,11 +46,17 @@ func _process(delta: float) -> void:
 		_movement()
 		_set_dynamic_smoothing_speed()
 
+	if _player_pulling:
+		_peek_mouse()
+	else:
+		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.01)
+
 
 func _physics_process(delta: float) -> void:
 	if _screen_shake_intensity > 0:
 		var point = _get_point_in_circle()
-		offset = point * _screen_shake_intensity
+		_screen_shake_offset = point * _screen_shake_intensity
+	offset = _screen_shake_offset + _peek_offset
 
 
 func _debug_movement() -> void:
@@ -94,5 +106,30 @@ func _set_dynamic_smoothing_speed() -> void:
 
 func end_screen_shake() -> void:
 	_screen_shake_intensity = 0.0
-	offset = Vector2.ZERO
+	_screen_shake_offset = Vector2.ZERO
 	_screen_shake_timer.stop()
+
+
+func _on_pull_pressed() -> void:
+	_player_pulling = true
+
+
+func _on_pull_released() -> void:
+	_player_pulling = false
+
+
+# Move the camera offset down if the mouse is
+# close to the bottom edge
+func _peek_mouse() -> void:
+
+	var viewport_mouse_position = get_viewport().get_mouse_position()
+	var normalized_mouse_position = viewport_mouse_position / get_viewport_rect().size
+
+	var camera_player_height_difference = global_position.y - _follow_target.global_position.y
+	var mouse_close = normalized_mouse_position.y >= _PEEK_TRIGGER_MOUSE_DISTANCE
+	var player_close = camera_player_height_difference <= -48.0
+
+	if mouse_close and player_close:
+		_peek_offset = Vector2(0.0, lerpf(_peek_offset.y, 16.0, 0.01)) 
+	elif not mouse_close and player_close:
+		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.01)
