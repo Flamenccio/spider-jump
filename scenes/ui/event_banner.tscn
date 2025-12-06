@@ -1,10 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://uenvogxdugle"]
+[gd_scene load_steps=11 format=3 uid="uid://uenvogxdugle"]
 
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_etkkv"]
 [ext_resource type="Script" uid="uid://7ai11l3ng42o" path="res://scripts/ui/event_banner.gd" id="1_tjo2y"]
 [ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_nv8pk"]
+[ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="3_m3mpq"]
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="3_nv8pk"]
 [ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="4_m3mpq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwufv"]
+resource_local_to_scene = true
+shader = ExtResource("3_m3mpq")
+shader_parameter/progress = 0.0
+shader_parameter/moving_side = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gxs42"]
 shader = ExtResource("4_m3mpq")
@@ -14,11 +21,9 @@ shader_parameter/oscillate_speed = 16.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_04qg5"]
 font = ExtResource("3_nv8pk")
-font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_nv8pk"]
 font = ExtResource("3_nv8pk")
-font_size = 64
 
 [node name="EventBanner" type="Control" node_paths=PackedStringArray("_event_label", "_banner")]
 layout_mode = 3
@@ -34,13 +39,12 @@ _banner = NodePath("Black")
 
 [node name="Black" parent="." instance=ExtResource("1_etkkv")]
 visible = true
+material = SubResource("ShaderMaterial_iwufv")
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.001
+anchors_preset = 10
 anchor_bottom = 0.0
-offset_left = -0.15200007
-offset_top = 77.0
-offset_bottom = 145.0
+offset_top = 8.0
+offset_bottom = 40.0
 grow_vertical = 1
 texture = ExtResource("2_nv8pk")
 enter_side = 1
@@ -51,13 +55,10 @@ exit_duration = 0.1
 [node name="BannerLabel" type="Label" parent="."]
 material = SubResource("ShaderMaterial_gxs42")
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -232.0
-offset_top = 76.0
-offset_right = 232.0
-offset_bottom = 148.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 15.0
+offset_bottom = 33.0
 grow_horizontal = 2
 text = "EVENT STARTED!"
 label_settings = SubResource("LabelSettings_04qg5")
@@ -66,16 +67,14 @@ vertical_alignment = 1
 
 [node name="EventLabel" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -96.0
-offset_top = 147.0
-offset_right = 96.0
-offset_bottom = 219.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 43.0
+offset_bottom = 61.0
 grow_horizontal = 2
 text = "Wasps!"
 label_settings = SubResource("LabelSettings_nv8pk")
+horizontal_alignment = 1
 
 [connection signal="display_elements" from="." to="BannerLabel" method="show"]
 [connection signal="display_elements" from="." to="EventLabel" method="show"]

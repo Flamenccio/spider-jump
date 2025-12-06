@@ -119,7 +119,8 @@ func _handle_pull_trigger(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		pull_released.emit()
 	if event.is_action_pressed("pull_button"):
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+		if not OS.get_name() == "Web":
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 		pull_pressed.emit()
 
 

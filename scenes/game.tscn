@@ -116,7 +116,6 @@ _game_spawner = NodePath("GameSpawner")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 process_mode = 1
-zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 script = ExtResource("3_5newe")
@@ -220,7 +219,7 @@ texture = SubResource("AtlasTexture_264po")
 
 [node name="PlayerStatsSaver" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
-_records_file_uid = "uid://cj3febcfsfe7r"
+_records_file_uid = "uid://r5dups3jppnv"
 _player_stats = NodePath("../PlayerStats")
 
 [node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]

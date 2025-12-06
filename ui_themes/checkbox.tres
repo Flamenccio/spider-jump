@@ -5,16 +5,17 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bxmy"]
 atlas = ExtResource("1_ahus6")
-region = Rect2(80, 16, 32, 32)
+region = Rect2(40, 8, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahus6"]
 atlas = ExtResource("1_ahus6")
-region = Rect2(16, 16, 32, 32)
+region = Rect2(8, 8, 16, 16)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ahus6"]
 
 [resource]
 default_font = ExtResource("1_6kmdr")
+default_font_size = 8
 CheckBox/icons/checked = SubResource("AtlasTexture_0bxmy")
 CheckBox/icons/unchecked = SubResource("AtlasTexture_ahus6")
 CheckBox/styles/focus = SubResource("StyleBoxEmpty_ahus6")

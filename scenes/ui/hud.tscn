@@ -45,12 +45,12 @@ region = Rect2(48, 72, 32, 8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_kicr4"]
 font = ExtResource("9_4jqwt")
-font_size = 32
+font_size = 8
 font_color = Color(0.37254903, 0.34117648, 0.30980393, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_mj13f"]
 font = ExtResource("9_4jqwt")
-font_size = 32
+font_size = 8
 font_color = Color(0.37254903, 0.34117648, 0.30980393, 1)
 
 [node name="Hud" type="Control"]
@@ -71,12 +71,11 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -27.0
-offset_top = -40.0
+offset_top = -18.0
 offset_right = 27.0
-offset_bottom = -28.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(4, 4)
 pivot_offset = Vector2(27, 6)
 size_flags_vertical = 8
 theme_override_constants/h_separation = -1
@@ -107,11 +106,10 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -20.0
-offset_top = 86.0
+offset_top = 10.0
 offset_right = 20.0
-offset_bottom = 118.0
+offset_bottom = 42.0
 grow_horizontal = 2
-scale = Vector2(4, 4)
 pivot_offset = Vector2(20, 16)
 theme_override_constants/separation = 0
 
@@ -182,10 +180,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = -93.0
-offset_right = 153.0
-offset_bottom = -17.0
+offset_left = 6.0
+offset_top = -31.0
+offset_right = 146.0
+offset_bottom = 45.0
 grow_vertical = 0
 
 [node name="LevelLabel" type="Label" parent="ExtrasDisplay"]

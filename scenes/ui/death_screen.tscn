@@ -12,7 +12,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_itto5"]
 font = ExtResource("3_0863s")
-font_size = 64
 font_color = Color(1, 0.00392157, 0.00392157, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -51,15 +50,11 @@ texture = ExtResource("2_5d08o")
 
 [node name="YouDied" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -444.0
-offset_top = 113.0
-offset_right = 444.0
-offset_bottom = 185.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 26.0
 grow_horizontal = 2
-pivot_offset = Vector2(444, 36)
 text = "ui.label.death_screen.game_over"
 label_settings = SubResource("LabelSettings_itto5")
 horizontal_alignment = 1
@@ -70,19 +65,14 @@ metadata/_custom_type_script = "uid://bmvv0126s7mjv"
 
 [node name="Scores" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -63.0
-offset_top = 18.0
-offset_right = 63.0
-offset_bottom = 43.5
+offset_top = -26.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(63, 12.75)
 
 [node name="Score" type="HBoxContainer" parent="Scores"]
 layout_mode = 2
@@ -168,14 +158,12 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -131.0
-offset_right = 96.0
-offset_bottom = -67.0
+offset_left = -49.0
+offset_top = -61.0
+offset_right = 49.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(2, 2)
-pivot_offset = Vector2(96, 32)
 
 [node name="RestartButton" type="Button" parent="Buttons"]
 layout_mode = 2
