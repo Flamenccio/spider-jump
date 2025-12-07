@@ -2,10 +2,12 @@ extends Sprite2D
 
 @export var _active_sprite: Texture2D
 @export var _inactive_sprite: Texture2D
+@export var _invalid_sprite: Texture2D
 @export var _hover_active_sprite: Texture2D
 @export var _hover_inactive_sprite: Texture2D
 @export var _start_active: bool = true
 
+var invalid := false
 var active: bool = false
 var hovering: bool = false
 var hover_powerup: bool = false:
@@ -34,6 +36,22 @@ func _ready() -> void:
 		set_inactive()
 	PlayerEventBus.powerup_started.connect(_handle_powerup)
 	PlayerEventBus.powerup_ended.connect(_handle_powerup_end)
+	PlayerEventBus.player_aim.connect(_on_player_aim)
+
+
+func _on_player_aim(direction: Vector2, is_valid: bool) -> void:
+
+	if invalid == not is_valid:
+		return
+
+	invalid = not is_valid
+	if not is_valid:
+		set_invalid()
+	else:
+		if active:
+			set_active()
+		else:
+			set_inactive()
 
 
 func set_active() -> void:
@@ -50,6 +68,10 @@ func set_inactive() -> void:
 		texture = _hover_inactive_sprite
 	else:
 		texture = _inactive_sprite
+
+
+func set_invalid() -> void:
+	texture = _invalid_sprite
 
 
 func _handle_powerup(powerup: String) -> void:

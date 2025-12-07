@@ -51,3 +51,11 @@ signal player_jumped(where: Vector2)
 ## Passes [code]where[/code], a [code]Vector2[/code] global position
 ## where the player landed.
 signal player_landed(where: Vector2)
+
+
+## Called when the player is aiming.
+## Passes [code]direction[/code], a normalized [code]Vector2[/code] representing a direction
+## and [code]is_valid[/code], a boolean value where [b]true[/b] when the player can
+## jump in the direction or [b]false[/b] otherwise.
+signal player_aim(direction: Vector2, is_valid: bool)
+

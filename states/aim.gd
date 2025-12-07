@@ -98,6 +98,8 @@ func _on_pull_input_change(input: Vector2) -> void:
 	var acceleration = Vector2(0, GameConstants.current_gravity)
 	trajectory_updated.emit(velocity, acceleration)
 
+	PlayerEventBus.player_aim.emit(input * -1, _is_jump_direction_valid(input * -1))
+
 
 func _jump() -> void:
 
@@ -131,7 +133,7 @@ func _jump() -> void:
 
 
 func _is_jump_direction_valid(direction: Vector2) -> bool:
-	var dot = floorf(direction.dot(_surface_normal))
+	var dot = snappedf(direction.dot(_surface_normal), 0.1)
 	return dot > 0.0 or _surface_normal == Vector2.ZERO
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=62 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://gq03f4frq8jk" path="res://scripts/game/level_event_starter.gd" id="13_wljb1"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://scripts/levels/level_spawn_trigger.gd" id="14_wljb1"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/ui/hud.tscn" id="15_v2yb1"]
+[ext_resource type="Texture2D" uid="uid://dr66l68y0q5vu" path="res://sprites/pull_circle_dark.png" id="16_05nbr"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/ui/death_screen.tscn" id="16_js0lu"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://scripts/player/player_stats.gd" id="17_gxtfn"]
 [ext_resource type="Texture2D" uid="uid://ckbmtup38vh4f" path="res://sprites/pull_circle_hoverfly-Sheet.png" id="17_sww3w"]
@@ -38,12 +39,12 @@
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="37_nepv3"]
 [ext_resource type="Script" uid="uid://b7kielrj6p8cd" path="res://scripts/utility/sound_manager.gd" id="38_nepv3"]
 [ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="40_05nbr"]
-[ext_resource type="Resource" uid="uid://clglltm1d6sph" path="res://resources/powerups/hopperpop.tres" id="40_458eo"]
 [ext_resource type="Script" uid="uid://bdx7qqns2omy" path="res://scripts/game/stamina_drainer.gd" id="40_m4url"]
 [ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="42_oaba0"]
 [ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="43_458eo"]
 [ext_resource type="Shader" uid="uid://ctrysyimdrf1o" path="res://shaders/texture_scroll.gdshader" id="43_oaba0"]
 [ext_resource type="Texture2D" uid="uid://b07nu00q504ie" path="res://ui_themes/blinkfly_trajectory-Sheet.png" id="44_oaba0"]
+[ext_resource type="Resource" uid="uid://b3dk2h5mocpbw" path="res://resources/powerups/hoverfly.tres" id="45_h3rex"]
 [ext_resource type="Script" uid="uid://d1qpl3ueede7u" path="res://scripts/player/blinkfly_trajectory.gd" id="45_oaba0"]
 [ext_resource type="Texture2D" uid="uid://dvic7bbkihdqv" path="res://sprites/blinkfly_trajectory_flash.png" id="46_458eo"]
 
@@ -114,14 +115,14 @@ animations = [{
 atlas = ExtResource("21_37s47")
 region = Rect2(3, 3, 2, 2)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0okvd"]
-atlas = ExtResource("42_oaba0")
-region = Rect2(24, 0, 8, 8)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_458eo"]
 shader = ExtResource("43_oaba0")
 shader_parameter/speed_x = -2.0
 shader_parameter/speed_y = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+atlas = ExtResource("42_oaba0")
+region = Rect2(0, 0, 8, 8)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
@@ -181,6 +182,7 @@ texture = ExtResource("11_suyxu")
 script = ExtResource("12_sgl2t")
 _active_sprite = ExtResource("11_suyxu")
 _inactive_sprite = ExtResource("13_qouja")
+_invalid_sprite = ExtResource("16_05nbr")
 _hover_active_sprite = SubResource("AtlasTexture_suyxu")
 _hover_inactive_sprite = SubResource("AtlasTexture_sgl2t")
 _start_active = false
@@ -246,6 +248,9 @@ process_mode = 1
 width = 1.0
 default_color = Color(0.160708, 0.674632, 0.996078, 1)
 script = ExtResource("18_twgab")
+_hoverfly_color = Color(1, 0, 0.3019608, 1)
+_normal_color = Color(0.16078432, 0.6784314, 1, 1)
+_invalid_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
 _fixed_endpoint = NodePath("../Player")
 
 [node name="BlinkflyReticle" type="AnimatedSprite2D" parent="."]
@@ -287,18 +292,6 @@ initial_velocity_min = 50.0
 initial_velocity_max = 150.0
 script = ExtResource("21_5newe")
 
-[node name="Hopperpop" parent="." instance=ExtResource("40_05nbr")]
-position = Vector2(1, -83)
-_debug_item = ExtResource("40_458eo")
-_item_id = "hopperpop"
-
-[node name="@Sprite2D@283210" type="Sprite2D" parent="Hopperpop"]
-z_index = 10
-texture = SubResource("AtlasTexture_0okvd")
-
-[node name="@CollisionShape2D@283211" type="CollisionShape2D" parent="Hopperpop"]
-shape = ExtResource("43_458eo")
-
 [node name="BlinkflyTrajectory" type="Line2D" parent="." node_paths=PackedStringArray("_target_a", "_target_b")]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_458eo")
@@ -310,6 +303,18 @@ _normal_texture = ExtResource("44_oaba0")
 _target_a = NodePath("../Player")
 _target_b = NodePath("../BlinkflyReticle")
 _raycast_hit_layers = 6
+
+[node name="Hoverfly" parent="." instance=ExtResource("40_05nbr")]
+position = Vector2(0, -70)
+_debug_item = ExtResource("45_h3rex")
+_item_id = "hoverfly"
+
+[node name="@Sprite2D@51939" type="Sprite2D" parent="Hoverfly"]
+z_index = 10
+texture = SubResource("AtlasTexture_ih772")
+
+[node name="@CollisionShape2D@51940" type="CollisionShape2D" parent="Hoverfly"]
+shape = ExtResource("43_458eo")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
