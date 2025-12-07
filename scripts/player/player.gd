@@ -15,6 +15,8 @@ var _invincibility_timer: Timer = Timer.new()
 
 var _movement_paused := false
 
+var _still_frames := 0
+
 # In seconds
 const _DEFAULT_INVINCIBILITY_TIME = 6.0
 
@@ -33,6 +35,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if velocity.length() <= 0:
+		return
 	if not _movement_paused and move_and_slide():
 		PlayerEventBus.player_collision_enter.emit(get_last_slide_collision())
 

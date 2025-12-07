@@ -14,3 +14,5 @@ func enter_state() -> void:
 
 	if GameConstants.current_powerup == ItemIds.BLINKFLY_POWERUP:
 		GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
+
+

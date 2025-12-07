@@ -377,7 +377,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_31cv2"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2gpp"]
 size = Vector2(6, 6)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dta47"]
@@ -389,8 +389,8 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dta47"]
-size = Vector2(8, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fanr8"]
+size = Vector2(7, 7)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ni07"]
 radius = 6.0
@@ -435,7 +435,7 @@ _sprite = NodePath("../Sprite")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_31cv2")
+shape = SubResource("RectangleShape2D_w2gpp")
 
 [node name="LedgeClimb" type="Node" parent="." node_paths=PackedStringArray("_player", "_ground_detector_l", "_ground_detector_r")]
 script = ExtResource("24_l71n6")
@@ -469,6 +469,7 @@ script = ExtResource("19_w2gpp")
 [node name="NormalDust" type="CPUParticles2D" parent="Particles/DustManager"]
 z_index = -1
 material = SubResource("CanvasItemMaterial_60mlk")
+emitting = false
 amount = 10
 texture = ExtResource("20_60mlk")
 lifetime = 0.66
@@ -498,6 +499,7 @@ metadata/associated_powerup = "hopperpop"
 [node name="Detectors" type="Node2D" parent="."]
 
 [node name="GroundDetector" type="Area2D" parent="Detectors"]
+visible = false
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 6
@@ -505,9 +507,10 @@ collision_priority = 5.0
 priority = 5
 
 [node name="Shape" type="CollisionShape2D" parent="Detectors/GroundDetector"]
-shape = SubResource("RectangleShape2D_dta47")
+shape = SubResource("RectangleShape2D_fanr8")
 
 [node name="ItemDetector" type="Area2D" parent="Detectors"]
+visible = false
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 8
@@ -517,6 +520,7 @@ shape = SubResource("CircleShape2D_4ni07")
 debug_color = Color(0.7, 0.653333, 0, 0.419608)
 
 [node name="DangerDetector" type="Area2D" parent="Detectors"]
+visible = false
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 16
@@ -527,6 +531,7 @@ shape = SubResource("CircleShape2D_l71n6")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
 [node name="LedgeDetectorL" type="ShapeCast2D" parent="Detectors"]
+visible = false
 position = Vector2(-3, 7)
 shape = SubResource("CircleShape2D_ke2ow")
 target_position = Vector2(0, 0)
@@ -534,6 +539,7 @@ max_results = 4
 collision_mask = 6
 
 [node name="LedgeDetectorR" type="ShapeCast2D" parent="Detectors"]
+visible = false
 position = Vector2(3, 7)
 shape = SubResource("CircleShape2D_ke2ow")
 target_position = Vector2(0, 0)
