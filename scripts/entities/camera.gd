@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 	if _player_pulling:
 		_peek_mouse()
 	else:
-		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.01)
+		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.05)
 
 
 func _physics_process(delta: float) -> void:
@@ -132,4 +132,4 @@ func _peek_mouse() -> void:
 	if mouse_close and player_close:
 		_peek_offset = Vector2(0.0, lerpf(_peek_offset.y, 16.0, 0.01)) 
 	elif not mouse_close and player_close:
-		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.01)
+		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.05)

@@ -114,6 +114,7 @@ func _on_game_restart() -> void:
 	GlobalSoundManager.stop_music()
 	GameConstants.difficulty = _debug_initial_difficulty
 	GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
+	GameConstants.current_powerup = ItemIds.NO_POWERUP
 	_game_screen_transition.enter_transition_finished.connect(_restart_game, ConnectFlags.CONNECT_ONE_SHOT)
 	_game_screen_transition.play_enter_animation()
 

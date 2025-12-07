@@ -19,9 +19,7 @@ func _on_game_end() -> void:
 	_hot_records.add_record(score)
 
 	if _hot_records.last_record_is_highest():
-		ResourceSaver.save(_hot_records, _records_path)
 		high_score_updated.emit(score)
-		return
 
 	ResourceSaver.save(_hot_records, _records_path)
 

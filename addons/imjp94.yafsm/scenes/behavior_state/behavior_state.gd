@@ -63,4 +63,3 @@ func set_param(param: String, value: Variant) -> void:
 ## Wrapper function for `get_state_machine_param` Callable; both have the same effect.
 func get_param(param: String) -> Variant:
 	return get_state_machine_param.call(param)
-

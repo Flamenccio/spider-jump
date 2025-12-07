@@ -253,7 +253,7 @@ texture = SubResource("AtlasTexture_264po")
 
 [node name="PlayerStatsSaver" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
-_records_file_uid = "uid://mbj2uwbbtpvw"
+_records_file_uid = "uid://dg1et152o6xcr"
 _player_stats = NodePath("../PlayerStats")
 
 [node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
