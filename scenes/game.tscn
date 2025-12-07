@@ -1,8 +1,9 @@
-[gd_scene load_steps=62 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=64 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
 [ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://scripts/game/death_trigger.gd" id="4_37s47"]
+[ext_resource type="Texture2D" uid="uid://ddfgkjelp8nde" path="res://scenes/level_objects/danger_line.png" id="4_fedci"]
 [ext_resource type="Script" uid="uid://cfterj86j0hyu" path="res://scripts/globals/input_server.gd" id="6_05nbr"]
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="6_e1j6l"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://scripts/levels/level_spawner.gd" id="8_bhx41"]
@@ -50,6 +51,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fedci"]
+size = Vector2(256, 20)
 
 [sub_resource type="Resource" id="Resource_sww3w"]
 script = ExtResource("11_bhx41")
@@ -149,8 +153,21 @@ shape = SubResource("RectangleShape2D_eow3j")
 
 [node name="Sprite" type="Sprite2D" parent="Camera/DeathTrigger"]
 visible = false
-scale = Vector2(1.97784, 0.137882)
-texture = ExtResource("6_e1j6l")
+z_index = 5
+texture_repeat = 2
+position = Vector2(0, -8)
+texture = ExtResource("4_fedci")
+region_enabled = true
+region_rect = Rect2(-40, 0, 104, 8)
+region_filter_clip_enabled = true
+
+[node name="WarningArea" type="Area2D" parent="Camera"]
+position = Vector2(1, 71)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera/WarningArea"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_fedci")
 
 [node name="InputServer" type="Node" parent="."]
 script = ExtResource("6_05nbr")
@@ -332,6 +349,8 @@ shape = ExtResource("43_458eo")
 [connection signal="player_fell" from="Camera/DeathTrigger" to="Player/PullCircle" method="show"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="Camera" method="screen_shake" binds= [0.4]]
+[connection signal="body_entered" from="Camera/WarningArea" to="Camera/DeathTrigger/Sprite" method="show" unbinds=1]
+[connection signal="body_exited" from="Camera/WarningArea" to="Camera/DeathTrigger/Sprite" method="hide" unbinds=1]
 [connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
 [connection signal="pull_input_updated" from="InputServer" to="PullDragline" method="pull_update"]
 [connection signal="pull_pressed" from="InputServer" to="Camera" method="_on_pull_pressed"]
