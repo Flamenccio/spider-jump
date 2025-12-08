@@ -20,6 +20,7 @@ var _screen_shake_timer := Timer.new()
 var _screen_shake_intensity := 0.0
 var _player_pulling := false
 var _peek_offset := Vector2.ZERO
+var follow_offset := Vector2.ZERO
 var _screen_shake_offset := Vector2.ZERO
 
 @export var _follow_target: Node2D
@@ -35,6 +36,9 @@ func _ready() -> void:
 	_screen_shake_timer.timeout.connect(end_screen_shake)
 	_screen_shake_timer.one_shot = true
 	add_child(_screen_shake_timer)
+
+	PlayerEventBus.powerup_started.connect(_on_powerup_started)
+	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
 
 
 func _process(delta: float) -> void:
@@ -56,7 +60,7 @@ func _physics_process(delta: float) -> void:
 	if _screen_shake_intensity > 0:
 		var point = _get_point_in_circle()
 		_screen_shake_offset = point * _screen_shake_intensity
-	offset = _screen_shake_offset + _peek_offset
+	offset = _screen_shake_offset + _peek_offset + follow_offset
 
 
 func _debug_movement() -> void:
@@ -125,11 +129,41 @@ func _peek_mouse() -> void:
 	var viewport_mouse_position = get_viewport().get_mouse_position()
 	var normalized_mouse_position = viewport_mouse_position / get_viewport_rect().size
 
-	var camera_player_height_difference = global_position.y - _follow_target.global_position.y
+	var camera_player_height_difference = global_position.y + follow_offset.y - _follow_target.global_position.y
 	var mouse_close = normalized_mouse_position.y >= _PEEK_TRIGGER_MOUSE_DISTANCE
 	var player_close = camera_player_height_difference <= -48.0
 
 	if mouse_close and player_close:
-		_peek_offset = Vector2(0.0, lerpf(_peek_offset.y, 16.0, 0.01)) 
+		_peek_offset = Vector2(0.0, lerpf(_peek_offset.y, 24.0 + absf(follow_offset.y), 0.02)) 
 	elif not mouse_close and player_close:
 		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.05)
+
+
+func smooth_zoom(zoom_level: float) -> void:
+	var z = Vector2(zoom_level, zoom_level)
+	var tween = create_tween()
+	tween.tween_property(self, "zoom", z, 0.5)
+	tween.set_trans(Tween.TRANS_SINE)
+
+
+func _on_powerup_started(powerup: String) -> void:
+	match powerup:
+		ItemIds.HOVERFLY_POWERUP:
+			set_follow_offset(-32.0)
+		ItemIds.HOPPERPOP_POWERUP:
+			set_follow_offset(-32.0)
+		ItemIds.ANTIBUG_POWERUP:
+			set_follow_offset(-32.0)
+		_:
+			return
+
+
+func _on_powerup_ended(_powerup: String) -> void:
+	set_follow_offset(0.0, 3.3)
+
+
+func set_follow_offset(offset: float, duration := 0.3) -> void:
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "follow_offset", Vector2(0, offset), duration) 
+

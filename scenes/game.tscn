@@ -45,9 +45,9 @@
 [ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="43_458eo"]
 [ext_resource type="Shader" uid="uid://ctrysyimdrf1o" path="res://shaders/texture_scroll.gdshader" id="43_oaba0"]
 [ext_resource type="Texture2D" uid="uid://b07nu00q504ie" path="res://ui_themes/blinkfly_trajectory-Sheet.png" id="44_oaba0"]
-[ext_resource type="Resource" uid="uid://b3dk2h5mocpbw" path="res://resources/powerups/hoverfly.tres" id="45_h3rex"]
 [ext_resource type="Script" uid="uid://d1qpl3ueede7u" path="res://scripts/player/blinkfly_trajectory.gd" id="45_oaba0"]
 [ext_resource type="Texture2D" uid="uid://dvic7bbkihdqv" path="res://sprites/blinkfly_trajectory_flash.png" id="46_458eo"]
+[ext_resource type="Resource" uid="uid://clglltm1d6sph" path="res://resources/powerups/hopperpop.tres" id="46_fedci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
@@ -124,9 +124,9 @@ shader = ExtResource("43_oaba0")
 shader_parameter/speed_x = -2.0
 shader_parameter/speed_y = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0okvd"]
 atlas = ExtResource("42_oaba0")
-region = Rect2(0, 0, 8, 8)
+region = Rect2(24, 0, 8, 8)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
@@ -253,7 +253,7 @@ texture = SubResource("AtlasTexture_264po")
 
 [node name="PlayerStatsSaver" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
-_records_file_uid = "uid://dg1et152o6xcr"
+_records_file_uid = "uid://drd2qbr8vvsm3"
 _player_stats = NodePath("../PlayerStats")
 
 [node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
@@ -321,16 +321,16 @@ _target_a = NodePath("../Player")
 _target_b = NodePath("../BlinkflyReticle")
 _raycast_hit_layers = 6
 
-[node name="Hoverfly" parent="." instance=ExtResource("40_05nbr")]
+[node name="Hopperpop" parent="." instance=ExtResource("40_05nbr")]
 position = Vector2(0, -70)
-_debug_item = ExtResource("45_h3rex")
-_item_id = "hoverfly"
+_debug_item = ExtResource("46_fedci")
+_item_id = "hopperpop"
 
-[node name="@Sprite2D@51939" type="Sprite2D" parent="Hoverfly"]
+[node name="@Sprite2D@48002" type="Sprite2D" parent="Hopperpop"]
 z_index = 10
-texture = SubResource("AtlasTexture_ih772")
+texture = SubResource("AtlasTexture_0okvd")
 
-[node name="@CollisionShape2D@51940" type="CollisionShape2D" parent="Hoverfly"]
+[node name="@CollisionShape2D@48003" type="CollisionShape2D" parent="Hopperpop"]
 shape = ExtResource("43_458eo")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
