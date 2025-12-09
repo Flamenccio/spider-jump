@@ -2,13 +2,13 @@ extends Node
 
 signal high_score_updated(new_hi: int)
 
-@export var _records_file_uid: String
+#@export var _records_file_uid: String
 @export var _player_stats: Node
 var _hot_records: Records
-var _records_path: String
+@export_file var _records_path: String
 
 func _ready() -> void:
-	_records_path = ResourceUID.uid_to_path(_records_file_uid)
+	#_records_path = ResourceUID.uid_to_path(_records_file_uid)
 	_hot_records = load(_records_path)
 	GameConstants.high_score = _hot_records.highest_score
 
