@@ -59,7 +59,10 @@ func set_active() -> void:
 	if hover_powerup:
 		texture = _hover_active_sprite
 	else:
-		texture = _active_sprite
+		if invalid:
+			texture = _invalid_sprite
+		else:
+			texture = _active_sprite
 
 
 func set_inactive() -> void:
