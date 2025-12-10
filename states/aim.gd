@@ -124,6 +124,7 @@ func _jump(direction: Vector2) -> void:
 	var _jump_vector = direction * _jump_force * -1
 
 	if not _is_jump_direction_valid(_jump_vector):
+		set_param("aim", false)
 		return
 
 	set_param('jump', true)
