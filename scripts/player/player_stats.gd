@@ -63,11 +63,11 @@ func change_stamina(amount: float) -> void:
 
 
 func update_score(new_score: int) -> void:
-	new_score = mini(new_score, score)
+	new_score = maxi(absi(new_score), score)
 	if score != new_score:
 		score = new_score
-		PlayerEventBus.player_stat_updated.emit(PlayerStatsInterface.STATS_SCORE, abs(score))
-		player_stat_updated.emit(PlayerStatsInterface.STATS_SCORE, abs(score))
+		PlayerEventBus.player_stat_updated.emit(PlayerStatsInterface.STATS_SCORE, score)
+		player_stat_updated.emit(PlayerStatsInterface.STATS_SCORE, score)
 
 
 func handle_stats_change_request(stat: String, change: Variant) -> void:

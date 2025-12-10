@@ -7,8 +7,12 @@ signal death_screen_button_pressed(button: String)
 
 func _ready() -> void:
 	PlayerEventBus.player_stat_updated.connect(_on_player_stat_updated, ConnectFlags.CONNECT_DEFERRED)
-	$Scores/HighScore/ScoreLabel.set_shader_param("osciallate_active", false)
+	$Scores/HighScore/ScoreLabel.set_shader_param("oscillate_active", false)
 	visibility_changed.connect(_on_visibility_changed)
+
+
+func _on_game_over() -> void:
+	_high_score_display.display_value(GameConstants.high_score)
 
 
 func _on_visibility_changed() -> void:
@@ -30,7 +34,8 @@ func _update_high_score(score: int) -> void:
 
 
 func _new_high_score_reached() -> void:
-	$Scores/HighScore/ScoreLabel.set_shader_param("osciallate_active", true)
+	$Scores/HighScore/ScoreLabel.set_shader_param("oscillate_active", true)
+	_update_high_score(GameConstants.high_score)
 
 
 func _on_button_pressed(button: String) -> void:

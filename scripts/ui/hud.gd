@@ -17,7 +17,7 @@ func _ready() -> void:
 	PlayerEventBus.powerup_timer_updated.connect(_on_powerup_timer_updated)
 
 
-func _on_stats_saver_ready() -> void:
+func _on_record_keeper_ready() -> void:
 	var score_string = str(GameConstants.high_score).pad_zeros(6)
 	var label_text = "{0}: {1}".format({"0": tr("ui.label.generic.high_score"), "1": score_string})
 	_extra_high_score_display.text = label_text

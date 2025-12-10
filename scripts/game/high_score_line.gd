@@ -15,7 +15,7 @@ func _ready() -> void:
 	add_child(_death_timer)
 
 
-func _on_stats_saver_ready() -> void:
+func _on_record_keeper_ready() -> void:
 
 	var high_score = _high_score_saver.get_high_score()
 

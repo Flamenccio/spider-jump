@@ -2,7 +2,11 @@ extends Node2D
 
 signal levelled_up(new_level: int)
 signal on_game_over()
+
+## Emits the raw score based on the player's elevation every frame.
+## Note that the emitted value can be negative (higher elevation = smaller value)
 signal score_updated(score: int)
+
 signal pause_screen_enabled()
 signal pause_screen_disabled()
 signal game_exited()

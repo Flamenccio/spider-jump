@@ -28,7 +28,7 @@
 [ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
 [ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="PackedScene" uid="uid://dind7ho1brwrn" path="res://scenes/ui/pause_screen.tscn" id="21_qouja"]
-[ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player/player_stats_saver.gd" id="22_37s47"]
+[ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player/record_keeper.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://c22pgr73hau3t" path="res://scenes/ui/powerup_hint.tscn" id="22_qouja"]
 [ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/entities/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="24_7025r"]
@@ -206,11 +206,6 @@ script = ExtResource("14_wljb1")
 [node name="Collider" type="CollisionShape2D" parent="LevelSpawnTrigger"]
 shape = SubResource("RectangleShape2D_7jktm")
 
-[node name="Sprite2D" type="Sprite2D" parent="LevelSpawnTrigger"]
-visible = false
-scale = Vector2(1.23287, 0.04)
-texture = ExtResource("6_e1j6l")
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Hud" parent="UI" instance=ExtResource("15_v2yb1")]
@@ -243,14 +238,14 @@ visible = false
 scale = Vector2(0.0195312, 0.0195312)
 texture = SubResource("AtlasTexture_264po")
 
-[node name="PlayerStatsSaver" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
+[node name="RecordKeeper" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
 _player_stats = NodePath("../PlayerStats")
 _records_path = "res://high_score/records.res"
 
 [node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
 position = Vector2(0, -60)
-_high_score_saver = NodePath("../PlayerStatsSaver")
+_high_score_saver = NodePath("../RecordKeeper")
 
 [node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
 process_mode = 1
@@ -318,7 +313,8 @@ _raycast_hit_layers = 6
 [connection signal="levelled_up" from="." to="UI/Hud" method="_on_difficulty_level_updated"]
 [connection signal="levelled_up" from="." to="StaminaDrainer" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
-[connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
+[connection signal="on_game_over" from="." to="UI/DeathScreen" method="_on_game_over"]
+[connection signal="on_game_over" from="." to="RecordKeeper" method="_on_game_end" flags=3]
 [connection signal="pause_screen_disabled" from="." to="UI/Hud" method="show" flags=3]
 [connection signal="pause_screen_disabled" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled"]
 [connection signal="pause_screen_enabled" from="." to="UI/Hud" method="hide" flags=3]
@@ -356,7 +352,8 @@ _raycast_hit_layers = 6
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
-[connection signal="ready" from="PlayerStatsSaver" to="UI/Hud" method="_on_stats_saver_ready"]
-[connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]
+[connection signal="new_high_score_reached" from="RecordKeeper" to="UI/DeathScreen" method="_new_high_score_reached"]
+[connection signal="ready" from="RecordKeeper" to="UI/Hud" method="_on_record_keeper_ready"]
+[connection signal="ready" from="RecordKeeper" to="HighScoreLine" method="_on_record_keeper_ready"]
 [connection signal="give_hint" from="PlayerHints" to="UI/PowerupHint" method="display_text"]
 [connection signal="stamina_drained" from="StaminaDrainer" to="PlayerStats" method="change_stamina"]
