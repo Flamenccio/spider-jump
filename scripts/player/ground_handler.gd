@@ -143,7 +143,6 @@ func _handle_surface(new_surface: SurfaceInfo) -> void:
 	if new_surface.surface_type == _ground_layer:
 		# Do not update normal when hoverfly
 		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
-			pass
 			land_on_normal.emit(new_surface.normal)
 		land_on_ground.emit()
 		_update_current_surface_info(new_surface)
@@ -152,7 +151,7 @@ func _handle_surface(new_surface: SurfaceInfo) -> void:
 	elif new_surface.surface_type == _slip_layer:
 		if GameConstants.current_powerup == ItemIds.HEAVY_BEETLE_POWERUP:
 			land_on_normal.emit(new_surface.normal)
-			land_on_slip.emit()
+			land_on_ground.emit()
 			_update_current_surface_info(new_surface)
 		else:
 			# Add to surfaces if in direction of player gravity
