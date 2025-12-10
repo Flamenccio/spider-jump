@@ -1,26 +1,40 @@
 extends Camera2D
 
-# Screen shaking
+const _CAMERA_HEIGHT = 16.0
+
+# SCREEN SHAKING
 const _MAX_SCREEN_SHAKE_POWER = 1.0
 const _MIN_SCREEN_SHAKE_POWER = 0.0
 const _SCREEN_SHAKE_DURATION_SECONDS = 0.20
 const _SCREEN_SHAKE_MAX_INTENSITY = 5.0
 
-# Dynamic camera speed
+# DYNAMIC CAMERA SPEED
 const _MIN_SMOOTHING_SPEED = 3.0
 const _MAX_SMOOTHING_SPEED = 5.0
 const _MIN_PLAYER_SPEED = 0.0
 const _MAX_PLAYER_SPEED = 300.0
 const _SMOOTHING_RATIO = (_MAX_SMOOTHING_SPEED - _MIN_SMOOTHING_SPEED) / (_MAX_PLAYER_SPEED - _MIN_PLAYER_SPEED)
 
-# Camera peeking
-const _PEEK_TRIGGER_MOUSE_DISTANCE = 0.8
+# CAMERA PEEKING
+## Minimum normalized height of mouse on screen to trigger pull peeking.
+## This value should be between 0.0 and 1.0.
+const _PEEK_TRIGGER_MOUSE_HEIGHT = 0.8
+const _PEEK_TRIGGER_PLAYER_DISTANCE = 54.0
+const _PEEK_MAX_DISTANCE = 24.0
+
+# POWERUP OFFSETS
+const _DEFAULT_POWERUP_HEIGHT_OFFSET = -32.0
 
 var _screen_shake_timer := Timer.new()
 var _screen_shake_intensity := 0.0
-var _player_pulling := false
+var _player_is_pulling := false
+
+## Pull peeking camera offset
 var _peek_offset := Vector2.ZERO
-var follow_offset := Vector2.ZERO
+
+## Offset used for camera shifts during certain powerups
+var _powerup_offset := Vector2.ZERO
+
 var _screen_shake_offset := Vector2.ZERO
 
 @export var _follow_target: Node2D
@@ -31,6 +45,7 @@ var _screen_shake_offset := Vector2.ZERO
 @export var _debug: bool = false
 
 func _ready() -> void:
+
 	GameConstants.main_camera = self
 
 	_screen_shake_timer.timeout.connect(end_screen_shake)
@@ -50,7 +65,7 @@ func _process(delta: float) -> void:
 		_movement()
 		_set_dynamic_smoothing_speed()
 
-	if _player_pulling:
+	if _player_is_pulling:
 		_peek_mouse()
 	else:
 		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.05)
@@ -60,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	if _screen_shake_intensity > 0:
 		var point = _get_point_in_circle()
 		_screen_shake_offset = point * _screen_shake_intensity
-	offset = _screen_shake_offset + _peek_offset + follow_offset
+	offset = _screen_shake_offset + _peek_offset + _powerup_offset
 
 
 func _debug_movement() -> void:
@@ -70,7 +85,7 @@ func _debug_movement() -> void:
 
 func _movement() -> void:
 	if _follow_target != null:
-		var new_vertical = minf(global_position.y, _follow_target.global_position.y)
+		var new_vertical = minf(global_position.y, _follow_target.global_position.y - _CAMERA_HEIGHT)
 		var new_position = Vector2(global_position.x, new_vertical)
 		global_position = new_position
 
@@ -115,28 +130,27 @@ func end_screen_shake() -> void:
 
 
 func _on_pull_pressed() -> void:
-	_player_pulling = true
+	_player_is_pulling = true
 
 
 func _on_pull_released() -> void:
-	_player_pulling = false
+	_player_is_pulling = false
 
 
 # Move the camera offset down if the mouse is
-# close to the bottom edge
+# close to the bottom edge and if the player is
+# below the camera (not including offset) a certain distance
 func _peek_mouse() -> void:
 
 	var viewport_mouse_position = get_viewport().get_mouse_position()
 	var normalized_mouse_position = viewport_mouse_position / get_viewport_rect().size
+	var camera_player_height_difference = global_position.y - _follow_target.global_position.y
 
-	var camera_player_height_difference = global_position.y + follow_offset.y - _follow_target.global_position.y
-	var mouse_close = normalized_mouse_position.y >= _PEEK_TRIGGER_MOUSE_DISTANCE
-	var player_close = camera_player_height_difference <= -48.0
+	var mouse_close = normalized_mouse_position.y >= _PEEK_TRIGGER_MOUSE_HEIGHT
+	var player_close = camera_player_height_difference <= -_PEEK_TRIGGER_PLAYER_DISTANCE
 
 	if mouse_close and player_close:
-		_peek_offset = Vector2(0.0, lerpf(_peek_offset.y, 24.0 + absf(follow_offset.y), 0.02)) 
-	elif not mouse_close and player_close:
-		_peek_offset = _peek_offset.lerp(Vector2.ZERO, 0.05)
+		_peek_offset = Vector2(0.0, lerpf(_peek_offset.y, _PEEK_MAX_DISTANCE + absf(_powerup_offset.y), 0.02)) 
 
 
 func smooth_zoom(zoom_level: float) -> void:
@@ -149,11 +163,11 @@ func smooth_zoom(zoom_level: float) -> void:
 func _on_powerup_started(powerup: String) -> void:
 	match powerup:
 		ItemIds.HOVERFLY_POWERUP:
-			set_follow_offset(-32.0)
+			set_follow_offset(_DEFAULT_POWERUP_HEIGHT_OFFSET)
 		ItemIds.HOPPERPOP_POWERUP:
-			set_follow_offset(-32.0)
+			set_follow_offset(_DEFAULT_POWERUP_HEIGHT_OFFSET)
 		ItemIds.ANTIBUG_POWERUP:
-			set_follow_offset(-32.0)
+			set_follow_offset(_DEFAULT_POWERUP_HEIGHT_OFFSET)
 		_:
 			return
 
@@ -165,5 +179,5 @@ func _on_powerup_ended(_powerup: String) -> void:
 func set_follow_offset(offset: float, duration := 0.3) -> void:
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(self, "follow_offset", Vector2(0, offset), duration) 
+	tween.tween_property(self, "_powerup_offset", Vector2(0, offset), duration) 
 
