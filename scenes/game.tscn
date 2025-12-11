@@ -112,6 +112,8 @@ script = ExtResource("37_nepv3")
 metadata/_custom_type_script = "uid://bc14d6efnxlji"
 
 [node name="PullLine" type="Line2D" parent="GameSpawner" node_paths=PackedStringArray("_fixed_endpoint")]
+z_index = 2
+z_as_relative = false
 width = 1.2
 script = ExtResource("36_twgab")
 _hoverfly_color = Color(1, 0, 0.3019608, 1)
@@ -120,6 +122,8 @@ _invalid_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
 _fixed_endpoint = NodePath("../../Player")
 
 [node name="BlinkflyTrajectory" type="Line2D" parent="GameSpawner" node_paths=PackedStringArray("_target_a", "_target_b")]
+z_index = 2
+z_as_relative = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_458eo")
 texture = ExtResource("44_oaba0")
@@ -132,6 +136,8 @@ _target_b = NodePath("../BlinkflyReticle")
 _raycast_hit_layers = 6
 
 [node name="BlinkflyReticle" type="AnimatedSprite2D" parent="GameSpawner"]
+z_index = 2
+z_as_relative = false
 sprite_frames = SubResource("SpriteFrames_v2yb1")
 autoplay = "default"
 script = ExtResource("30_sgl2t")
@@ -284,11 +290,11 @@ metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
 [connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
 [connection signal="pull_input_updated" from="InputServer" to="GameSpawner/PullLine" method="pull_update"]
-[connection signal="pull_pressed" from="InputServer" to="Camera" method="_on_pull_pressed"]
 [connection signal="pull_pressed" from="InputServer" to="GameSpawner/BlinkflyReticle" method="_on_pull_pressed"]
+[connection signal="pull_pressed" from="InputServer" to="Camera" method="_on_pull_pressed"]
 [connection signal="pull_pressed" from="InputServer" to="GameSpawner/PullLine" method="pull_set_active" binds= [true]]
-[connection signal="pull_released" from="InputServer" to="Camera" method="_on_pull_released"]
 [connection signal="pull_released" from="InputServer" to="GameSpawner/BlinkflyReticle" method="_on_pull_released"]
+[connection signal="pull_released" from="InputServer" to="Camera" method="_on_pull_released"]
 [connection signal="pull_released" from="InputServer" to="GameSpawner/PullLine" method="pull_set_active" binds= [false]]
 [connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
 [connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
