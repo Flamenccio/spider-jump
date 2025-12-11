@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=48 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -11,18 +11,12 @@
 [ext_resource type="Script" uid="uid://daiq6c47nx1ko" path="res://scripts/game/level_decorator.gd" id="10_e1j6l"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/entities/player.tscn" id="10_sww3w"]
 [ext_resource type="Script" uid="uid://bysji3wvke32e" path="res://scripts/game/level_decoration.gd" id="11_bhx41"]
-[ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="11_suyxu"]
 [ext_resource type="PackedScene" uid="uid://dwwlnrtobyuml" path="res://scenes/level_objects/level_up_platform.tscn" id="12_qnb83"]
-[ext_resource type="Script" uid="uid://821p0psjcurb" path="res://scripts/player/pull_circle.gd" id="12_sgl2t"]
-[ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="13_qouja"]
 [ext_resource type="Script" uid="uid://gq03f4frq8jk" path="res://scripts/game/level_event_starter.gd" id="13_wljb1"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://scripts/levels/level_spawn_trigger.gd" id="14_wljb1"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/ui/hud.tscn" id="15_v2yb1"]
-[ext_resource type="Texture2D" uid="uid://dr66l68y0q5vu" path="res://sprites/pull_circle_dark.png" id="16_05nbr"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/ui/death_screen.tscn" id="16_js0lu"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://scripts/player/player_stats.gd" id="17_gxtfn"]
-[ext_resource type="Texture2D" uid="uid://ckbmtup38vh4f" path="res://sprites/pull_circle_hoverfly-Sheet.png" id="17_sww3w"]
-[ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="18_twgab"]
 [ext_resource type="PackedScene" uid="uid://uenvogxdugle" path="res://scenes/ui/event_banner.tscn" id="20_nepv3"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="20_sgl2t"]
 [ext_resource type="PackedScene" uid="uid://dind7ho1brwrn" path="res://scenes/ui/pause_screen.tscn" id="21_qouja"]
@@ -33,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/game/player_hints.gd" id="32_wljb1"]
+[ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="36_twgab"]
 [ext_resource type="Script" uid="uid://c2xgxrcw3hung" path="res://scenes/sound_manager_interface.gd" id="37_02fa5"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="37_nepv3"]
 [ext_resource type="Script" uid="uid://b7kielrj6p8cd" path="res://scripts/utility/sound_manager.gd" id="38_nepv3"]
@@ -42,37 +37,10 @@
 [ext_resource type="Script" uid="uid://d1qpl3ueede7u" path="res://scripts/player/blinkfly_trajectory.gd" id="45_oaba0"]
 [ext_resource type="Texture2D" uid="uid://dvic7bbkihdqv" path="res://sprites/blinkfly_trajectory_flash.png" id="46_458eo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
-size = Vector2(256, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fedci"]
-size = Vector2(256, 20)
-
-[sub_resource type="Resource" id="Resource_sww3w"]
-script = ExtResource("11_bhx41")
-decoration_name = "level_up_platform"
-scene = ExtResource("12_qnb83")
-metadata/_custom_type_script = "uid://bysji3wvke32e"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
-atlas = ExtResource("17_sww3w")
-region = Rect2(96, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sgl2t"]
-atlas = ExtResource("17_sww3w")
-region = Rect2(0, 0, 96, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
-size = Vector2(160, 8)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4url"]
-resource_local_to_scene = true
-shader = ExtResource("24_7025r")
-shader_parameter/progress = 0.0
-shader_parameter/moving_side = 0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
-atlas = ExtResource("6_e1j6l")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_458eo"]
+shader = ExtResource("43_oaba0")
+shader_parameter/speed_x = -2.0
+shader_parameter/speed_y = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
 atlas = ExtResource("29_suyxu")
@@ -108,16 +76,65 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_458eo"]
-shader = ExtResource("43_oaba0")
-shader_parameter/speed_x = -2.0
-shader_parameter/speed_y = 0.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
+size = Vector2(256, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fedci"]
+size = Vector2(256, 20)
+
+[sub_resource type="Resource" id="Resource_sww3w"]
+script = ExtResource("11_bhx41")
+decoration_name = "level_up_platform"
+scene = ExtResource("12_qnb83")
+metadata/_custom_type_script = "uid://bysji3wvke32e"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
+size = Vector2(160, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
+atlas = ExtResource("6_e1j6l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4url"]
+resource_local_to_scene = true
+shader = ExtResource("24_7025r")
+shader_parameter/progress = 0.0
+shader_parameter/moving_side = 0
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
 script = ExtResource("1_264po")
 _game_screen_transition = NodePath("UI/TransitionWipe")
 _game_spawner = NodePath("GameSpawner")
+
+[node name="GameSpawner" type="Node2D" parent="."]
+process_mode = 1
+script = ExtResource("37_nepv3")
+metadata/_custom_type_script = "uid://bc14d6efnxlji"
+
+[node name="PullLine" type="Line2D" parent="GameSpawner" node_paths=PackedStringArray("_fixed_endpoint")]
+width = 1.2
+script = ExtResource("36_twgab")
+_hoverfly_color = Color(1, 0, 0.3019608, 1)
+_normal_color = Color(0.16078432, 0.6784314, 1, 1)
+_invalid_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+_fixed_endpoint = NodePath("../../Player")
+
+[node name="BlinkflyTrajectory" type="Line2D" parent="GameSpawner" node_paths=PackedStringArray("_target_a", "_target_b")]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_458eo")
+texture = ExtResource("44_oaba0")
+texture_mode = 1
+script = ExtResource("45_oaba0")
+_flash_texture = ExtResource("46_458eo")
+_normal_texture = ExtResource("44_oaba0")
+_target_a = NodePath("../../Player")
+_target_b = NodePath("../BlinkflyReticle")
+_raycast_hit_layers = 6
+
+[node name="BlinkflyReticle" type="AnimatedSprite2D" parent="GameSpawner"]
+sprite_frames = SubResource("SpriteFrames_v2yb1")
+autoplay = "default"
+script = ExtResource("30_sgl2t")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
 process_mode = 1
@@ -154,10 +171,6 @@ collision_layer = 0
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_fedci")
 
-[node name="InputServer" type="Node" parent="."]
-script = ExtResource("6_05nbr")
-metadata/_custom_type_script = "uid://cfterj86j0hyu"
-
 [node name="LevelSpawner" type="Node2D" parent="." node_paths=PackedStringArray("_spawn_trigger")]
 process_mode = 1
 script = ExtResource("8_bhx41")
@@ -178,17 +191,6 @@ _camera = NodePath("../../Camera")
 [node name="Player" parent="." instance=ExtResource("10_sww3w")]
 position = Vector2(0, -30)
 
-[node name="PullCircle" type="Sprite2D" parent="Player"]
-process_mode = 1
-texture = ExtResource("11_suyxu")
-script = ExtResource("12_sgl2t")
-_active_sprite = ExtResource("11_suyxu")
-_inactive_sprite = ExtResource("13_qouja")
-_invalid_sprite = ExtResource("16_05nbr")
-_hover_active_sprite = SubResource("AtlasTexture_suyxu")
-_hover_inactive_sprite = SubResource("AtlasTexture_sgl2t")
-_start_active = false
-
 [node name="LevelSpawnTrigger" type="Area2D" parent="."]
 position = Vector2(0, 135)
 collision_layer = 0
@@ -198,6 +200,19 @@ script = ExtResource("14_wljb1")
 
 [node name="Collider" type="CollisionShape2D" parent="LevelSpawnTrigger"]
 shape = SubResource("RectangleShape2D_7jktm")
+
+[node name="PlayerRecoveryPoint" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-0.5, -0.5, 1, 1)
+script = ExtResource("26_nepv3")
+
+[node name="DebugSprite" type="Sprite2D" parent="PlayerRecoveryPoint"]
+visible = false
+scale = Vector2(0.0195312, 0.0195312)
+texture = SubResource("AtlasTexture_264po")
+
+[node name="InputServer" type="Node" parent="."]
+script = ExtResource("6_05nbr")
+metadata/_custom_type_script = "uid://cfterj86j0hyu"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -222,34 +237,10 @@ enter_duration = 0.15
 process_mode = 1
 script = ExtResource("17_gxtfn")
 
-[node name="PlayerRecoveryPoint" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-0.5, -0.5, 1, 1)
-script = ExtResource("26_nepv3")
-
-[node name="DebugSprite" type="Sprite2D" parent="PlayerRecoveryPoint"]
-visible = false
-scale = Vector2(0.0195312, 0.0195312)
-texture = SubResource("AtlasTexture_264po")
-
 [node name="RecordKeeper" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
 _player_stats = NodePath("../PlayerStats")
 _records_path = "res://high_score/records.res"
-
-[node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
-process_mode = 1
-width = 1.25
-default_color = Color(0.160708, 0.674632, 0.996078, 1)
-script = ExtResource("18_twgab")
-_hoverfly_color = Color(1, 0, 0.3019608, 1)
-_normal_color = Color(0.16078432, 0.6784314, 1, 1)
-_invalid_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
-_fixed_endpoint = NodePath("../Player")
-
-[node name="BlinkflyReticle" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_v2yb1")
-autoplay = "default"
-script = ExtResource("30_sgl2t")
 
 [node name="PlayerHints" type="Node" parent="."]
 script = ExtResource("32_wljb1")
@@ -261,27 +252,10 @@ script = ExtResource("37_02fa5")
 process_mode = 1
 script = ExtResource("40_m4url")
 
-[node name="GameSpawner" type="Node2D" parent="."]
-process_mode = 1
-script = ExtResource("37_nepv3")
-metadata/_custom_type_script = "uid://bc14d6efnxlji"
-
 [node name="GameSounds" type="Node" parent="."]
 process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
-
-[node name="BlinkflyTrajectory" type="Line2D" parent="." node_paths=PackedStringArray("_target_a", "_target_b")]
-texture_repeat = 2
-material = SubResource("ShaderMaterial_458eo")
-texture = ExtResource("44_oaba0")
-texture_mode = 1
-script = ExtResource("45_oaba0")
-_flash_texture = ExtResource("46_458eo")
-_normal_texture = ExtResource("44_oaba0")
-_target_a = NodePath("../Player")
-_target_b = NodePath("../BlinkflyReticle")
-_raycast_hit_layers = 6
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
@@ -297,30 +271,25 @@ _raycast_hit_layers = 6
 [connection signal="score_updated" from="." to="LevelSpawner/LevelEventStarter" method="_on_score_updated"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
 [connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
-[connection signal="player_fell" from="Camera/DeathTrigger" to="Player/PullCircle" method="show"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
 [connection signal="player_fell" from="Camera/DeathTrigger" to="Camera" method="screen_shake" binds= [0.4]]
 [connection signal="body_entered" from="Camera/WarningArea" to="Camera/DeathTrigger/Sprite" method="show" unbinds=1]
 [connection signal="body_exited" from="Camera/WarningArea" to="Camera/DeathTrigger/Sprite" method="hide" unbinds=1]
-[connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
-[connection signal="pull_input_updated" from="InputServer" to="PullDragline" method="pull_update"]
-[connection signal="pull_pressed" from="InputServer" to="Camera" method="_on_pull_pressed"]
-[connection signal="pull_pressed" from="InputServer" to="Player/PullCircle" method="set_active"]
-[connection signal="pull_pressed" from="InputServer" to="BlinkflyReticle" method="_on_pull_pressed"]
-[connection signal="pull_pressed" from="InputServer" to="PullDragline" method="pull_set_active" binds= [true]]
-[connection signal="pull_released" from="InputServer" to="Camera" method="_on_pull_released"]
-[connection signal="pull_released" from="InputServer" to="Player/PullCircle" method="set_inactive"]
-[connection signal="pull_released" from="InputServer" to="PullDragline" method="hide"]
-[connection signal="pull_released" from="InputServer" to="BlinkflyReticle" method="_on_pull_released"]
-[connection signal="pull_released" from="InputServer" to="PullDragline" method="pull_set_active" binds= [false]]
 [connection signal="new_level_body_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_level_spawned"]
 [connection signal="new_level_body_spawned" from="LevelSpawner" to="LevelSpawner/LevelEventStarter" method="_on_level_spawned"]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_game_height_updated"]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="event_started" from="LevelSpawner/LevelEventStarter" to="UI/EventBanner" method="start_event"]
-[connection signal="danger_entered" from="Player" to="Player/PullCircle" method="hide"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
+[connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
+[connection signal="pull_input_updated" from="InputServer" to="GameSpawner/PullLine" method="pull_update"]
+[connection signal="pull_pressed" from="InputServer" to="Camera" method="_on_pull_pressed"]
+[connection signal="pull_pressed" from="InputServer" to="GameSpawner/BlinkflyReticle" method="_on_pull_pressed"]
+[connection signal="pull_pressed" from="InputServer" to="GameSpawner/PullLine" method="pull_set_active" binds= [true]]
+[connection signal="pull_released" from="InputServer" to="Camera" method="_on_pull_released"]
+[connection signal="pull_released" from="InputServer" to="GameSpawner/BlinkflyReticle" method="_on_pull_released"]
+[connection signal="pull_released" from="InputServer" to="GameSpawner/PullLine" method="pull_set_active" binds= [false]]
 [connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
 [connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
