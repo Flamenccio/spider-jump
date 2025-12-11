@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=55 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -28,7 +28,6 @@
 [ext_resource type="PackedScene" uid="uid://dind7ho1brwrn" path="res://scenes/ui/pause_screen.tscn" id="21_qouja"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player/record_keeper.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://c22pgr73hau3t" path="res://scenes/ui/powerup_hint.tscn" id="22_qouja"]
-[ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/entities/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="24_7025r"]
 [ext_resource type="Script" uid="uid://b2c6pwskneus5" path="res://scripts/player/player_recovery_point.gd" id="26_nepv3"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
@@ -237,10 +236,6 @@ script = ExtResource("22_37s47")
 _player_stats = NodePath("../PlayerStats")
 _records_path = "res://high_score/records.res"
 
-[node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
-position = Vector2(0, -60)
-_high_score_saver = NodePath("../RecordKeeper")
-
 [node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
 process_mode = 1
 width = 1.25
@@ -333,6 +328,5 @@ _raycast_hit_layers = 6
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
 [connection signal="new_high_score_reached" from="RecordKeeper" to="UI/DeathScreen" method="_new_high_score_reached"]
 [connection signal="ready" from="RecordKeeper" to="UI/Hud" method="_on_record_keeper_ready"]
-[connection signal="ready" from="RecordKeeper" to="HighScoreLine" method="_on_record_keeper_ready"]
 [connection signal="give_hint" from="PlayerHints" to="UI/PowerupHint" method="display_text"]
 [connection signal="stamina_drained" from="StaminaDrainer" to="PlayerStats" method="change_stamina"]

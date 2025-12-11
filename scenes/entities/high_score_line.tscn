@@ -90,4 +90,5 @@ shape = SubResource("RectangleShape2D_vj61t")
 [connection signal="player_entered" from="." to="Right" method="hide" flags=3]
 [connection signal="player_entered" from="." to="Confetti1R" method="set_emitting" flags=3 binds= [true]]
 [connection signal="player_entered" from="." to="Confetti1L" method="set_emitting" flags=3 binds= [true]]
+[connection signal="finished" from="Confetti1R" to="." method="_on_confetti_particle_finished"]
 [connection signal="body_entered" from="PlayerSensor" to="." method="_on_player_entered" flags=6 unbinds=1]

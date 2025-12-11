@@ -14,6 +14,7 @@ signal game_restarted()
 
 const _MAIN_MENU_UID = "uid://ive8w8v858du"
 const _GAME_SCENE_UID = "uid://c3vqs430qpt8w"
+const _HIGH_SCORE_LINE_UID = "uid://bbd2meqorrjoe"
 
 var _player: Node2D
 var _game_paused := false
@@ -48,6 +49,9 @@ func _ready() -> void:
 
 	# Play some music
 	GlobalSoundManager.play_music("spider_jump")
+
+	# Spawn high score line
+	add_child(load(ResourceUID.uid_to_path(_HIGH_SCORE_LINE_UID)).instantiate())
 
 
 func game_over() -> void:
