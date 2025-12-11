@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=56 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
@@ -25,8 +25,6 @@
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="18_twgab"]
 [ext_resource type="PackedScene" uid="uid://uenvogxdugle" path="res://scenes/ui/event_banner.tscn" id="20_nepv3"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="20_sgl2t"]
-[ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
-[ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="PackedScene" uid="uid://dind7ho1brwrn" path="res://scenes/ui/pause_screen.tscn" id="21_qouja"]
 [ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player/record_keeper.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://c22pgr73hau3t" path="res://scenes/ui/powerup_hint.tscn" id="22_qouja"]
@@ -110,10 +108,6 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
-atlas = ExtResource("21_37s47")
-region = Rect2(3, 3, 2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_458eo"]
 shader = ExtResource("43_oaba0")
@@ -282,20 +276,6 @@ process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 
-[node name="HeartShatterParticles" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 25
-texture = SubResource("AtlasTexture_1kice")
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
-direction = Vector2(0, -1)
-spread = 22.5
-gravity = Vector2(0, 245)
-initial_velocity_min = 50.0
-initial_velocity_max = 150.0
-script = ExtResource("21_5newe")
-
 [node name="BlinkflyTrajectory" type="Line2D" parent="." node_paths=PackedStringArray("_target_a", "_target_b")]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_458eo")
@@ -346,7 +326,6 @@ _raycast_hit_layers = 6
 [connection signal="danger_entered" from="Player" to="Player/PullCircle" method="hide"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
-[connection signal="life_bar_depleted" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
 [connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
 [connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
