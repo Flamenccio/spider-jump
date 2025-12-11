@@ -62,10 +62,6 @@ func _handle_powerup(powerup: String) -> void:
 
 	# End any existing powerup
 	_end_powerups()
-	powerup_started.emit(powerup)
-	on_powerup_started.emit()
-	PlayerEventBus.powerup_started.emit(powerup)
-	PlayerEventBus.powerup_flash_start.emit()
 	_powerup_flash_timer.start()
 	GameConstants.current_powerup = powerup
 	current_powerup = powerup
@@ -98,6 +94,11 @@ func _handle_powerup(powerup: String) -> void:
 		_:
 			printerr('powerup handler: unhandled powerup "{0}"'.format({'0': powerup}))
 			return
+
+	powerup_started.emit(powerup)
+	on_powerup_started.emit()
+	PlayerEventBus.powerup_started.emit(powerup)
+	PlayerEventBus.powerup_flash_start.emit()
 
 
 ## Start the powerup timer after the powerup flash ends

@@ -8,6 +8,8 @@ atlas = ExtResource("1_b5ime")
 region = Rect2(3, 3, 2, 2)
 
 [node name="HeartShatterParticles" type="CPUParticles2D"]
+z_index = 10
+z_as_relative = false
 emitting = false
 amount = 25
 texture = SubResource("AtlasTexture_1kice")
