@@ -681,13 +681,13 @@ script = ExtResource("45_4gjji")
 [node name="Fly" type="Node" parent="StateMachineHandler/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
 script = ExtResource("46_u2ulf")
 _player = NodePath("../../../..")
-_fly_acceleration = 120.0
-_max_speed = 80.0
+_fly_acceleration = 130.0
+_max_speed = 70.0
 
 [node name="Hover" type="Node" parent="StateMachineHandler/Powerup/Hoverfly" node_paths=PackedStringArray("_player")]
 script = ExtResource("47_6e8lb")
 _player = NodePath("../../../..")
-_decceleration = 1.5
+_decceleration = 1.6
 
 [connection signal="invincibility_ended" from="." to="Detectors/DangerDetector" method="enable_detector"]
 [connection signal="invincibility_started" from="." to="Sprite" method="start_invincibility_flashing"]
@@ -699,19 +699,19 @@ _decceleration = 1.5
 [connection signal="body_entered" from="Detectors/DangerDetector" to="Handlers/DangerHandler" method="_on_danger_entered"]
 [connection signal="move_input_updated" from="InputServer" to="." method="_on_move_updated"]
 [connection signal="move_input_updated" from="InputServer" to="MoveInputProcessor" method="_on_move_input_updated"]
+[connection signal="pull_input_updated" from="InputServer" to="JumpBufferer" method="_on_pull_updated"]
 [connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_input_change"]
 [connection signal="pull_input_updated" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_update"]
-[connection signal="pull_input_updated" from="InputServer" to="JumpBufferer" method="_on_pull_updated"]
+[connection signal="pull_pressed" from="InputServer" to="PullCircle" method="set_active"]
 [connection signal="pull_pressed" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_pressed"]
 [connection signal="pull_pressed" from="InputServer" to="StateMachineHandler/Idle" method="_on_pull_pressed"]
 [connection signal="pull_pressed" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Hover" method="_on_pull_input_press"]
-[connection signal="pull_pressed" from="InputServer" to="PullCircle" method="set_active"]
 [connection signal="pull_pressed" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", true]]
+[connection signal="pull_released" from="InputServer" to="PullCircle" method="set_inactive"]
+[connection signal="pull_released" from="InputServer" to="JumpBufferer" method="_on_pull_released"]
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler/Aim" method="_on_pull_release"]
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler/Idle" method="_on_pull_released"]
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler/Powerup/Hoverfly/Fly" method="_on_pull_input_release"]
-[connection signal="pull_released" from="InputServer" to="JumpBufferer" method="_on_pull_released"]
-[connection signal="pull_released" from="InputServer" to="PullCircle" method="set_inactive"]
 [connection signal="pull_released" from="InputServer" to="StateMachineHandler" method="set_param" binds= ["aim", false]]
 [connection signal="move_input_processed" from="MoveInputProcessor" to="LedgeClimb" method="_on_player_move_change"]
 [connection signal="move_input_processed" from="MoveInputProcessor" to="StateMachineHandler/Crawl" method="_on_move_input_change"]
@@ -741,16 +741,16 @@ _decceleration = 1.5
 [connection signal="player_damaged" from="Handlers/DangerHandler" to="Particles/ParticleEmitter" method="spawn_player_hit"]
 [connection signal="player_damaged" from="Handlers/DangerHandler" to="SoundPlayer" method="play_hurt"]
 [connection signal="player_damaged" from="Handlers/DangerHandler" to="StateMachineHandler" method="set_param" flags=3 binds= ["ko", true]]
-[connection signal="transited" from="StateMachineHandler/StateMachinePlayer" to="StateMachineHandler/Crawl" method="_on_state_transited"]
 [connection signal="transited" from="StateMachineHandler/StateMachinePlayer" to="JumpBufferer" method="_on_state_machine_transited"]
+[connection signal="transited" from="StateMachineHandler/StateMachinePlayer" to="StateMachineHandler/Crawl" method="_on_state_transited"]
 [connection signal="aim_entered" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="activate_trajectory"]
-[connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
+[connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Handlers/GroundHandler" method="_on_player_jumped"]
 [connection signal="player_blinkfly_jumped" from="StateMachineHandler/Aim" to="Handlers/PowerupHandler" method="_on_player_blinkfly_jumped"]
-[connection signal="player_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="deactivate_trajectory"]
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="Particles/DustManager" method="play_dust"]
+[connection signal="player_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="Handlers/GroundHandler" method="_on_player_jumped"]
 [connection signal="trajectory_updated" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="_update_trajectory"]
 [connection signal="climb_finished" from="StateMachineHandler/Climb" to="Handlers/GroundHandler" method="_recalculate_normal"]
