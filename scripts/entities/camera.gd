@@ -12,16 +12,6 @@ const _MIN_PLAYER_SPEED = 0.0
 const _MAX_PLAYER_SPEED = 300.0
 const _SMOOTHING_RATIO = (_MAX_SMOOTHING_SPEED - _MIN_SMOOTHING_SPEED) / (_MAX_PLAYER_SPEED - _MIN_PLAYER_SPEED)
 
-# POWERUP OFFSETS
-const _DEFAULT_POWERUP_HEIGHT_OFFSET = -32.0
-
-# OFFSETS ---
-
-## Offset used for camera shifts during certain powerups
-var _powerup_offset := Vector2.ZERO
-
-# ---
-
 var _offsetters: Array[CameraOffsetter]
 
 @export var _follow_target: Node2D
@@ -34,8 +24,6 @@ var _offsetters: Array[CameraOffsetter]
 func _ready() -> void:
 
 	GameConstants.main_camera = self
-	PlayerEventBus.powerup_started.connect(_on_powerup_started)
-	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
 
 	# Initialize all camera offsetters
 	for c in get_children():
@@ -87,8 +75,6 @@ func world_to_screen_point(world_point: Vector2) -> Vector2:
 	return get_canvas_transform() * world_point
 
 
-# MOVEMENT ---
-
 func _debug_movement() -> void:
 	if _follow_target != null:
 		global_position = Vector2(global_position.x, _follow_target.global_position.y)
@@ -110,19 +96,3 @@ func _set_dynamic_smoothing_speed() -> void:
 	player_speed = clampf(player_speed, _MIN_PLAYER_SPEED, _MAX_PLAYER_SPEED)
 	var target_smoothing = _SMOOTHING_RATIO * player_speed + (_MIN_SMOOTHING_SPEED - _SMOOTHING_RATIO * _MIN_PLAYER_SPEED)
 	position_smoothing_speed = lerpf(position_smoothing_speed, target_smoothing, 0.05)
-
-
-func _on_powerup_started(powerup: String) -> void:
-	match powerup:
-		ItemIds.HOVERFLY_POWERUP:
-			set_powerup_offset(_DEFAULT_POWERUP_HEIGHT_OFFSET)
-		ItemIds.HOPPERPOP_POWERUP:
-			set_powerup_offset(_DEFAULT_POWERUP_HEIGHT_OFFSET)
-		ItemIds.ANTIBUG_POWERUP:
-			set_powerup_offset(_DEFAULT_POWERUP_HEIGHT_OFFSET)
-		_:
-			return
-
-
-func _on_powerup_ended(_powerup: String) -> void:
-	set_powerup_offset(0.0, 3.3)
