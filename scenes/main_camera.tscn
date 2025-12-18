@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckfvnbwped5hv"]
+
+[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="1_r5jk0"]
+[ext_resource type="Script" uid="uid://doabtha2whixu" path="res://scripts/entities/camera_offsetter/screen_shake.gd" id="2_7dc62"]
+[ext_resource type="Script" uid="uid://br37675g1ruu5" path="res://scripts/entities/camera_offsetter/mouse_peek.gd" id="3_qvmr3"]
+
+[node name="MainCamera" type="Camera2D"]
+position_smoothing_enabled = true
+script = ExtResource("1_r5jk0")
+
+[node name="ScreenShake" type="Node" parent="."]
+script = ExtResource("2_7dc62")
+metadata/_custom_type_script = "uid://lfj2645yal8j"
+
+[node name="MousePeek" type="Node" parent="."]
+script = ExtResource("3_qvmr3")
+metadata/_custom_type_script = "uid://lfj2645yal8j"
