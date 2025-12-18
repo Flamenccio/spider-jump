@@ -31,7 +31,7 @@
 [ext_resource type="Script" uid="uid://c2xgxrcw3hung" path="res://scenes/sound_manager_interface.gd" id="37_02fa5"]
 [ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="37_m4url"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="37_nepv3"]
-[ext_resource type="Resource" uid="uid://b3dk2h5mocpbw" path="res://resources/powerups/hoverfly.tres" id="38_m4url"]
+[ext_resource type="Resource" uid="uid://c48hoftiv3yl0" path="res://resources/powerups/antibug.tres" id="38_m4url"]
 [ext_resource type="Script" uid="uid://b7kielrj6p8cd" path="res://scripts/utility/sound_manager.gd" id="38_nepv3"]
 [ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="39_pr1ej"]
 [ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="40_05nbr"]
@@ -106,7 +106,7 @@ shader_parameter/moving_side = 0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
 atlas = ExtResource("39_pr1ej")
-region = Rect2(0, 0, 8, 8)
+region = Rect2(40, 0, 8, 8)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
@@ -266,16 +266,16 @@ process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 
-[node name="Hoverfly" parent="." instance=ExtResource("37_m4url")]
+[node name="Antibug" parent="." instance=ExtResource("37_m4url")]
 position = Vector2(0, -45)
 _debug_item = ExtResource("38_m4url")
-_item_id = "hoverfly"
+_item_id = "antibug"
 
-[node name="@Sprite2D@28395" type="Sprite2D" parent="Hoverfly"]
+[node name="@Sprite2D@25908" type="Sprite2D" parent="Antibug"]
 z_index = 10
 texture = SubResource("AtlasTexture_ih772")
 
-[node name="@CollisionShape2D@28396" type="CollisionShape2D" parent="Hoverfly"]
+[node name="@CollisionShape2D@25909" type="CollisionShape2D" parent="Antibug"]
 shape = ExtResource("40_05nbr")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
