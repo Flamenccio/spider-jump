@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=19 format=3 uid="uid://c0p0fb7uoe6l8"]
+[gd_resource type="Resource" script_class="LootTable" load_steps=17 format=3 uid="uid://c0p0fb7uoe6l8"]
 
 [ext_resource type="Script" uid="uid://bc3fsl7qhsokp" path="res://scripts/resources/item_box_loot.gd" id="1_uehea"]
 [ext_resource type="Resource" uid="uid://ch1wes81qxj74" path="res://resources/powerups/super_grub.tres" id="2_kw6b7"]
@@ -7,66 +7,58 @@
 [ext_resource type="Resource" uid="uid://bdw182pwtkml6" path="res://resources/powerups/blinkfly.tres" id="6_eyitt"]
 [ext_resource type="Resource" uid="uid://c48hoftiv3yl0" path="res://resources/powerups/antibug.tres" id="8_ok0vv"]
 [ext_resource type="Resource" uid="uid://duiadsgrbxyya" path="res://resources/powerups/bubblebee.tres" id="10_fk5i5"]
-[ext_resource type="Resource" uid="uid://bu73qvqlgwfe7" path="res://resources/powerups/heavy_beetle.tres" id="12_8tfq8"]
 [ext_resource type="Resource" uid="uid://clglltm1d6sph" path="res://resources/powerups/hopperpop.tres" id="14_8fqnd"]
 [ext_resource type="Resource" uid="uid://bxec6jfxxjtft" path="res://resources/items/yumfly.tres" id="16_6mj5w"]
 
 [sub_resource type="Resource" id="Resource_icw0f"]
 script = ExtResource("1_uehea")
 loot_item = ExtResource("2_kw6b7")
-loot_chance = 0.0922038
+loot_chance = 0.10537582857142856
 minimum_level = 4
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_rpce5"]
 script = ExtResource("1_uehea")
 loot_item = ExtResource("4_w4i5s")
-loot_chance = 0.0922038
+loot_chance = 0.10537582857142856
 minimum_level = 4
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_kw6b7"]
 script = ExtResource("1_uehea")
 loot_item = ExtResource("6_eyitt")
-loot_chance = 0.0922038
+loot_chance = 0.10537582857142856
 minimum_level = 4
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_w4i5s"]
 script = ExtResource("1_uehea")
 loot_item = ExtResource("8_ok0vv")
-loot_chance = 0.0922038
+loot_chance = 0.10537582857142856
 minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_eyitt"]
 script = ExtResource("1_uehea")
 loot_item = ExtResource("10_fk5i5")
-loot_chance = 0.0922038
+loot_chance = 0.10537582857142856
 minimum_level = 2
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_ok0vv"]
-script = ExtResource("1_uehea")
-loot_item = ExtResource("12_8tfq8")
-loot_chance = 0.0922038
-minimum_level = 6
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_fk5i5"]
 script = ExtResource("1_uehea")
 loot_item = ExtResource("14_8fqnd")
-loot_chance = 0.0922038
+loot_chance = 0.10537582857142856
 minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_ik14u"]
 script = ExtResource("1_uehea")
 loot_item = ExtResource("16_6mj5w")
-loot_chance = 0.354573
+loot_chance = 0.3677450285714286
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [resource]
 script = ExtResource("2_ldm30")
-loot = Array[ExtResource("1_uehea")]([SubResource("Resource_icw0f"), SubResource("Resource_rpce5"), SubResource("Resource_kw6b7"), SubResource("Resource_w4i5s"), SubResource("Resource_eyitt"), SubResource("Resource_ok0vv"), SubResource("Resource_fk5i5"), SubResource("Resource_ik14u")])
+loot = Array[ExtResource("1_uehea")]([SubResource("Resource_icw0f"), SubResource("Resource_rpce5"), SubResource("Resource_kw6b7"), SubResource("Resource_w4i5s"), SubResource("Resource_eyitt"), SubResource("Resource_fk5i5"), SubResource("Resource_ik14u")])
 metadata/_custom_type_script = "uid://c2igfpmml5pq7"

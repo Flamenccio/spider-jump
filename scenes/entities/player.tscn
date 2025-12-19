@@ -753,6 +753,7 @@ _decceleration = 1.6
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="SafeState" method="_save_state"]
 [connection signal="player_jumped" from="StateMachineHandler/Aim" to="Handlers/GroundHandler" method="_on_player_jumped"]
 [connection signal="trajectory_updated" from="StateMachineHandler/Aim" to="Particles/ParabolaParticles" method="_update_trajectory"]
+[connection signal="climb_finished" from="StateMachineHandler/Climb" to="." method="force_update_collision"]
 [connection signal="climb_finished" from="StateMachineHandler/Climb" to="Handlers/GroundHandler" method="_recalculate_normal"]
 [connection signal="player_crawled" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [true]]
 [connection signal="player_stopped_crawl" from="StateMachineHandler/Crawl" to="LedgeClimb" method="set_active" binds= [false]]

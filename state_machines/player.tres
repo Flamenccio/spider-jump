@@ -207,15 +207,15 @@ metadata/graph_offset = Vector2(1288, 601)
 script = ExtResource("3_10p3u")
 name = "aim"
 
-[sub_resource type="Resource" id="Resource_t4otl"]
-script = ExtResource("4_gbx1n")
-value = "air"
-name = "ground_type"
-
 [sub_resource type="Resource" id="Resource_md1ol"]
 script = ExtResource("3_10p3u")
 value = true
 name = "jump"
+
+[sub_resource type="Resource" id="Resource_qnfoy"]
+script = ExtResource("4_gbx1n")
+value = "air"
+name = "ground_type"
 
 [sub_resource type="Resource" id="Resource_a38lo"]
 script = ExtResource("5_6y1cm")
@@ -223,7 +223,7 @@ from = "Aim"
 to = "Fall"
 conditions = {
 "aim": SubResource("Resource_gl8cc"),
-"ground_type": SubResource("Resource_t4otl"),
+"ground_type": SubResource("Resource_qnfoy"),
 "jump": SubResource("Resource_md1ol")
 }
 
