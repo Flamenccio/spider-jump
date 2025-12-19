@@ -6,7 +6,6 @@ signal new_level_body_spawned(level_body: Node2D)
 @export var _level_path: String = ''
 @export var _initial_level: SavedLevel
 @export var _spawn_trigger: Node
-var _res_regex = RegEx.new()
 var _loaded_levels: Array[SavedLevel]
 
 ## Levels availble to spawn at the current difficulty level
@@ -28,6 +27,7 @@ const _MAX_ACTIVE_LEVELS = 4
 const _MAX_DUPLICATE_LEVEL_TYPES = 2
 
 func spawn_new_level(excluding: Array[String] = []) -> void:
+
 	var random
 
 	if excluding.size() > 0:
@@ -89,7 +89,9 @@ func _ready() -> void:
 
 
 func _spawn_level(level: SavedLevel) -> void:
-	var new_level_height = level.level_height
+	# NOTE: the +8 adds one more tile to the level's height
+	# so that new levels do not overlap old ones
+	var new_level_height = level.level_height + 8
 	var instance = level.instantiate()
 	call_deferred('add_child', instance)
 	instance.global_position = Vector2(0, _game_height)
