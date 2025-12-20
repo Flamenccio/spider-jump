@@ -31,9 +31,9 @@ func _adjust_powerup_height() -> void:
 	var normalized_height = normalized_player_position.y
 
 	if normalized_height >= _DOWN_ADJUST_THRESHOLD:
-		_sub_offset = _sub_offset.lerp(Vector2(0.0, 0.0), 0.02)
+		_sub_offset = _sub_offset.lerp(Vector2(0.0, 32.0), 0.03)
 	elif _sub_offset.y > _target_height:
-		_sub_offset = _sub_offset.lerp(Vector2(0.0, _target_height), 0.02)
+		_sub_offset = _sub_offset.lerp(Vector2(0.0, _target_height), 0.04)
 
 
 func _move_offset(to: Vector2, duration: float) -> void:

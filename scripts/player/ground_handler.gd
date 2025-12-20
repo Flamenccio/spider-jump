@@ -72,7 +72,7 @@ func _on_ground_exited(body: Node2D) -> void:
 	else:
 		return
 	if _current_surface.surface_type == surface_layer:
-		_current_surface = null
+		_update_current_surface_info(null)
 		leave_ground.emit()
 
 
@@ -80,6 +80,7 @@ func _on_powerup_started(powerup: String) -> void:
 	match powerup:
 		ItemIds.HOVERFLY_POWERUP:
 			land_on_normal.emit(Vector2.UP)
+			_current_climbable_layers = 0
 		ItemIds.HEAVY_BEETLE_POWERUP:
 			_current_climbable_layers = _ground_layer | _slip_layer
 
@@ -87,6 +88,8 @@ func _on_powerup_started(powerup: String) -> void:
 func _on_powerup_ended(powerup: String) -> void:
 	match powerup:
 		ItemIds.HEAVY_BEETLE_POWERUP:
+			_current_climbable_layers = _ground_layer
+		ItemIds.HOVERFLY_POWERUP:
 			_current_climbable_layers = _ground_layer
 
 
@@ -151,7 +154,7 @@ func _handle_surface(new_surface: SurfaceInfo) -> void:
 			land_on_normal.emit(new_surface.normal)
 		_update_current_surface_info(new_surface)
 		land_on_ground.emit()
-	elif _is_below_player(new_surface.contact_point, new_surface.normal):
+	elif _is_below_player(new_surface.contact_point, new_surface.normal) and _current_climbable_layers > 0:
 		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
 			land_on_normal.emit(new_surface.normal)
 		_update_current_surface_info(new_surface)
