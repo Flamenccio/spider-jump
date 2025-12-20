@@ -9,6 +9,10 @@ enum ActionType {
 
 var _buffered_actions: Array[BufferedAction]
 
+func _ready() -> void:
+	PlayerEventBus.player_fell.connect(func(_b): clear_buffered_actions())
+
+
 func buffer_action(action_type: ActionType, action_value: Variant) -> void:
 
 	var existing_idx = _buffered_actions.find_custom(_find_action_type.bind(action_type))
@@ -27,6 +31,12 @@ func pop_buffered_action(action_index: int) -> BufferedAction:
 		push_warning("Action index outside of buffer range")
 		return null
 	return _buffered_actions.pop_at(action_index)
+
+
+## Remove all buffered actions
+func clear_buffered_actions() -> void:
+	print("buffers cleared")
+	_buffered_actions.clear()
 
 
 func _find_action_type(buffered_action: BufferedAction, type: ActionType) -> bool:
