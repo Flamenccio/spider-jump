@@ -83,16 +83,6 @@ func _update_recovery_info() -> void:
 func _on_player_fell(here: Vector2) -> void:
 	if not _recovery_point_in_screen:
 		_create_new_recovery_spot(here)
-
-	"""
-	print("")
-	print("recovery info: ", recovery_info)
-	print("surface info: ")
-	var surface_info = recovery_info.get("surface_info") as GroundHandler.SurfaceInfo
-	print("  normal: ", surface_info.normal)
-	print("  surface_type: ", surface_info.surface_type)
-	"""
-
 	player_recovered.emit()
 
 
@@ -153,6 +143,7 @@ func _find_new_recovery_point(horizontal: float, vertical: float, iteration: int
 	recovery_info.set("position", new_safe_spot)
 	recovery_info.set("rotation", Vector2.UP.angle_to(best_result.normal))
 	GameConstants.recovery_point.global_position = new_safe_spot
+	GameConstants.recovery_info.assign(recovery_info)
 
 	return true
 
