@@ -1,13 +1,17 @@
+class_name GroundHandler
 extends Node
 
 signal land_on_normal(normal: Vector2)
 signal land_on_ground()
 signal land_on_slip()
 signal leave_ground()
+signal surface_info_updated(new_surface_info: SurfaceInfo)
 
 const _MAX_SURFACE_HISTORY = 3
 
-var _current_surface: SurfaceInfo
+var _current_surface: SurfaceInfo:
+	set(value):
+		surface_info_updated.emit(value)
 
 var _current_climbable_layers: int = 0:
 	set(value):
@@ -106,7 +110,6 @@ func _update_current_surface_info(new_surface_info: SurfaceInfo) -> void:
 
 
 func _on_player_collided(collision: KinematicCollision2D) -> void:
-
 	_handle_collision(collision)
 
 
@@ -139,26 +142,24 @@ func _collide_with_tile_map_layer(tilemap: TileMapLayer, collision: KinematicCol
 
 func _handle_surface(new_surface: SurfaceInfo) -> void:
 
-	# Handle ground surfaces
-	if new_surface.surface_type == _ground_layer:
-		# Do not update normal when hoverfly
+	if new_surface == null:
+		_update_current_surface_info(new_surface)
+		return
+
+	if new_surface.surface_type & _current_climbable_layers > 0:
 		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
 			land_on_normal.emit(new_surface.normal)
-		land_on_ground.emit()
 		_update_current_surface_info(new_surface)
-
-	# Handle slippery surfaces
-	elif new_surface.surface_type == _slip_layer:
-		if GameConstants.current_powerup == ItemIds.HEAVY_BEETLE_POWERUP:
+		land_on_ground.emit()
+	elif _is_below_player(new_surface.contact_point, new_surface.normal):
+		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
 			land_on_normal.emit(new_surface.normal)
-			land_on_ground.emit()
-			_update_current_surface_info(new_surface)
-		else:
-			# Add to surfaces if in direction of player gravity
-			if _is_below_player(new_surface.contact_point, new_surface.normal):
-				land_on_normal.emit(new_surface.normal)
-				land_on_slip.emit()
-				_update_current_surface_info(new_surface)
+		_update_current_surface_info(new_surface)
+		land_on_slip.emit()
+
+
+func _on_player_recovered() -> void:
+	_handle_surface(GameConstants.recovery_info.get("surface_info"))
 
 
 class SurfaceInfo:

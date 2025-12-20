@@ -12,7 +12,6 @@ signal invincibility_ended()
 
 # Used for invincibility after getting hurt
 var _invincibility_timer: Timer = Timer.new()
-
 var _movement_paused := false
 
 # In seconds
@@ -62,6 +61,13 @@ func _on_danger_entered() -> void:
 
 func _on_player_fell(_here: Vector2) -> void:
 	_start_invincibility(_DEFAULT_INVINCIBILITY_TIME)
+
+
+func _on_player_recovered() -> void:
+	var recovery_info = GameConstants.recovery_info
+	velocity = Vector2.ZERO
+	global_position = recovery_info.get("position", Vector2.ZERO)
+	rotation = recovery_info.get("rotation", 0.0)
 
 
 func _start_invincibility(time: float) -> void:

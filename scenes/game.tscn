@@ -207,7 +207,6 @@ rect = Rect2(-0.5, -0.5, 1, 1)
 script = ExtResource("26_nepv3")
 
 [node name="DebugSprite" type="Sprite2D" parent="PlayerRecoveryPoint"]
-visible = false
 scale = Vector2(0.0195312, 0.0195312)
 texture = SubResource("AtlasTexture_264po")
 

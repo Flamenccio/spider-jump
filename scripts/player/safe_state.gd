@@ -10,11 +10,16 @@ const _SEARCH_SPAN_WIDTH = 112.0
 const _MAX_SEARCHES = 20
 const _INVALID_RAY_DISTANCE = 999999.0
 
-var _position: Vector2
-var _rotation: float
-var _recovery_point_in_screen := true
-var _closest_distance: float
+## Dictionary of player info at recovery point.[br]
+## Keys:[br]
+## - [code]position[/code]: position of recovery point[br]
+## - [code]rotation[/code]: rotation of player at recovery point[br]
+## - [code]surface_info[/code]: GroundHandler surface info for surface at recovery
+## point[br]
+var recovery_info := {}
 
+var _saved_surface_info: GroundHandler.SurfaceInfo
+var _recovery_point_in_screen := true
 var _shape_cast: ShapecastQuery
 var _ray_cast: RaycastQuery
 
@@ -42,9 +47,10 @@ func _ready() -> void:
 	PlayerEventBus.player_fell.connect(_on_player_fell)
 
 
-func _save_state(force: bool = false) -> void:
+func _update_recovery(force: bool = false) -> void:
 	
 	if GameConstants.recovery_point == null:
+		push_warning("Unable to save state: recovery point is null")
 		return
 
 	_connect_recovery_point_signals()
@@ -62,17 +68,31 @@ func _save_state(force: bool = false) -> void:
 	if climbable.is_empty() and not force:
 		return
 
-	_position = rounded_position
-	_rotation = _player.rotation
-	GameConstants.recovery_point.global_position = _position
+	# Update recovery info
+	_update_recovery_info()
+
+
+func _update_recovery_info() -> void:
+	recovery_info.set("position", _player.global_position)
+	recovery_info.set("rotation", _player.rotation)
+	recovery_info.set("surface_info", _saved_surface_info)
+	GameConstants.recovery_info.assign(recovery_info)
+	GameConstants.recovery_point.global_position = _player.global_position
 
 
 func _on_player_fell(here: Vector2) -> void:
 	if not _recovery_point_in_screen:
 		_create_new_recovery_spot(here)
-	_player.global_position = _position
-	_player.rotation = _rotation
-	_player.velocity = Vector2.ZERO
+
+	"""
+	print("")
+	print("recovery info: ", recovery_info)
+	print("surface info: ")
+	var surface_info = recovery_info.get("surface_info") as GroundHandler.SurfaceInfo
+	print("  normal: ", surface_info.normal)
+	print("  surface_type: ", surface_info.surface_type)
+	"""
+
 	player_recovered.emit()
 
 
@@ -119,23 +139,19 @@ func _find_new_recovery_point(horizontal: float, vertical: float, iteration: int
 	var right_search = _search_direction(Vector2.RIGHT, start)
 
 	# Decide which side to use, or to scan another line above
-	var side := _decide_safe_spot(left_search, right_search)
-	var new_surface_normal := Vector2.ZERO
-
-	# If both sides are poor, move up and scan again
-	if side == 0:
+	var best_result := _decide_safe_spot(left_search, right_search)
+	if best_result == null:
 		return false
 
-	# Otherwise set normal
-	if side == -1:
-		new_surface_normal = left_search.normal
-	elif side == 1:
-		new_surface_normal = right_search.normal
-
 	# Choose spot
-	var new_safe_spot = start + Vector2(side * _closest_distance, 0)
-	_position = new_safe_spot
-	_rotation = Vector2.UP.angle_to(new_surface_normal)
+	var side_multiplier := -1 if best_result == left_search else 1
+	var new_safe_spot = start + Vector2(side_multiplier * best_result.distance, 0.0)
+	var new_surface_info := GroundHandler.SurfaceInfo.new(best_result.normal, 0, Vector2.ZERO)
+
+	# Update recovery info
+	recovery_info.set("surface_info", new_surface_info)
+	recovery_info.set("position", new_safe_spot)
+	recovery_info.set("rotation", Vector2.UP.angle_to(best_result.normal))
 	GameConstants.recovery_point.global_position = new_safe_spot
 
 	return true
@@ -185,8 +201,8 @@ func _search_direction(direction: Vector2, search_origin: Vector2) -> RecoveryPo
 	return search_result
 
 
-## Returns [b]1[/b] if [b]side A[/b] is used, [b]-1[/b] if [b]side B[/b] is used, or [b]0[/b] if [b]neither side[/b] is valid.
-func _decide_safe_spot(search_result_a: RecoveryPointSearchResults, search_result_b: RecoveryPointSearchResults) -> int:
+## Compares two recovery point search results and returns the best one, or [code]null[/code] if both are poor.
+func _decide_safe_spot(search_result_a: RecoveryPointSearchResults, search_result_b: RecoveryPointSearchResults) -> RecoveryPointSearchResults:
 
 	var danger_a = not search_result_a.dangerous_item.is_empty()
 	var danger_b = not search_result_b.dangerous_item.is_empty()
@@ -201,19 +217,23 @@ func _decide_safe_spot(search_result_a: RecoveryPointSearchResults, search_resul
 	var valid_a := climbable_a and not danger_a and not slippery_a
 	var valid_b := climbable_b and not danger_b and not slippery_b
 	var closest_side := minf(search_result_a.distance, search_result_b.distance)
-	_closest_distance = closest_side
 
 	if valid_a and not valid_b:
-		return -1
+		return search_result_a
 	elif valid_b and not valid_a:
-		return 1
+		return search_result_b
 	elif valid_a and valid_b:
 		if closest_side == search_result_a.distance:
-			return -1
+			return search_result_a
 		elif closest_side == search_result_b.distance:
-			return 1
+			return search_result_b
 
-	return 0
+	return null
+
+
+func _on_surface_info_updated(new_surface_info: GroundHandler.SurfaceInfo) -> void:
+	if new_surface_info != null:
+		_saved_surface_info = new_surface_info
 
 
 class RecoveryPointSearchResults:
