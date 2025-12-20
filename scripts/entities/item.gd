@@ -9,7 +9,7 @@ var _powerup_replacement = preload(POWERUP_REPLACEMENT_PATH)
 @export var _item_id: String
 
 ## Replaces the item with the `GenericItem` supplied via `_debug_item`
-@export_tool_button("Replace item") var _replace_item_button: Callable = _replace_item
+@export_tool_button("Replace item") var replace_item_button: Callable = _replace_item
 
 var item_id: String:
 	get:

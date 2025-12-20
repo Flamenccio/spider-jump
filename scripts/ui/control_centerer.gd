@@ -12,7 +12,7 @@ func _ready() -> void:
 	_parent = get_parent()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not poll:
 		return
 	_parent.pivot_offset = _parent.size / 2.0

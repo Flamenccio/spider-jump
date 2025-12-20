@@ -46,7 +46,7 @@ func _on_move_input_change(input: Vector2) -> void:
 	_move_input = input
 
 
-func update_state(delta: float) -> void:
+func update_state(_delta: float) -> void:
 
 	var crawl_vector = _move_input.rotated(_player.rotation)
 

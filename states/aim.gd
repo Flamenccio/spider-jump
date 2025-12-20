@@ -20,15 +20,12 @@ var _powerup: String = 'none'
 var _ray_cast: RaycastQuery
 
 @export_flags_2d_physics var _climbable_layer: int
-@export_flags_2d_physics var _unclimbable_layer: int
 
 @export var _player: CharacterBody2D
 @export var _animator: SpriteTree
 @export var _jump_force: float = 1.0
 @export var _particle_emitter: Node
 @export var _sound_player: Node
-
-@onready var _action_buffer := %ActionBuffer
 
 func _ready() -> void:
 

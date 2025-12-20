@@ -27,7 +27,7 @@ func _ready() -> void:
 	add_child(telegraph_timer)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if telegraphing:
 		state_machine.set_param('telegraph_time', telegraph_timer.time_left)
 
@@ -50,7 +50,7 @@ func deactivate_laser() -> void:
 	laser_attack_finished.emit()
 
 
-func _transited_state(from: String, to: String) -> void:
+func _transited_state(_from: String, to: String) -> void:
 	_enter_state(to)
 
 

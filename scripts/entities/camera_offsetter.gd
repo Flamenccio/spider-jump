@@ -17,5 +17,5 @@ func get_offset() -> Vector2:
 	return _sub_offset
 
 
-func _on_receive_message(msg: String, value: Variant) -> void:
+func _on_receive_message(_msg: String, _value: Variant) -> void:
 	return

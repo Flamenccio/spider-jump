@@ -39,7 +39,7 @@ func _ready() -> void:
 	PlayerEventBus.player_aim.connect(_on_player_aim)
 
 
-func _on_player_aim(direction: Vector2, is_valid: bool) -> void:
+func _on_player_aim(_direction: Vector2, is_valid: bool) -> void:
 
 	if invalid == not is_valid:
 		return

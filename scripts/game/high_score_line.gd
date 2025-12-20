@@ -2,8 +2,6 @@ extends Node2D
 
 signal player_entered()
 
-@export var _high_score_saver: Node
-
 func _ready() -> void:
 
 	var high_score = GameConstants.high_score

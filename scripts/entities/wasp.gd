@@ -50,7 +50,7 @@ func set_fly_direction(right: bool) -> void:
 	_life_timer.start()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# slowly move towards player
 	var height_difference = _player.global_position.y - global_position.y
 	velocity = Vector2(velocity.x, height_difference * 0.1)
@@ -69,7 +69,7 @@ func _on_enter_screen() -> void:
 	_entered = true
 
 
-func _on_player_entered(body: Node2D) -> void:
+func _on_player_entered(_body: Node2D) -> void:
 	velocity = Vector2.ZERO
 	_animator.play('sting')
 	_sting_animation_timer.start()

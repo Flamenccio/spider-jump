@@ -64,7 +64,7 @@ func _remove_all_powerups() -> void:
 	get_tree().call_group('powerup', 'remove_powerup')
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var point = floori(_player.global_position.y / GameConstants.PIXELS_PER_POINT)
 	score_updated.emit(point)
 

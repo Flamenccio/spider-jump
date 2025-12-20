@@ -59,7 +59,7 @@ func set_bridge(node_a: Node2D, node_b: Node2D) -> void:
 	activate()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not _active:
 		return
 	if _target_a == null or _target_b == null:

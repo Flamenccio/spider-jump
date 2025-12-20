@@ -16,7 +16,7 @@ var _event_origin_set: bool = false
 var _active: bool = false
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	_wait_target_distance()
 	_track_target()
 

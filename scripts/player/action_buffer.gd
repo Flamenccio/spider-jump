@@ -33,7 +33,7 @@ func _find_action_type(buffered_action: BufferedAction, type: ActionType) -> boo
 	return buffered_action.action_type == type
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	for i in _buffered_actions.size():
 		if _buffered_actions[i].decrease_lifetime():
 			_buffered_actions.remove_at(i)
