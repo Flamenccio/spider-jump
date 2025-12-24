@@ -11,6 +11,7 @@ const ANTIBUG_POWERUP = 'antibug'
 const NO_POWERUP = 'none'
 const YUMFLY_ITEM = 'yum_fly'
 const SWIFT_YUMFLY_ITEM = 'swift_yum_fly'
+const DELIFLY_ITEM = "deli_fly"
 
 const _POWERUPS: Array[StringName] = [
 	HOVERFLY_POWERUP,

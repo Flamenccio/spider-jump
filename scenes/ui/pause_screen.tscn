@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drqv7cbcuecnt" path="res://scripts/ui/pause_screen.gd" id="1_27awe"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_gchx3"]
-[ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_qeunj"]
+[ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://sprites/screen_wipe_1.png" id="2_qeunj"]
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="3_gyuvn"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="5_lyq4t"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_oc7jr"]

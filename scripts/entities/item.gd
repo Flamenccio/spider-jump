@@ -2,10 +2,11 @@
 class_name Item
 extends StaticBody2D
 
-const POWERUP_REPLACEMENT_PATH = "res://resources/items/yumfly.tres"
+const POWERUP_REPLACEMENT_PATH = "res://resources/items/yumfly_data.tres"
 
 var _powerup_replacement = preload(POWERUP_REPLACEMENT_PATH)
-@export var _debug_item: GenericItem
+
+@export var _debug_item: ItemData
 @export var _item_id: String
 
 ## Replaces the item with the `GenericItem` supplied via `_debug_item`

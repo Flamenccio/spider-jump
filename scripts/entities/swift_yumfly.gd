@@ -3,7 +3,7 @@ extends Item
 
 signal chase_started()
 
-const _BASE_VERTICAL_SPEED = 20.0
+const _BASE_VERTICAL_SPEED = 35.0
 const _VERTICAL_SPEED_INCREASE = 5.0
 const _WAVE_AMPLITUDE = 0.5
 const _WAVE_FREQUENCY = 3.0

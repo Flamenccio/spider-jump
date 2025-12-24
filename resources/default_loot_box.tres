@@ -1,64 +1,80 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=17 format=3 uid="uid://c0p0fb7uoe6l8"]
+[gd_resource type="Resource" script_class="LootTable" load_steps=21 format=3 uid="uid://c0p0fb7uoe6l8"]
 
 [ext_resource type="Script" uid="uid://bc3fsl7qhsokp" path="res://scripts/resources/item_box_loot.gd" id="1_uehea"]
-[ext_resource type="Resource" uid="uid://ch1wes81qxj74" path="res://resources/powerups/super_grub.tres" id="2_kw6b7"]
 [ext_resource type="Script" uid="uid://c2igfpmml5pq7" path="res://scripts/resources/loot_table.gd" id="2_ldm30"]
-[ext_resource type="Resource" uid="uid://b3dk2h5mocpbw" path="res://resources/powerups/hoverfly.tres" id="4_w4i5s"]
-[ext_resource type="Resource" uid="uid://bdw182pwtkml6" path="res://resources/powerups/blinkfly.tres" id="6_eyitt"]
-[ext_resource type="Resource" uid="uid://c48hoftiv3yl0" path="res://resources/powerups/antibug.tres" id="8_ok0vv"]
-[ext_resource type="Resource" uid="uid://duiadsgrbxyya" path="res://resources/powerups/bubblebee.tres" id="10_fk5i5"]
-[ext_resource type="Resource" uid="uid://clglltm1d6sph" path="res://resources/powerups/hopperpop.tres" id="14_8fqnd"]
-[ext_resource type="Resource" uid="uid://bxec6jfxxjtft" path="res://resources/items/yumfly.tres" id="16_6mj5w"]
-
-[sub_resource type="Resource" id="Resource_icw0f"]
-script = ExtResource("1_uehea")
-loot_item = ExtResource("2_kw6b7")
-loot_chance = 0.10537582857142856
-minimum_level = 4
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
-
-[sub_resource type="Resource" id="Resource_rpce5"]
-script = ExtResource("1_uehea")
-loot_item = ExtResource("4_w4i5s")
-loot_chance = 0.10537582857142856
-minimum_level = 4
-metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+[ext_resource type="Resource" uid="uid://qatl8xj6hqik" path="res://resources/items/yumfly_data.tres" id="2_w54ef"]
+[ext_resource type="Resource" uid="uid://65nudjkq1ybe" path="res://resources/powerups/hopperpop_data.tres" id="3_ik14u"]
+[ext_resource type="Resource" uid="uid://be7o8vn3tljbv" path="res://resources/powerups/bubblebee_data.tres" id="4_507uc"]
+[ext_resource type="Resource" uid="uid://b8bbmd6414k8a" path="res://resources/powerups/antibug_data.tres" id="5_0b71e"]
+[ext_resource type="Resource" uid="uid://bshm4g7wtlkvp" path="res://resources/powerups/blinkfly_data.tres" id="6_bov1d"]
+[ext_resource type="Resource" uid="uid://3hjg6af3jabv" path="res://resources/powerups/hoverfly_data.tres" id="7_408oo"]
+[ext_resource type="Resource" uid="uid://ceb565cf5kd4f" path="res://resources/powerups/super_grub_data.tres" id="8_icw0f"]
+[ext_resource type="Resource" uid="uid://bynu8i3m1swkp" path="res://resources/items/deli_fly.tres" id="9_rpce5"]
+[ext_resource type="Resource" uid="uid://dlvvr3b6p8gaa" path="res://resources/items/swift_yumfly.tres" id="10_ik14u"]
 
 [sub_resource type="Resource" id="Resource_kw6b7"]
 script = ExtResource("1_uehea")
-loot_item = ExtResource("6_eyitt")
-loot_chance = 0.10537582857142856
-minimum_level = 4
+item_data = ExtResource("2_w54ef")
+loot_chance = 0.27338545953360766
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_w4i5s"]
 script = ExtResource("1_uehea")
-loot_item = ExtResource("8_ok0vv")
-loot_chance = 0.10537582857142856
+item_data = ExtResource("3_ik14u")
+loot_chance = 0.062496570644718766
 minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_eyitt"]
 script = ExtResource("1_uehea")
-loot_item = ExtResource("10_fk5i5")
-loot_chance = 0.10537582857142856
+item_data = ExtResource("4_507uc")
+loot_chance = 0.062496570644718766
 minimum_level = 2
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_ok0vv"]
+script = ExtResource("1_uehea")
+item_data = ExtResource("5_0b71e")
+loot_chance = 0.062496570644718766
+minimum_level = 3
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_fk5i5"]
 script = ExtResource("1_uehea")
-loot_item = ExtResource("14_8fqnd")
-loot_chance = 0.10537582857142856
-minimum_level = 2
+item_data = ExtResource("6_bov1d")
+loot_chance = 0.062496570644718766
+minimum_level = 4
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
-[sub_resource type="Resource" id="Resource_ik14u"]
+[sub_resource type="Resource" id="Resource_8tfq8"]
 script = ExtResource("1_uehea")
-loot_item = ExtResource("16_6mj5w")
-loot_chance = 0.3677450285714286
+item_data = ExtResource("7_408oo")
+loot_chance = 0.062496570644718766
+minimum_level = 5
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_8fqnd"]
+script = ExtResource("1_uehea")
+item_data = ExtResource("8_icw0f")
+loot_chance = 0.062496570644718766
+minimum_level = 6
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_6mj5w"]
+script = ExtResource("1_uehea")
+item_data = ExtResource("9_rpce5")
+loot_chance = 0.1858175582990398
+minimum_level = 12
+metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
+
+[sub_resource type="Resource" id="Resource_507uc"]
+script = ExtResource("1_uehea")
+item_data = ExtResource("10_ik14u")
+loot_chance = 0.1658175582990398
+minimum_level = 8
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [resource]
 script = ExtResource("2_ldm30")
-loot = Array[ExtResource("1_uehea")]([SubResource("Resource_icw0f"), SubResource("Resource_rpce5"), SubResource("Resource_kw6b7"), SubResource("Resource_w4i5s"), SubResource("Resource_eyitt"), SubResource("Resource_fk5i5"), SubResource("Resource_ik14u")])
+loot = Array[ExtResource("1_uehea")]([SubResource("Resource_kw6b7"), SubResource("Resource_w4i5s"), SubResource("Resource_eyitt"), SubResource("Resource_ok0vv"), SubResource("Resource_fk5i5"), SubResource("Resource_8tfq8"), SubResource("Resource_8fqnd"), SubResource("Resource_6mj5w"), SubResource("Resource_507uc")])
 metadata/_custom_type_script = "uid://c2igfpmml5pq7"
