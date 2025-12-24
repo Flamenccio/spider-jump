@@ -3,11 +3,11 @@ extends Camera2D
 signal message_offsetters(msg: String, value: Variant)
 
 ## Permanent vertical distance of camera
-const _CAMERA_HEIGHT = -16.0
+const _CAMERA_HEIGHT = -20.0
 
 # DYNAMIC CAMERA SPEED
-const _MIN_SMOOTHING_SPEED = 3.0
-const _MAX_SMOOTHING_SPEED = 5.0
+const _MIN_SMOOTHING_SPEED = 4.0
+const _MAX_SMOOTHING_SPEED = 6.0
 const _MIN_PLAYER_SPEED = 0.0
 const _MAX_PLAYER_SPEED = 300.0
 const _SMOOTHING_RATIO = (_MAX_SMOOTHING_SPEED - _MIN_SMOOTHING_SPEED) / (_MAX_PLAYER_SPEED - _MIN_PLAYER_SPEED)

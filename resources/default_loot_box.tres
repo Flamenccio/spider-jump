@@ -15,62 +15,62 @@
 [sub_resource type="Resource" id="Resource_kw6b7"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("2_w54ef")
-loot_chance = 0.27338545953360766
+chance_weight = 0.8
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_w4i5s"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("3_ik14u")
-loot_chance = 0.062496570644718766
+chance_weight = 0.25
 minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_eyitt"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("4_507uc")
-loot_chance = 0.062496570644718766
+chance_weight = 0.25
 minimum_level = 2
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_ok0vv"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("5_0b71e")
-loot_chance = 0.062496570644718766
+chance_weight = 0.25
 minimum_level = 3
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_fk5i5"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("6_bov1d")
-loot_chance = 0.062496570644718766
+chance_weight = 0.25
 minimum_level = 4
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_8tfq8"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("7_408oo")
-loot_chance = 0.062496570644718766
+chance_weight = 0.25
 minimum_level = 5
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_8fqnd"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("8_icw0f")
-loot_chance = 0.062496570644718766
+chance_weight = 0.25
 minimum_level = 6
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_6mj5w"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("9_rpce5")
-loot_chance = 0.1858175582990398
+chance_weight = 0.6
 minimum_level = 12
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 
 [sub_resource type="Resource" id="Resource_507uc"]
 script = ExtResource("1_uehea")
 item_data = ExtResource("10_ik14u")
-loot_chance = 0.1658175582990398
+chance_weight = 0.5
 minimum_level = 8
 metadata/_custom_type_script = "uid://bc3fsl7qhsokp"
 

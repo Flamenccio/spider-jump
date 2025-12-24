@@ -1,6 +1,6 @@
 extends CameraOffsetter
 
-const _DEFAULT_POWERUP_HEIGHT = -32.0
+const _DEFAULT_POWERUP_HEIGHT = -14.0
 
 ## Time in seconds it takes to complete offset
 const _OFFSET_ENABLE_DURATION = 0.3
@@ -12,10 +12,13 @@ const _OFFSET_DISABLE_DURATION = 3.3
 const _DOWN_ADJUST_THRESHOLD = 0.9
 
 var _target_height := 0.0
+var _pulling := false
 
 func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(_on_powerup_started)
 	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
+	GlobalInputServer.pull_pressed.connect(_on_pull_pressed)
+	GlobalInputServer.pull_pressed.connect(_on_pull_released)
 
 
 func _process(_delta: float) -> void:
@@ -32,7 +35,7 @@ func _adjust_powerup_height() -> void:
 
 	if normalized_height >= _DOWN_ADJUST_THRESHOLD:
 		_sub_offset = _sub_offset.lerp(Vector2(0.0, 32.0), 0.03)
-	elif _sub_offset.y > _target_height:
+	elif _sub_offset.y > _target_height and not _pulling:
 		_sub_offset = _sub_offset.lerp(Vector2(0.0, _target_height), 0.04)
 
 
@@ -59,3 +62,11 @@ func _on_powerup_started(powerup: String) -> void:
 
 func _on_powerup_ended(_powerup: String) -> void:
 	_move_offset(Vector2.ZERO, _OFFSET_DISABLE_DURATION)
+
+
+func _on_pull_pressed() -> void:
+	_pulling = true
+
+
+func _on_pull_released() -> void:
+	_pulling = false

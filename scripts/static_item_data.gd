@@ -1,3 +1,4 @@
+@tool
 class_name StaticItemData
 extends ItemData
 ## Item data for items that have no special behavior.

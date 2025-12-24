@@ -18,18 +18,18 @@ func spawn_loot(current_level: int) -> void:
 	var available_loot = loot_table.loot.filter(func(i: ItemBoxLoot): return i.minimum_level <= current_level)
 
 	# Get total weight
-	var total_weight = available_loot.reduce(func(accum: float, loot: ItemBoxLoot): return accum + loot.loot_chance, 0)
+	var total_weight = available_loot.reduce(func(accum: float, loot: ItemBoxLoot): return accum + loot.chance_weight, 0)
 
 	# Roll
 	var select = randf_range(0.0, total_weight)
 	var chance_accum := 0.0
 	for loot: ItemBoxLoot in available_loot:
-		if loot.loot_chance + chance_accum >= select:
+		if loot.chance_weight + chance_accum >= select and chance_accum < select:
 			_spawn_item(loot)
-			break
-		chance_accum += loot.loot_chance
+			return
+		chance_accum += loot.chance_weight
 
-	push_warning("No loot in range")
+	print("No loot in range")
 
 
 func _spawn_item(item: ItemBoxLoot) -> void:
@@ -41,7 +41,6 @@ func _spawn_item(item: ItemBoxLoot) -> void:
 	instance.rotation = rotation
 	get_parent().call_deferred('add_child', instance)
 	queue_free()
-	print("spawned: ", instance.name)
 
 
 func get_local_properties() -> Dictionary:

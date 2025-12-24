@@ -1,3 +1,4 @@
+@tool
 class_name ItemData
 extends Resource
 ## Resource of an item's data.
