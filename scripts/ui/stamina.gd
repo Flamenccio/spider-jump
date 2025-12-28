@@ -12,8 +12,12 @@ var _replenish_effect_active := false
 @export var _normal_sprite: Texture2D
 
 @onready var _replenish_effect := %StaminaBarReplenishEffect
+@onready var _infinite_stamina_bar := %StaminaBarInfinite
 
 func _ready() -> void:
+
+	PlayerEventBus.powerup_started.connect(_on_powerup_started)
+	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
 
 	_replenish_effect_shader = _replenish_effect.material as ShaderMaterial
 	_replenish_effect_shader.set_shader_parameter("animate", false)
@@ -56,3 +60,14 @@ func _on_value_changed(v: float) -> void:
 func _deactivate_replenish_effect() -> void:
 	_replenish_effect_shader.set_shader_parameter("animate", false)
 	_replenish_effect_active = false
+
+
+func _on_powerup_started(powerup: String) -> void:
+	match powerup:
+		ItemIds.SUPER_GRUB_POWERUP:
+			_infinite_stamina_bar.material.set_shader_parameter("animate", true)
+
+func _on_powerup_ended(powerup: String) -> void:
+	match powerup:
+		ItemIds.SUPER_GRUB_POWERUP:
+			_infinite_stamina_bar.material.set_shader_parameter("animate", false)

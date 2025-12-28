@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=53 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
 [ext_resource type="PackedScene" uid="uid://ckfvnbwped5hv" path="res://scenes/main_camera.tscn" id="2_m4url"]
@@ -29,8 +29,12 @@
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/game/player_hints.gd" id="32_wljb1"]
 [ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="36_twgab"]
 [ext_resource type="Script" uid="uid://c2xgxrcw3hung" path="res://scenes/sound_manager_interface.gd" id="37_02fa5"]
+[ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="37_m4url"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="37_nepv3"]
+[ext_resource type="Resource" uid="uid://ceb565cf5kd4f" path="res://resources/powerups/super_grub_data.tres" id="38_m4url"]
 [ext_resource type="Script" uid="uid://b7kielrj6p8cd" path="res://scripts/utility/sound_manager.gd" id="38_nepv3"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="39_pr1ej"]
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="40_05nbr"]
 [ext_resource type="Script" uid="uid://bdx7qqns2omy" path="res://scripts/game/stamina_drainer.gd" id="40_m4url"]
 [ext_resource type="Shader" uid="uid://ctrysyimdrf1o" path="res://shaders/texture_scroll.gdshader" id="43_oaba0"]
 [ext_resource type="Texture2D" uid="uid://b07nu00q504ie" path="res://ui_themes/blinkfly_trajectory-Sheet.png" id="44_oaba0"]
@@ -99,6 +103,10 @@ resource_local_to_scene = true
 shader = ExtResource("24_7025r")
 shader_parameter/progress = 0.0
 shader_parameter/moving_side = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni1hk"]
+atlas = ExtResource("39_pr1ej")
+region = Rect2(8, 0, 8, 8)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
@@ -258,6 +266,18 @@ script = ExtResource("40_m4url")
 process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
+
+[node name="SuperGrub" parent="." instance=ExtResource("37_m4url")]
+position = Vector2(0, -46)
+_debug_item = ExtResource("38_m4url")
+_item_id = "super_grub"
+
+[node name="@Sprite2D@51545" type="Sprite2D" parent="SuperGrub"]
+z_index = 10
+texture = SubResource("AtlasTexture_ni1hk")
+
+[node name="@CollisionShape2D@51546" type="CollisionShape2D" parent="SuperGrub"]
+shape = ExtResource("40_05nbr")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]

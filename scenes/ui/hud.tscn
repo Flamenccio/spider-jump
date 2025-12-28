@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=30 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://scripts/ui/hud.gd" id="1_oo0fn"]
@@ -13,6 +13,8 @@
 [ext_resource type="Shader" uid="uid://dobt8p4ghchte" path="res://shaders/animate_spritesheet.gdshader" id="10_0h1do"]
 [ext_resource type="Texture2D" uid="uid://s27ditr23lcq" path="res://sprites/stamina_bar_increase_effect_v2-Sheet.png" id="11_4d46k"]
 [ext_resource type="Script" uid="uid://db68p5fjedisk" path="res://scripts/ui/high_score_label.gd" id="11_mj13f"]
+[ext_resource type="Shader" uid="uid://cgehlvqfh2mku" path="res://shaders/looping_animate_spritesheet.gdshader" id="12_erw67"]
+[ext_resource type="Texture2D" uid="uid://cv1pdo65b1kg8" path="res://sprites/stamina_bar_infinite-Sheet.png" id="13_gonto"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6fi6k"]
 atlas = ExtResource("4_uo2fv")
@@ -53,6 +55,16 @@ shader_parameter/start_time = 0.0
 shader_parameter/current_time = 0.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_erw67"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gonto"]
+shader = ExtResource("12_erw67")
+shader_parameter/cols = 4
+shader_parameter/rows = 1
+shader_parameter/fps = 10.0000004275
+shader_parameter/tex = ExtResource("13_gonto")
+shader_parameter/animate = true
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cwdlq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mphia"]
 atlas = ExtResource("1_ahhtf")
@@ -186,6 +198,14 @@ offset_top = -14.0
 offset_right = 47.0
 offset_bottom = 44.0
 texture = SubResource("PlaceholderTexture2D_erw67")
+
+[node name="StaminaBarInfinite" type="TextureRect" parent="Parameters/StaminaBar"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_gonto")
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 8.0
+texture = SubResource("PlaceholderTexture2D_cwdlq")
 
 [node name="PowerupTimeBar" type="TextureProgressBar" parent="Parameters"]
 unique_name_in_owner = true
