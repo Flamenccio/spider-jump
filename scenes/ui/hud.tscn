@@ -62,7 +62,7 @@ shader_parameter/cols = 4
 shader_parameter/rows = 1
 shader_parameter/fps = 10.0000004275
 shader_parameter/tex = ExtResource("13_gonto")
-shader_parameter/animate = true
+shader_parameter/animate = false
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cwdlq"]
 

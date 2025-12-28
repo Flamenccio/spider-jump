@@ -9,7 +9,10 @@ const _OFFSET_ENABLE_DURATION = 0.3
 const _OFFSET_DISABLE_DURATION = 3.3
 
 ## If player goes below this normalized screen height, offset goes down
-const _DOWN_ADJUST_THRESHOLD = 0.9
+const _DOWN_ADJUST_THRESHOLD = 0.80
+
+## Player must be above this normalized screen height to release offset
+const _DOWN_RELEASE_THRESHOLD = 0.65
 
 var _target_height := 0.0
 var _pulling := false
@@ -22,10 +25,10 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	_adjust_powerup_height()
+	_adjust_powerup_height(_delta)
 
 
-func _adjust_powerup_height() -> void:
+func _adjust_powerup_height(delta: float) -> void:
 
 	if _target_height >= 0.0:
 		return
@@ -34,9 +37,9 @@ func _adjust_powerup_height() -> void:
 	var normalized_height = normalized_player_position.y
 
 	if normalized_height >= _DOWN_ADJUST_THRESHOLD:
-		_sub_offset = _sub_offset.lerp(Vector2(0.0, 32.0), 0.03)
-	elif _sub_offset.y > _target_height and not _pulling:
-		_sub_offset = _sub_offset.lerp(Vector2(0.0, _target_height), 0.04)
+		_sub_offset = _sub_offset.lerp(Vector2(0.0, 32.0), delta)
+	elif _sub_offset.y > _target_height and not _pulling and normalized_height <= _DOWN_RELEASE_THRESHOLD:
+		_sub_offset = _sub_offset.lerp(Vector2(0.0, _target_height), delta)
 
 
 func _move_offset(to: Vector2, duration: float) -> void:
