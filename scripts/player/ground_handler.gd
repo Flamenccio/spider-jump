@@ -12,6 +12,9 @@ const _MAX_SURFACE_HISTORY = 3
 var _current_surface: SurfaceInfo:
 	set(value):
 		surface_info_updated.emit(value)
+		_current_surface = value
+	get:
+		return _current_surface
 
 var _current_climbable_layers: int = 0:
 	set(value):
@@ -61,8 +64,10 @@ func _is_below_player(point: Vector2, normal: Vector2) -> bool:
 
 
 func _on_ground_exited(body: Node2D) -> void:
+
 	if _current_surface == null:
 		return
+
 	var surface_layer := 0
 	if body is TileMapLayer:
 		var tilemap_layers = body.tile_set.get_physics_layer_collision_layer(0)
@@ -103,7 +108,9 @@ func _on_player_jumped() -> void:
 func _surface_is_same(surface_info_a: SurfaceInfo, surface_info_b: SurfaceInfo) -> bool:
 	if surface_info_a == null or surface_info_b == null:
 		return false
-	return surface_info_a.normal == surface_info_b.normal and surface_info_a.surface_type == surface_info_b.surface_type
+	var same_normal = surface_info_a.normal.dot(surface_info_b.normal) >= 1.0
+	var same_surface_type = surface_info_a.surface_type & surface_info_b.surface_type > 0
+	return same_normal and same_surface_type
 
 
 func _update_current_surface_info(new_surface_info: SurfaceInfo) -> void:

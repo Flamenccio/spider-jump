@@ -35,7 +35,6 @@ func pop_buffered_action(action_index: int) -> BufferedAction:
 
 ## Remove all buffered actions
 func clear_buffered_actions() -> void:
-	print("buffers cleared")
 	_buffered_actions.clear()
 
 
