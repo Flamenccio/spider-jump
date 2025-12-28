@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cflkesovqb44q"]
+[gd_scene load_steps=26 format=3 uid="uid://cflkesovqb44q"]
 
 [ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="1_ahhtf"]
 [ext_resource type="Script" uid="uid://w11jygroadmh" path="res://scripts/ui/hud.gd" id="1_oo0fn"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="6_5pdws"]
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="6_047uy"]
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="9_4jqwt"]
+[ext_resource type="Shader" uid="uid://dobt8p4ghchte" path="res://shaders/animate_spritesheet.gdshader" id="10_0h1do"]
+[ext_resource type="Texture2D" uid="uid://s27ditr23lcq" path="res://sprites/stamina_bar_increase_effect_v2-Sheet.png" id="11_4d46k"]
 [ext_resource type="Script" uid="uid://db68p5fjedisk" path="res://scripts/ui/high_score_label.gd" id="11_mj13f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6fi6k"]
@@ -39,6 +41,18 @@ region = Rect2(16, 64, 32, 8)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0i1j5"]
 atlas = ExtResource("1_ahhtf")
 region = Rect2(48, 64, 32, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4d46k"]
+shader = ExtResource("10_0h1do")
+shader_parameter/cols = 7
+shader_parameter/rows = 1
+shader_parameter/fps = 25.00000114
+shader_parameter/tex = ExtResource("11_4d46k")
+shader_parameter/animate = false
+shader_parameter/start_time = 0.0
+shader_parameter/current_time = 0.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_erw67"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mphia"]
 atlas = ExtResource("1_ahhtf")
@@ -163,6 +177,16 @@ script = ExtResource("3_hd3ao")
 _flash_sprite = SubResource("AtlasTexture_0i1j5")
 _normal_sprite = SubResource("AtlasTexture_ahhtf")
 
+[node name="StaminaBarReplenishEffect" type="TextureRect" parent="Parameters/StaminaBar"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_4d46k")
+layout_mode = 0
+offset_left = -14.0
+offset_top = -14.0
+offset_right = 47.0
+offset_bottom = 44.0
+texture = SubResource("PlaceholderTexture2D_erw67")
+
 [node name="PowerupTimeBar" type="TextureProgressBar" parent="Parameters"]
 unique_name_in_owner = true
 visible = false
@@ -202,5 +226,6 @@ text = "Hi: 000000"
 label_settings = SubResource("LabelSettings_mj13f")
 script = ExtResource("11_mj13f")
 
+[connection signal="value_changed" from="Parameters/StaminaBar" to="Parameters/StaminaBar" method="_on_value_changed"]
 [connection signal="value_changed" from="Parameters/StaminaBar" to="Parameters/StaminaBar" method="_flash" unbinds=1]
 [connection signal="value_changed" from="Parameters/PowerupTimeBar" to="Parameters/PowerupTimeBar" method="_flash" unbinds=1]

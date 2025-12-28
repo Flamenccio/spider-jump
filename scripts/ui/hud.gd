@@ -17,10 +17,9 @@ func _ready() -> void:
 	PlayerEventBus.powerup_started.connect(_on_powerup_started)
 	PlayerEventBus.powerup_ended.connect(_on_powerup_ended)
 	PlayerEventBus.powerup_timer_updated.connect(_on_powerup_timer_updated)
-	PlayerEventBus.player_fell.connect(_on_player_fell)
 
 
-func _on_player_fell(_w: Vector2) -> void:
+func _emit_life_down_effect() -> void:
 	var instance = _life_bar_decrease_particles.instantiate()
 	GameConstants.game_spawner.add_child(instance)
 	instance.call("spawn_particles", _life_bar)
@@ -52,6 +51,7 @@ func _on_stamina_updated(current_stamina: float) -> void:
 func _on_health_updated(current_health: int) -> void:
 	if  current_health < _life_bar.life_value:
 		life_bar_depleted.emit(_life_bar)
+		_emit_life_down_effect()
 	_life_bar.display_life(current_health)
 
 
