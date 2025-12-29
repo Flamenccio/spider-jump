@@ -6,11 +6,11 @@ signal message_offsetters(msg: String, value: Variant)
 const _CAMERA_HEIGHT = -20.0
 
 # DYNAMIC CAMERA SPEED
-const _MIN_SMOOTHING_SPEED = 1.0
+const _MIN_SMOOTHING_SPEED = 4.0
 const _MAX_SMOOTHING_SPEED = 8.0
-const _MIN_PLAYER_SPEED = 0.0
-const _MAX_PLAYER_SPEED = 300.0
-const _SMOOTHING_RATIO = (_MAX_SMOOTHING_SPEED - _MIN_SMOOTHING_SPEED) / (_MAX_PLAYER_SPEED - _MIN_PLAYER_SPEED)
+const _MIN_PLAYER_DISTANCE = 0.0
+const _MAX_PLAYER_DISTANCE = 16.0
+const _SMOOTHING_RATIO = (_MAX_SMOOTHING_SPEED - _MIN_SMOOTHING_SPEED) / (_MAX_PLAYER_DISTANCE - _MIN_PLAYER_DISTANCE)
 
 var _offsetters: Array[CameraOffsetter]
 
@@ -88,11 +88,17 @@ func _movement() -> void:
 
 
 func _set_dynamic_smoothing_speed() -> void:
+
 	if GameConstants.player == null:
 		return
 	if not position_smoothing_enabled:
 		return
-	var player_speed = GameConstants.player.get_real_velocity().length()
-	player_speed = clampf(player_speed, _MIN_PLAYER_SPEED, _MAX_PLAYER_SPEED)
-	var target_smoothing = _SMOOTHING_RATIO * player_speed + (_MIN_SMOOTHING_SPEED - _SMOOTHING_RATIO * _MIN_PLAYER_SPEED)
+
+	var player_distance := clampf(
+		get_screen_center_position().y - GameConstants.player.global_position.y,
+		_MIN_PLAYER_DISTANCE,
+		_MAX_PLAYER_DISTANCE
+	)
+
+	var target_smoothing = _SMOOTHING_RATIO * player_distance + (_MIN_SMOOTHING_SPEED - _SMOOTHING_RATIO * _MIN_PLAYER_DISTANCE)
 	position_smoothing_speed = lerpf(position_smoothing_speed, target_smoothing, 0.05)

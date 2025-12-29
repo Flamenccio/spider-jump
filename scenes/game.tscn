@@ -267,16 +267,16 @@ process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
 
-[node name="Hopperpop" parent="." groups=["powerup"] instance=ExtResource("37_m4url")]
-position = Vector2(0, -46)
+[node name="Hopperpop" parent="." instance=ExtResource("37_m4url")]
+position = Vector2(0, -54)
 _debug_item = ExtResource("38_8ool0")
 _item_id = "hopperpop"
 
-[node name="@Sprite2D@52854" type="Sprite2D" parent="Hopperpop"]
+[node name="@Sprite2D@29069" type="Sprite2D" parent="Hopperpop"]
 z_index = 10
 texture = SubResource("AtlasTexture_3vd48")
 
-[node name="@CollisionShape2D@52855" type="CollisionShape2D" parent="Hopperpop"]
+[node name="@CollisionShape2D@29070" type="CollisionShape2D" parent="Hopperpop"]
 shape = ExtResource("40_05nbr")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
