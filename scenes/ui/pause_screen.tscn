@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drqv7cbcuecnt" path="res://scripts/ui/pause_screen.gd" id="1_27awe"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="1_gchx3"]
-[ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://resources/powerups/screen_wipe_1.png" id="2_qeunj"]
+[ext_resource type="Texture2D" uid="uid://ddmvrvqngqji3" path="res://sprites/screen_wipe_1.png" id="2_qeunj"]
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="3_gyuvn"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="5_lyq4t"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_oc7jr"]
@@ -18,7 +18,6 @@ shader_parameter/moving_side = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_n1irx"]
 font = ExtResource("9_gyuvn")
-font_size = 64
 
 [node name="PauseScreen" type="Control"]
 process_mode = 3
@@ -34,31 +33,23 @@ script = ExtResource("1_27awe")
 visible = true
 material = SubResource("ShaderMaterial_n1irx")
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.00086805556
-anchor_top = 0.11225926
-anchor_right = 0.9991319
-anchor_bottom = 0.25925925
-offset_left = 1.0
-offset_top = 1.2559967
-offset_right = 1.0
-offset_bottom = 17.0
+anchors_preset = 10
+anchor_bottom = 0.0
+offset_top = 22.0
+offset_bottom = 54.0
+grow_vertical = 1
 texture = ExtResource("2_qeunj")
 enter_side = 1
 exit_side = 3
 enter_duration = 0.1
 exit_duration = 0.1
-metadata/_edit_use_anchors_ = true
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -272.0
-offset_top = 95.0
-offset_right = 272.0
-offset_bottom = 167.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 29.0
+offset_bottom = 47.0
 grow_horizontal = 2
 text = "ui.label.paused_title"
 label_settings = SubResource("LabelSettings_n1irx")
@@ -67,19 +58,18 @@ vertical_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -108.0
-offset_top = 45.0
-offset_right = 108.0
-offset_bottom = 143.0
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -92.0
+offset_right = 55.0
+offset_bottom = -8.0
 grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(108, 49)
+grow_vertical = 0
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="ResumeButton" type="Button" parent="Buttons"]

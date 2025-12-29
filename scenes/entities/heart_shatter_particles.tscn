@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://co1bysuyg62od"]
+
+[ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="1_b5ime"]
+[ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="2_sonfy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
+atlas = ExtResource("1_b5ime")
+region = Rect2(3, 3, 2, 2)
+
+[node name="HeartShatterParticles" type="CPUParticles2D"]
+z_index = 10
+z_as_relative = false
+emitting = false
+amount = 25
+texture = SubResource("AtlasTexture_1kice")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 22.5
+gravity = Vector2(0, 245)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+script = ExtResource("2_sonfy")
+
+[connection signal="finished" from="." to="." method="queue_free"]

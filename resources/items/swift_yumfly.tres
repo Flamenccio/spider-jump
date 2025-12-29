@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SpecialItemData" load_steps=3 format=3 uid="uid://dlvvr3b6p8gaa"]
+
+[ext_resource type="Script" uid="uid://dqk2cab8tcbx0" path="res://scripts/special_item_data.gd" id="1_iaqo4"]
+[ext_resource type="PackedScene" uid="uid://bmyyp1qc3tf0m" path="res://scenes/level_objects/swift_yumfly.tscn" id="1_qx4s5"]
+
+[resource]
+script = ExtResource("1_iaqo4")
+item_scene = ExtResource("1_qx4s5")
+item_id = "swift_yumfly"
+metadata/_custom_type_script = "uid://dqk2cab8tcbx0"

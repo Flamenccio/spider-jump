@@ -2,7 +2,11 @@ extends Node2D
 
 signal levelled_up(new_level: int)
 signal on_game_over()
+
+## Emits the raw score based on the player's elevation every frame.
+## Note that the emitted value can be negative (higher elevation = smaller value)
 signal score_updated(score: int)
+
 signal pause_screen_enabled()
 signal pause_screen_disabled()
 signal game_exited()
@@ -10,6 +14,7 @@ signal game_restarted()
 
 const _MAIN_MENU_UID = "uid://ive8w8v858du"
 const _GAME_SCENE_UID = "uid://c3vqs430qpt8w"
+const _HIGH_SCORE_LINE_UID = "uid://bbd2meqorrjoe"
 
 var _player: Node2D
 var _game_paused := false
@@ -45,6 +50,9 @@ func _ready() -> void:
 	# Play some music
 	GlobalSoundManager.play_music("spider_jump")
 
+	# Spawn high score line
+	add_child(load(ResourceUID.uid_to_path(_HIGH_SCORE_LINE_UID)).instantiate())
+
 
 func game_over() -> void:
 	get_tree().paused = true
@@ -56,7 +64,7 @@ func _remove_all_powerups() -> void:
 	get_tree().call_group('powerup', 'remove_powerup')
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var point = floori(_player.global_position.y / GameConstants.PIXELS_PER_POINT)
 	score_updated.emit(point)
 
@@ -97,6 +105,7 @@ func _on_pause_screen_animation_done() -> void:
 
 func _on_game_exit() -> void:
 	GlobalSoundManager.stop_music()
+	GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
 	_game_screen_transition.enter_transition_finished.connect(_exit_game, ConnectFlags.CONNECT_ONE_SHOT)
 	_game_screen_transition.play_enter_animation()
 
@@ -112,6 +121,8 @@ func _exit_game() -> void:
 func _on_game_restart() -> void:
 	GlobalSoundManager.stop_music()
 	GameConstants.difficulty = _debug_initial_difficulty
+	GameConstants.current_gravity = GameConstants.DEFAULT_GRAVITY
+	GameConstants.current_powerup = ItemIds.NO_POWERUP
 	_game_screen_transition.enter_transition_finished.connect(_restart_game, ConnectFlags.CONNECT_ONE_SHOT)
 	_game_screen_transition.play_enter_animation()
 

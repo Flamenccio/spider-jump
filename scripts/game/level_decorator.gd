@@ -1,8 +1,7 @@
 extends Node
 
 const _SWIFT_YUMFLY_MIN_LEVEL = 7
-const _SWIFT_YUMFLY_PROBABILITY = 0.50
-
+const _SWIFT_YUMFLY_PROBABILITY = 0.20
 
 var height: float = 0.0
 var no_powerups: bool = false
@@ -19,7 +18,10 @@ func _ready() -> void:
 	PlayerEventBus.powerup_ended.connect(func(_powerup: String):
 		no_powerups = false
 	)
+
+	# Load other items
 	_swift_yumfly_scene = load(ResourceUID.uid_to_path("uid://bmyyp1qc3tf0m"))
+
 
 
 func _on_level_spawned(level: Node2D) -> void:
@@ -34,7 +36,7 @@ func _decorate_level(level_body: Node2D) -> void:
 	_scan_elevation(level_body)
 	_unpack_object_switch(level_body) # Must run before `_unpack_item_boxes`
 	_unpack_item_boxes(level_body)
-	call_deferred("_spawn_swift_yumfly", level_body)
+	#call_deferred("_spawn_swift_yumfly", level_body)
 	#_spawn_swift_yumfly(level_body)
 
 

@@ -16,9 +16,7 @@ const _ANTIBUG_GRAVITY_MULTIPLIER = -1.0
 const _BUBBLEBEE_GRAVITY_MULTIPLIER = 0.5
 const _HEAVY_BEETLE_GRAVITY_MULTIPLIER = 1.5
 
-var motion: Vector2
 var _jumped := false
-var _gravity := GameConstants.DEFAULT_GRAVITY
 var _hang_time_enabled := true
 
 @export var _animator: SpriteTree
@@ -40,13 +38,13 @@ func exit_state() -> void:
 
 
 func update_state(delta: float) -> void:
+
 	var current_vertical_velocity = _player.get_real_velocity().y
-	if _jumped:
-		if _hang_time_enabled and abs(current_vertical_velocity) <= _HANG_TIME_TRIGGER_SPEED:
-			_gravity = GameConstants.current_gravity * _HANG_TIME_GRAVITY_MULTIPLIER
-		else:
-			_gravity = GameConstants.current_gravity
-	_player.velocity += Vector2(0.0, _gravity * delta)
+	var adjusted_gravity = GameConstants.current_gravity
+	if _jumped and _hang_time_enabled and abs(current_vertical_velocity) <= _HANG_TIME_TRIGGER_SPEED:
+		adjusted_gravity = GameConstants.current_gravity * _HANG_TIME_GRAVITY_MULTIPLIER
+
+	_player.velocity += Vector2(0.0, adjusted_gravity * delta)
 	_player.velocity = Vector2(
 		_player.velocity.x, 
 		clampf(

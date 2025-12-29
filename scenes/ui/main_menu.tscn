@@ -29,21 +29,33 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
 
+[node name="TitleSprite" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(92, 46)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.0
+offset_top = 8.0
+offset_right = 46.0
+offset_bottom = 54.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_ekxnf")
+
 [node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -89.0
-offset_top = 49.0
-offset_right = 89.0
-offset_bottom = 147.0
+anchor_bottom = 1.0
+offset_left = -45.5
+offset_top = -79.0
+offset_right = 45.5
+offset_bottom = -16.0
 grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(89, 49)
+grow_vertical = 0
+theme_override_constants/separation = 0
 
 [node name="PlayButton" type="Button" parent="Buttons"]
 layout_mode = 2
@@ -59,23 +71,6 @@ text = "ui.button.generic.settings"
 layout_mode = 2
 theme = ExtResource("6_uhagc")
 text = "ui.button.title.exit"
-
-[node name="TitleSprite" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -206.0
-offset_right = 46.0
-offset_bottom = -160.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-pivot_offset = Vector2(46, 23)
-texture = SubResource("AtlasTexture_ekxnf")
 
 [node name="Black" parent="." instance=ExtResource("4_wu84c")]
 material = SubResource("ShaderMaterial_7suek")

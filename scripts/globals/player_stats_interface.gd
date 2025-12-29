@@ -8,8 +8,10 @@ const STATS_SCORE = 'score'
 
 ## Changes a stat by some `change`.
 ## Accepts `stat`, a string identifier, and `change`, a variant to change the stat by.
+@warning_ignore("unused_signal")
 signal change_stat(stat: String, change: Variant)
 
 ## Sets a stat to `value`.
 ## Accepts `stat`, a string identifier, and `value`, a variant to change the stat to.
+@warning_ignore("unused_signal")
 signal set_stat(stat: String, value: Variant)

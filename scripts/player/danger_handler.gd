@@ -4,7 +4,7 @@ signal player_damaged()
 signal lose_powerup()
 signal heavy_beetle_damaged()
 
-func _on_danger_entered(body: Node2D) -> void:
+func _on_danger_entered(_body: Node2D) -> void:
 
 	# Ignore if heavy beetle
 	if GameConstants.current_powerup == ItemIds.HEAVY_BEETLE_POWERUP:

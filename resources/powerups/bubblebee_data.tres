@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StaticItemData" load_steps=5 format=3 uid="uid://be7o8vn3tljbv"]
+
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="1_iu27d"]
+[ext_resource type="Script" uid="uid://g2r734ncite4" path="res://scripts/static_item_data.gd" id="2_uw2gv"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="3_ogjtr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu27d"]
+atlas = ExtResource("3_ogjtr")
+region = Rect2(16, 0, 8, 8)
+
+[resource]
+script = ExtResource("2_uw2gv")
+sprites = Array[Texture2D]([SubResource("AtlasTexture_iu27d")])
+collision_shape = ExtResource("1_iu27d")
+item_id = "bubblebee"
+metadata/_custom_type_script = "uid://g2r734ncite4"

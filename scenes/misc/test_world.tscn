@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=4 uid="uid://c6antsn5ngihu"]
+[gd_scene load_steps=10 format=4 uid="uid://c6antsn5ngihu"]
 
 [ext_resource type="PackedScene" uid="uid://sdtkmy0bcu71" path="res://scenes/level_objects/ground.tscn" id="1_dvny0"]
 [ext_resource type="PackedScene" uid="uid://dl7mj4mqx0jp0" path="res://scenes/level_objects/slip.tscn" id="2_xwrkq"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/entities/player.tscn" id="3_nrstc"]
 [ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="4_7448y"]
+[ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="5_be8tl"]
+[ext_resource type="Resource" uid="uid://b8bbmd6414k8a" path="res://resources/powerups/antibug_data.tres" id="6_tnnf8"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="7_3w2c0"]
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="8_4do4t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+atlas = ExtResource("7_3w2c0")
+region = Rect2(40, 0, 8, 8)
 
 [node name="World" type="Node2D"]
 
@@ -11,16 +19,27 @@
 tile_map_data = PackedByteArray("AAAIAPX/AAAKAAAAAAAJAPX/AAAKAAAAAAAKAPX/AAAKAAAAAAALAPX/AAAKAAAAAAAMAPX/AAAKAAAAAAANAPX/AAAKAAAAAAAOAPT/AAAJAAEAAAAOAPP/AAAJAAEAAAAOAPL/AAAJAAEAAAAOAPH/AAAJAAEAAAAOAPD/AAAJAAEAAAANAO//AAAKAAIAAAAMAO//AAAKAAIAAAALAO//AAAKAAIAAAAKAO//AAAKAAIAAAAJAO//AAAKAAIAAAAIAO//AAAKAAIAAAAHAO//AAAKAAIAAAAGAO//AAAKAAIAAAAFAO//AAAKAAIAAAAEAO//AAAKAAIAAAADAO//AAAKAAIAAAACAO//AAAKAAIAAAABAO//AAAKAAIAAAAAAO//AAAKAAIAAAD//+//AAAKAAIAAAD+/+//AAAKAAIAAAD9/+//AAAKAAIAAAD8/+//AAAKAAIAAAD7/+//AAAKAAIAAAD6/+//AAAKAAIAAAD5/+//AAAKAAIAAAD4/+//AAAKAAIAAAD3/+//AAAKAAIAAAD2/+//AAAKAAIAAAD1/+//AAAKAAIAAAD0/+//AAAKAAIAAADz/+//AAAKAAIAAADy//D/AAALAAEAAADy//H/AAALAAEAAADy//L/AAALAAEAAADy//P/AAALAAEAAADy//T/AAALAAEAAADy//X/AAALAAEAAADy//b/AAALAAEAAADy//f/AAALAAEAAADz//j/AAAKAAAAAAD0//j/AAAKAAAAAAD1//j/AAAKAAAAAAD2//j/AAAKAAAAAAD3//j/AAAKAAAAAAD4//j/AAALAAAAAAD4//n/AAALAAEAAAD4//r/AAALAAEAAAD4//v/AAALAAEAAAD4//z/AAALAAEAAAD4//3/AAALAAEAAAD4//7/AAALAAEAAAD4////AAALAAEAAADy//j/AAAKAAEAAADy/+//AAAKAAEAAAAOAO//AAAKAAEAAAAOAPX/AAAKAAEAAAD4/wAAAAAKAAEAAAD5/wAAAAAKAAAAAAD6/wAAAAAKAAAAAAD7/wAAAAAKAAAAAAD8/wAAAAAKAAAAAAD9/wAAAAAKAAAAAAD+/wAAAAAKAAAAAAD//wAAAAAKAAAAAAAAAAAAAAAKAAAAAAABAAAAAAAKAAAAAAACAAAAAAAKAAAAAAADAAAAAAAKAAAAAAAEAAAAAAAKAAAAAAAFAAAAAAAKAAAAAAAGAAAAAAAKAAAAAAACAPz/AAAGAAAAAAAEAPr/AAAGAAAAAAACAPj/AAAGAAAAAAD6//T/AAAGAAAAAAD7//T/AAAGAAAAAAD8//T/AAAGAAAAAAD9//T/AAAGAAAAAAD+//T/AAAGAAAAAAD///T/AAAGAAAAAAAAAPT/AAAGAAAAAAABAPT/AAAGAAAAAAACAPT/AAAGAAAAAAADAPT/AAAGAAAAAAAEAPT/AAAGAAAAAAA=")
 
 [node name="Slip" parent="." instance=ExtResource("2_xwrkq")]
-tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQAAAAHAPn/AAAJAAQAAAAHAPr/AAAJAAQAAAAHAPv/AAAJAAQAAAAHAPz/AAAJAAQAAAAHAP3/AAAJAAQAAAAHAP7/AAAJAAQAAAAHAP//AAAJAAQAAAAHAPX/AAAJAAMAAAA=")
+tile_map_data = PackedByteArray("AAAHAPb/AAAJAAQAAAAHAPf/AAAJAAQAAAAHAPj/AAAJAAQAAAAHAPn/AAAJAAQAAAAHAPr/AAAJAAQAAAAHAPv/AAAJAAQAAAAHAPz/AAAJAAQAAAAHAP3/AAAJAAQAAAAHAP7/AAAJAAQAAAAHAP//AAAJAAQAAAAHAPX/AAAJAAMAAAD6//X/AAAGAAMAAAD7//X/AAAGAAMAAAD8//X/AAAGAAMAAAD9//X/AAAGAAMAAAD+//X/AAAGAAMAAAD///X/AAAGAAMAAAAAAPX/AAAGAAMAAAABAPX/AAAGAAMAAAACAPX/AAAGAAMAAAADAPX/AAAGAAMAAAAEAPX/AAAGAAMAAAA=")
 
 [node name="Player" parent="." instance=ExtResource("3_nrstc")]
 position = Vector2(-11, -67)
 wall_min_slide_angle = 3.1415927
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
-zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 script = ExtResource("4_7448y")
 _follow_target = NodePath("../Player")
 _debug = true
+
+[node name="Antibug" parent="." instance=ExtResource("5_be8tl")]
+position = Vector2(5, -29)
+_debug_item = ExtResource("6_tnnf8")
+_item_id = "antibug"
+
+[node name="@Sprite2D@26183" type="Sprite2D" parent="Antibug"]
+z_index = 10
+texture = SubResource("AtlasTexture_ih772")
+
+[node name="@CollisionShape2D@26184" type="CollisionShape2D" parent="Antibug"]
+shape = ExtResource("8_4do4t")

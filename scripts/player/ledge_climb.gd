@@ -10,7 +10,6 @@ const _RADIUS_PADDING = 0.2
 
 var _active_shapecast: ShapeCast2D
 var active: bool = false
-var _surface_point: Vector2
 var _shapecast_radius: float
 var _raycast_query: RaycastQuery
 
@@ -55,7 +54,7 @@ func _on_player_move_change(move_input: Vector2) -> void:
 		_active_shapecast.force_shapecast_update()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	if not active:
 		return
@@ -76,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	_raycast_query.collision_mask = _active_shapecast.collision_mask
 	var ray_result = _raycast_query.raycast_query(_active_shapecast.global_position, _active_shapecast.global_position + raycast_direction)
 
-	if ray_result.size() == 0:
+	if ray_result.is_empty():
 		return
 
 	var ray_intersection = ray_result['position']

@@ -1,28 +1,24 @@
 [gd_scene load_steps=14 format=3 uid="uid://dm3ht1lv7fpou"]
 
-[ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://scripts/ui/ui_controller.gd" id="1_dwo6e"]
-[ext_resource type="Texture2D" uid="uid://wi6e3alnmqh0" path="res://sprites/main.png" id="2_dwo6e"]
+[ext_resource type="Script" uid="uid://bp6x7g0gqneo1" path="res://scripts/ui/death_screen.gd" id="1_dwo6e"]
+[ext_resource type="Texture2D" uid="uid://dq08b2rsqhfuk" path="res://sprites/screen_wipe_2.png" id="2_5d08o"]
 [ext_resource type="Script" uid="uid://cj0go07001qmk" path="res://scripts/ui/number_display.gd" id="3_7ns25"]
 [ext_resource type="FontFile" uid="uid://m2gxs3lik11m" path="res://fonts/Tiny5-Regular.ttf" id="3_0863s"]
 [ext_resource type="PackedScene" uid="uid://d1mcya8jqefql" path="res://scenes/ui/digit_display.tscn" id="3_mqh5l"]
 [ext_resource type="Shader" uid="uid://clcm2wi8h23t" path="res://shaders/color_oscillator.gdshader" id="5_gwety"]
 [ext_resource type="Script" uid="uid://doklq8uylia54" path="res://scripts/utility/shader_manager.gd" id="6_wfw3d"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="8_5d08o"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mqh5l"]
-atlas = ExtResource("2_dwo6e")
-region = Rect2(74, 2, 20, 20)
+[ext_resource type="Script" uid="uid://bmvv0126s7mjv" path="res://scripts/ui/control_centerer.gd" id="8_qj43u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_itto5"]
 font = ExtResource("3_0863s")
-font_size = 64
 font_color = Color(1, 0.00392157, 0.00392157, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dwo6e"]
 font = ExtResource("3_0863s")
-font_size = 32
+font_size = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wfw3d"]
 shader = ExtResource("5_gwety")
@@ -32,7 +28,7 @@ shader_parameter/oscillate_speed = 10.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ns25"]
 font = ExtResource("3_0863s")
-font_size = 32
+font_size = 8
 
 [node name="DeathScreen" type="Control"]
 layout_mode = 3
@@ -42,7 +38,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dwo6e")
-_visible_on_ready = false
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -51,162 +46,140 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(8.94045, 5.02163)
-texture = SubResource("AtlasTexture_mqh5l")
+texture = ExtResource("2_5d08o")
 
-[node name="YouDiedContainer" type="CenterContainer" parent="."]
+[node name="YouDied" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -288.5
-offset_top = -194.0
-offset_right = 288.5
-offset_bottom = -62.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 26.0
 grow_horizontal = 2
-grow_vertical = 2
-
-[node name="YouDied" type="Label" parent="YouDiedContainer"]
-layout_mode = 2
 text = "ui.label.death_screen.game_over"
 label_settings = SubResource("LabelSettings_itto5")
 horizontal_alignment = 1
 
-[node name="Score" type="Control" parent="."]
+[node name="ControlCenterer" type="Node" parent="YouDied" groups=["centerer"]]
+script = ExtResource("8_qj43u")
+metadata/_custom_type_script = "uid://bmvv0126s7mjv"
+
+[node name="Scores" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -108.0
-offset_top = -20.0
-offset_right = -68.0
-offset_bottom = 20.0
+offset_top = -26.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScoreLabel" type="Label" parent="Score"]
-layout_mode = 0
-offset_left = -198.0
-offset_right = 90.0
-offset_bottom = 36.0
+[node name="Score" type="HBoxContainer" parent="Scores"]
+layout_mode = 2
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Scores/Score"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 text = "ui.label.generic.score"
 label_settings = SubResource("LabelSettings_dwo6e")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ScoreDisplay" type="HFlowContainer" parent="Score"]
-layout_mode = 0
-offset_left = 95.0
-offset_top = 4.0
-offset_right = 127.0
-offset_bottom = 12.0
-scale = Vector2(4, 4)
+[node name="ScoreDisplay" type="HFlowContainer" parent="Scores/Score"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 2
 theme_override_constants/h_separation = -1
 script = ExtResource("3_7ns25")
 
-[node name="DigitDisplay" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay" parent="Scores/Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay2" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay2" parent="Scores/Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay3" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay3" parent="Scores/Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay4" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay4" parent="Scores/Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay5" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay5" parent="Scores/Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay6" parent="Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay6" parent="Scores/Score/ScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="HighScore" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -108.0
-offset_top = 36.0
-offset_right = -68.0
-offset_bottom = 76.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HighScore" type="HBoxContainer" parent="Scores"]
+layout_mode = 2
+alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="HighScore"]
+[node name="ScoreLabel" type="Label" parent="Scores/HighScore"]
 material = SubResource("ShaderMaterial_wfw3d")
-layout_mode = 0
-offset_left = -270.0
-offset_right = 90.0
-offset_bottom = 36.0
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 text = "ui.label.generic.high_score"
 label_settings = SubResource("LabelSettings_7ns25")
 horizontal_alignment = 2
 script = ExtResource("6_wfw3d")
 
-[node name="ScoreDisplay" type="HFlowContainer" parent="HighScore"]
-layout_mode = 0
-offset_left = 94.0
-offset_top = 5.0
-offset_right = 126.0
-offset_bottom = 13.0
-scale = Vector2(4, 4)
+[node name="HighScoreDisplay" type="HFlowContainer" parent="Scores/HighScore"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 2
 theme_override_constants/h_separation = -1
 script = ExtResource("3_7ns25")
 
-[node name="DigitDisplay" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay" parent="Scores/HighScore/HighScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay2" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay2" parent="Scores/HighScore/HighScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay3" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay3" parent="Scores/HighScore/HighScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay4" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay4" parent="Scores/HighScore/HighScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay5" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay5" parent="Scores/HighScore/HighScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="DigitDisplay6" parent="HighScore/ScoreDisplay" instance=ExtResource("3_mqh5l")]
+[node name="DigitDisplay6" parent="Scores/HighScore/HighScoreDisplay" instance=ExtResource("3_mqh5l")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ControlCenterer" type="Node" parent="Scores" groups=["centerer"]]
+script = ExtResource("8_qj43u")
+metadata/_custom_type_script = "uid://bmvv0126s7mjv"
+
+[node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -131.0
-offset_right = 96.0
-offset_bottom = -67.0
+offset_left = -49.0
+offset_top = -61.0
+offset_right = 49.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(2, 2)
-pivot_offset = Vector2(96, 32)
 
-[node name="RestartButton" type="Button" parent="VBoxContainer"]
+[node name="RestartButton" type="Button" parent="Buttons"]
 layout_mode = 2
 theme = ExtResource("8_5d08o")
 text = "Restart"
 
-[node name="TitleButton" type="Button" parent="VBoxContainer"]
+[node name="TitleButton" type="Button" parent="Buttons"]
 layout_mode = 2
 theme = ExtResource("8_5d08o")
 text = "ui.button.pause_screen.exit"
 
-[connection signal="internal_high_score_updated" from="." to="HighScore/ScoreDisplay" method="display_value"]
-[connection signal="internal_score_updated" from="." to="Score/ScoreDisplay" method="display_value"]
-[connection signal="new_high_score_reached" from="." to="HighScore/ScoreLabel" method="set_shader_param" binds= ["oscillate_active", true]]
-[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_button_pressed" binds= ["restart"]]
-[connection signal="pressed" from="VBoxContainer/TitleButton" to="." method="_on_button_pressed" binds= ["exit"]]
+[node name="ControlCenterer" type="Node" parent="Buttons" groups=["centerer"]]
+script = ExtResource("8_qj43u")
+metadata/_custom_type_script = "uid://bmvv0126s7mjv"
+
+[connection signal="pressed" from="Buttons/RestartButton" to="." method="_on_button_pressed" binds= ["restart"]]
+[connection signal="pressed" from="Buttons/TitleButton" to="." method="_on_button_pressed" binds= ["exit"]]

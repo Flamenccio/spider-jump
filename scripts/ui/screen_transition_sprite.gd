@@ -45,16 +45,13 @@ var _animation_progress := 0.0
 
 func _ready() -> void:
 
-	_shader_timer.autostart = false
+	add_child(_shader_timer)
 	_shader_timer.one_shot = true
-	
 	_shader_timer.timeout.connect(func(): 
 		_animation_active = false
 		transition_animation_finished.emit()
 		_animation_progress = 0.0
 	)
-
-	add_child(_shader_timer)
 
 
 func _process(delta: float) -> void:

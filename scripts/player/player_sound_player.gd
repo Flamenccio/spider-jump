@@ -43,7 +43,21 @@ func play_lose_powerup() -> void:
 
 
 func play_gain_powerup() -> void:
-	_sound_manager.play_sound("player/gain_powerup")
+	match GameConstants.current_powerup:
+		ItemIds.HOPPERPOP_POWERUP:
+			_sound_manager.play_sound("player/gain_powerup_hopperpop")
+		ItemIds.BUBBLEBEE_POWERUP:
+			_sound_manager.play_sound("player/gain_powerup_bubblebee")
+		ItemIds.HOVERFLY_POWERUP:
+			_sound_manager.play_sound("player/gain_powerup_hoverfly")
+		ItemIds.HEAVY_BEETLE_POWERUP:
+			_sound_manager.play_sound("player/gain_powerup_heavy_beetle")
+		ItemIds.BLINKFLY_POWERUP:
+			_sound_manager.play_sound("player/gain_powerup_blinkfly")
+		ItemIds.ANTIBUG_POWERUP:
+			_sound_manager.play_sound("player/gain_powerup_antibug")
+		_:
+			_sound_manager.play_sound("player/gain_powerup")
 
 
 func play_collect_item() -> void:

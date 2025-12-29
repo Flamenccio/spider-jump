@@ -1,13 +1,20 @@
+class_name GroundHandler
 extends Node
 
 signal land_on_normal(normal: Vector2)
 signal land_on_ground()
 signal land_on_slip()
 signal leave_ground()
+signal surface_info_updated(new_surface_info: SurfaceInfo)
 
 const _MAX_SURFACE_HISTORY = 3
 
-var _current_surface: SurfaceInfo
+var _current_surface: SurfaceInfo:
+	set(value):
+		surface_info_updated.emit(value)
+		_current_surface = value
+	get:
+		return _current_surface
 
 var _current_climbable_layers: int = 0:
 	set(value):
@@ -57,8 +64,10 @@ func _is_below_player(point: Vector2, normal: Vector2) -> bool:
 
 
 func _on_ground_exited(body: Node2D) -> void:
+
 	if _current_surface == null:
 		return
+
 	var surface_layer := 0
 	if body is TileMapLayer:
 		var tilemap_layers = body.tile_set.get_physics_layer_collision_layer(0)
@@ -68,7 +77,7 @@ func _on_ground_exited(body: Node2D) -> void:
 	else:
 		return
 	if _current_surface.surface_type == surface_layer:
-		_current_surface = null
+		_update_current_surface_info(null)
 		leave_ground.emit()
 
 
@@ -76,6 +85,7 @@ func _on_powerup_started(powerup: String) -> void:
 	match powerup:
 		ItemIds.HOVERFLY_POWERUP:
 			land_on_normal.emit(Vector2.UP)
+			_current_climbable_layers = 0
 		ItemIds.HEAVY_BEETLE_POWERUP:
 			_current_climbable_layers = _ground_layer | _slip_layer
 
@@ -84,21 +94,28 @@ func _on_powerup_ended(powerup: String) -> void:
 	match powerup:
 		ItemIds.HEAVY_BEETLE_POWERUP:
 			_current_climbable_layers = _ground_layer
+		ItemIds.HOVERFLY_POWERUP:
+			_current_climbable_layers = _ground_layer
 
 
 func _on_player_jumped() -> void:
 	# Clear ground contacts
 	_update_current_surface_info(null)
 	leave_ground.emit()
+	PlayerEventBus.player_jumped.emit(_player.global_position)
 
 
 func _surface_is_same(surface_info_a: SurfaceInfo, surface_info_b: SurfaceInfo) -> bool:
 	if surface_info_a == null or surface_info_b == null:
 		return false
-	return surface_info_a.normal == surface_info_b.normal and surface_info_a.surface_type == surface_info_b.surface_type
+	var same_normal = surface_info_a.normal.dot(surface_info_b.normal) >= 1.0
+	var same_surface_type = surface_info_a.surface_type & surface_info_b.surface_type > 0
+	return same_normal and same_surface_type
 
 
 func _update_current_surface_info(new_surface_info: SurfaceInfo) -> void:
+	if _current_surface == null and new_surface_info != null:
+		PlayerEventBus.player_landed.emit(_player.global_position)
 	_current_surface = new_surface_info
 
 
@@ -135,27 +152,24 @@ func _collide_with_tile_map_layer(tilemap: TileMapLayer, collision: KinematicCol
 
 func _handle_surface(new_surface: SurfaceInfo) -> void:
 
-	# Handle ground surfaces
-	if new_surface.surface_type == _ground_layer:
-		# Do not update normal when hoverfly
-		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
-			pass
-			land_on_normal.emit(new_surface.normal)
-		land_on_ground.emit()
+	if new_surface == null:
 		_update_current_surface_info(new_surface)
+		return
 
-	# Handle slippery surfaces
-	elif new_surface.surface_type == _slip_layer:
-		if GameConstants.current_powerup == ItemIds.HEAVY_BEETLE_POWERUP:
+	if new_surface.surface_type & _current_climbable_layers > 0:
+		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
 			land_on_normal.emit(new_surface.normal)
-			land_on_slip.emit()
-			_update_current_surface_info(new_surface)
-		else:
-			# Add to surfaces if in direction of player gravity
-			if _is_below_player(new_surface.contact_point, new_surface.normal):
-				land_on_normal.emit(new_surface.normal)
-				land_on_slip.emit()
-				_update_current_surface_info(new_surface)
+		_update_current_surface_info(new_surface)
+		land_on_ground.emit()
+	elif _is_below_player(new_surface.contact_point, new_surface.normal) and _current_climbable_layers > 0:
+		if GameConstants.current_powerup != ItemIds.HOVERFLY_POWERUP:
+			land_on_normal.emit(new_surface.normal)
+		_update_current_surface_info(new_surface)
+		land_on_slip.emit()
+
+
+func _on_player_recovered() -> void:
+	_handle_surface(GameConstants.recovery_info.get("surface_info"))
 
 
 class SurfaceInfo:

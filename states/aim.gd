@@ -20,7 +20,6 @@ var _powerup: String = 'none'
 var _ray_cast: RaycastQuery
 
 @export_flags_2d_physics var _climbable_layer: int
-@export_flags_2d_physics var _unclimbable_layer: int
 
 @export var _player: CharacterBody2D
 @export var _animator: SpriteTree
@@ -65,25 +64,38 @@ func _ready() -> void:
 
 
 func enter_state() -> void:
+
 	set_param('jump', false)
 	if _powerup != ItemIds.BLINKFLY_POWERUP:
 		aim_entered.emit()
 	_animator.play_branch_animation('aim')
 	_player.velocity = Vector2.ZERO
 
+	# Catch buffer jump
+	var buffered_jump = get_param("buffered_jump")
+	if buffered_jump == null or buffered_jump == Vector2.ZERO:
+		return
+	
+	if _powerup == ItemIds.BLINKFLY_POWERUP:
+		_blinkfly_jump(buffered_jump)
+	else:
+		_jump(buffered_jump)
+
 
 func exit_state() -> void:
 	_jumped = false
 
 
+
 func _on_pull_release() -> void:
+
 	if not state_active:
 		return
 	
 	if _powerup == ItemIds.BLINKFLY_POWERUP:
-		_blinkfly_jump()
+		_blinkfly_jump(_pull_input)
 		return
-	_jump()
+	_jump(_pull_input)
 
 
 func _on_pull_input_change(input: Vector2) -> void:
@@ -98,18 +110,22 @@ func _on_pull_input_change(input: Vector2) -> void:
 	var acceleration = Vector2(0, GameConstants.current_gravity)
 	trajectory_updated.emit(velocity, acceleration)
 
+	PlayerEventBus.player_aim.emit(input * -1, _is_jump_direction_valid(input * -1))
 
-func _jump() -> void:
+
+func _jump(direction: Vector2) -> void:
 
 	if _jumped:
 		return
 
-	var _jump_vector = _pull_input * _jump_force * -1
+	var _jump_vector = direction * _jump_force * -1
 
 	if not _is_jump_direction_valid(_jump_vector):
+		set_param("aim", false)
 		return
 
 	set_param('jump', true)
+	set_param("aim", false)
 	_player.velocity = _jump_vector
 	_jumped = true
 	player_jumped.emit()
@@ -131,7 +147,7 @@ func _jump() -> void:
 
 
 func _is_jump_direction_valid(direction: Vector2) -> bool:
-	var dot = floorf(direction.dot(_surface_normal))
+	var dot = snappedf(direction.dot(_surface_normal), 0.1)
 	return dot > 0.0 or _surface_normal == Vector2.ZERO
 
 
@@ -143,12 +159,12 @@ func _on_leave_ground() -> void:
 	_surface_normal = Vector2.ZERO
 
 
-func _blinkfly_jump() -> void:
+func _blinkfly_jump(direction: Vector2) -> void:
 
 	if _jumped:
 		return
 
-	var ray_offset = _pull_input.normalized() * _MAX_BLINKFLY_DISTANCE
+	var ray_offset = direction.normalized() * _MAX_BLINKFLY_DISTANCE
 
 	if not _is_jump_direction_valid(ray_offset):
 		return
@@ -162,8 +178,10 @@ func _blinkfly_jump() -> void:
 	GameConstants.current_gravity = 0.0
 	_animator.play_branch_animation('warp')
 	set_param('jump', true)
-	_player.velocity = _pull_input.normalized() *  _jump_force
+	set_param("aim", false)
+	_player.velocity = direction.normalized() *  _jump_force
 	_jumped = true
 	player_blinkfly_jumped.emit()
 	_particle_emitter.spawn_jump_dust()
 	_sound_player.play_blinkfly_jump()
+

@@ -1,8 +1,9 @@
-[gd_scene load_steps=52 format=3 uid="uid://c3vqs430qpt8w"]
+[gd_scene load_steps=53 format=3 uid="uid://c3vqs430qpt8w"]
 
 [ext_resource type="Script" uid="uid://dwslumjomkd1t" path="res://scripts/game/game_manager.gd" id="1_264po"]
-[ext_resource type="Script" uid="uid://s78nwwn8edpf" path="res://scripts/entities/camera.gd" id="3_5newe"]
+[ext_resource type="PackedScene" uid="uid://ckfvnbwped5hv" path="res://scenes/main_camera.tscn" id="2_m4url"]
 [ext_resource type="Script" uid="uid://dxl46mtiurx1v" path="res://scripts/game/death_trigger.gd" id="4_37s47"]
+[ext_resource type="Texture2D" uid="uid://ddfgkjelp8nde" path="res://scenes/level_objects/danger_line.png" id="4_fedci"]
 [ext_resource type="Script" uid="uid://cfterj86j0hyu" path="res://scripts/globals/input_server.gd" id="6_05nbr"]
 [ext_resource type="Texture2D" uid="uid://dtnwcnfkt2acg" path="res://sprites/icon.svg" id="6_e1j6l"]
 [ext_resource type="Script" uid="uid://8rxwnnipho2p" path="res://scripts/levels/level_spawner.gd" id="8_bhx41"]
@@ -10,73 +11,50 @@
 [ext_resource type="Script" uid="uid://daiq6c47nx1ko" path="res://scripts/game/level_decorator.gd" id="10_e1j6l"]
 [ext_resource type="PackedScene" uid="uid://dmdtse0r0jamm" path="res://scenes/entities/player.tscn" id="10_sww3w"]
 [ext_resource type="Script" uid="uid://bysji3wvke32e" path="res://scripts/game/level_decoration.gd" id="11_bhx41"]
-[ext_resource type="Texture2D" uid="uid://2vbhnrd33wum" path="res://sprites/pull_circle_blue.png" id="11_suyxu"]
 [ext_resource type="PackedScene" uid="uid://dwwlnrtobyuml" path="res://scenes/level_objects/level_up_platform.tscn" id="12_qnb83"]
-[ext_resource type="Script" uid="uid://821p0psjcurb" path="res://scripts/player/pull_circle.gd" id="12_sgl2t"]
-[ext_resource type="Texture2D" uid="uid://brfdkje3vphic" path="res://sprites/pull_circle_dark_grey.png" id="13_qouja"]
 [ext_resource type="Script" uid="uid://gq03f4frq8jk" path="res://scripts/game/level_event_starter.gd" id="13_wljb1"]
 [ext_resource type="Script" uid="uid://blswevpfmnusx" path="res://scripts/levels/level_spawn_trigger.gd" id="14_wljb1"]
 [ext_resource type="PackedScene" uid="uid://cflkesovqb44q" path="res://scenes/ui/hud.tscn" id="15_v2yb1"]
 [ext_resource type="PackedScene" uid="uid://dm3ht1lv7fpou" path="res://scenes/ui/death_screen.tscn" id="16_js0lu"]
 [ext_resource type="Script" uid="uid://dnoeb3fn86sbl" path="res://scripts/player/player_stats.gd" id="17_gxtfn"]
-[ext_resource type="Texture2D" uid="uid://ckbmtup38vh4f" path="res://sprites/pull_circle_hoverfly-Sheet.png" id="17_sww3w"]
-[ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="18_twgab"]
 [ext_resource type="PackedScene" uid="uid://uenvogxdugle" path="res://scenes/ui/event_banner.tscn" id="20_nepv3"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="20_sgl2t"]
-[ext_resource type="Script" uid="uid://c1k8ocrddkrar" path="res://scripts/ui/heart_shatter_particles.gd" id="21_5newe"]
-[ext_resource type="Texture2D" uid="uid://c0xc1146gnb15" path="res://sprites/heart_shatter_particles-Sheet.png" id="21_37s47"]
 [ext_resource type="PackedScene" uid="uid://dind7ho1brwrn" path="res://scenes/ui/pause_screen.tscn" id="21_qouja"]
-[ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player/player_stats_saver.gd" id="22_37s47"]
+[ext_resource type="Script" uid="uid://y5qohu2l48v3" path="res://scripts/player/record_keeper.gd" id="22_37s47"]
 [ext_resource type="PackedScene" uid="uid://c22pgr73hau3t" path="res://scenes/ui/powerup_hint.tscn" id="22_qouja"]
-[ext_resource type="PackedScene" uid="uid://bbd2meqorrjoe" path="res://scenes/entities/high_score_line.tscn" id="23_bt5mj"]
 [ext_resource type="Shader" uid="uid://drs3pnqjbawq8" path="res://shaders/screen_transition_enter.gdshader" id="24_7025r"]
 [ext_resource type="Script" uid="uid://b2c6pwskneus5" path="res://scripts/player/player_recovery_point.gd" id="26_nepv3"]
 [ext_resource type="Texture2D" uid="uid://bn75rko42o47k" path="res://sprites/blinkfly_reticle-Sheet.png" id="29_suyxu"]
 [ext_resource type="Script" uid="uid://c10ujhyqm6myp" path="res://scripts/player/blinkfly_reticle.gd" id="30_sgl2t"]
-[ext_resource type="Shader" uid="uid://dbq8vps0w6alk" path="res://scenes/vertex_pixelize.gdshader" id="31_05nbr"]
 [ext_resource type="Script" uid="uid://17d65kmluvtj" path="res://scripts/game/player_hints.gd" id="32_wljb1"]
+[ext_resource type="Script" uid="uid://ce1isg2vm823x" path="res://scripts/player/pull_dragline.gd" id="36_twgab"]
 [ext_resource type="Script" uid="uid://c2xgxrcw3hung" path="res://scenes/sound_manager_interface.gd" id="37_02fa5"]
+[ext_resource type="PackedScene" uid="uid://c86i2lk66j4dv" path="res://scenes/level_objects/generic_item.tscn" id="37_m4url"]
 [ext_resource type="Script" uid="uid://bc14d6efnxlji" path="res://scripts/game/global_spawner.gd" id="37_nepv3"]
+[ext_resource type="Resource" uid="uid://65nudjkq1ybe" path="res://resources/powerups/hopperpop_data.tres" id="38_8ool0"]
 [ext_resource type="Script" uid="uid://b7kielrj6p8cd" path="res://scripts/utility/sound_manager.gd" id="38_nepv3"]
+[ext_resource type="Texture2D" uid="uid://bquahomw7iykq" path="res://sprites/powerups.png" id="39_pr1ej"]
+[ext_resource type="Shape2D" uid="uid://xea35tgp3ulm" path="res://resources/default_item_hitbox.tres" id="40_05nbr"]
 [ext_resource type="Script" uid="uid://bdx7qqns2omy" path="res://scripts/game/stamina_drainer.gd" id="40_m4url"]
+[ext_resource type="Shader" uid="uid://ctrysyimdrf1o" path="res://shaders/texture_scroll.gdshader" id="43_oaba0"]
+[ext_resource type="Texture2D" uid="uid://b07nu00q504ie" path="res://ui_themes/blinkfly_trajectory-Sheet.png" id="44_oaba0"]
+[ext_resource type="Script" uid="uid://d1qpl3ueede7u" path="res://scripts/player/blinkfly_trajectory.gd" id="45_oaba0"]
+[ext_resource type="Texture2D" uid="uid://dvic7bbkihdqv" path="res://sprites/blinkfly_trajectory_flash.png" id="46_458eo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eow3j"]
 size = Vector2(256, 16)
 
-[sub_resource type="Resource" id="Resource_sww3w"]
-script = ExtResource("11_bhx41")
-decoration_name = "level_up_platform"
-scene = ExtResource("12_qnb83")
-metadata/_custom_type_script = "uid://bysji3wvke32e"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fedci"]
+size = Vector2(256, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
-atlas = ExtResource("17_sww3w")
-region = Rect2(96, 0, 96, 96)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_458eo"]
+shader = ExtResource("43_oaba0")
+shader_parameter/speed_x = -2.0
+shader_parameter/speed_y = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sgl2t"]
-atlas = ExtResource("17_sww3w")
-region = Rect2(0, 0, 96, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
-size = Vector2(160, 8)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4url"]
-resource_local_to_scene = true
-shader = ExtResource("24_7025r")
-shader_parameter/progress = 0.0
-shader_parameter/moving_side = 0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
-atlas = ExtResource("6_e1j6l")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
-atlas = ExtResource("21_37s47")
-region = Rect2(3, 3, 2, 2)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0sl42"]
-shader = ExtResource("31_05nbr")
-shader_parameter/pixel_size = 4.0
-shader_parameter/fill_color = Vector4(0.161, 0.675, 0.971, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_05nbr"]
+atlas = ExtResource("29_suyxu")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qouja"]
 atlas = ExtResource("29_suyxu")
@@ -90,6 +68,14 @@ region = Rect2(16, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_05nbr")
+}],
+"loop": false,
+"name": &"click",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qouja")
 }, {
 "duration": 1.0,
@@ -100,38 +86,100 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="Resource" id="Resource_sww3w"]
+script = ExtResource("11_bhx41")
+decoration_name = "level_up_platform"
+scene = ExtResource("12_qnb83")
+metadata/_custom_type_script = "uid://bysji3wvke32e"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
+size = Vector2(160, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
+atlas = ExtResource("6_e1j6l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4url"]
+resource_local_to_scene = true
+shader = ExtResource("24_7025r")
+shader_parameter/progress = 0.0
+shader_parameter/moving_side = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vd48"]
+atlas = ExtResource("39_pr1ej")
+region = Rect2(24, 0, 8, 8)
+
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_game_screen_transition", "_game_spawner")]
 process_mode = 3
 script = ExtResource("1_264po")
 _game_screen_transition = NodePath("UI/TransitionWipe")
 _game_spawner = NodePath("GameSpawner")
 
-[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_follow_target")]
-process_mode = 1
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
-position_smoothing_speed = 4.0
-script = ExtResource("3_5newe")
+[node name="MainCamera" parent="." node_paths=PackedStringArray("_follow_target") instance=ExtResource("2_m4url")]
 _follow_target = NodePath("../Player")
 
-[node name="DeathTrigger" type="Area2D" parent="Camera"]
+[node name="DeathTrigger" type="Area2D" parent="MainCamera"]
 position = Vector2(0, 89)
 collision_layer = 0
 collision_priority = 5.0
 priority = 5
 script = ExtResource("4_37s47")
 
-[node name="Shape" type="CollisionShape2D" parent="Camera/DeathTrigger"]
+[node name="Shape" type="CollisionShape2D" parent="MainCamera/DeathTrigger"]
 shape = SubResource("RectangleShape2D_eow3j")
 
-[node name="Sprite" type="Sprite2D" parent="Camera/DeathTrigger"]
+[node name="Sprite" type="Sprite2D" parent="MainCamera/DeathTrigger"]
 visible = false
-scale = Vector2(1.97784, 0.137882)
-texture = ExtResource("6_e1j6l")
+z_index = 5
+texture_repeat = 2
+position = Vector2(0, -8)
+texture = ExtResource("4_fedci")
+region_enabled = true
+region_rect = Rect2(-40, 0, 104, 8)
+region_filter_clip_enabled = true
 
-[node name="InputServer" type="Node" parent="."]
-script = ExtResource("6_05nbr")
-metadata/_custom_type_script = "uid://cfterj86j0hyu"
+[node name="WarningArea" type="Area2D" parent="MainCamera"]
+position = Vector2(1, 71)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainCamera/WarningArea"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_fedci")
+
+[node name="GameSpawner" type="Node2D" parent="."]
+process_mode = 1
+script = ExtResource("37_nepv3")
+metadata/_custom_type_script = "uid://bc14d6efnxlji"
+
+[node name="PullLine" type="Line2D" parent="GameSpawner" node_paths=PackedStringArray("_fixed_endpoint")]
+z_index = 2
+z_as_relative = false
+width = 1.2
+script = ExtResource("36_twgab")
+_hoverfly_color = Color(1, 0, 0.3019608, 1)
+_normal_color = Color(0.16078432, 0.6784314, 1, 1)
+_invalid_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+_fixed_endpoint = NodePath("../../Player")
+
+[node name="BlinkflyTrajectory" type="Line2D" parent="GameSpawner" node_paths=PackedStringArray("_target_a", "_target_b")]
+z_index = 2
+z_as_relative = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_458eo")
+texture = ExtResource("44_oaba0")
+texture_mode = 1
+script = ExtResource("45_oaba0")
+_flash_texture = ExtResource("46_458eo")
+_normal_texture = ExtResource("44_oaba0")
+_target_a = NodePath("../../Player")
+_target_b = NodePath("../BlinkflyReticle")
+_raycast_hit_layers = 6
+
+[node name="BlinkflyReticle" type="AnimatedSprite2D" parent="GameSpawner"]
+z_index = 2
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_v2yb1")
+autoplay = "default"
+script = ExtResource("30_sgl2t")
 
 [node name="LevelSpawner" type="Node2D" parent="." node_paths=PackedStringArray("_spawn_trigger")]
 process_mode = 1
@@ -145,23 +193,12 @@ script = ExtResource("10_e1j6l")
 _game_manager = NodePath("../..")
 _decorations = Array[ExtResource("11_bhx41")]([SubResource("Resource_sww3w")])
 
-[node name="LevelEventStarter" type="Node" parent="LevelSpawner" node_paths=PackedStringArray("_camera")]
+[node name="LevelEventStarter" type="Node" parent="LevelSpawner"]
 script = ExtResource("13_wljb1")
 _level_event_path = "res://resources/level_events/"
-_camera = NodePath("../../Camera")
 
 [node name="Player" parent="." instance=ExtResource("10_sww3w")]
 position = Vector2(0, -30)
-
-[node name="PullCircle" type="Sprite2D" parent="Player"]
-process_mode = 1
-texture = ExtResource("11_suyxu")
-script = ExtResource("12_sgl2t")
-_active_sprite = ExtResource("11_suyxu")
-_inactive_sprite = ExtResource("13_qouja")
-_hover_active_sprite = SubResource("AtlasTexture_suyxu")
-_hover_inactive_sprite = SubResource("AtlasTexture_sgl2t")
-_start_active = false
 
 [node name="LevelSpawnTrigger" type="Area2D" parent="."]
 position = Vector2(0, 135)
@@ -173,10 +210,19 @@ script = ExtResource("14_wljb1")
 [node name="Collider" type="CollisionShape2D" parent="LevelSpawnTrigger"]
 shape = SubResource("RectangleShape2D_7jktm")
 
-[node name="Sprite2D" type="Sprite2D" parent="LevelSpawnTrigger"]
+[node name="PlayerRecoveryPoint" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(21, 41)
+rect = Rect2(-0.5, -0.5, 1, 1)
+script = ExtResource("26_nepv3")
+
+[node name="DebugSprite" type="Sprite2D" parent="PlayerRecoveryPoint"]
 visible = false
-scale = Vector2(1.23287, 0.04)
-texture = ExtResource("6_e1j6l")
+scale = Vector2(0.0195312, 0.0195312)
+texture = SubResource("AtlasTexture_264po")
+
+[node name="InputServer" type="Node" parent="."]
+script = ExtResource("6_05nbr")
+metadata/_custom_type_script = "uid://cfterj86j0hyu"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -201,51 +247,10 @@ enter_duration = 0.15
 process_mode = 1
 script = ExtResource("17_gxtfn")
 
-[node name="PlayerRecoveryPoint" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-0.5, -0.5, 1, 1)
-script = ExtResource("26_nepv3")
-
-[node name="DebugSprite" type="Sprite2D" parent="PlayerRecoveryPoint"]
-visible = false
-scale = Vector2(0.0195312, 0.0195312)
-texture = SubResource("AtlasTexture_264po")
-
-[node name="HeartShatterParticles" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 25
-texture = SubResource("AtlasTexture_1kice")
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
-direction = Vector2(0, -1)
-spread = 22.5
-gravity = Vector2(0, 245)
-initial_velocity_min = 50.0
-initial_velocity_max = 150.0
-script = ExtResource("21_5newe")
-
-[node name="PlayerStatsSaver" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
+[node name="RecordKeeper" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
-_directory = "res://hi_scores/"
 _player_stats = NodePath("../PlayerStats")
-
-[node name="HighScoreLine" parent="." node_paths=PackedStringArray("_high_score_saver") instance=ExtResource("23_bt5mj")]
-position = Vector2(0, -60)
-_high_score_saver = NodePath("../PlayerStatsSaver")
-
-[node name="PullDragline" type="Line2D" parent="." node_paths=PackedStringArray("_fixed_endpoint")]
-process_mode = 1
-material = SubResource("ShaderMaterial_0sl42")
-width = 1.0
-default_color = Color(0.160708, 0.674632, 0.996078, 1)
-script = ExtResource("18_twgab")
-_fixed_endpoint = NodePath("../Player")
-
-[node name="BlinkflyReticle" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_v2yb1")
-autoplay = "default"
-frame_progress = 0.442083
-script = ExtResource("30_sgl2t")
+_records_path = "res://high_score/records.res"
 
 [node name="PlayerHints" type="Node" parent="."]
 script = ExtResource("32_wljb1")
@@ -257,55 +262,60 @@ script = ExtResource("37_02fa5")
 process_mode = 1
 script = ExtResource("40_m4url")
 
-[node name="GameSpawner" type="Node2D" parent="."]
-process_mode = 1
-script = ExtResource("37_nepv3")
-metadata/_custom_type_script = "uid://bc14d6efnxlji"
-
 [node name="GameSounds" type="Node" parent="."]
 process_mode = 1
 script = ExtResource("38_nepv3")
 metadata/_custom_type_script = "uid://b7kielrj6p8cd"
+
+[node name="Hopperpop" parent="." instance=ExtResource("37_m4url")]
+position = Vector2(0, -54)
+_debug_item = ExtResource("38_8ool0")
+_item_id = "hopperpop"
+
+[node name="@Sprite2D@29069" type="Sprite2D" parent="Hopperpop"]
+z_index = 10
+texture = SubResource("AtlasTexture_3vd48")
+
+[node name="@CollisionShape2D@29070" type="CollisionShape2D" parent="Hopperpop"]
+shape = ExtResource("40_05nbr")
 
 [connection signal="game_exited" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled" flags=3]
 [connection signal="levelled_up" from="." to="LevelSpawner" method="_on_level_up"]
 [connection signal="levelled_up" from="." to="UI/Hud" method="_on_difficulty_level_updated"]
 [connection signal="levelled_up" from="." to="StaminaDrainer" method="_on_level_up"]
 [connection signal="on_game_over" from="." to="UI/DeathScreen" method="show" flags=3]
-[connection signal="on_game_over" from="." to="PlayerStatsSaver" method="_on_game_end"]
+[connection signal="on_game_over" from="." to="UI/DeathScreen" method="_on_game_over"]
+[connection signal="on_game_over" from="." to="RecordKeeper" method="_on_game_end" flags=3]
 [connection signal="pause_screen_disabled" from="." to="UI/Hud" method="show" flags=3]
 [connection signal="pause_screen_disabled" from="." to="UI/PauseScreen" method="_on_pause_screen_disabled"]
 [connection signal="pause_screen_enabled" from="." to="UI/Hud" method="hide" flags=3]
 [connection signal="pause_screen_enabled" from="." to="UI/PauseScreen" method="_on_pause_screen_enabled"]
 [connection signal="score_updated" from="." to="LevelSpawner/LevelEventStarter" method="_on_score_updated"]
 [connection signal="score_updated" from="." to="PlayerStats" method="update_score"]
-[connection signal="body_entered" from="Camera/DeathTrigger" to="Camera/DeathTrigger" method="_on_body_entered"]
-[connection signal="player_fell" from="Camera/DeathTrigger" to="Player/PullCircle" method="show"]
-[connection signal="player_fell" from="Camera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
-[connection signal="player_fell" from="Camera/DeathTrigger" to="Camera" method="screen_shake" binds= [0.4]]
-[connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
-[connection signal="pull_input_updated" from="InputServer" to="PullDragline" method="pull_update"]
-[connection signal="pull_pressed" from="InputServer" to="Player/PullCircle" method="set_active"]
-[connection signal="pull_pressed" from="InputServer" to="PullDragline" method="pull_set_active" binds= [true]]
-[connection signal="pull_released" from="InputServer" to="Player/PullCircle" method="set_inactive"]
-[connection signal="pull_released" from="InputServer" to="PullDragline" method="hide"]
-[connection signal="pull_released" from="InputServer" to="PullDragline" method="pull_set_active" binds= [false]]
+[connection signal="body_entered" from="MainCamera/DeathTrigger" to="MainCamera/DeathTrigger" method="_on_body_entered"]
+[connection signal="player_fell" from="MainCamera/DeathTrigger" to="PlayerStats" method="decrease_lives"]
+[connection signal="player_fell" from="MainCamera/DeathTrigger" to="MainCamera" method="screen_shake" binds= [0.4]]
+[connection signal="body_entered" from="MainCamera/WarningArea" to="MainCamera/DeathTrigger/Sprite" method="show" unbinds=1]
+[connection signal="body_exited" from="MainCamera/WarningArea" to="MainCamera/DeathTrigger/Sprite" method="hide" unbinds=1]
 [connection signal="new_level_body_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_level_spawned"]
 [connection signal="new_level_body_spawned" from="LevelSpawner" to="LevelSpawner/LevelEventStarter" method="_on_level_spawned"]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawner/LevelDecorator" method="_on_game_height_updated"]
 [connection signal="new_level_spawned" from="LevelSpawner" to="LevelSpawnTrigger" method="enqueue_elevation"]
 [connection signal="event_started" from="LevelSpawner/LevelEventStarter" to="UI/EventBanner" method="start_event"]
-[connection signal="danger_entered" from="Player" to="Player/PullCircle" method="hide"]
 [connection signal="body_entered" from="LevelSpawnTrigger" to="LevelSpawnTrigger" method="_on_player_entered"]
 [connection signal="player_entered" from="LevelSpawnTrigger" to="LevelSpawner" method="spawn_new_level"]
-[connection signal="external_health_lost" from="UI/Hud" to="HeartShatterParticles" method="spawn_particles"]
+[connection signal="pause_button_pressed" from="InputServer" to="." method="_on_pause_toggle"]
+[connection signal="pull_input_updated" from="InputServer" to="GameSpawner/PullLine" method="pull_update"]
+[connection signal="pull_pressed" from="InputServer" to="GameSpawner/BlinkflyReticle" method="_on_pull_pressed"]
+[connection signal="pull_pressed" from="InputServer" to="GameSpawner/PullLine" method="pull_set_active" binds= [true]]
+[connection signal="pull_released" from="InputServer" to="GameSpawner/BlinkflyReticle" method="_on_pull_released"]
+[connection signal="pull_released" from="InputServer" to="GameSpawner/PullLine" method="pull_set_active" binds= [false]]
 [connection signal="pause_screen_animation_done" from="UI/PauseScreen" to="." method="_on_pause_screen_animation_done"]
 [connection signal="pause_screen_button_pressed" from="UI/PauseScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="death_screen_button_pressed" from="UI/DeathScreen" to="." method="_on_pause_screen_pause_screen_button_pressed"]
 [connection signal="ready" from="UI/TransitionWipe" to="UI/TransitionWipe" method="play_exit_animation"]
 [connection signal="player_died" from="PlayerStats" to="." method="game_over"]
-[connection signal="high_score_displayed" from="PlayerStatsSaver" to="UI/DeathScreen" method="_update_high_score"]
-[connection signal="high_score_updated" from="PlayerStatsSaver" to="UI/DeathScreen" method="_new_high_score_reached" unbinds=1]
-[connection signal="ready" from="PlayerStatsSaver" to="HighScoreLine" method="_on_stats_saver_ready"]
+[connection signal="new_high_score_reached" from="RecordKeeper" to="UI/DeathScreen" method="_new_high_score_reached"]
+[connection signal="ready" from="RecordKeeper" to="UI/Hud" method="_on_record_keeper_ready"]
 [connection signal="give_hint" from="PlayerHints" to="UI/PowerupHint" method="display_text"]
 [connection signal="stamina_drained" from="StaminaDrainer" to="PlayerStats" method="change_stamina"]

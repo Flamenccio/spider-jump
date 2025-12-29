@@ -16,10 +16,8 @@ var _current_event := NO_EVENT
 var _event_cooldown := 0
 var _event_history: Array[String]
 var _score_update_functions: Callable
-var _music_unpause_timer := Timer.new()
 
 @export_dir var _level_event_path: String
-@export var _camera: Node2D
 
 func _ready() -> void:
 
@@ -32,7 +30,7 @@ func _ready() -> void:
 		_loaded_events[resource.name] = resource.packed_scene
 
 
-func _on_level_spawned(level: Node2D) -> void:
+func _on_level_spawned(_level: Node2D) -> void:
 
 	if GameConstants.difficulty < MINIMUM_EVENT_LEVEL:
 		return

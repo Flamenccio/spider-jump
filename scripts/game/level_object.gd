@@ -16,5 +16,5 @@ func get_local_properties() -> Dictionary:
 
 
 ## Called when this level object is instantiated from a `SavedLevelObject`.
-func rehydrate(instance: Node2D) -> void:
+func rehydrate(_instance: Node2D) -> void:
 	return

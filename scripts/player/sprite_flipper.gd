@@ -6,7 +6,7 @@ var _flipped = false
 @export var _sprite_tree: SpriteTree
 @export var _player: CharacterBody2D
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	var rotation = _player.rotation
 	var velocity = _player.velocity

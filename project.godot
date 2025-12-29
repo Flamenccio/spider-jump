@@ -31,10 +31,11 @@ GlobalInputServer="*res://scripts/globals/input_server.gd"
 
 [display]
 
-window/size/resizable=false
+window/size/viewport_width=288
+window/size/viewport_height=162
+window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
-window/stretch/scale_mode="integer"
 
 [dotnet]
 
@@ -42,6 +43,8 @@ project/assembly_name="spider-jump"
 
 [editor]
 
+movie_writer/ogv/encoding_speed=2
+movie_writer/movie_file="/home/kenjiro/Videos/Godot movies/spider-jump.avi"
 export/convert_text_resources_to_binary=false
 
 [editor_plugins]
@@ -139,3 +142,4 @@ renderer/rendering_method="mobile"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true
+2d/size/mode=2

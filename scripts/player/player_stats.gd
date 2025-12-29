@@ -6,21 +6,26 @@ signal player_died()
 ## Emitted when player loses one life.
 signal player_hurt()
 
-@export var debug: bool = false
+## Emitted when a player stat changes.
+signal player_stat_updated(stat_name: String, new_value: Variant)
 
-var lives: int
 const _MAX_LIVES = 3
 const _MIN_LIVES = 0
 
-var stamina: float
 const _MAX_STAMINA = 1.0
 const _MIN_STAMINA = 0.0
 
-var score: int
 const _MIN_SCORE = 0
 const _MAX_SCORE = 999999
 
+var lives: int
+var stamina: float
+var score: int
+
+@export var debug: bool = false
+
 func _ready() -> void:
+
 	lives = _MAX_LIVES
 	stamina = _MAX_STAMINA
 
@@ -40,6 +45,7 @@ func decrease_lives() -> void:
 	if not debug:
 		lives = maxi(lives - 1, _MIN_LIVES)
 	PlayerEventBus.player_stat_updated.emit(PlayerStatsInterface.STATS_HEALTH, lives)
+	player_stat_updated.emit(PlayerStatsInterface.STATS_HEALTH, lives)
 	change_stamina(1.0)
 	if lives <= _MIN_LIVES:
 		player_died.emit()
@@ -50,16 +56,18 @@ func change_stamina(amount: float) -> void:
 		return
 	stamina = clampf(stamina + amount, _MIN_STAMINA, _MAX_STAMINA)
 	PlayerEventBus.player_stat_updated.emit(PlayerStatsInterface.STATS_STAMINA, stamina)
+	player_stat_updated.emit(PlayerStatsInterface.STATS_STAMINA, stamina)
 	if stamina <= _MIN_STAMINA:
 		stamina = _MAX_STAMINA
 		decrease_lives()
 
 
 func update_score(new_score: int) -> void:
-	new_score = mini(new_score, score)
+	new_score = maxi(absi(new_score), score)
 	if score != new_score:
 		score = new_score
-		PlayerEventBus.player_stat_updated.emit(PlayerStatsInterface.STATS_SCORE, abs(score))
+		PlayerEventBus.player_stat_updated.emit(PlayerStatsInterface.STATS_SCORE, score)
+		player_stat_updated.emit(PlayerStatsInterface.STATS_SCORE, score)
 
 
 func handle_stats_change_request(stat: String, change: Variant) -> void:

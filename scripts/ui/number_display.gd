@@ -12,12 +12,8 @@ func _ready() -> void:
 		if child is DigitDisplay:
 			_digit_displays.append(child as DigitDisplay)
 
-	# Returns a sorted array based on position, rotation, RID, etc.
-	var sort_function = func(a: DigitDisplay, b: DigitDisplay):
-		return true
-
 	# Sort by x position
-	_digit_displays.sort_custom(sort_function)
+	_digit_displays.reverse()
 	_digits = _digit_displays.size()
 	for i in range(_digits):
 		_MAX_VALUE += roundi(9 * pow(10, i))

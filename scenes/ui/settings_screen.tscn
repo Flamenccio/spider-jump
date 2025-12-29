@@ -19,7 +19,6 @@ shader_parameter/moving_side = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_0qbrj"]
 font = ExtResource("1_5op3j")
-font_size = 64
 
 [node name="SettingsScreen" type="Control" node_paths=PackedStringArray("_ignore_nodes")]
 layout_mode = 3
@@ -41,13 +40,10 @@ exit_duration = 0.15
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -272.0
-offset_top = 36.0
-offset_right = 272.0
-offset_bottom = 108.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 26.0
 grow_horizontal = 2
 text = "ui.label.setting_title"
 label_settings = SubResource("LabelSettings_0qbrj")
@@ -61,14 +57,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -103.0
-offset_top = -76.0
-offset_right = 103.0
-offset_bottom = 76.0
+offset_left = -60.5
+offset_top = -38.0
+offset_right = 60.5
+offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(103, 76)
+theme_override_constants/separation = 0
 
 [node name="RepeatTutorial" type="CheckBox" parent="Settings"]
 layout_mode = 2

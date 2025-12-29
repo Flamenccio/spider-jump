@@ -52,7 +52,7 @@ func switch_and_play(branch: String, animation: String) -> void:
 	play_branch_animation(animation)
 
 
-func _make_animation_id(branch: String, animation: String) -> String:
+func _make_animation_id(_branch: String, animation: String) -> String:
 	return "{0}_{1}".format({"0": _current_branch, "1": animation})
 
 

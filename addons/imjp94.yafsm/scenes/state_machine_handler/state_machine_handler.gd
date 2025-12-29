@@ -343,6 +343,8 @@ func _on_state_transited(old_state: String, new_state: String) -> void:
 	if Engine.is_editor_hint():
 		return
 
+	#print("{o} -> {n}".format({"o": old_state, "n": new_state}))
+
 	var old = _behavior_states[old_state]
 	var new = _behavior_states[new_state]
 
