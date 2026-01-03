@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://0blxm5ngq7jl" path="res://scenes/ui/jump_tutorial.tscn" id="1_2peok"]
 [ext_resource type="Script" uid="uid://b5okpldhxshov" path="res://scripts/ui/tutorial_screen.gd" id="1_rcxmo"]
-[ext_resource type="PackedScene" uid="uid://ddt5hj1p31qhj" path="res://scenes/ui/climb_tutorial.tscn" id="3_4unk4"]
+[ext_resource type="PackedScene" uid="uid://ddt5hj1p31qhj" path="res://scenes/ui/climb_tutorial.tscn" id="3_wg0i6"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="4_hx5di"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_03icu"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="6_o5fh7"]
@@ -29,41 +29,9 @@ _default_tutorial_index = 0
 visible = false
 layout_mode = 1
 
-[node name="ClimbTutorial" parent="." groups=["tutorial_page"] instance=ExtResource("3_4unk4")]
+[node name="ClimbTutorial" parent="." groups=["tutorial_page"] instance=ExtResource("3_wg0i6")]
 visible = false
 layout_mode = 1
-
-[node name="Next" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -96.0
-offset_top = -15.0
-offset_right = -60.0
-offset_bottom = 15.0
-grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(2, 2)
-theme = ExtResource("4_hx5di")
-text = "Next"
-
-[node name="Back" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 28.0
-offset_top = -15.0
-offset_right = 66.0
-offset_bottom = 15.0
-grow_vertical = 2
-scale = Vector2(2, 2)
-theme = ExtResource("5_03icu")
-text = "Back
-"
 
 [node name="ScreenWipe" parent="." instance=ExtResource("6_o5fh7")]
 z_index = 5
@@ -75,6 +43,25 @@ exit_duration = 0.15
 [node name="TutorialScreenSceneLoader" type="Node" parent="." node_paths=PackedStringArray("_screen_transition")]
 script = ExtResource("8_wg0i6")
 _screen_transition = NodePath("../ScreenWipe")
+
+[node name="Next" type="Button" parent="."]
+layout_mode = 0
+offset_left = 262.0
+offset_top = 137.0
+offset_right = 282.0
+offset_bottom = 158.0
+theme = ExtResource("4_hx5di")
+text = "Next"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 137.0
+offset_right = 29.0
+offset_bottom = 158.0
+theme = ExtResource("5_03icu")
+text = "Back
+"
 
 [connection signal="reached_tutorial_end" from="." to="TutorialScreenSceneLoader" method="_on_tutorial_finished"]
 [connection signal="ready" from="." to="ScreenWipe" method="play_exit_animation"]
