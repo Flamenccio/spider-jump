@@ -29,7 +29,6 @@ func write_settings() -> void:
 
 
 func update_audio_setting(new_audio_levels: Dictionary) -> void:
-	_load_settings()
 	_hot_settings.audio_levels.assign(new_audio_levels)
 	ResourceSaver.save(_hot_settings, _SETTINGS_SAVE_PATH)
 	settings_updated.emit("audio_levels", new_audio_levels)
@@ -76,13 +75,9 @@ func update_audio_settings_from_server() -> void:
 
 func _load_settings() -> void:
 
-	if ResourceLoader.exists(_SETTINGS_SAVE_PATH):
+	if !ResourceLoader.exists(_SETTINGS_SAVE_PATH):
 		_create_default_settings()
-	
 	var s = ResourceLoader.load(_SETTINGS_SAVE_PATH)
-	if s is not UserSettings:
-		_create_default_settings()
-
 	_hot_settings = s as UserSettings
 
 

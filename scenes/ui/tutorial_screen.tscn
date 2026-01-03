@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bh66jtkoetxiq"]
+[gd_scene load_steps=10 format=3 uid="uid://bh66jtkoetxiq"]
 
 [ext_resource type="PackedScene" uid="uid://0blxm5ngq7jl" path="res://scenes/ui/jump_tutorial.tscn" id="1_2peok"]
 [ext_resource type="Script" uid="uid://b5okpldhxshov" path="res://scripts/ui/tutorial_screen.gd" id="1_rcxmo"]
+[ext_resource type="PackedScene" uid="uid://ddt5hj1p31qhj" path="res://scenes/ui/climb_tutorial.tscn" id="3_wg0i6"]
 [ext_resource type="Theme" uid="uid://das1u72cp37ra" path="res://ui_themes/button_blue.tres" id="4_hx5di"]
 [ext_resource type="Theme" uid="uid://b3t6lqd2i1gui" path="res://ui_themes/button_red.tres" id="5_03icu"]
 [ext_resource type="PackedScene" uid="uid://gq51feusbdw7" path="res://scenes/ui/screen_wipe.tscn" id="6_o5fh7"]
@@ -25,6 +26,11 @@ script = ExtResource("1_rcxmo")
 _default_tutorial_index = 0
 
 [node name="JumpTutorial" parent="." groups=["tutorial_page"] instance=ExtResource("1_2peok")]
+visible = false
+layout_mode = 1
+
+[node name="ClimbTutorial" parent="." groups=["tutorial_page"] instance=ExtResource("3_wg0i6")]
+visible = false
 layout_mode = 1
 
 [node name="ScreenWipe" parent="." instance=ExtResource("6_o5fh7")]
