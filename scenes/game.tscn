@@ -250,7 +250,6 @@ script = ExtResource("17_gxtfn")
 [node name="RecordKeeper" type="Node" parent="." node_paths=PackedStringArray("_player_stats")]
 script = ExtResource("22_37s47")
 _player_stats = NodePath("../PlayerStats")
-_records_path = "res://high_score/records.res"
 
 [node name="PlayerHints" type="Node" parent="."]
 script = ExtResource("32_wljb1")

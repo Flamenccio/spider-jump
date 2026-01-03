@@ -3,15 +3,12 @@ extends Node
 
 signal settings_updated(setting_name: String, value: Variant)
 
-const _SETTINGS_DIRECTORY = "res://resources/settings/"
-const _SETTINGS_RESOURCE = "player_settings.res"
+const _SETTINGS_SAVE_PATH = "user://settings.res"
 const _DEFAULT_AUDIO_LEVEL = 0.75
 
-var _settings_path: String
 var _hot_settings: UserSettings
 
 func _ready() -> void:
-	_settings_path = _SETTINGS_DIRECTORY + _SETTINGS_RESOURCE
 	_load_settings()
 	apply_settings()
 
@@ -28,13 +25,13 @@ func apply_settings() -> void:
 
 
 func write_settings() -> void:
-	ResourceSaver.save(_hot_settings, _settings_path)
+	ResourceSaver.save(_hot_settings, _SETTINGS_SAVE_PATH)
 
 
 func update_audio_setting(new_audio_levels: Dictionary) -> void:
 	_load_settings()
 	_hot_settings.audio_levels.assign(new_audio_levels)
-	ResourceSaver.save(_hot_settings, _settings_path)
+	ResourceSaver.save(_hot_settings, _SETTINGS_SAVE_PATH)
 	settings_updated.emit("audio_levels", new_audio_levels)
 
 
@@ -79,15 +76,12 @@ func update_audio_settings_from_server() -> void:
 
 func _load_settings() -> void:
 
-	var s = ResourceLoader.load(_settings_path)
-
-	if s == null:
+	if ResourceLoader.exists(_SETTINGS_SAVE_PATH):
 		_create_default_settings()
-		return
 	
+	var s = ResourceLoader.load(_SETTINGS_SAVE_PATH)
 	if s is not UserSettings:
 		_create_default_settings()
-		return
 
 	_hot_settings = s as UserSettings
 
@@ -107,7 +101,7 @@ func _apply_audio_settings() -> void:
 func _create_default_settings() -> void:
 	var fresh := UserSettings.new()
 	fresh.audio_levels.assign(_create_default_audio_settings())
-	ResourceSaver.save(fresh, _settings_path)
+	ResourceSaver.save(fresh, _SETTINGS_SAVE_PATH)
 
 
 func _create_default_audio_settings() -> Dictionary:

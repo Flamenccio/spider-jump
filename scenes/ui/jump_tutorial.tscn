@@ -22,7 +22,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PanelContainer/AnimationPanel/Mouse:visible")
+tracks/0/path = NodePath("AnimationPanel/Mouse:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -34,19 +34,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PanelContainer/AnimationPanel/Mouse:position")
+tracks/1/path = NodePath("AnimationPanel/Mouse:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(538, 370)]
+"values": [Vector2(74, 63)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PanelContainer/AnimationPanel/Mouse:texture")
+tracks/2/path = NodePath("AnimationPanel/Mouse:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -58,7 +58,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PanelContainer/AnimationPanel/Player/PullCircle:texture")
+tracks/3/path = NodePath("AnimationPanel/Player/PullCircle:texture")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -70,19 +70,19 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PanelContainer/AnimationPanel/Player:position")
+tracks/4/path = NodePath("AnimationPanel/Player:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(544, 213)]
+"values": [Vector2(136, 58)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PanelContainer/AnimationPanel/Player:texture")
+tracks/5/path = NodePath("AnimationPanel/Player:texture")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -90,6 +90,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [SubResource("AtlasTexture_6e533")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimationPanel/Terrain:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(123, 46)]
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nrihu"]
@@ -119,31 +131,31 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PanelContainer/AnimationPanel/Mouse:visible")
+tracks/0/path = NodePath("AnimationPanel/Mouse:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true]
+"values": [false, true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PanelContainer/AnimationPanel/Mouse:position")
+tracks/1/path = NodePath("AnimationPanel/Mouse:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 2, 2.5),
+"times": PackedFloat32Array(0, 1.3, 2, 2.3333333, 2.6666),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(538, 370), Vector2(538, 250), Vector2(538, 250), Vector2(538, 250), Vector2(625, 325)]
+"values": [Vector2(74, 63), Vector2(74, 63), Vector2(134, 63), Vector2(134, 63), Vector2(158, 86)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PanelContainer/AnimationPanel/Mouse:texture")
+tracks/2/path = NodePath("AnimationPanel/Mouse:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
@@ -155,11 +167,11 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PanelContainer/AnimationPanel/Player/PullCircle:texture")
+tracks/3/path = NodePath("AnimationPanel/Player/PullCircle:texture")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 2, 3),
+"times": PackedFloat32Array(0.56666666, 2, 3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [ExtResource("3_6e533"), ExtResource("5_gcvyo"), ExtResource("3_6e533")]
@@ -167,19 +179,19 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PanelContainer/AnimationPanel/Player:position")
+tracks/4/path = NodePath("AnimationPanel/Player:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 3, 3.5),
+"times": PackedFloat32Array(0, 3, 3.3333333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(544, 213), Vector2(544, 213), Vector2(350, 0)]
+"values": [Vector2(136, 58), Vector2(136, 58), Vector2(104, 26)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PanelContainer/AnimationPanel/Player:texture")
+tracks/5/path = NodePath("AnimationPanel/Player:texture")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -208,6 +220,18 @@ tracks/6/keys = {
 "method": &"enable_line"
 }]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AnimationPanel/Terrain:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(123, 46)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nrihu"]
 _data = {
@@ -233,14 +257,11 @@ text = "ui.label.tutorial.jump.title"
 label_settings = ExtResource("1_k8r76")
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="AnimationPanel" type="Panel" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="AnimationPanel" type="Panel" parent="PanelContainer"]
-layout_mode = 2
-
-[node name="Player" type="TextureRect" parent="PanelContainer/AnimationPanel"]
+[node name="Player" type="TextureRect" parent="AnimationPanel"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -248,30 +269,30 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -69.0
-offset_right = 31.99945
-offset_bottom = -4.999176
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_6e533")
 
-[node name="PullCircle" type="TextureRect" parent="PanelContainer/AnimationPanel/Player"]
+[node name="PullCircle" type="TextureRect" parent="AnimationPanel/Player"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 128.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_6e533")
 
-[node name="PullPoint" type="Control" parent="PanelContainer/AnimationPanel/Player"]
+[node name="PullPoint" type="Control" parent="AnimationPanel/Player"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -281,7 +302,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Mouse" type="TextureRect" parent="PanelContainer/AnimationPanel"]
+[node name="Mouse" type="TextureRect" parent="AnimationPanel"]
 visible = false
 z_index = 1
 layout_mode = 1
@@ -290,37 +311,39 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -38.0
-offset_top = 88.0
-offset_right = 42.0
-offset_bottom = 167.99933
+offset_left = -70.0
+offset_top = -3.0
+offset_right = -49.999725
+offset_bottom = 17.000008
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_gcvyo")
 
-[node name="PullPoint" type="Control" parent="PanelContainer/AnimationPanel/Mouse"]
+[node name="PullPoint" type="Control" parent="AnimationPanel/Mouse"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -34.99971
-offset_bottom = -34.99971
+offset_left = -0.0001373291
+offset_top = -9.0
+offset_right = -0.0001373291
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Terrain" type="TextureRect" parent="PanelContainer/AnimationPanel"]
+[node name="Terrain" type="TextureRect" parent="AnimationPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -78.0
-offset_right = 149.0
-offset_bottom = 82.0
+offset_left = -21.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_q5ucf")
@@ -343,8 +366,8 @@ layout_mode = 2
 [node name="ConnectorLine" type="Line2D" parent="." node_paths=PackedStringArray("_connections")]
 visible = false
 points = PackedVector2Array(0, 0, 0, 0)
-width = 6.0
+width = 1.5
 default_color = Color(0.16078432, 0.6784314, 1, 1)
 script = ExtResource("6_q5ucf")
-_connections = [NodePath("../PanelContainer/AnimationPanel/Player/PullPoint"), NodePath("../PanelContainer/AnimationPanel/Mouse/PullPoint")]
+_connections = [NodePath("../AnimationPanel/Player/PullPoint"), NodePath("../AnimationPanel/Mouse/PullPoint")]
 metadata/_custom_type_script = "uid://cwgwqffgaxvgk"
